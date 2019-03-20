@@ -15,21 +15,22 @@ function promoTabs(p,t){
 
 function menuMobile(e, t){
   var w = _("#menuMobile"),
-      b = _('login body');
+      b = _('.login, .body'),
+      c = t.children[0];
   if(e === "open"){
     b.style.position = "fixed";
     w.setAttribute("class", "displayFlex trans5");
     t.setAttribute("onclick", "menuMobile('close', this)");
-    t.setAttribute("class", "hamburgerMenu menuCross displayFlex");
+    c.setAttribute("class", "hamburgerMenu menuCross displayFlex");
     setTimeout(function(){
       w.style.opacity = "1";
-      t.setAttribute("class", "hamburgerMenu hoverCross menuCross displayFlex");
+      c.setAttribute("class", "hamburgerMenu hoverCross menuCross displayFlex");
     },700);
   } else {
     b.style.position = "absolute";
     w.style.opacity = "0";
     t.setAttribute("onclick", "menuMobile('open', this)");
-    t.setAttribute("class", "hamburgerMenu hamburgerHover displayFlex");
+    c.setAttribute("class", "hamburgerMenu hamburgerHover displayFlex");
     setTimeout(function(){
       w.setAttribute("class", "displayNone trans5");
     },700);

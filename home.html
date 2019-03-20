@@ -47,9 +47,9 @@ http://dragonflycity.com/
   </head>
   <body class="login body">
     <ul id="menuMobile" class="displayNone trans5">
-      <li>Hola <span id="user-name-mobile">Juliana</span></li>
+      <li>Hola <span id="userNameMobile">Juliana</span></li>
       <li><a href="#">Tutoriales</a></li>
-      <li><a role="button">Cerrar Sesión</a></li>
+      <li><a id="closeLog" role="button">Cerrar Sesión</a></li>
     </ul>
     <nav class="home displayFlex">
       <a href="#" class="logo trans5">
@@ -58,11 +58,11 @@ http://dragonflycity.com/
           <img src="ui/img/dragonf-title.svg" width="166.2" height="15">
         </div>
       </a>
-      <a role="contentinfo" class="trans5 desktopNav">Hola <span id="user-name-desktop">Juliana</span></a>
+      <a role="contentinfo" class="trans5 desktopNav">Hola <span id="userNameDesktop">Juliana</span></a>
       <a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>
       <a role="button" class="trans5 desktopNav" target="_blank" >Cerrar Sesión</a>
-      <a role="button" class="mobileNav">
-        <div class="hamburgerMenu hamburgerHover displayFlex" onclick="menuMobile('open', this)">
+      <a role="button" class="mobileNav" onclick="menuMobile('open', this)">
+        <div class="hamburgerMenu hamburgerHover displayFlex">
           <span class="trans5"></span>
           <span class="trans5"></span>
           <span class="trans5"></span>
@@ -102,46 +102,7 @@ http://dragonflycity.com/
       </header>
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
-          <li id="promosActivas" class="uno">
-            <div class="promoItemDash displayFlex">
-              <div>
-                <p class="promoItemDash_Name">Que No Te Falte Gatorade</p>
-              </div>
-              <div>
-                <p class="promoItemDash_Brand">Gatorade</p>
-              </div>
-              <div>
-                <span>
-                <p class="promoItemDash_Validity">18-02-18 <br> 23-04-18</p>
-                </span>
-              </div>
-              <div class="actions displayFlex">
-                <a class="itemDash_action_dashboard" class="trans5"></a>
-                <a class="itemDash_action_modify" class="trans5"></a>
-                <a class="itemDash_action_end" class="trans5"></a>
-              </div>
-            </div>
-
-
-            <div class="promoItemDash displayFlex">
-              <div>
-                <p class="promoItemDash_Name">Que No Te Falte Gatorade</p>
-              </div>
-              <div>
-                <p class="promoItemDash_Brand">Gatorade</p>
-              </div>
-              <div>
-                <span>
-                <p class="promoItemDash_Validity">18-02-18 <br> 23-04-18</p>
-                </span>
-              </div>
-              <div class="actions displayFlex">
-                <a class="itemDash_action_dashboard" class="trans5"></a>
-                <a class="itemDash_action_modify" class="trans5"></a>
-                <a class="itemDash_action_end" class="trans5"></a>
-              </div>
-            </div>
-
+          <li id="activePromoWrap">
             <div class="promoItemDash displayFlex">
               <div>
                 <p class="promoItemDash_Name">Que No Te Falte Gatorade</p>
@@ -161,7 +122,7 @@ http://dragonflycity.com/
               </div>
             </div>
           </li>
-          <li id="promosPorActivar" class="dos">
+          <li id="forActivationWrap">
             <div class="promoItemDash displayFlex">
               <div>
                 <p class="promoItemDash_Name">Esta También Es Tu Pepsi</p>
@@ -181,7 +142,7 @@ http://dragonflycity.com/
               </div>
             </div>
           </li>
-          <li id="promosPasadas" class="tres">
+          <li id="pastPromotionsWrap">
             <div class="promoItemDash displayFlex">
               <div>
                 <p class="promoItemDash_Name">Que No Te Falte Gatorade</p>
