@@ -36,3 +36,12 @@ function menuMobile(e, t){
     },700);
   }
 }
+
+function errorOnLog(e){
+  var w = _("#errorLog");
+  if(e === "open"){
+    w.style.height = "70px";
+  } else {
+    w.style.height = "0";
+  }
+}

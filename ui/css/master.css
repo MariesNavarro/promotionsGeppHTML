@@ -1,7 +1,7 @@
 /*
 v1
 14 de Marzo 2019
-[Dragonfly City]
+[Promotion Tools Dragonfly City]
 http://dragonflycity.com/
  */
  @font-face {
@@ -477,6 +477,16 @@ main.home>#promosW>ul>li{
   color: #11396c;
   background: #fff;
 }
+#errorLog{
+  width: 320px;
+  text-align: center;
+  overflow: hidden;
+  background: #11396c;
+  height: 0;
+  /* opacity: 0; */
+}
+#errorLog>p>a{text-decoration: underline;}
+#errorLog>p>a:hover{opacity: 0.7;}
 .formDiv{
   width: 220px;
   height: 40px;
