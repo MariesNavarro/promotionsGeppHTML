@@ -461,16 +461,20 @@ main.home>#promosW>ul>li{
   text-align: center;
 }
 #logHomeW>a{ text-align: center; display: block; }
-#logHomeW>#submitLogin{
+#logHomeW>form>#submitLogin{
   position: relative;
   margin: 10px auto;
   width: 150px;
   height: 40px;
   line-height: 40px;
   border-radius: 40px;
+  text-align: center;
 }
-#logHomeW>#submitLogin:hover{ opacity: 0.9; }
-#logHomeW>#forgotPass{ text-decoration: underline; }
+#logHomeW>form>#submitLogin:hover{ opacity: 0.9; }
+#logHomeW>form>.forgotPass{
+  display: block;
+  text-align: center;
+  text-decoration: underline; }
 .button{
   display: block;
   font-family: 'FuturaPT Bold';
