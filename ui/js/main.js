@@ -45,3 +45,19 @@ function errorOnLog(e){
     w.style.height = "0";
   }
 }
+
+
+function putUserName(){
+  var p = __(".userName");
+  for (var i = 0; i < p.length; i++) {
+    p[i].innerHTML = "Blablah"; //Nombre de usuario
+  }
+}
+
+function closeLog(){
+  console.log("Cerrar log");
+}
+
+function getPassForgot(){
+  console.log("Recuperar correo");
+}
