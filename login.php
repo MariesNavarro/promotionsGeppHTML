@@ -67,7 +67,7 @@ http://dragonflycity.com/
           <div id="errorLog" class="trans5">
             <p>Los datos de inicio de sesión son incorrectos. Vuelve a intentar. Si continúas con problemas, ingresa <a class="forgotPass" role="button">aquí.</a></p>
           </div>
-          <form action="" method="">
+          <form action="" method="" autocomplete="on">
             <div class="formDiv displayFlex">
               <span class="displayFlex">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39.8 43.96">
