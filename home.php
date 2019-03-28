@@ -103,7 +103,7 @@ http://dragonflycity.com/
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
           <li id="activePromoWrap">
-            <div class="promoItemDash displayFlex">
+            <div class="promoItemDash displayFlex trans5">
               <div>
                 <p class="promoItemDash_Name">Que No Te Falte Gatorade</p>
               </div>
@@ -116,10 +116,21 @@ http://dragonflycity.com/
                 </span>
               </div>
               <div class="actions displayFlex">
+                <a class="itemDash_action_link" class="trans5" onclick="openLinks('open' ,this)"></a>
                 <a class="itemDash_action_dashboard" class="trans5"></a>
                 <a class="itemDash_action_modify" class="trans5"></a>
                 <a class="itemDash_action_end" class="trans5"></a>
               </div>
+              <ul class="linksWrap trans5">
+                <li class="displayFlex">
+                  <h3>Página de Desarrollo:</h3>
+                  <a href="#" target="_blank">www.dev.sitiogepp.com/3g5fdg54d</a>
+                </li>
+                <li class="displayFlex">
+                  <h3>Página de Producción:</h3>
+                  <a href="#" target="_blank">www.prod.sitiogepp.com/3g5fdg54d</a>
+                </li>
+              </ul>
             </div>
           </li>
           <li id="forActivationWrap">

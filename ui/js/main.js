@@ -61,3 +61,19 @@ function closeLog(){
 function getPassForgot(){
   console.log("Recuperar correo");
 }
+
+function openLinks(c,t){
+  var p = t.parentElement.parentElement,
+      ul = p.lastElementChild;
+  if(c === "open"){
+    t.setAttribute("onclick", "openLinks('close', this)");
+    p.style.height = "100px";
+    ul.style.height = "50px";
+    ul.style.display = "block";
+  } else if (c === "close") {
+    t.setAttribute("onclick", "openLinks('open', this)");
+    p.style.height = "auto";
+    ul.style.height = "0";
+    ul.style.display = "none";
+  }
+}
