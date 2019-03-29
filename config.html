@@ -172,11 +172,11 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Nombre de la Promoción</label>
-                  <input class="textInput inputData1" type="text" required/>
+                  <input id="nombrePromo" class="textInput inputData1" type="text" required/>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Descripción de la promoción</label>
-                  <textarea class="textInput inputData1" name=""></textarea>
+                  <textarea id="descripcionPromo" class="textInput inputData1" name=""></textarea>
                 </div>
               </div>
 
@@ -184,12 +184,12 @@ http://dragonflycity.com/
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Marca</label>
                   <select id="selectBrand" name="" class="inputData1">
-                    <option class="brandDefault" value="">Selecciona una marca</option>
-                    <option class="brandDefault" value="">Pepsi</option>
-                    <option class="brandDefault" value="">Epura</option>
-                    <option class="brandDefault" value="">Gatorade</option>
-                    <option class="brandDefault" value="">Seven Up</option>
-                    <option class="brandDefault" value="">Lipton</option>
+                    <option class="brandPromo" value="">Selecciona una marca</option>
+                    <option class="brandPromo" value="">Pepsi</option>
+                    <option class="brandPromo" value="">Epura</option>
+                    <option class="brandPromo" value="">Gatorade</option>
+                    <option class="brandPromo" value="">Seven Up</option>
+                    <option class="brandPromo" value="">Lipton</option>
                   </select>
                 </div>
                 <div class="fieldConfigWrap">
@@ -205,11 +205,11 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Fecha de Inicio</label>
-                  <input class="textInput dateConfig inputData1" type="date" min="2018-12-31" required>
+                  <input id="fechaInicio" class="textInput dateConfig inputData1" type="date" min="2018-12-31" required>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Fecha de Final</label>
-                  <input class="textInput dateConfig inputData1" type="date" min="2018-12-31" required>
+                  <input id="fechaFin" class="textInput dateConfig inputData1" type="date" min="2018-12-31" required>
                 </div>
               </div>
 
@@ -252,7 +252,7 @@ http://dragonflycity.com/
                   </div>
                   <div class="selectionContainer">
                     <label>Seleccionar</label>
-                    <input id="" name="" type="checkbox">
+                    <input class="checkBoxFunction" name="" type="checkbox">
                   </div>
                 </div>
                 <!-- Funcionalidad 2 -->
@@ -318,7 +318,7 @@ http://dragonflycity.com/
                 <p class="noneNumCSV infoLoadCSV trans5">Aún no has cargado un archivo.</p>
                 <p class="numCSV infoLoadCSV trans5">Tienes <span id="numCSV">200</span> códigos para esta promoción.</p>
               </div>
-              <button class="buttonConfig centerButton" type="button" name="button" onclick="getNumCSV()">Cargar</button>
+              <button id="loadCSVGet" class="buttonConfig centerButton" type="button" name="button" onclick="getNumCSV()">Cargar</button>
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(1)">Anterior</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(3, this)">Siguiente</button>
             </form>
@@ -345,7 +345,7 @@ http://dragonflycity.com/
                   </div>
                   <div class="selectionContainer">
                     <label>Seleccionar</label>
-                    <input id="" name="" type="checkbox">
+                    <input class="checkBoxTheme" id="" name="" type="checkbox">
                   </div>
                 </div>
                 <!-- Plantilla 2 -->
