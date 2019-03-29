@@ -53,7 +53,7 @@ http://dragonflycity.com/
         </div>
       </a>
       <ul class="displayFlex">
-        <li><a role="button" class="trans5">Hola <span>Juliana</span></a></li>
+        <li><a role="button" class="trans5">Hola <span class="userName">Juliana</span></a></li>
         <li><a role="button" class="trans5">Promociones</a></li>
         <li><a role="button" class="trans5">Tutoriales</a></li>
         <li><a role="button" class="trans5">Cerrar Sesión</a></li>
@@ -396,5 +396,10 @@ http://dragonflycity.com/
       </div>
     </main>
     <script src="ui/js/main.js" charset="utf-8" async></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        putUserName();
+      }
+    </script>
   </body>
 </html>
