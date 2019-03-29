@@ -37,9 +37,10 @@ nav, section {display: block; } ol, ul {list-style: none; }
     display: -webkit-flex;
     display: flex;
 }
-.displayNone{
-  display: none;
-}
+.displayBlock{ display: block; }
+.displayNone{ display: none; }
+.hideOnMobile{ display: none; }
+.opacityZero{ opacity: 0; }
 .trans5{
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -60,6 +61,7 @@ body{
   color: #fff;
   background-image: url('../img/curves.png');
   background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: cover;
   background-position: center;
   background-color: #194d91;
@@ -104,7 +106,7 @@ nav.home>a:nth-child(2):hover{opacity: 1 !important;}
 nav>a:hover{
   text-decoration: underline;
   opacity: 0.7; }
-nav.login>a.logo>div, nav.home>a.logo>div{
+nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
   width: 200px;
   height: 25px;
   -webkit-box-align: center;
@@ -403,7 +405,7 @@ main.home>#promosW>ul>li{
   text-align: center;
 }
 .promoItemDash>div.actions{
-  width: 250px;
+  width: 200px;
   -webkit-box-pack:space-between;
   -webkit-justify-content:space-between;
   -ms-flex-pack:space-between;
@@ -433,8 +435,6 @@ main.home>#promosW>ul>li{
   width: 100%;
   padding: 3px 0;
 }
-.itemDash_action_link{ background-image: url('../img/ic/action_links.svg'); }
-.itemDash_action_link::after{ content: "Ver Sitios"}
 .itemDash_action_dashboard{ background-image: url('../img/ic/action_dash.svg'); }
 .itemDash_action_dashboard::after{ content: "Dashboard"}
 .itemDash_action_modify{ background-image: url('../img/ic/action_modify.svg'); }
@@ -487,9 +487,8 @@ main.home>#promosW>ul>li{
   width: 320px;
   text-align: center;
   overflow: hidden;
-  background: #D8353D;
+  background: #11396c;
   height: 0;
-  /* opacity: 0; */
 }
 #errorLog>p>a{text-decoration: underline;}
 #errorLog>p>a:hover{opacity: 0.7;}
@@ -534,10 +533,648 @@ main.home>#promosW>ul>li{
 .ic-user-style{
   fill:none;
   stroke:#fff;
-  stroke-miterlimit:10;stroke-width:1.5px;
+  stroke-miterlimit:10;
+  stroke-width:1.5px;
 }
+/* CONFIG */
+.errorWConfig{
+  display: block;
+  width: 100%;
+  height: 0;
+  line-height: 40px;
+  text-align: center;
+  background: #D8353D;
+  opacity: 0;
+  overflow: hidden;
+}
+.config>nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100px;
+  background-image: url('../img/curves.png');
+  background-repeat: no-repeat;
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-position: center;
+  background-color: #194d91;
+  z-index: 99;
+  overflow: hidden;
+}
+.config>nav>#menuConfig{
+  width: calc(100% - 20px);
+  margin: 10px;
+  height: 30px;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+}
+.config>nav>#menuConfig>ul>li:last-child,
+.config>nav>#menuConfig>ul>li:first-child{ display: none; }
+.config>nav>#headerMob{
+  width: 100%;
+  height: 50px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.config>nav>#headerMob>h1{ text-transform: uppercase; }
+.config>nav>#headerMob>a{ font-size: 0.9rem; }
+#indexConfig, .config>nav>footer{ display: none; }
+.config>#configWrap{
+  position:absolute;
+  width: 100%;
+  top: 100px;
+  background: #fff;
+  overflow-x:hidden;
+}
+.config>#configWrap>ul#sliderConfig{
+  margin-left: 0%;
+  width: 500%;
+  min-height: 100vh;
+}
+.config>#configWrap>ul#sliderConfig>li{
+  width: 20%;
+}
+/* Header */
+.config>#configWrap>ul#sliderConfig>li>header{
+  margin: 20px 50px;
+  text-align: center;
+}
+.config>#configWrap>ul#sliderConfig>li>header>h2,
+.config>#configWrap>ul#sliderConfig>li>header>h3{
+  margin: 5px auto;
+  font-size: 1.5rem;
+  color: #194d91;
+  font-family: 'FuturaPT Bold', sans-serif;
+}
+.config>#configWrap>ul#sliderConfig>li>header>h3{
+  font-size: 1.2rem;
+  color: #11396c;
+}
+.config>#configWrap>ul#sliderConfig>li>form{
+  position: relative;
+  margin: 10px auto;
+  width: 90%;
+}
+.config>#configWrap>ul#sliderConfig>li>form>.buttonConfig,
+.config>#configWrap>ul#sliderConfig>li>form>div>.buttonConfig{
+  cursor: pointer;
+  width: 150px;
+  height: 40px;
+  line-height: 35px;
+  border-radius: 30px;
+  border: 0;
+  background-color: #194d91;
+  color: #fff;
+  font-size: 0.9rem;
+}
+.config>#configWrap>ul#sliderConfig>li>form>.centerButton{
+  position: absolute;
+  left: calc(50% - 75px);
+  margin: 10px auto;
+}
+.config>#configWrap>ul#sliderConfig>li>form>.leftButton{
+  position: absolute;
+  margin: 10px auto;
+  left: 0;
+}
+.config>#configWrap>ul#sliderConfig>li>form>.rightButton{
+  position: absolute;
+  margin: 10px auto;
+  right: 0;
+}
+.rowConfig{
+  min-width: 250px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 10px auto;
+}
+.containerRectW{
+  position: relative;
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  color: #17335d;
+}
+.containerRectW>p{
+  font-family: 'FuturaPT Bold', sans-serif;
+  font-size: 1.1rem;
+  margin: 3px auto;
+}
+.containerRectW>.selectionContainer>label{
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+.containerRectW>.containerRect{
+  cursor: pointer;
+  position: relative;
+  width: 266px;
+  height: 150px;
+  border:1.1px solid #b5b4b7;
+  background: #fff;
+  overflow: hidden;
+  -webkit-box-shadow: 2px 4px 5px 0px rgba(146,147,148,0.3);
+  -moz-box-shadow: 2px 4px 5px 0px rgba(146,147,148,0.3);
+  box-shadow: 2px 4px 5px 0px rgba(146,147,148,0.3);
+}
+.rectGrey{ color: #b5b4b7; }
+.rectGrey>.containerRect{border:1.1px dashed #b5b4b7; }
+.containerRectW>.containerRect>.picRect{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-position: center;
+}
+.containerRectW>.containerRect>.overRect{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #17335d;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  -webkit-transform: translateY(101%);
+  -moz-transform: translateY(101%);
+  -ms-transform: translateY(101%);
+  -o-transform: translateY(101%);
+  transform: translateY(101%);
+}
+.containerRectW>.containerRect>.overRect>p{
+  color: #fff;
+  display: block;
+  width: 80%;
+  font-size: 0.9rem;
+  margin: 15px auto;
+  text-align: center;
+}
+.containerRectW>.containerRect>.overRect>a{
+  display: block;
+  text-align: center;
+}
+.containerRectW>.containerRect>.overRect>a>span{
+  background: #fff;
+  color: #17335d;
+  padding: 1px 10px;
+  font-size: 0.9rem;
+}
+.containerRectW>.containerRect>.overRect>a:hover>span{
+  border:1px solid #fff;
+  background: none;
+  color: #fff;
+}
+.containerRectW>.containerRect:hover>.overRect{
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+.rowConfig>.fieldConfigWrap{
+  padding: 10px 0;
+  width: 90%;
+  max-width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.rowConfig>.fieldConfigWrap>label{
+  color: #11396C;
+  margin-left: 5px;
+}
+.rowConfig>.fieldConfigWrap>select,
+.rowConfig>.fieldConfigWrap>input,
+.rowConfig>.fieldConfigWrap>textarea{
+  position: relative;
+  background: #fff;
+  width: 80%;
+  max-width: 250px;
+  border:1px solid #11396C;
+  border-radius: 0;
+  -webkit-appearance: none;
+  height: 35px;
+  line-height: 30px;
+  color: #11396C;
+  font-size: 1.1rem;
+  padding:3px;
+}
+.rowConfig>.fieldConfigWrap>select{
+background-image:
+    linear-gradient(45deg, transparent 50%, #11396C 50%),
+    linear-gradient(135deg, #11396C 50%, transparent 50%),
+    linear-gradient(to right, #11396C, #11396C);
+  background-position:
+    calc(100% - 20px) calc(0.8em + 1px),
+    calc(100% - 15px) calc(0.8em + 1px),
+    calc(100% - 2.3em);
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  font-size: 1rem;
+}
+.rowConfig>.fieldConfigWrap>.dateConfig{
+  font-family: inherit;
+  font-size: 1.2rem;
+}
+.rowConfig>.fieldConfigWrap>.legalesConfigButton{
+  width: 81%;
+  margin-left: -1px;
+  color: #fff;
+  background: #11396C;
+  height: 35px;
+  line-height: 30px;
+  padding: 5px;
+  cursor: pointer;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.rowConfig>.fieldConfigWrap>.legalesConfigButton>p{
+  color: #fff;
+  display: block;
+  height: 30px;
+  padding: 0 10px;
+  max-width: 150px;
+  overflow: hidden;
+}
+.rowConfig>.fieldConfigWrap>.legalesConfigButton:hover{ opacity: 0.8; }
+.rowConfig>.fieldConfigWrap>.legalesConfig{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.rowConfig>.fieldConfigWrap>textarea{
+  resize: none;
+  line-height: normal;
+}
+.rowConfig>.fieldConfigWrap>textarea:hover,
+.rowConfig>.fieldConfigWrap>textarea:focus,
+.rowConfig>.fieldConfigWrap>input:hover,
+.rowConfig>.fieldConfigWrap>input:focus{
+  background: #f4f8fd;
+}
+.rowCenterConfig{
+  height: 65vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.rowCenterConfig>#couponsUpload{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.rowCenterConfig>label{
+  cursor: pointer;
+  width: 130px;
+  height: 130px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: #194d91;
+  border-radius: 100%;
+}
+.rowCenterConfig>label:hover>img{
+  transform: translateY(-8px);
+}
+.rowCenterConfig>label>p{
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-size: 1.1rem;
+  height: 25px;
+}
+.infoFileCoupon{
+  width: 100%;
+  margin: 20px auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.rowCenterConfig>.infoFileCoupon>p{
+  color: #194d91;
+  padding: 0 5px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 1.3rem;
+  min-width: 80px;
+  max-width: 200px;
+}
+.rowCenterConfig>.infoFileCoupon>a{
+  width: 15px;
+  height: 15px;
+  border:2px solid #194d91;
+  padding: 2px;
+  box-sizing:content-box;
+}
+.rowCenterConfig>.infoFileCoupon>a:hover{ opacity: 0.5; }
+.rowCenterConfig>.numCSV,
+.rowCenterConfig>.noneNumCSV{
+  display: none;
+  opacity: 0;
+  color: #194d91; }
+
+.rowCenterConfig>.numCSV>span{
+  font-size:1.2rem;
+  text-decoration: underline;
+  font-family: "FuturaPT Bold", sans-serif;;
+}
+#extMenu{
+  position: fixed;
+  left: -100%;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../img/curves.png');
+  background-repeat: no-repeat;
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-position: center;
+  background-color: #194d91;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  z-index: 99999;
+}
+#extMenu>a.closeMenu{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+#extMenu>p{
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+.closeConfig{
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+.closeConfig>span{
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  top: 15px;
+}
+.closeConfig>span:first-child{
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.closeConfig>span:last-child{
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+#extMenu>a.closeMenu:hover>.closeConfig>span{
+  -webkit-transform: rotate(0);
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -o-transform: rotate(0);
+  transform: rotate(0);
+}
+#extMenu>ul{
+  width: 80%;
+  margin: 0 auto;
+  height: 50%;
+  min-height: 150px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+#extMenu>ul>li{
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.2rem;
+}
+#extMenu>ul>li>a:hover{
+  opacity: 0.7;
+  text-decoration: underline;
+}
+.errorMissingColor{ color: #D8353D !important;}
+.errorMissingBorder{ border:1px solid #D8353D !important; }
 /*DESKTOP*/
 @media (min-width: 880px) {
+  .hideOnMobile{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+  /*Config*/
+  .config>nav{
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100vh;
+  }
+  .config>nav>footer{ display: block; }
+  .config>nav>#menuConfig{ height: 60px; }
+  .rowConfig{
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  .config>#configWrap>ul#sliderConfig>li{
+    border-bottom:80px solid #fff;
+  }
+  #indexConfig{
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 80px;
+    width: 100%;
+    height: 60%;
+  }
+  #indexConfig>ul{
+    width: 90%;
+    min-width: 250px;
+    height: calc(100% - 20px);
+    margin: 10px auto;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: space-between;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
+  }
+  #indexConfig>ul>li{
+    width: 100%;
+    height: 50px;
+  }
+  #indexConfig>ul>li>span{
+    display: block;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+  #indexConfig>ul>li>span>svg{ height: 100%; }
+  #indexConfig>ul>li>span:hover>svg>circle{
+    opacity: 0.7;
+    r: 6;
+  }
+  #indexConfig>ul>li>div{
+    width: calc(100% - 50px);
+    height: 50px;
+  }
+  #indexConfig>ul>li>div>h3{
+    width: 100%;
+    height: 25px;
+    line-height: 20px;
+    text-transform: uppercase;
+  }
+  #indexConfig>ul>li>div>a{
+    opacity: 0.6;
+    font-size: 0.8rem; }
+  #indexConfig>ul>li>div>a:hover{ text-decoration: underline;}
+  .stepUncomplete{ opacity:0; }
+  .stepInProgress{ opacity: 1; r:6; }
+  .stepComplete{ opacity: 1; r: 15; }
+    .config>nav>#menuConfig>ul{
+    margin-top: 5px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: space-between;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
+  }
+  .config>nav>#menuConfig>ul>li:last-child{
+    padding: 0 8px;
+    display: block; }
+  .config>nav>#menuConfig>ul>li:last-child>a:hover>img{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  .config>nav>#headerMob{ display: none; }
+  .config>#configWrap{
+    right: 0;
+    top:0;
+    width: 70%;
+    min-width: 250px;
+    height: auto;
+    overflow-y: scroll;
+  }
+  #extMenu>a.closeMenu{
+    top: 20px;
+    right: 20px;
+  }
 #menuMobile{ display: none; }
 .desktopNav{ display: block; }
 .mobileNav{ display: none; }
@@ -600,7 +1237,6 @@ main.home>#promosW>ul>li{
     height: 30px;
     border-bottom: 0;
   }
-
   main.home>nav>div{
     width: auto;
     height: 35px;
@@ -621,8 +1257,6 @@ main.home>#promosW>ul>li{
   #infoHomeW>h1{ font-size: 3rem; text-align: left;}
   #infoHomeW>h2{ font-size: 1.2rem; text-align: left;}
   .promoItemDash{
-    position: relative;
-    width: 100%;
     -webkit-flex-direction: row;
     -moz-flex-direction: row;
     -ms-flex-direction: row;
@@ -633,34 +1267,6 @@ main.home>#promosW>ul>li{
     margin: 0;
     width: 25%;
     border-bottom:0;
-  }
-  .promoItemDash>.linksWrap{
-    position: absolute;
-    top: 50px;
-    width: 100%;
-    overflow: hidden;
-    height: 0;
-    display: none;
-  }
-  .promoItemDash>.linksWrap>li{
-    width: 100%;
-    height: 25px;
-  }
-  .promoItemDash>.linksWrap>li:first-child{
-    border-bottom: 2px solid #11396c;
-  }
-  .promoItemDash>.linksWrap>li>h3{
-    width: 180px;
-    background: #fff;
-    color: #666;
-    padding: 0 5px;
-    font-family: 'FuturaPT Bold', sans-serif;
-  }
-  .promoItemDash>.linksWrap>li>a{
-    width: 100%;
-    background: #fff;
-    color: #11396c;
-    text-decoration: underline;
   }
   #promosPasadas>.promoItemDash>div.actions{
     -webkit-box-pack:flex-start;
@@ -673,3 +1279,15 @@ main.home>#promosW>ul>li{
   .promoItemDash>div>span{ text-align: left; }
 
 }
+
+
+._1{background: teal}
+._2{background: LightSeaGreen}
+._3{background: brown}
+._4{background: green}
+._5{background: orange}
+._6{background: purple}
+._7{background: cyan}
+._8{background: olive}
+._9{background: #fff}
+/* ._9{background: lime} */
