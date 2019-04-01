@@ -405,7 +405,7 @@ main.home>#promosW>ul>li{
   text-align: center;
 }
 .promoItemDash>div.actions{
-  width: 200px;
+  width: 250px;
   -webkit-box-pack:space-between;
   -webkit-justify-content:space-between;
   -ms-flex-pack:space-between;
@@ -435,6 +435,8 @@ main.home>#promosW>ul>li{
   width: 100%;
   padding: 3px 0;
 }
+.itemDash_action_link{ background-image: url('../img/ic/action_links.svg'); }
+.itemDash_action_link::after{ content: "Ver Sitios"}
 .itemDash_action_dashboard{ background-image: url('../img/ic/action_dash.svg'); }
 .itemDash_action_dashboard::after{ content: "Dashboard"}
 .itemDash_action_modify{ background-image: url('../img/ic/action_modify.svg'); }
@@ -1257,6 +1259,8 @@ background-image:
   #infoHomeW>h1{ font-size: 3rem; text-align: left;}
   #infoHomeW>h2{ font-size: 1.2rem; text-align: left;}
   .promoItemDash{
+    position: relative;
+    width: 100%;
     -webkit-flex-direction: row;
     -moz-flex-direction: row;
     -ms-flex-direction: row;
@@ -1268,6 +1272,34 @@ background-image:
     width: 25%;
     border-bottom:0;
   }
+  .promoItemDash>.linksWrap{
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  overflow: hidden;
+  height: 0;
+  display: none;
+}
+.promoItemDash>.linksWrap>li{
+  width: 100%;
+  height: 25px;
+}
+.promoItemDash>.linksWrap>li:first-child{
+  border-bottom: 2px solid #11396c;
+}
+.promoItemDash>.linksWrap>li>h3{
+  width: 180px;
+  background: #fff;
+  color: #666;
+  padding: 0 5px;
+  font-family: 'FuturaPT Bold', sans-serif;
+}
+.promoItemDash>.linksWrap>li>a{
+  width: 100%;
+  background: #fff;
+  color: #11396c;
+  text-decoration: underline;
+}
   #promosPasadas>.promoItemDash>div.actions{
     -webkit-box-pack:flex-start;
     -webkit-justify-content:flex-start;
