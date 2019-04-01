@@ -1,3 +1,14 @@
+<?php
+session_start();
+require_once('backend/lib/db.php');
+if(!isset($_SESSION["userName"]))
+{
+  header("Location:index.php");
+}
+else {
+  $username=$_SESSION["Nombre"];
+}
+?>
 <!--
 v1
 14 de Marzo 2019
@@ -53,7 +64,7 @@ http://dragonflycity.com/
         </div>
       </a>
       <ul class="displayFlex">
-        <li><a role="button" class="trans5">Hola <span class="userName">Juliana</span></a></li>
+        <li><a role="button" class="trans5">Hola <span class="userName"><?php echo $username; ?></span></a></li>
         <li><a role="button" class="trans5">Promociones</a></li>
         <li><a role="button" class="trans5">Tutoriales</a></li>
         <li><a role="button" class="trans5">Cerrar Sesión</a></li>
@@ -402,7 +413,7 @@ http://dragonflycity.com/
     <script src="ui/js/main.js" charset="utf-8" async></script>
     <script type="text/javascript">
       window.onload = function(){
-        putUserName();
+        //putUserName();
       }
     </script>
   </body>

@@ -308,8 +308,8 @@ function getpromociones($estatus)
           </div>';
           if($estatus==1)
           {
-            $htmlact='  <div class="actions displayFlex">
-                <a class="itemDash_action_link" class="trans5" onclick="openLinks('open' ,this)"></a>
+            $htmlact='<div class="actions displayFlex">
+                <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
                 <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
                 if($_SESSION['Rol']=='Admin')
                 {
@@ -321,11 +321,11 @@ function getpromociones($estatus)
             <ul class="linksWrap trans5">
               <li class="displayFlex">
                 <h3>Página de Desarrollo:</h3>
-                <a href="#" target="_blank">./'.$fila[0].'</a>
+                <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
               </li>
               <li class="displayFlex">
                 <h3>Página de Producción:</h3>
-                <a href="#" target="_blank">./'.$fila[0].'</a>
+                <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
               </li>
             </ul>
              </div>';

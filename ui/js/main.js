@@ -1368,7 +1368,8 @@ function login(){
   var psw=_("#userPassLog").value;
   var method=MetodoEnum.Login;
   huella();
-  $('#errorLog').css("height", "0px");
+  errorOnLog('close');
+  //$('#errorLog').css("height", "0px");
   var dataString ='&usr=' + usr + '&pwd=' + psw+'&m='+method;
       $.ajax({
          type : 'POST',
@@ -1378,7 +1379,8 @@ function login(){
          success:function(data) {
            if(data=='Ambos valores son requerido'|| data=='Error con usuario')
            {
-               $('#errorLog').css("height", "65px");
+               //$('#errorLog').css("height", "65px");
+               errorOnLog('open');
            }
            else {
               window.location.href='home.php';
