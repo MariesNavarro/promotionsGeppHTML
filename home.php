@@ -62,7 +62,7 @@ http://dragonflycity.com/
   </head>
   <body class="login body">
     <ul id="menuMobile" class="displayNone trans5">
-      <li>Hola <span id="userNameMobile"><?php echo $username; ?></span></li>
+      <li>Hola <span class="userName""><?php echo $username; ?></span></li>
       <li><a href="#">Tutoriales</a></li>
       <li><a id="closeLog"  onclick="logout()" role="button">Cerrar Sesión</a></li>
     </ul>
@@ -73,7 +73,7 @@ http://dragonflycity.com/
           <img src="ui/img/dragonf-title.svg" width="166.2" height="15">
         </div>
       </a>
-      <a role="contentinfo" class="trans5 desktopNav">Hola <span id="userNameDesktop"><?php echo $username; ?></span></a>
+      <a role="contentinfo" class="trans5 desktopNav">Hola <span class="userName""><?php echo $username; ?></span></a>
       <a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>
       <a role="button" class="trans5 desktopNav" onclick="logout()" target="_blank" >Cerrar Sesión</a>
       <a role="button" class="mobileNav" onclick="menuMobile('open', this)">
@@ -133,5 +133,10 @@ http://dragonflycity.com/
       <p>2019 © OETCapital S.A.P.I.de C.V.</p>
     </footer>
     <script src="ui/js/main.js" charset="utf-8" async></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        //putUserName();
+      }
+    </script>
   </body>
 </html>
