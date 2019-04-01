@@ -7,9 +7,8 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username=$_SESSION["Nombre"];
-  $active=getpromociones(1);
-  $foractive=getpromociones(2);
-  $past=getpromociones(3);
+  $id=encrypt_decrypt('d',$_GET[id]);
+
 }
 ?>
 <!--
@@ -67,7 +66,7 @@ http://dragonflycity.com/
       <li><a id="closeLog"  onclick="logout()" role="button">Cerrar Sesión</a></li>
     </ul>
     <nav class="home displayFlex">
-      <a href="#" class="logo trans5">
+      <a href="home.php" class="logo trans5">
         <div class="displayFlex">
           <img src="ui/img/dragonf-ic.svg" width="25" height="25">
           <img src="ui/img/dragonf-title.svg" width="166.2" height="15">
@@ -87,50 +86,43 @@ http://dragonflycity.com/
     <main class="home displayFlex">
       <nav class="displayFlex">
         <ul class="displayFlex">
-          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this)">Activas</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this)">Por Activar</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this)">Pasadas</a></li>
+          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this)">Consolidado</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this)">Registros</a></li>
         </ul>
-        <div>
-          <a role="button" id="newPromo" class="button trans5">
-            <span class="mobileNav">Nueva Promoción</span>
-            <span class="desktopNav">Nueva Promoción</span>
-          </a>
-        </div>
       </nav>
-      <header class=desktopNav>
+      <header id='headerreport' class=desktopNav style="display:none">
         <ul class="displayFlex">
           <li class="displayFlex">
             <span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span>
-            <p>Nombre</p>
+            <p>Cupon Entregado</p>
           </li>
           <li class="displayFlex">
-            <p>Marca</p>
+            <p>Fecha Entrega</p>
           </li>
           <li class="displayFlex">
-            <p>Vigencia</p>
+            <p>Ip Solicitud</p>
           </li>
           <li class="displayFlex">
-            <p>Acciones</p>
+            <p>Pais</p>
+          </li>
+          <li class="displayFlex">
+            <p>Estado</p>
           </li>
         </ul>
       </header>
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
           <li id="activePromoWrap">
-            <?php echo $active; ?>
+            <?php echo dashboard($id); ?>
           </li>
           <li id="forActivationWrap">
-            <?php echo $foractive; ?>
-          </li>
-          <li id="pastPromotionsWrap">
-            <?php echo $past; ?>
+            <?php echo dasboard_report($id) ; ?>
           </li>
         </ul>
       </div>
     </main>
     <footer class="login">
-      <p>2019 © OETCapital S.A.P.I.de C.V.</p>
+      <p>2019 © OETCapital S.A.P.I.de C.V.<?php echo $id;?></p>
     </footer>
     <script src="ui/js/main.js" charset="utf-8" async></script>
   </body>

@@ -139,40 +139,25 @@ function writelog($string){
     $ban=1;
   }while($ban==0);
 }
-function encrypt_decrypt($action, $string, $secret_key,$secret_iv) {
+function encrypt_decrypt($action, $string) {
        $output = false;
 
        $encrypt_method = "AES-256-CBC";
-       $secret_key = 'clave1';  // por defecto
-       $secret_iv  = 'clave2';   // por defecto
+       $secret_key = 'G3pp2019';  // por defecto
+       $secret_iv  = 'O3tcapital';   // por defecto
 
        // hash
        $key = hash('sha256', $secret_key);
 
        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
        $iv = substr(hash('sha256', $secret_iv), 0, 16);
-       echo  "<p>".$key. "</p><br/>";
-       echo  "<p>".$iv. "</p><br/>";
-       echo  "<p>".$action. "</p><br/>";
-       if( $action == 'encrypt' ) {
+
+       if( $action == 'e' ) {
            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
            $output = base64_encode($output);
        }
-       else if( $action == 'decrypt' ){
-         echo  "<p>".$key. "</p><br/>";
-         echo  "<p>".$iv. "</p><br/>";
-         echo  "<p>".$action. "</p><br/>";
+       else if( $action == 'd' ){
         $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-        if($output)
-        {
-
-          echo  "<p> El output es diferente de false".$output. "</p><br/>";
-        }
-        else
-        {
-
-          echo  "<p> El output es false ".$output. "</p><br/>";
-        }
        }
        return $output;
 }

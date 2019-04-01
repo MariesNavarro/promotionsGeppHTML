@@ -534,9 +534,13 @@ main.home>#promosW>ul>li{
   stroke:#fff;
   stroke-miterlimit:10;stroke-width:1.5px;
 }
+/*Dashboard*/
+#headerreport{
+  display: none;
+}
 /*DESKTOP*/
 @media (min-width: 880px) {
-#menuMobile{ display: none; }
+#{ display: none; }
 .desktopNav{ display: block; }
 .mobileNav{ display: none; }
   nav.login, nav.home{
@@ -639,7 +643,10 @@ main.home>#promosW>ul>li{
   .promoItemDash>div:first-child>p{ padding-left:5px }
   .promoItemDash>div>p{ text-align: left; }
   .promoItemDash>div>span{ text-align: left; }
-
+  /*Dashboard*/
+  #headerreport{
+    display: block;
+  }
 }
 .borderRed{
   border:1px solid red;
