@@ -588,6 +588,12 @@ main.home>#promosW>ul>li{
   -ms-flex-align: center;
   align-items: center;
 }
+
+/*Dashboard*/
+#headerreport{
+  display: none;
+}
+
 .config>nav>#headerMob>h1{ text-transform: uppercase; }
 .config>nav>#headerMob>a{ font-size: 0.9rem; }
 #indexConfig, .config>nav>footer{ display: none; }
@@ -1309,7 +1315,10 @@ background-image:
   .promoItemDash>div:first-child>p{ padding-left:5px }
   .promoItemDash>div>p{ text-align: left; }
   .promoItemDash>div>span{ text-align: left; }
-
+  /*Dashboard*/
+  #headerreport{
+    display: block;
+  }
 }
 
 
