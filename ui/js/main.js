@@ -1298,9 +1298,12 @@ var MetodoEnum = {
   Login:1,
   Logout:2,
   ActualizaDash:3,
-  ActualizaDashreport:4
+  ActualizaDashreport:4,
+  Insertageneral:5,
+  ActualizaLegales:6
  };
  var codigo='';
+ var idnvaprom=0;
  function huella(){
   var d1 = new Date();
   var fp = new Fingerprint2();
@@ -1409,20 +1412,21 @@ function logout()
   });
 }
 
-
+if(_('#userPassLog')!=null)
+{
 $("#userPassLog").keypress(function (e)  {
   if (e.keyCode == 13) {
     $("#submitLogin").click();
   }
 });
-
+}
 function actualizaDatos(p){
 
   var param3=MetodoEnum.ActualizaDash;
   var param4=p;  // promo
   var dataString = '&m=' + param3+'&prom=' + param4;
   console.log(dataString);
-  $.ajax({
+   $.ajax({
     type : 'POST',
     url  : 'respuesta.php',
     data:  dataString,
@@ -1518,7 +1522,80 @@ function loadFileName(t){
     fileNameW.innerHTML = file.files[0].name;
   });
 }
+function savedatageneral(ns,t)
+{
 
+
+
+  var fi=$('#fechaInicio')[0].value;
+  var ff=$('#fechaFin')[0].value;
+  var nom=$('#nombrePromo')[0].value;
+  var desc=$('#descripcionPromo')[0].value;
+  var mar=$('#selectBrand')[0].value;
+  var pro=$('#selectProvider')[0].value;
+  var  m=MetodoEnum.Insertageneral;
+  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuesta.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+      if(data=='fallo sql insert')
+      {
+        responseStep(ns, t, 0);
+      }
+      else {
+        sendfile(data);
+        idnvaprom=data;
+        responseStep(ns, t, 1);
+      }
+
+    }
+  });
+
+
+}
+function sendfile(id){
+  if($('#legalesUpload')[0].files.length>0)
+  {
+
+
+    let files = new FormData(), // you can consider this as 'data bag'
+        url = 'upload.php';
+
+    files.append('fileName',$('#legalesUpload')[0].files[0]); // append selected file to the bag named 'file'
+    files.append('id',id);
+    $.ajax({
+        type: 'post',
+        url: url,
+        processData: false,
+        contentType: false,
+        data: files,
+        success: function (response) {
+            console.log(response);
+            actualizalegales(id,response)
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+  }
+}
+function actualizalegales(id,url)
+{
+  var m=MetodoEnum.ActualizaLegales;
+  var dataString = 'm=' + m+'&id=' + id+'&url=' + url;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuesta.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+    }
+  });
+
+}
 function sliderConfigFun(e){
   var w = _("#sliderConfig"),
       bullet = __(".bulletStep>circle");
@@ -1637,21 +1714,62 @@ function checkSteps(n, t){
 }
 
 function checkConfig_1(n, t){
+  var nom,desc,mar,pro,fi,ff;
+  var d=new Date();
+  var datesinhoras=new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+  if($('#fechaInicio')[0].value!=''&&datesinhoras.toISOString().slice(0,10)<=$('#fechaInicio')[0].value){
+    fi=1;
+  }
+  else {
+    fi=0;
+  }
+  if($('#fechaFin')[0].value!=''&&$('#fechaInicio')[0].value!=''&&$('#fechaInicio')[0].value>=$('#fechaInicio')[0].value){
+    ff=1;
+  }
+  else {
+    ff=0;
+  }
+  if($('#nombrePromo')[0].value!=''&&$('#nombrePromo')[0].value!=undefined){
+    nom=1;
+  }
+  else {
+    nom=0;
+  }
+  if($('#descripcionPromo')[0].value!=''&&$('#descripcionPromo')[0].value!=undefined){
+    desc=1;
+  }
+  else {
+    desc=0;
+  }
+  if($('#selectBrand')[0].value!=''&&$('#selectBrand')[0].value!=undefined){
+    mar=1;
+  }
+  else {
+    mar=0;
+  }
+  if($('#selectProvider')[0].value!=''&&$('#selectProvider')[0].value!=undefined){
+    pro=1;
+  }
+  else {
+    pro=0;
+  }
   /* Comprobar Configuración 1 */
   //NUM SLIDER, THIS, nombre, descripción, marca, fecha Inicio, fecha Final
-  responseConfig_1(n, t,1,1,1,1,1,1);
+  responseConfig_1(n, t,nom,desc,mar,pro,fi,ff);
 }
 
 function responseConfig_1(ns,t,n, d, m, p, fInit, fLast){
   var g = n + d + m + p + fInit + fLast;
   var labels = __(".labelData1"),
       inputs = __(".inputData1");
+      for (var i = 0; i < labels.length; i++) {
+        labels[i].setAttribute("style", " ");
+        inputs[i].setAttribute("style", " ");
+      }
   if(g === 6){
-    for (var i = 0; i < labels.length; i++) {
-      labels[i].setAttribute("style", " ");
-      inputs[i].setAttribute("style", " ");
-    }
-    responseStep(ns, t, 1);
+
+    savedatageneral(ns,t);
+
   } else if (g < 6) {
     responseStep(ns, t, 0);
   }

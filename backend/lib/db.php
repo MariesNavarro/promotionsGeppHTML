@@ -560,4 +560,121 @@ WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." AND estatus=
   return $salida;
 
 }
+function marcas()
+{
+  $reg=0;
+  $salida='<option class="brandPromo" value="">Selecciona una marca</option>';
+  $link=connect();
+  $consulta ="SELECT * FROM gtrd_marca";
+  /* gtrd_proveedor
+  <option class="brandPromo" value="">Selecciona una marca</option>
+  <option class="brandPromo" value="">Pepsi</option>
+  <option class="brandPromo" value="">Epura</option>
+  <option class="brandPromo" value="">Gatorade</option>
+  <option class="brandPromo" value="">Seven Up</option>
+  <option class="brandPromo" value="">Lipton</option>
+  */
+  if ($resultado = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_row($resultado)) {
+         $salida=$salida.'<option class="brandPromo" value="'.encrypt_decrypt('e',$fila[0]).'">'.$fila[1].'</option>';
+      }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+
+   }
+
+  Close($link);
+  return $salida;
+
+}
+function proveedores()
+{
+  $reg=0;
+  $salida='  <option class="providerDefault" value="">Selecciona un Proveedor</option>';
+  $link=connect();
+  $consulta ="SELECT * FROM gtrd_proveedor";
+  /* gtrd_proveedor
+  <option class="providerDefault" value="">Selecciona un Proveedor</option>
+  <option class="providerDefault" value="">OXXO</option>
+  <option class="providerDefault" value="">Seven Eleven</option>
+  */
+  if ($resultado = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_row($resultado)) {
+         $salida=$salida.'<option class="providerDefault" value="'.encrypt_decrypt('e',$fila[0]).'">'.$fila[1].'</option>';
+      }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+
+   }
+
+  Close($link);
+  return $salida;
+
+}
+function createfile($data,$name)
+{
+  $res='No inicio';
+  if(!empty($data)){
+    $data1 = substr($data1,strpos($data1, ",") + 1);
+   // decode it
+  $decodedData = base64_decode($data);
+  $filename = $name;
+  // write the data out to the file
+  $fp = fopen("legales/temp_".$filename, 'wb');
+  fwrite($fp, $decodedData);
+  fclose($fp);
+  $res= "legales/temp_".$filename;
+}
+else {
+    $res= 'No se guardo';
+}
+return $res;
+}
+
+function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
+  $salida='';
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $marcade=encrypt_decrypt('d',$mar);
+  $prodec=encrypt_decrypt('d',$pro);
+  if($idnvaprom>0)
+  {
+    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', estatus=2 where id=".$idnvaprom;
+  }
+    else {
+      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2)";
+    }
+
+  if (mysqli_query($link, $consulta)) {
+    if($idnvaprom>0){
+      $salida=$idnvaprom;
+    }
+      else {
+        $salida=mysqli_insert_id($link);
+      }
+
+   }
+   else {
+     $salida='fallo sql insert';
+   }
+   mysqli_commit($link);
+  Close($link);
+  return $salida;
+}
+function actualizalegales($id,$url){
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET archivo_legales='".$url."' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $consulta;
+}
 ?>

@@ -7,6 +7,8 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username=$_SESSION["Nombre"];
+  $marcas= marcas();
+  $proveedores=proveedores();
 }
 ?>
 <!--
@@ -67,14 +69,14 @@ http://dragonflycity.com/
         <li><a role="button" class="trans5">Hola <span class="userName"><?php echo $username; ?></span></a></li>
         <li><a role="button" class="trans5">Promociones</a></li>
         <li><a role="button" class="trans5">Tutoriales</a></li>
-        <li><a role="button" class="trans5">Cerrar Sesión</a></li>
+        <li><a role="button" onclick="logout()" class="trans5">Cerrar Sesión</a></li>
       </ul>
       <p>2019 © OETCapital S.A.P.I.de C.V.</p>
     </div>
     <main class="config">
       <nav id="menuConfigNav" class="config trans5">
         <div id="menuConfig" class="displayFlex">
-          <a href="#" class="logo trans5">
+          <a href="home.php" class="logo trans5">
             <div class="displayFlex">
               <img src="ui/img/dragonf-ic.svg" width="25" height="25">
               <img src="ui/img/dragonf-title.svg" width="166.2" height="15">
@@ -195,20 +197,13 @@ http://dragonflycity.com/
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Marca</label>
                   <select id="selectBrand" name="" class="inputData1">
-                    <option class="brandPromo" value="">Selecciona una marca</option>
-                    <option class="brandPromo" value="">Pepsi</option>
-                    <option class="brandPromo" value="">Epura</option>
-                    <option class="brandPromo" value="">Gatorade</option>
-                    <option class="brandPromo" value="">Seven Up</option>
-                    <option class="brandPromo" value="">Lipton</option>
+                    <?php echo $marcas; ?>
                   </select>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Proveedor</label>
                   <select id="selectProvider" name="" class="inputData1">
-                    <option class="providerDefault" value="">Selecciona un Proveedor</option>
-                    <option class="providerDefault" value="">OXXO</option>
-                    <option class="providerDefault" value="">Seven Eleven</option>
+                  <?php echo $proveedores; ?>
                   </select>
                 </div>
               </div>
@@ -410,6 +405,7 @@ http://dragonflycity.com/
         </ul>
       </div>
     </main>
+    <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>
     <script type="text/javascript">
       window.onload = function(){

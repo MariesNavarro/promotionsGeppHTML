@@ -60,6 +60,26 @@ if($_POST["m"]==4){
   $result=dasboard_report(encrypt_decrypt('d',$_POST["prom"]));
   echo $result;
 }
+
+if($_POST["m"]==5)
+{
+  $fi=$_POST["fi"];
+  $ff=$_POST["ff"];
+  $nom=$_POST["nom"];
+  $desc=$_POST["desc"];
+  $mar=$_POST["mar"];
+  $pro=$_POST["pro"];
+  $idnvaprom=$_POST["idnvaprom"];
+  $result=insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom);
+  echo $result;
+}
+if($_POST["m"]==6)
+{
+  $id=$_POST["id"];
+  $url=$_POST["url"];
+  $result=actualizalegales($id,$url);
+  echo $result;
+}
 /*if(isset($_POST["register"]))
 {
      if(empty($_POST["username"]) && empty($_POST["password"]))

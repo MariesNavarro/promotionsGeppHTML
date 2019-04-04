@@ -92,9 +92,9 @@ http://dragonflycity.com/
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this)">Pasadas</a></li>
         </ul>
         <div>
-          <a role="button" id="newPromo" class="button trans5">
-            <span class="mobileNav">Nueva Promoción</span>
-            <span class="desktopNav">Nueva Promoción</span>
+          <a role="button" href="config.php" id="newPromo" class="button trans5">
+            <span  class="mobileNav">Nueva Promoción</span>
+            <span  class="desktopNav">Nueva Promoción</span>
           </a>
         </div>
       </nav>
@@ -118,13 +118,13 @@ http://dragonflycity.com/
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
           <li id="activePromoWrap">
-            <?php echo $active; ?>
+            <?php echo $active;?>
           </li>
           <li id="forActivationWrap">
-            <?php echo $foractive; ?>
+            <?php echo $foractive;?>
           </li>
           <li id="pastPromotionsWrap">
-            <?php echo $past; ?>
+            <?php echo $past;?>
           </li>
         </ul>
       </div>
