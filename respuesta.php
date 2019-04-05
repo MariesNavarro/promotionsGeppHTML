@@ -2,7 +2,7 @@
 
 session_start();
 // $connect = mysqli_connect("localhost", "root", "", "testing");
-require_once('backend/lib/db.php');
+require_once('backend/lib/dbconfig.php');
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
   $ip = $_SERVER['HTTP_CLIENT_IP'];
 }
@@ -80,24 +80,20 @@ if($_POST["m"]==6)
   $result=actualizalegales($id,$url);
   echo $result;
 }
-/*if(isset($_POST["register"]))
+if($_POST["m"]==7)
 {
-     if(empty($_POST["username"]) && empty($_POST["password"]))
-     {
-          echo '<script>alert("Both Fields are required")</script>';
-     }
-     else
-     {
-          $username = mysqli_real_escape_string($connect, $_POST["username"]);
-          $password = mysqli_real_escape_string($connect, $_POST["password"]);
-          $password = md5($password);
-          $query = "INSERT INTO users (username, password) VALUES('$username', '$password')";
-          if(mysqli_query($connect, $query))
-          {
-               echo '<script>alert("Registration Done")</script>';
-          }
-     }
+  $id=$_POST["fun"];
+  $prom=$_POST["prom"];
+  $result=actualizafuncionalidad($id,$prom);
+  echo $result;
 }
-*/
+if($_POST["m"]==8)
+{
+  $id=$_POST["cup"];
+  $prom=$_POST["prom"];
+  $result=existecupon($id,$prom);
+  echo $result;
+}
+
 
 ?>

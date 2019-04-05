@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('backend/lib/db.php');
+require_once('backend/lib/dbconfig.php');
 if(!isset($_SESSION["userName"]))
 {
   header("Location:index.php");
@@ -9,6 +9,7 @@ else {
   $username=$_SESSION["Nombre"];
   $marcas= marcas();
   $proveedores=proveedores();
+  $funcionalidades=funcionalidades();
 }
 ?>
 <!--
@@ -245,56 +246,8 @@ http://dragonflycity.com/
               <h3>Selección de Funcionalidad</h3>
             </header>
             <form action="" method="" autocomplete="off">
-              <div class="rowConfig displayFlex">
-                <!-- Funcionalidad 1 -->
-                <div class="containerRectW displayFlex">
-                  <p>Códigos de Descuento</p>
-                  <div class="containerRect">
-                    <div class="picRect" style="background-image:url('ui/img/covers/cupon.jpg')"></div>
-                    <div class="overRect">
-                      <p>Esta funcionalidad permite cargar una base de códigos de descuento que serán entregados a los usuarios que accedan a la promoción.</p>
-                      <a href="#" target="_blank"><span>Ver Más</span></a>
-                    </div>
-                  </div>
-                  <div class="selectionContainer">
-                    <label>Seleccionar</label>
-                    <input class="checkBoxFunction" name="" type="checkbox">
-                  </div>
-                </div>
-                <!-- Funcionalidad 2 -->
-                <div class="containerRectW rectGrey displayFlex">
-                  <p class="opacityZero">Funcionalidad 2</p>
-                  <div class="containerRect">
-                    <div class="picRect"></div>
-                    <div class="overRect"></div>
-                  </div>
-                  <div class="selectionContainer opacityZero">
-                    <label>Seleccionar</label>
-                    <!-- <input id="" name="" type="checkbox"> -->
-                  </div>
-                </div>
-              </div>
+              <?php echo $funcionalidades ?>
 
-              <div class="rowConfig hideOnMobile">
-                <!-- Funcionalidad 3 -->
-                <div class="containerRectW rectGrey displayFlex">
-                  <p class="opacityZero">Funcionalidad 3</p>
-                  <div class="containerRect"></div>
-                  <div class="selectionContainer opacityZero">
-                    <label>Seleccionar</label>
-                    <!-- <input id="" name="" type="checkbox"> -->
-                  </div>
-                </div>
-                <div class="containerRectW rectGrey displayFlex">
-                  <!-- Funcionalidad 4 -->
-                  <p class="opacityZero">Funcionalidad 4</p>
-                  <div class="containerRect"></div>
-                  <div class="selectionContainer opacityZero">
-                    <label>Seleccionar</label>
-                    <!-- <input id="" name="" type="checkbox"> -->
-                  </div>
-                </div>
-              </div>
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(0)">Anterior</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(2, this)">Siguiente</button>
             </form>

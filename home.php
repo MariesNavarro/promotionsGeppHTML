@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('backend/lib/db.php');
+require_once('backend/lib/dbconfig.php');
 if(!isset($_SESSION["userName"]))
 {
   header("Location:index.php");
