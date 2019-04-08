@@ -2684,28 +2684,42 @@ function getNumCSV(){
 
 }
 
-
+var compactMenu = false;
 function checkSteps(n, t){
   switch (n) {
     case 1:
       checkConfig_1(n,t);
     break;
     case 2:
-    console.log("Selección De Funcionalidad");
       ischeckedsome(n,t);
     break;
     case 3:
-      console.log("Configuración Funcionalidad");
+      compactMenu = false;
+      compactConfigMenu(1);
       responseStep(n , t, 1);
     break;
     case 4:
-      console.log("Selección de Plantilla");
+      compactMenu = true;
+      if(w>=880)compactConfigMenu(0);
       responseStep(n , t, 1);
     break;
     case 5:
-      console.log("Edición de Plantilla");
       responseStep(n , t, 1);
     break;
+  }
+}
+
+function compactConfigMenu(n){
+  var bArrow = _("#toggleMenuArrow"),
+      bArrowImg = bArrow.children[0],
+      menuConfig = _("#menuConfig");
+  if(n === 0){
+    bArrow.style.display = "none";
+    hideMenuConfig('hide', bArrow);
+    menuConfig.setAttribute("style", " ");
+  } else if (n === 1) {
+      bArrow.style.display = "block";
+      hideMenuConfig('show', bArrow);
   }
 }
 
