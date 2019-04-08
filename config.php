@@ -341,7 +341,7 @@ http://dragonflycity.com/
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(4, this)">Siguiente</button>
             </form>
           </li>
-          <li class="_5">
+          <li id="editorPlantilla">
             <!-- Configurador Edición de Plantilla -->
             <div class="errorWConfig trans5">
               <p>Tienes que seleccionar una opción.</p>
