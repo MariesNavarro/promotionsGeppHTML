@@ -1,15 +1,8 @@
 <?php
 session_start();
-require_once('backend/lib/dbconfig.php');
-if(!isset($_SESSION["userName"]))
+if(isset($_SESSION["userName"]))
 {
-  header("Location:login.php");
-}
-else {
-  $username=$_SESSION["Nombre"];
-  $active=getpromociones(1);
-  $foractive=getpromociones(2);
-  $past=getpromociones(3);
+  header("Location:home.php");
 }
 ?>
 <!--
@@ -58,85 +51,56 @@ http://dragonflycity.com/
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="ui/css/master.css">
-    <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
   </head>
-  <body class="login body">
-    <ul id="menuMobile" class="displayNone trans5">
-      <li>Hola <span class="userName""><?php echo $username; ?></span></li>
-      <li><a href="#">Tutoriales</a></li>
-      <li><a id="closeLog"  onclick="logout()" role="button">Cerrar Sesión</a></li>
-    </ul>
-    <nav class="home displayFlex">
+  <body class="login">
+    <nav class="login displayFlex">
       <a href="#" class="logo trans5">
         <div class="displayFlex">
           <img src="ui/img/dragonf-ic.svg" width="25" height="25">
           <img src="ui/img/dragonf-title.svg" width="166.2" height="15">
         </div>
       </a>
-      <a role="contentinfo" class="trans5 desktopNav">Hola <span class="userName""><?php echo $username; ?></span></a>
-      <a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>
-      <a role="button" class="trans5 desktopNav" onclick="logout()" target="_blank" >Cerrar Sesión</a>
-      <a role="button" class="mobileNav" onclick="menuMobile('open', this)">
-        <div class="hamburgerMenu hamburgerHover displayFlex">
-          <span class="trans5"></span>
-          <span class="trans5"></span>
-          <span class="trans5"></span>
-        </div>
-      </a>
+      <a href="#" class="trans5" target="_blank" >Tutoriales</a>
     </nav>
-    <main class="home displayFlex">
-      <nav class="displayFlex">
-        <ul class="displayFlex">
-          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this)">Activas</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this)">Por Activar</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this)">Pasadas</a></li>
-        </ul>
-        <div>
-          <a role="button" href="config.php" id="newPromo" class="button trans5">
-            <span  class="mobileNav">Nueva Promoción</span>
-            <span  class="desktopNav">Nueva Promoción</span>
-          </a>
+    <main class="displayFlex login">
+      <div class="displayFlex">
+        <div id="infoHomeW">
+          <h1>Promotions and Redemption Tools</h1>
+          <h2>Herramienta de gestión de promociones que permite configurar y monitorear de manera centralizada.</h2>
         </div>
-      </nav>
-      <header class=desktopNav>
-        <ul class="displayFlex">
-          <li class="displayFlex">
-            <span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span>
-            <p>Nombre</p>
-          </li>
-          <li class="displayFlex">
-            <p>Marca</p>
-          </li>
-          <li class="displayFlex">
-            <p>Vigencia</p>
-          </li>
-          <li class="displayFlex">
-            <p>Acciones</p>
-          </li>
-        </ul>
-      </header>
-      <div id="promosW">
-        <ul id="promoTabs" class="displayFlex trans5">
-          <li id="activePromoWrap">
-            <?php echo $active;?>
-          </li>
-          <li id="forActivationWrap">
-            <?php echo $foractive;?>
-          </li>
-          <li id="pastPromotionsWrap">
-            <?php echo $past;?>
-          </li>
-        </ul>
+      </div>
+      <div class="displayFlex">
+        <div id="logHomeW">
+          <div id="errorLog" class="trans5">
+            <p>Los datos de inicio de sesión son incorrectos. Vuelve a intentar. Si continúas con problemas, ingresa <a class="forgotPass" role="button">aquí.</a></p>
+          </div>
+          <form action="" method="" autocomplete="on">
+            <div class="formDiv displayFlex">
+              <span class="displayFlex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39.8 43.96">
+                <path class="ic-user-style" d="M38.67,33.41c-1.19-5.15-4.49-8.44-9.06-10.68-1.06-.54-2.2-.9-3.41-1.38A11.05,11.05,0,0,0,31.06,13a11.06,11.06,0,0,0-3.48-9A11.19,11.19,0,1,0,13.65,21.41l-.93.33A19.66,19.66,0,0,0,6.55,25,14,14,0,0,0,1,34.53,1.55,1.55,0,0,0,1.61,36a26.14,26.14,0,0,0,9.67,5.55c9.58,2.94,18.31,1.21,26.24-4.92a2.78,2.78,0,0,0,1.15-3.23"/>
+                </svg>
+              </span>
+              <input id="userNameLog" name="userName" type="text"  placeholder="Nombre de Usuario" required>
+            </div>
+            <div class="formDiv displayFlex">
+              <span class="displayFlex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.31 39.82">
+                <path class="ic-user-style" d="M17.94,39.06c-2.75,0-5.5,0-8.25,0A20.52,20.52,0,0,1,5,38.52,4.79,4.79,0,0,1,1.13,34.3a28.31,28.31,0,0,1-.35-4q-.08-4.62,0-9.23a6,6,0,0,1,3.86-5.79.69.69,0,0,0,.48-.74c0-1.53,0-3.06.06-4.58a9.54,9.54,0,0,1,2-5.59A8.79,8.79,0,0,1,12.91,1,27.4,27.4,0,0,1,16.29.76c1.38,0,2.77,0,4.14.07a9,9,0,0,1,6.13,2.92A9.22,9.22,0,0,1,29,8.31a13.12,13.12,0,0,1,.23,2.26c0,1.39,0,2.78,0,4.17a.35.35,0,0,0,.26.4,6,6,0,0,1,4.07,5.75c.06,4,0,8.08,0,12.11a5.8,5.8,0,0,1-3.26,5.23,6,6,0,0,1-3,.75c-3.1,0-6.2,0-9.3,0ZM24.73,14.8c0-.85,0-1.66,0-2.47a17.71,17.71,0,0,0-.21-2.63,4.43,4.43,0,0,0-2.45-3.31,11.07,11.07,0,0,0-8.5-.61,5.26,5.26,0,0,0-4,5.52v3.5Zm-6.3,18v-.4c0-1.71,0-3.42,0-5.12a.61.61,0,0,1,.33-.59,3.86,3.86,0,0,0,1-.86,3.12,3.12,0,0,0,0-3.63A3.09,3.09,0,0,0,16.58,21a3.08,3.08,0,0,0-.84,5.69.49.49,0,0,1,.29.5c0,1.72,0,3.44,0,5.16v.42Z"/>
+                </svg>
+              </span>
+              <input id="userPassLog" name="userPassword" type="password" placeholder="* * * * * *" required>
+            </div>
+            <a id="submitLogin" onclick="login()" role="button" class="button login">Entrar</a>
+            <a class="forgotPass" href="#">¿Olvidaste tu contraseña?</a>
+          </form>
+        </div>
       </div>
     </main>
     <footer class="login">
       <p>2019 © OETCapital S.A.P.I.de C.V.</p>
     </footer>
+    <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>
-    <script type="text/javascript">
-      window.onload = function(){
-        //putUserName();
-      }
-    </script>
   </body>
 </html>

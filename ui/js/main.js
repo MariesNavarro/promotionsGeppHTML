@@ -2363,7 +2363,7 @@ function login(){
   var dataString ='&usr=' + usr + '&pwd=' + psw+'&m='+method;
       $.ajax({
          type : 'POST',
-         url  : '../config/respuesta.php',
+         url  : 'respuestaconfig.php',
          data:  dataString,
 
          success:function(data) {
@@ -2386,13 +2386,13 @@ function logout()
   var dataString ='&m='+method;
   $.ajax({
      type : 'POST',
-     url  : '../config/respuesta.php',
+     url  : 'respuestaconfig.php',
      data:  dataString,
 
      success:function(data) {
        if(data=='success')
        {
-         window.location.href='index.php';
+         window.location.href='login.php';
        }
 
      }
@@ -2415,7 +2415,7 @@ function actualizaDatos(p){
   console.log(dataString);
    $.ajax({
     type : 'POST',
-    url  : '../config/respuesta.php',
+    url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
       console.log(data);
@@ -2434,7 +2434,7 @@ function actualizaDatos(p){
   console.log(dataString);
   $.ajax({
     type : 'POST',
-    url  : '../config/respuesta.php',
+    url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
       console.log(data);
@@ -2524,7 +2524,7 @@ function savedatageneral(ns,t)
   var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom;
   $.ajax({
     type : 'POST',
-    url  : '../config/respuesta.php',
+    url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
       console.log(data);
@@ -2575,7 +2575,7 @@ function actualizalegales(id,url)
   var dataString = 'm=' + m+'&id=' + id+'&url=' + url;
   $.ajax({
     type : 'POST',
-    url  : '../config/respuesta.php',
+    url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
       console.log(data);
@@ -2838,7 +2838,7 @@ function actualizafuncionalidad(n,t,id)
   var dataString = 'm=' + m+'&fun=' + id+'&prom=' + idnvaprom;
   $.ajax({
     type : 'POST',
-    url  : '../config/respuesta.php',
+    url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
       console.log(data);
@@ -2864,7 +2864,7 @@ function existecupon(p)
   var valor;
   $.ajax({
     type : 'POST',
-    url  : '../config/respuesta.php',
+    url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
       exist=data.split(',');

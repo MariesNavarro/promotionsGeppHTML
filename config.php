@@ -3,7 +3,7 @@ session_start();
 require_once('backend/lib/dbconfig.php');
 if(!isset($_SESSION["userName"]))
 {
-  header("Location:index.php");
+  header("Location:login.php");
 }
 else {
   $username=$_SESSION["Nombre"];
