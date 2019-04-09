@@ -2864,8 +2864,10 @@ function selectClassScreens(n){
 }
 
 function changeScreen(n){
-  var frame = _("#iframePlantilla");
+  var frame = _("#iframePlantilla"),
+      frameIF = _("#iframeInterfaz");
   frame.contentWindow.screensOnConf(n);
+  frameIF.contentWindow.changeScreenInterfaz(n);
   selectClassScreens(n);
 }
 function uncheckedfunctionall(t){
