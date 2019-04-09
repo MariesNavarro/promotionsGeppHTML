@@ -1,1 +1,180 @@
-!function(e,o,i){"undefined"!=typeof module&&module.exports?module.exports=i():"function"==typeof define&&define.amd?define(o,i):e[o]=i()}(this,"bowser",function(){function r(i){function e(e){var o=i.match(e);return o&&1<o.length&&o[1]||""}function o(e){var o=i.match(e);return o&&1<o.length&&o[2]||""}var n=e(/(ipod|iphone|ipad)/i).toLowerCase(),t,s=!/like android/i.test(i)&&/android/i.test(i),r=/nexus\s*[0-6]\s*/i.test(i),a=!r&&/nexus\s*[0-9]+/i.test(i),d=/CrOS/.test(i),m=/silk/i.test(i),p=/sailfish/i.test(i),l=/tizen/i.test(i),u=/(web|hpw)os/i.test(i),c=/windows phone/i.test(i),v=/SamsungBrowser/i.test(i),f=!c&&/windows/i.test(i),b=!n&&!m&&/macintosh/i.test(i),h=!s&&!p&&!l&&!u&&/linux/i.test(i),w=e(/edge\/(\d+(\.\d+)?)/i),y=e(/version\/(\d+(\.\d+)?)/i),g=/tablet/i.test(i),k=!g&&/[^-]mobi/i.test(i),x=/xbox/i.test(i),T;/opera/i.test(i)?T={name:"Opera",opera:S,version:y||e(/(?:opera|opr|opios)[\s\/](\d+(\.\d+)?)/i)}:/opr|opios/i.test(i)?T={name:"Opera",opera:S,version:e(/(?:opr|opios)[\s\/](\d+(\.\d+)?)/i)||y}:/SamsungBrowser/i.test(i)?T={name:"Samsung Internet for Android",samsungBrowser:S,version:y||e(/(?:SamsungBrowser)[\s\/](\d+(\.\d+)?)/i)}:/coast/i.test(i)?T={name:"Opera Coast",coast:S,version:y||e(/(?:coast)[\s\/](\d+(\.\d+)?)/i)}:/yabrowser/i.test(i)?T={name:"Yandex Browser",yandexbrowser:S,version:y||e(/(?:yabrowser)[\s\/](\d+(\.\d+)?)/i)}:/ucbrowser/i.test(i)?T={name:"UC Browser",ucbrowser:S,version:e(/(?:ucbrowser)[\s\/](\d+(?:\.\d+)+)/i)}:/mxios/i.test(i)?T={name:"Maxthon",maxthon:S,version:e(/(?:mxios)[\s\/](\d+(?:\.\d+)+)/i)}:/epiphany/i.test(i)?T={name:"Epiphany",epiphany:S,version:e(/(?:epiphany)[\s\/](\d+(?:\.\d+)+)/i)}:/puffin/i.test(i)?T={name:"Puffin",puffin:S,version:e(/(?:puffin)[\s\/](\d+(?:\.\d+)?)/i)}:/sleipnir/i.test(i)?T={name:"Sleipnir",sleipnir:S,version:e(/(?:sleipnir)[\s\/](\d+(?:\.\d+)+)/i)}:/k-meleon/i.test(i)?T={name:"K-Meleon",kMeleon:S,version:e(/(?:k-meleon)[\s\/](\d+(?:\.\d+)+)/i)}:c?(T={name:"Windows Phone",windowsphone:S}).version=w?(T.msedge=S,w):(T.msie=S,e(/iemobile\/(\d+(\.\d+)?)/i)):/msie|trident/i.test(i)?T={name:"Internet Explorer",msie:S,version:e(/(?:msie |rv:)(\d+(\.\d+)?)/i)}:d?T={name:"Chrome",chromeos:S,chromeBook:S,chrome:S,version:e(/(?:chrome|crios|crmo)\/(\d+(\.\d+)?)/i)}:/chrome.+? edge/i.test(i)?T={name:"Microsoft Edge",msedge:S,version:w}:/vivaldi/i.test(i)?T={name:"Vivaldi",vivaldi:S,version:e(/vivaldi\/(\d+(\.\d+)?)/i)||y}:p?T={name:"Sailfish",sailfish:S,version:e(/sailfish\s?browser\/(\d+(\.\d+)?)/i)}:/seamonkey\//i.test(i)?T={name:"SeaMonkey",seamonkey:S,version:e(/seamonkey\/(\d+(\.\d+)?)/i)}:/firefox|iceweasel|fxios/i.test(i)?(T={name:"Firefox",firefox:S,version:e(/(?:firefox|iceweasel|fxios)[ \/](\d+(\.\d+)?)/i)},/\((mobile|tablet);[^\)]*rv:[\d\.]+\)/i.test(i)&&(T.firefoxos=S)):m?T={name:"Amazon Silk",silk:S,version:e(/silk\/(\d+(\.\d+)?)/i)}:/phantom/i.test(i)?T={name:"PhantomJS",phantom:S,version:e(/phantomjs\/(\d+(\.\d+)?)/i)}:/slimerjs/i.test(i)?T={name:"SlimerJS",slimer:S,version:e(/slimerjs\/(\d+(\.\d+)?)/i)}:/blackberry|\bbb\d+/i.test(i)||/rim\stablet/i.test(i)?T={name:"BlackBerry",blackberry:S,version:y||e(/blackberry[\d]+\/(\d+(\.\d+)?)/i)}:u?(T={name:"WebOS",webos:S,version:y||e(/w(?:eb)?osbrowser\/(\d+(\.\d+)?)/i)},/touchpad\//i.test(i)&&(T.touchpad=S)):/bada/i.test(i)?T={name:"Bada",bada:S,version:e(/dolfin\/(\d+(\.\d+)?)/i)}:l?T={name:"Tizen",tizen:S,version:e(/(?:tizen\s?)?browser\/(\d+(\.\d+)?)/i)||y}:/qupzilla/i.test(i)?T={name:"QupZilla",qupzilla:S,version:e(/(?:qupzilla)[\s\/](\d+(?:\.\d+)+)/i)||y}:/chromium/i.test(i)?T={name:"Chromium",chromium:S,version:e(/(?:chromium)[\s\/](\d+(?:\.\d+)?)/i)||y}:/chrome|crios|crmo/i.test(i)?T={name:"Chrome",chrome:S,version:e(/(?:chrome|crios|crmo)\/(\d+(\.\d+)?)/i)}:s?T={name:"Android",version:y}:/safari|applewebkit/i.test(i)?(T={name:"Safari",safari:S},y&&(T.version=y)):n?(T={name:"iphone"==n?"iPhone":"ipad"==n?"iPad":"iPod"},y&&(T.version=y)):T=/googlebot/i.test(i)?{name:"Googlebot",googlebot:S,version:e(/googlebot\/(\d+(\.\d+))/i)||y}:{name:e(/^(.*)\/(.*) /),version:o(/^(.*)\/(.*) /)},!T.msedge&&/(apple)?webkit/i.test(i)?(/(apple)?webkit\/537\.36/i.test(i)?(T.name=T.name||"Blink",T.blink=S):(T.name=T.name||"Webkit",T.webkit=S),!T.version&&y&&(T.version=y)):!T.opera&&/gecko\//i.test(i)&&(T.name=T.name||"Gecko",T.gecko=S,T.version=T.version||e(/gecko\/(\d+(\.\d+)?)/i)),T.windowsphone||T.msedge||!s&&!T.silk?T.windowsphone||T.msedge||!n?b?T.mac=S:x?T.xbox=S:f?T.windows=S:h&&(T.linux=S):(T[n]=S,T.ios=S):T.android=S;var A="";T.windowsphone?A=e(/windows phone (?:os)?\s?(\d+(\.\d+)*)/i):n?A=(A=e(/os (\d+([_\s]\d+)*) like mac os x/i)).replace(/[_\s]/g,"."):s?A=e(/android[ \/-](\d+(\.\d+)*)/i):T.webos?A=e(/(?:web|hpw)os\/(\d+(\.\d+)*)/i):T.blackberry?A=e(/rim\stablet\sos\s(\d+(\.\d+)*)/i):T.bada?A=e(/bada\/(\d+(\.\d+)*)/i):T.tizen&&(A=e(/tizen[\/\s](\d+(\.\d+)*)/i)),A&&(T.osversion=A);var C=A.split(".")[0];return g||a||"ipad"==n||s&&(3==C||4<=C&&!k)||T.silk?T.tablet=S:(k||"iphone"==n||"ipod"==n||s||r||T.blackberry||T.webos||T.bada)&&(T.mobile=S),T.msedge||T.msie&&10<=T.version||T.yandexbrowser&&15<=T.version||T.vivaldi&&1<=T.version||T.chrome&&20<=T.version||T.samsungBrowser&&4<=T.version||T.firefox&&20<=T.version||T.safari&&6<=T.version||T.opera&&10<=T.version||T.ios&&T.osversion&&6<=T.osversion.split(".")[0]||T.blackberry&&10.1<=T.version||T.chromium&&20<=T.version?T.a=S:T.msie&&T.version<10||T.chrome&&T.version<20||T.firefox&&T.version<20||T.safari&&T.version<6||T.opera&&T.version<10||T.ios&&T.osversion&&T.osversion.split(".")[0]<6||T.chromium&&T.version<20?T.c=S:T.x=S,T}function n(e){return e.split(".").length}function t(e,o){var i=[],n;if(Array.prototype.map)return Array.prototype.map.call(e,o);for(n=0;n<e.length;n++)i.push(o(e[n]));return i}function a(e){for(var i=Math.max(n(e[0]),n(e[1])),o=t(e,function(e){var o=i-n(e);return t((e+=new Array(o+1).join(".0")).split("."),function(e){return new Array(20-e.length).join("0")+e}).reverse()});0<=--i;){if(o[0][i]>o[1][i])return 1;if(o[0][i]!==o[1][i])return-1;if(0===i)return 0}}function s(e,o,i){var n=d;"string"==typeof o&&(i=o,o=void 0),void 0===o&&(o=!1),i&&(n=r(i));var t=""+n.version;for(var s in e)if(e.hasOwnProperty(s)&&n[s]){if("string"!=typeof e[s])throw new Error("Browser version in the minVersion map should be a string: "+s+": "+String(e));return a([t,e[s]])<0}return o}function e(e,o,i){return!s(e,o,i)}var S=!0,d=r("undefined"!=typeof navigator&&navigator.userAgent||"");return d.test=function(e){for(var o=0;o<e.length;++o){var i=e[o];if("string"==typeof i&&i in d)return!0}return!1},d.isUnsupportedBrowser=s,d.compareVersions=a,d.check=e,d._detect=r,d});"use strict";function _(e){return document.querySelector(e)}function __(e){return document.querySelectorAll(e)}var wHome=_("#homeUno"),wLoadCoupon=_("#loading"),textoEdo=_("#textoEdo"),cuponUno=_("#cuponUno"),mensajeUno=_("#mensajeUno"),proveedorUno=_("#proveedorUno"),preventW=_("#prevent"),preventTx=preventW.children[0],checkMobile=!1;function preventHeight(){var e;checkMobile||(window.innerHeight<=350?(preventTx.innerHTML="Porfavor haz más grande tu ventana",preventW.setAttribute("class","displayFlex")):(preventTx.innerHTML=" ",preventW.setAttribute("class","displayNone")))}function preventRot(){checkMobile&&(90==window.orientation||-90==window.orientation?(preventTx.innerHTML="Porfavor voltea tu celular",preventW.setAttribute("class","displayFlex")):(preventTx.innerHTML=" ",preventW.setAttribute("class","displayNone")))}function loadingImages(){var e=_("#loading"),o=_("#homeUno"),n=!1,t=!1;function i(o,e){var i=new XMLHttpRequest;i.open("GET",o+e,!0),i.responseType="blob",i.onload=function(e){4==this.readyState&&("ui/img/back/"===o&&(n=!0),"ui/img/back/"===o&&(t=!0),n&&t&&s())},i.send()}function s(){setTimeout(function(){e.style.opacity="0",o.setAttribute("class","trans5"),setTimeout(function(){e.style.display="none",o.style.opacity="1"},700)},2e3)}i("ui/img/back/",imgBack),i("ui/img/producto/",imgBottle)}function showLoadCoupon(){textoEdo.innerHTML="Carga de cupón",wHome.style.opacity="0",setTimeout(function(){textoEdo.setAttribute("style"," "),wLoadCoupon.setAttribute("style","background:none"),wHome.style.display="none"},700)}function showCoupon(){textoEdo.style.opacity="0",wLoadCoupon.style.opacity="0",cuponUno.style.display="block",setTimeout(function(){wLoadCoupon.setAttribute("style","display:none"),cuponUno.style.opacity="1",textoEdo.innerHTML="Cupón Listo",textoEdo.style.opacity="1",proveedorUno.style.opacity="1"},700)}function hideCoupon(){cuponUno.style.opacity="0",setTimeout(function(){cuponUno.style.display="none"},700)}function showMsg(e){var o;mensajeUno.children[e].setAttribute("style"," "),mensajeUno.setAttribute("style"," "),setTimeout(function(){mensajeUno.style.opacity="1"},100)}function ctaCoupon(){showLoadCoupon(),setTimeout(function(){showCoupon()},3e3)}function ctaDownloadImg(){hideCoupon(),showMsg(0)}(bowser.mobile||bowser.tablet||/SymbianOS/.test(window.navigator.userAgent))&&(checkMobile=!0),loadingImages();
+!function(e,t,n){typeof module!="undefined"&&module.exports?module.exports=n():typeof define=="function"&&define.amd?define(t,n):e[t]=n()}(this,"bowser",function(){function t(t){function n(e){var n=t.match(e);return n&&n.length>1&&n[1]||""}function r(e){var n=t.match(e);return n&&n.length>1&&n[2]||""}var i=n(/(ipod|iphone|ipad)/i).toLowerCase(),s=/like android/i.test(t),o=!s&&/android/i.test(t),u=/nexus\s*[0-6]\s*/i.test(t),a=!u&&/nexus\s*[0-9]+/i.test(t),f=/CrOS/.test(t),l=/silk/i.test(t),c=/sailfish/i.test(t),h=/tizen/i.test(t),p=/(web|hpw)os/i.test(t),d=/windows phone/i.test(t),v=/SamsungBrowser/i.test(t),m=!d&&/windows/i.test(t),g=!i&&!l&&/macintosh/i.test(t),y=!o&&!c&&!h&&!p&&/linux/i.test(t),b=n(/edge\/(\d+(\.\d+)?)/i),w=n(/version\/(\d+(\.\d+)?)/i),E=/tablet/i.test(t),S=!E&&/[^-]mobi/i.test(t),x=/xbox/i.test(t),T;/opera/i.test(t)?T={name:"Opera",opera:e,version:w||n(/(?:opera|opr|opios)[\s\/](\d+(\.\d+)?)/i)}:/opr|opios/i.test(t)?T={name:"Opera",opera:e,version:n(/(?:opr|opios)[\s\/](\d+(\.\d+)?)/i)||w}:/SamsungBrowser/i.test(t)?T={name:"Samsung Internet for Android",samsungBrowser:e,version:w||n(/(?:SamsungBrowser)[\s\/](\d+(\.\d+)?)/i)}:/coast/i.test(t)?T={name:"Opera Coast",coast:e,version:w||n(/(?:coast)[\s\/](\d+(\.\d+)?)/i)}:/yabrowser/i.test(t)?T={name:"Yandex Browser",yandexbrowser:e,version:w||n(/(?:yabrowser)[\s\/](\d+(\.\d+)?)/i)}:/ucbrowser/i.test(t)?T={name:"UC Browser",ucbrowser:e,version:n(/(?:ucbrowser)[\s\/](\d+(?:\.\d+)+)/i)}:/mxios/i.test(t)?T={name:"Maxthon",maxthon:e,version:n(/(?:mxios)[\s\/](\d+(?:\.\d+)+)/i)}:/epiphany/i.test(t)?T={name:"Epiphany",epiphany:e,version:n(/(?:epiphany)[\s\/](\d+(?:\.\d+)+)/i)}:/puffin/i.test(t)?T={name:"Puffin",puffin:e,version:n(/(?:puffin)[\s\/](\d+(?:\.\d+)?)/i)}:/sleipnir/i.test(t)?T={name:"Sleipnir",sleipnir:e,version:n(/(?:sleipnir)[\s\/](\d+(?:\.\d+)+)/i)}:/k-meleon/i.test(t)?T={name:"K-Meleon",kMeleon:e,version:n(/(?:k-meleon)[\s\/](\d+(?:\.\d+)+)/i)}:d?(T={name:"Windows Phone",windowsphone:e},b?(T.msedge=e,T.version=b):(T.msie=e,T.version=n(/iemobile\/(\d+(\.\d+)?)/i))):/msie|trident/i.test(t)?T={name:"Internet Explorer",msie:e,version:n(/(?:msie |rv:)(\d+(\.\d+)?)/i)}:f?T={name:"Chrome",chromeos:e,chromeBook:e,chrome:e,version:n(/(?:chrome|crios|crmo)\/(\d+(\.\d+)?)/i)}:/chrome.+? edge/i.test(t)?T={name:"Microsoft Edge",msedge:e,version:b}:/vivaldi/i.test(t)?T={name:"Vivaldi",vivaldi:e,version:n(/vivaldi\/(\d+(\.\d+)?)/i)||w}:c?T={name:"Sailfish",sailfish:e,version:n(/sailfish\s?browser\/(\d+(\.\d+)?)/i)}:/seamonkey\//i.test(t)?T={name:"SeaMonkey",seamonkey:e,version:n(/seamonkey\/(\d+(\.\d+)?)/i)}:/firefox|iceweasel|fxios/i.test(t)?(T={name:"Firefox",firefox:e,version:n(/(?:firefox|iceweasel|fxios)[ \/](\d+(\.\d+)?)/i)},/\((mobile|tablet);[^\)]*rv:[\d\.]+\)/i.test(t)&&(T.firefoxos=e)):l?T={name:"Amazon Silk",silk:e,version:n(/silk\/(\d+(\.\d+)?)/i)}:/phantom/i.test(t)?T={name:"PhantomJS",phantom:e,version:n(/phantomjs\/(\d+(\.\d+)?)/i)}:/slimerjs/i.test(t)?T={name:"SlimerJS",slimer:e,version:n(/slimerjs\/(\d+(\.\d+)?)/i)}:/blackberry|\bbb\d+/i.test(t)||/rim\stablet/i.test(t)?T={name:"BlackBerry",blackberry:e,version:w||n(/blackberry[\d]+\/(\d+(\.\d+)?)/i)}:p?(T={name:"WebOS",webos:e,version:w||n(/w(?:eb)?osbrowser\/(\d+(\.\d+)?)/i)},/touchpad\//i.test(t)&&(T.touchpad=e)):/bada/i.test(t)?T={name:"Bada",bada:e,version:n(/dolfin\/(\d+(\.\d+)?)/i)}:h?T={name:"Tizen",tizen:e,version:n(/(?:tizen\s?)?browser\/(\d+(\.\d+)?)/i)||w}:/qupzilla/i.test(t)?T={name:"QupZilla",qupzilla:e,version:n(/(?:qupzilla)[\s\/](\d+(?:\.\d+)+)/i)||w}:/chromium/i.test(t)?T={name:"Chromium",chromium:e,version:n(/(?:chromium)[\s\/](\d+(?:\.\d+)?)/i)||w}:/chrome|crios|crmo/i.test(t)?T={name:"Chrome",chrome:e,version:n(/(?:chrome|crios|crmo)\/(\d+(\.\d+)?)/i)}:o?T={name:"Android",version:w}:/safari|applewebkit/i.test(t)?(T={name:"Safari",safari:e},w&&(T.version=w)):i?(T={name:i=="iphone"?"iPhone":i=="ipad"?"iPad":"iPod"},w&&(T.version=w)):/googlebot/i.test(t)?T={name:"Googlebot",googlebot:e,version:n(/googlebot\/(\d+(\.\d+))/i)||w}:T={name:n(/^(.*)\/(.*) /),version:r(/^(.*)\/(.*) /)},!T.msedge&&/(apple)?webkit/i.test(t)?(/(apple)?webkit\/537\.36/i.test(t)?(T.name=T.name||"Blink",T.blink=e):(T.name=T.name||"Webkit",T.webkit=e),!T.version&&w&&(T.version=w)):!T.opera&&/gecko\//i.test(t)&&(T.name=T.name||"Gecko",T.gecko=e,T.version=T.version||n(/gecko\/(\d+(\.\d+)?)/i)),!T.windowsphone&&!T.msedge&&(o||T.silk)?T.android=e:!T.windowsphone&&!T.msedge&&i?(T[i]=e,T.ios=e):g?T.mac=e:x?T.xbox=e:m?T.windows=e:y&&(T.linux=e);var N="";T.windowsphone?N=n(/windows phone (?:os)?\s?(\d+(\.\d+)*)/i):i?(N=n(/os (\d+([_\s]\d+)*) like mac os x/i),N=N.replace(/[_\s]/g,".")):o?N=n(/android[ \/-](\d+(\.\d+)*)/i):T.webos?N=n(/(?:web|hpw)os\/(\d+(\.\d+)*)/i):T.blackberry?N=n(/rim\stablet\sos\s(\d+(\.\d+)*)/i):T.bada?N=n(/bada\/(\d+(\.\d+)*)/i):T.tizen&&(N=n(/tizen[\/\s](\d+(\.\d+)*)/i)),N&&(T.osversion=N);var C=N.split(".")[0];if(E||a||i=="ipad"||o&&(C==3||C>=4&&!S)||T.silk)T.tablet=e;else if(S||i=="iphone"||i=="ipod"||o||u||T.blackberry||T.webos||T.bada)T.mobile=e;return T.msedge||T.msie&&T.version>=10||T.yandexbrowser&&T.version>=15||T.vivaldi&&T.version>=1||T.chrome&&T.version>=20||T.samsungBrowser&&T.version>=4||T.firefox&&T.version>=20||T.safari&&T.version>=6||T.opera&&T.version>=10||T.ios&&T.osversion&&T.osversion.split(".")[0]>=6||T.blackberry&&T.version>=10.1||T.chromium&&T.version>=20?T.a=e:T.msie&&T.version<10||T.chrome&&T.version<20||T.firefox&&T.version<20||T.safari&&T.version<6||T.opera&&T.version<10||T.ios&&T.osversion&&T.osversion.split(".")[0]<6||T.chromium&&T.version<20?T.c=e:T.x=e,T}function r(e){return e.split(".").length}function i(e,t){var n=[],r;if(Array.prototype.map)return Array.prototype.map.call(e,t);for(r=0;r<e.length;r++)n.push(t(e[r]));return n}function s(e){var t=Math.max(r(e[0]),r(e[1])),n=i(e,function(e){var n=t-r(e);return e+=(new Array(n+1)).join(".0"),i(e.split("."),function(e){return(new Array(20-e.length)).join("0")+e}).reverse()});while(--t>=0){if(n[0][t]>n[1][t])return 1;if(n[0][t]!==n[1][t])return-1;if(t===0)return 0}}function o(e,r,i){var o=n;typeof r=="string"&&(i=r,r=void 0),r===void 0&&(r=!1),i&&(o=t(i));var u=""+o.version;for(var a in e)if(e.hasOwnProperty(a)&&o[a]){if(typeof e[a]!="string")throw new Error("Browser version in the minVersion map should be a string: "+a+": "+String(e));return s([u,e[a]])<0}return r}function u(e,t,n){return!o(e,t,n)}var e=!0,n=t(typeof navigator!="undefined"?navigator.userAgent||"":"");return n.test=function(e){for(var t=0;t<e.length;++t){var r=e[t];if(typeof r=="string"&&r in n)return!0}return!1},n.isUnsupportedBrowser=o,n.compareVersions=s,n.check=u,n._detect=t,n})
+"use strict";
+function _(el){return document.querySelector(el); }
+function __(el){return document.querySelectorAll(el); }
+var wLoad = _("#loading"),
+    wHome = _("#homeUno"),
+    wLoadCoupon = _("#loading"),
+    textoEdo = _("#textoEdo"),
+    cuponUno = _("#cuponUno"),
+    mensajeUno = _("#mensajeUno"),
+    proveedorUno = _("#proveedorUno"),
+    preventW = _("#prevent"),
+    preventTx = preventW.children[0];
+
+var checkMobile = false;
+if(bowser.mobile || bowser.tablet || /SymbianOS/.test(window.navigator.userAgent)) checkMobile = true;
+
+function preventHeight(){
+  if(!checkMobile){
+  	var h = window.innerHeight;
+  	if(h <= 350){
+      preventTx.innerHTML = "Porfavor haz más grande tu ventana";
+  		preventW.setAttribute("class", "displayFlex");
+  	} else {
+      preventTx.innerHTML = " ";
+  		preventW.setAttribute("class", "displayNone");
+  	}
+  }
+}
+
+function preventRot(){
+  if(checkMobile){
+    if(window.orientation == 90 || window.orientation == -90){
+      preventTx.innerHTML = "Porfavor voltea tu celular";
+      preventW.setAttribute("class", "displayFlex");
+    } else {
+      preventTx.innerHTML = " ";
+      preventW.setAttribute("class", "displayNone");
+    }
+  }
+}
+
+function loadingImages(){
+  var back = false, bottle = false;
+  loadEl("ui/img/back/", imgBack);
+  loadEl("ui/img/producto/", imgBottle);
+  function loadEl(url, name){
+    var el = new XMLHttpRequest();
+    el.open("GET", url+name, true);
+    el.responseType = "blob";
+    el.onload = function(e){
+      if(this.readyState == 4){
+        if(url === "ui/img/back/")back = true;
+        if(url === "ui/img/back/")bottle = true;
+        if(back && bottle){
+          imgReady();
+        }
+      }
+    }
+    el.send();
+  }
+  function imgReady(){
+    setTimeout(function(){
+      wLoad.style.opacity = "0";
+      wHome.setAttribute("class", "trans5");
+      setTimeout(function(){
+        wLoad.style.display = "none";
+        wHome.style.opacity = "1";
+      },700);
+    },2000);
+  }
+}
+
+function showLoadCoupon(){
+  textoEdo.innerHTML = "Carga de cupón";
+  wHome.style.opacity = "0";
+  setTimeout(function(){
+    textoEdo.setAttribute("style", " ");
+    wLoadCoupon.setAttribute("style", "background:none");
+    wHome.style.display = "none";
+  },700);
+}
+
+function showCoupon(){
+  textoEdo.style.opacity = "0";
+  wLoadCoupon.style.opacity = "0";
+  cuponUno.style.display = "block";
+  setTimeout(function(){
+    wLoadCoupon.setAttribute("style", "display:none");
+    cuponUno.style.opacity = "1";
+    textoEdo.innerHTML = "Cupón Listo";
+    textoEdo.style.opacity = "1";
+    proveedorUno.style.opacity = "1";
+  },700);
+}
+
+function hideCoupon(){
+  cuponUno.style.opacity = "0";
+  setTimeout(function(){
+    cuponUno.style.display = "none";
+  },700)
+}
+
+function showMsg(n){
+  var msg = mensajeUno.children[n];
+  msg.setAttribute("style", " ");
+  mensajeUno.setAttribute("style", " ");
+  setTimeout(function(){
+    mensajeUno.style.opacity = "1";
+  },100);
+}
+
+function hideMsg(n){
+  var msg = mensajeUno.children[n];
+  msg.style.display = "none";
+  mensajeUno.style.opacity = "0";
+}
+
+function ctaCoupon(){
+  showLoadCoupon();
+  setTimeout(function(){
+    showCoupon();
+  },3000);
+}
+
+function ctaDownloadImg(){
+  hideCoupon();
+  //Si 0 = Mensaje de éxito
+  //Si 1 = Mensaje de error
+  showMsg(0);
+}
+
+function screensOnConf(n){
+  switch (n) {
+    case 0:
+      clearAllScreens();
+      wLoad.setAttribute("style", " ");
+    break;
+    case 1:
+      clearAllScreens();
+      wHome.setAttribute("class", "trans5");
+      wHome.style.opacity = "1";
+    break;
+    case 2:
+      clearAllScreens();
+      cuponUno.style.display = "block";
+      cuponUno.style.opacity = "1";
+      textoEdo.innerHTML = "Cupón Listo";
+      textoEdo.style.opacity = "1";
+      proveedorUno.style.opacity = "1";
+    break;
+    case 3:
+    clearAllScreens();
+    showMsg(0);
+    textoEdo.innerHTML = "Cupón Listo";
+    textoEdo.style.opacity = "1";
+    proveedorUno.style.opacity = "1";
+    break;
+    case 4:
+    clearAllScreens();
+    showMsg(1);
+    textoEdo.innerHTML = "Cupón Listo";
+    textoEdo.style.opacity = "1";
+    proveedorUno.style.opacity = "1";
+    break;
+  }
+  function clearAllScreens(){
+    wLoad.style.opacity = "0";
+    wLoad.style.display = "none";
+    wHome.setAttribute("class", "trans5 displayNone");
+    wHome.style.opacity = "0";
+    cuponUno.style.display = "none";
+    cuponUno.style.opacity = "0";
+    hideMsg(0);
+    hideMsg(1);
+    textoEdo.innerHTML = " ";
+    textoEdo.style.opacity = "0";
+    proveedorUno.style.opacity = "0";
+  }
+}

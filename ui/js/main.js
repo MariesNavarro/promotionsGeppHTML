@@ -2687,28 +2687,42 @@ function getNumCSV(){
 
 }
 
-
+var compactMenu = false;
 function checkSteps(n, t){
   switch (n) {
     case 1:
       checkConfig_1(n,t);
     break;
     case 2:
-    console.log("Selección De Funcionalidad");
       ischeckedsome(n,t);
     break;
     case 3:
-      console.log("Configuración Funcionalidad");
-      checkcuponstoload(n,t);
-    break;
-    case 4:
-      console.log("Selección de Plantilla");
-      ischeckedsometheme(n,t);
-    break;
-    case 5:
-      console.log("Edición de Plantilla");
+      compactMenu = false;
+      compactConfigMenu(1);
       responseStep(n , t, 1);
     break;
+    case 4:
+      compactMenu = true;
+      if(w>=880)compactConfigMenu(0);
+      responseStep(n , t, 1);
+    break;
+    case 5:
+      responseStep(n , t, 1);
+    break;
+  }
+}
+
+function compactConfigMenu(n){
+  var bArrow = _("#toggleMenuArrow"),
+      bArrowImg = bArrow.children[0],
+      menuConfig = _("#menuConfig");
+  if(n === 0){
+    bArrow.style.display = "none";
+    hideMenuConfig('hide', bArrow);
+    menuConfig.setAttribute("style", " ");
+  } else if (n === 1) {
+      bArrow.style.display = "block";
+      hideMenuConfig('show', bArrow);
   }
 }
 
@@ -2805,6 +2819,47 @@ function openLinks(c,t){
     ul.style.height = "0";
     ul.style.display = "none";
   }
+}
+function rContEditor(wr){
+  var wr = _(wr),
+      w = window.innerWidth - 350,
+      r = 1080/1920,
+      h = w * r;
+      wr.style.height = h+"px";
+}
+
+var countSliderMobScreens = 0;
+function sliderMobScreens(n){
+  var pageTx = ["Carga", "Inicio", "Cupón", "Mensaje Éxito", "Mensaje Error"],
+      p = _("#pagScreen"),
+      i = _("#indexPagScreen");
+  if(n === "next"){
+      countSliderMobScreens++;
+      if(countSliderMobScreens > 4) countSliderMobScreens = 0;
+      p.innerHTML = pageTx[countSliderMobScreens];
+      i.innerHTML = countSliderMobScreens + 1;
+      changeScreen(countSliderMobScreens);
+  } else {
+      countSliderMobScreens--;
+      if(countSliderMobScreens < 0) countSliderMobScreens = 4;
+      p.innerHTML = pageTx[countSliderMobScreens];
+      i.innerHTML = countSliderMobScreens + 1;
+      changeScreen(countSliderMobScreens);
+  }
+}
+
+function selectClassScreens(n){
+  var idxs = __(".indexScreenDesk");
+  for (var i = 0; i < idxs.length; i++) {
+    idxs[i].setAttribute("class", "indexScreenDesk screenDeskUnselect");
+  }
+  idxs[n].setAttribute("class", "indexScreenDesk screenDeskSelect");
+}
+
+function changeScreen(n){
+  var frame = _("#iframePlantilla");
+  frame.contentWindow.screensOnConf(n);
+  selectClassScreens(n);
 }
 function uncheckedfunctionall(t){
       var c = __('.checkBoxFunction');

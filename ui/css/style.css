@@ -31,6 +31,7 @@ blockquote:before, blockquote:after {
 q:before, q:after {
   content: '';
   content: none;
+
 }
 
 table {
@@ -387,6 +388,10 @@ body#plantillaUno {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 #mensajeUno > .wrapSuperiorMensajeError {
@@ -398,35 +403,40 @@ body#plantillaUno {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
 }
 
 #mensajeUno > .wrapSuperiorMensajeExito > li, #mensajeUno > .wrapSuperiorMensajeError > li {
   text-align: center;
   margin: 5px auto;
-  width: 90%;
-}
-
-#mensajeUno > .wrapSuperiorMensajeError > li:first-child {
-  width: 90%;
+  width: 80%;
 }
 
 #mensajeUno > .wrapSuperiorMensajeExito > li:first-child {
   width: 30%;
-  min-width: 80px;
-  max-width: 150px;
+  min-width: 100px;
+  max-width: 130px;
+  margin: 10px auto;
 }
-
+#mensajeUno > .wrapSuperiorMensajeExito > li:first-child>img{
+  width: 100%;
+}
+#mensajeUno > .wrapSuperiorMensajeError > li:first-child {
+  width: 90%;
+  max-width: 550px;
+}
+#mensajeUno > .wrapSuperiorMensajeError > li:first-child>img{
+  width: 100%;
+}
 #mensajeUno > .wrapSuperiorMensajeExito > li:nth-child(2) > img {
   width: 100%;
-  min-width: 80px;
+  min-width: 300px;
+  max-width: 450px;
 }
 
 #mensajeUno > .wrapSuperiorMensajeExito > li:nth-child(3) > img {
-  width: 80%;
+  width: 70%;
+  min-width: 200px;
+  max-width: 250px;
 }
 
 #plantillaUno > section > .wrapInferiorSocial {

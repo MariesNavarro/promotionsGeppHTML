@@ -160,7 +160,7 @@ http://dragonflycity.com/
               </a>
             </li>
             <li>
-              <a role="button" onclick="hideMenuConfig('hide', this)">
+              <a id="toggleMenuArrow" role="button" onclick="hideMenuConfig('hide', this)">
               <img class="trans5" src="ui/img/ic/menu-arrow.svg" width="30">
               </a>
             </li>
@@ -296,17 +296,23 @@ http://dragonflycity.com/
               <?php echo $plantillas ?>
             </form>
           </li>
-          <li class="_5">
+          <li id="editorPlantilla">
             <!-- Configurador Edición de Plantilla -->
-            <div class="errorWConfig trans5">
-              <p>Tienes que seleccionar una opción.</p>
+            <div id="wrapEditorPlantilla">
+              <div id="contEditorPlantilla">
+                <iframe id="iframePlantilla" src="plantilla-uno.html"></iframe>
+              </div>
+              <!-- index Edicion Plantilla -->
+              <div id="editorPlantillaInterfaz">
+                <ul>
+                  <li>
+                    <a role="button"></a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <header>
-              <h2>Configurador de Promoción</h2>
-              <h3>Edición de Plantilla</h3>
-            </header>
             <form action="" method="" autocomplete="off">
-              <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(3)">Anterior</button>
+              <button class="buttonConfig leftButton" type="button" name="button" onclick="checkSteps(3, this)">Anterior</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
             </form>
           </li>
@@ -317,7 +323,18 @@ http://dragonflycity.com/
     <script src="ui/js/main.js" charset="utf-8" async></script>
     <script type="text/javascript">
       window.onload = function(){
-        //putUserName();
+        rContEditor("#contEditorPlantilla");
+      }
+      window.onresize = function(){
+        rContEditor("#contEditorPlantilla");
+        var w = window.innerWidth;
+        if(compactMenu){
+          if(w < 880){
+            compactConfigMenu(1);
+          } else if(w >= 880){
+            compactConfigMenu(0);
+          }
+        }
       }
     </script>
   </body>
