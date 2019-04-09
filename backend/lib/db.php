@@ -265,4 +265,23 @@ function update_codigos($codigo,$client,$idClient,$link)
     exit();
   }
 }
+
+function getpromocion($idprom)
+{
+  $count=0;
+  $link=connect();
+  $resultado = null;
+  $consulta = "SELECT a.producto, a.nombre, a.descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad,
+                      b.nombre marca_nombre, b.logo marca_logo, b.codigo marca_codigo, b.descripcion marca_descripcion
+                FROM gtrd_promociones a
+           LEFT JOIN gtrd_marca b ON a.id_marca = b.id
+               WHERE a.id=".$idprom;
+  if ($registros = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_array($registros)) {
+        $resultado = $fila;
+     }
+  }
+  Close($link);
+  return $resultado;
+}
 ?>

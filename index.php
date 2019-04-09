@@ -4,8 +4,37 @@ Version: 1
 Author: OETCapital
 4 de Abril
 -->
+
+<?php
+require_once('backend/lib/db.php');
+$debug = true;
+$error = 0;
+$error_msg = "";
+
+if (isset($_GET['id'])) {
+    $idprom = $_GET['id']; // id de la promoción encryptado
+    //$id = (encrypt_decrypt('d',$id));
+    $promo = getpromocion($idprom);
+    $promo_nombre       = $promo['nombre'];
+    $marca              = $promo['marca_codigo'];
+    $marca_descripcion  = $promo['marca_descripcion'];
+    $marca_logo         = $promo['marca_logo'];
+    if ($debug) {
+      echo 'id: '.$idprom.' promo: '.$promo_nombre.' marca: '.$marca.' '.$marca_descripcion.' '.$marca_logo;
+      //foreach($promo as $value) { echo $value; }
+    }
+    if (count($promo)== 0) { $error = 1; $error_msg = "Promo no encontrada ".$idprom;}
+} else {
+    $error = 2;  $error_msg ="Falta especificar un id de promo";
+    //echo 'Favor especificar un id';
+}
+if ($debug) { echo 'Error: '.$error.' '.$error_msg;}
+?>
+
+<?php if ($error==0) { ?>
+
 <!DOCTYPE html>
-<html id="plantillaUnoHTML" lang="en" dir="ltr" data-marca="pepsi">
+<html id="plantillaUnoHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,39 +43,39 @@ Author: OETCapital
     <meta http-equiv="pragma" content="no-cache">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0000, minimum-scale=1.0000, maximum-scale=1.0000, user-scalable=yes">
-    <title> Pepsi Black </title>
+    <title> <?php echo $promo_nombre; ?> </title>
     <script src="ui/js/globales.js" charset="utf-8"></script>
-    <link id="prefetchLogo" rel="prefetch" href="ui/img/logotipo/pepsi.svg">
+    <link id="prefetchLogo" rel="prefetch" href="ui/img/logotipo/<?php echo $marca_logo; ?>">
     <style>
       #plantillaUno>#loading {position: fixed;top: 0;left:0;width:100vw;height:100vh;-webkit-justify-content: center;-moz-justify-content: center;-ms-justify-content: center;-o-justify-content: center;justify-content: center;z-index: 5000;opacity: 1;}#plantillaUno>#loading>div {margin-top: 10vh;text-align: center}#plantillaUno>#loading>div>img {opacity: 0;-webkit-animation: fadeIn .7s ease-in .7s forwards;-moz-animation: fadeIn .7s ease-in .7s forwards;-ms-animation: fadeIn .7s ease-in .7s forwards;-o-animation: fadeIn .7s ease-in .7s forwards;animation: fadeIn .7s ease-in .7s forwards}#plantillaUno>#loading>div>div {margin: 0 auto;width: 60px;height: 30px;-webkit-justify-content: space-between;-moz-justify-content: space-between;-ms-justify-content: space-between;-o-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;-moz-align-items: flex-end;-ms-align-items: flex-end;-o-align-items: flex-end;align-items: flex-end;opacity: 0;-webkit-animation: fadeIn .7s ease-in 1.2s forwards;-moz-animation: fadeIn .7s ease-in 1.2s forwards;-ms-animation: fadeIn .7s ease-in 1.2s forwards;-o-animation: fadeIn .7s ease-in 1.2s forwards;animation: fadeIn .7s ease-in 1.2s forwards}#plantillaUno>#loading>div>div>span {display: block;width: 15px;height: 15px;background: #fff;border-radius: 50%;margin: 10px 2px 8px;-webkit-animation: scaleDot 1.5s infinite;-moz-animation: scaleDot 1.5s infinite;-ms-animation: scaleDot 1.5s infinite;-o-animation: scaleDot 1.5s infinite;animation: scaleDot 1.5s infinite}#plantillaUno>#loading>div>div>span: nth-child(2) {-webkit-animation-delay: 1s;-moz-animation-delay: 1s;-ms-animation-delay: 1s;-o-animation-delay: 1s;animation-delay: 1s}#plantillaUno>#loading>div>div>span: nth-child(3) {-webkit-animation-delay: 1.5s;-moz-animation-delay: 1.5s;-ms-animation-delay: 1.5s;-o-animation-delay: 1.5s;animation-delay: 1.5s}#plantillaUno>#loading>div>div>span: nth-child(4) {-webkit-animation-delay: 2s;-moz-animation-delay: 2s;-ms-animation-delay: 2s;-o-animation-delay: 2s;animation-delay: 2s}@media (min-width: 880px) {#plantillaUno>#loading>div {margin-top: 20vh}}@-webkit-keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@-webkit-keyframes scaleDot {0%,100% { opacity: 1; -webkit-transform: scale(1) }50% { opacity: 0; -webkit-transform: scale(0) }}@keyframes scaleDot {0%,100% { opacity: 1; transform: scale(1) }50% { opacity: 0; transform: scale(0) }}
     </style>
-    <meta name="description" content="El lugar perfecto para encontrar las mejores promociones de toda la línea de Pepsi®">
+    <meta name="description" content="<?php echo $marca_descripcion; ?>">
     <meta name="author" content="GEPP">
-    <meta property="og:title" content="">
+    <meta property="og:title" content="<?php echo $promo_nombre; ?>">
     <meta property="og:site_name" content="">
     <meta property="og:type" content="website">
-    <meta property="og:description" content="El lugar perfecto para encontrar las mejores promociones de toda la línea de Pepsi®">
-    <meta property="og:image" content="ui/img/og/fb-pepsi.jpg">
+    <meta property="og:description" content="<?php echo $marca_descripcion; ?>">
+    <meta property="og:image" content="ui/img/og/fb-<?php echo $marca; ?>.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="650">
     <meta name="twitter:card" content=“summary_large_image”>
-    <meta name="twitter:title" content="">
-    <meta name="twitter:description" content="El lugar perfecto para encontrar las mejores promociones de toda la línea de Pepsi®">
-    <meta name="twitter:image" content="ui/img/og/tw-pepsi.jpg">
+    <meta name="twitter:title" content="<?php echo $promo_descrip; ?>">
+    <meta name="twitter:description" content="<?php echo $marca_descripcion; ?>">
+    <meta name="twitter:image" content="ui/img/og/tw-<?php echo $marca; ?>.jpg">
     <meta name="twitter:image:width" content="750">
     <meta name="twitter:image:height" content="392">
-    <link rel="apple-touch-icon" sizes="180x180" href="ui/img/fav/pepsi/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="ui/img/fav/pepsi/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="ui/img/fav/pepsi/favicon-16x16.png">
-    <link rel="manifest" href="ui/img/fav/pepsi/site.webmanifest">
-    <link rel="mask-icon" href="ui/img/fav/pepsi/safari-pinned-tab.svg" color="#000000">
-    <link rel="shortcut icon" href="ui/img/fav/pepsi/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="ui/img/fav/<?php echo $marca; ?>/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="ui/img/fav/<?php echo $marca; ?>/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="ui/img/fav/<?php echo $marca; ?>/favicon-16x16.png">
+    <link rel="manifest" href="ui/img/fav/<?php echo $marca; ?>/site.webmanifest">
+    <link rel="mask-icon" href="ui/img/fav/<?php echo $marca; ?>/safari-pinned-tab.svg" color="#000000">
+    <link rel="shortcut icon" href="ui/img/fav/<?php echo $marca; ?>/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="ui/css/style.css">
   </head>
   <body id="plantillaUno" class="fontArial blancoTx" style="background-image:url('ui/img/back/pepsi.jpg')">
     <nav class="displayFlex">
       <a href="#">
-        <img id="navLogo" src="ui/img/logotipo/pepsi.svg" height="45">
+        <img id="navLogo" src="ui/img/logotipo/<?php echo $marca_logo; ?>" height="45">
       </a>
       <a id="proveedorUno" class="trans5" style="opacity:0">
         <img src="ui/img/proveedor/oxxo.png" height="45">
@@ -57,7 +86,7 @@ Author: OETCapital
     </div>
     <section id="loading" class="displayFlex trans5 negroBack">
       <div>
-        <img id="loadLogo" src="ui/img/logotipo/pepsi.svg" width="150" height="150">
+        <img id="loadLogo" src="ui/img/logotipo/<?php echo $marca_logo; ?>" width="150" height="150">
         <div class="displayFlex">
           <span></span>
           <span></span>
@@ -95,7 +124,7 @@ Author: OETCapital
     </section>
     <section id="mensajeUno" class="trans5" style="display:none">
       <ul class="wrapSuperiorMensajeExito" class="displayFlex" style="display:none">
-        <li ><img id="msgLogo" src="ui/img/logotipo/pepsi.svg"></li>
+        <li ><img id="msgLogo" src="ui/img/logotipo/<?php echo $marca_logo; ?>"></li>
         <li><img id="msgExitoImg" src="ui/img/mensajeExito/default.png"></li>
         <li><img id="msgHashtagImg" src="ui/img/hashtag/default.png"></li>
       </ul>
@@ -132,3 +161,5 @@ Author: OETCapital
     </script>
   </body>
 </html>
+
+<?php } else { echo $error_msg;} ?>
