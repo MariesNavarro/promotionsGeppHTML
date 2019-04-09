@@ -60,6 +60,10 @@ http://dragonflycity.com/
     <link rel="stylesheet" href="ui/css/master.css">
   </head>
   <body>
+    <div id="loadingConf" style="display:none">
+      <img src="ui/img/dragonfly.gif" width="80">
+      <p>Cargando...</p>
+    </div>
     <div id="extMenu" class="trans5 displayFlex">
       <a class="closeMenu" role="button" onclick="menuConfig('close')">
         <div class="closeConfig">

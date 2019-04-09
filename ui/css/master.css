@@ -31,6 +31,36 @@ nav, section {display: block; } ol, ul {list-style: none; }
 * a {cursor: pointer; text-decoration: none; color: #fff;}
 * i {font-style: italic; }
 * p { font-size: 1rem;}
+#loadingConf{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-width: 250px;
+  height: 100vh;
+  z-index: 999;
+  background-image: url('../img/curves.png');
+  background-repeat: no-repeat;
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-color: #194d91;
+  background-color: -moz-linear-gradient(left, #194d91 1%, #11396c 100%);
+  background-color: -webkit-linear-gradient(left, #194d91 1%,#11396c 100%);
+  background-color: linear-gradient(to right, #194d91 1%,#11396c 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#194d91', endColorstr='#11396c',GradientType=1 );
+}
+#loadingConf>img{
+  position: absolute;
+  top: calc(50% - 80px);
+  left: calc(50% - 40px);
+}
+#loadingConf>p{
+  position: absolute;
+  width: 100px;
+  left: calc(50% - 50px);
+  top: calc(50% - 10px);
+  text-align: center;
+}
 .displayFlex {
     display: -webkit-box;
     display: -ms-flexbox;
