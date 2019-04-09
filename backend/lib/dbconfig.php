@@ -27,8 +27,7 @@ function login($usr,$pwd)
   return $valid;
 }
 
-function getpromociones($estatus)
-{
+function getpromociones($estatus){
   $html='';
   $link=connect();
   $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,fecha_inicio,fecha_fin,gtrd_promociones.id FROM gtrd_promociones inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca where estatus='$estatus'";
@@ -241,8 +240,7 @@ function dashboard($promo)
 }
 
 //encrypt_decrypt('d','aTlCQkkyK1p2dHU5Z2pYY0NEcnN0UT09')
-function getestatuspromo($link,$promo)
-{
+function getestatuspromo($link,$promo){
   $estatus=1;
   $query = "SELECT gtrd_promociones.estatus FROM gtrd_promociones where id=$promo";
   $result = mysqli_query($link, $query);
@@ -252,19 +250,11 @@ function getestatuspromo($link,$promo)
   mysqli_free_result($result);
   return $estatus;
 }
-function dasboard_report($promo)
-{
+function dasboard_report($promo){
   $reg=0;
   $salida='';
   $link=connect();
-  $consulta ="SELECT  gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado
-FROM gtrd_cupones
-INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado
-WHERE id_promo=".$promo." AND estatus=1 AND gtrd_cupones.estado NOT IN ('ALL')
-union
-SELECT  gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, 'MX' pais,'CDMX' estado
-FROM gtrd_cupones
-WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." AND estatus=1";
+  $consulta ="select gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado FROM gtrd_cupones  INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado WHERE id_promo=".$promo." and estatus=1 and gtrd_cupones.estado NOT IN ('ALL') union select gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, 'MX' pais,'CDMX' estado from gtrd_cupones WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." and estatus=1";
   if ($resultado = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_row($resultado)) {
          $reg++;
@@ -300,8 +290,7 @@ WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." AND estatus=
   return $salida;
 
 }
-function marcas()
-{
+function marcas(){
   $reg=0;
   $salida='<option class="brandPromo" value="">Selecciona una marca</option>';
   $link=connect();
@@ -327,8 +316,7 @@ function marcas()
   return $salida;
 
 }
-function proveedores()
-{
+function proveedores(){
   $reg=0;
   $salida='  <option class="providerDefault" value="">Selecciona un Proveedor</option>';
   $link=connect();
@@ -351,8 +339,7 @@ function proveedores()
   return $salida;
 
 }
-function funcionalidades()
-{
+function funcionalidades(){
   $reg=0;
   $salida='';
   $link=connect();
@@ -496,8 +483,161 @@ function funcionalidades()
   return $salida;
 
 }
-function createfile($data,$name)
-{
+function plantillas($funcionalidad){
+  $reg=0;
+  $salida='';
+
+  /*
+  <div class="rowConfig displayFlex">
+    <!-- Plantilla 1 -->
+    <div class="containerRectW displayFlex">
+      <p>Plantilla Entrega de Cupón 1</p>
+      <div class="containerRect">
+        <div class="picRect" style="background-image:url('ui/img/covers/plantilla-1.jpg')"></div>
+        <div class="overRect displayFlex">
+          <a href="#" target="_blank"><span>Ver Plantilla</span></a>
+        </div>
+      </div>
+      <div class="selectionContainer">
+        <label>Seleccionar</label>
+        <input class="checkBoxTheme" id="" name="" type="checkbox">
+      </div>
+    </div>
+    <!-- Plantilla 2 -->
+    <div class="containerRectW rectGrey displayFlex">
+      <p class="opacityZero">Plantilla 2 Producto</p>
+      <div class="containerRect"></div>
+      <div class="selectionContainer opacityZero">
+        <label>Seleccionar</label>
+        <!-- <input id="" name="" type="checkbox"> -->
+      </div>
+    </div>
+  </div>
+  <div class="rowConfig hideOnMobile">
+    <!-- Plantilla 3 -->
+    <div class="containerRectW rectGrey displayFlex">
+      <p class="opacityZero">Plantilla 1 Producto</p>
+      <div class="containerRect"></div>
+      <div class="selectionContainer opacityZero">
+        <label>Seleccionar</label>
+        <!-- <input id="" name="" type="checkbox"> -->
+      </div>
+    </div>
+    <!-- Plantilla 4 -->
+    <div class="containerRectW rectGrey displayFlex">
+      <p class="opacityZero">Plantilla 2 Producto</p>
+      <div class="containerRect"></div>
+      <div class="selectionContainer opacityZero">
+        <label>Seleccionar</label>
+        <!-- <input id="" name="" type="checkbox"> -->
+      </div>
+    </div>
+  </div>
+  <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(2)">Anterior</button>
+  <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(4, this)">Siguiente</button>
+
+
+
+  */
+
+  $link=connect();
+  if($funcionalidad == NULL) {
+  $consulta ="SELECT * FROM gtrd_plantilla";
+  }
+  else {
+    $consulta="SELECT * FROM gtrd_plantilla where id_funcionalidad=".$funcionalidad;
+  }
+  if ($resultado = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_row($resultado)) {
+          $reg++;
+         if ($reg%2==0)
+         {
+           $salida=$salida.'<div class="containerRectW displayFlex">
+             <p>'.$fila[2].'</p>
+             <div class="containerRect">
+               <div class="picRect" style="background-image:url(\''.$fila[6].'\')"></div>
+               <div class="overRect">
+                 <p>'.$fila[3].'</p>
+                 <a href="#" target="_blank"><span>Ver Más</span></a>
+               </div>
+             </div>
+             <div class="selectionContainer">
+               <label>Seleccionar</label>
+               <input onclick="uncheckedthemeall(this)" class="checkBoxTheme" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
+             </div>
+           </div>
+           </div>';
+         }
+         else {
+           $salida=$salida.'<div class="rowConfig displayFlex">
+             <div class="containerRectW displayFlex">
+               <p>'.$fila[2].'</p>
+               <div class="containerRect">
+                 <div class="picRect" style="background-image:url(\''.$fila[6].'\')"></div>
+                 <div class="overRect">
+                   <p>'.$fila[3].'</p>
+                   <a href="#" target="_blank"><span>Ver Más</span></a>
+                 </div>
+               </div>
+               <div class="selectionContainer">
+                 <label>Seleccionar</label>
+                 <input onclick="uncheckedthemeall(this)" class="checkBoxTheme" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
+               </div>
+             </div>';
+         }
+      }
+
+      if($reg%2!=0)
+      {
+          $salida=$salida.'<div class="containerRectW rectGrey displayFlex">
+            <p class="opacityZero">Funcionalidad 2</p>
+            <div class="containerRect">
+              <div class="picRect"></div>
+              <div class="overRect"></div>
+            </div>
+            <div class="selectionContainer opacityZero">
+              <label>Seleccionar</label>
+              <!-- <input id="" name="" type="checkbox"> -->
+            </div>
+          </div>
+        </div>';
+      }
+      if($reg<3)
+      {
+          $salida=$salida.'<div class="rowConfig hideOnMobile">
+            <!-- Funcionalidad 3 -->
+            <div class="containerRectW rectGrey displayFlex">
+              <p class="opacityZero">Funcionalidad 3</p>
+              <div class="containerRect"></div>
+              <div class="selectionContainer opacityZero">
+                <label>Seleccionar</label>
+                <!-- <input id="" name="" type="checkbox"> -->
+              </div>
+            </div>
+            <div class="containerRectW rectGrey displayFlex">
+              <!-- Funcionalidad 4 -->
+              <p class="opacityZero">Funcionalidad 4</p>
+              <div class="containerRect"></div>
+              <div class="selectionContainer opacityZero">
+                <label>Seleccionar</label>
+                <!-- <input id="" name="" type="checkbox"> -->
+              </div>
+            </div>
+          </div>';
+      }
+
+      $salida=$salida.'<button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(2)">Anterior</button>
+        <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(4, this)">Siguiente</button>';
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+
+   }
+
+  Close($link);
+  return $salida;
+
+}
+function createfile($data,$name){
   $res='No inicio';
   if(!empty($data)){
     $data1 = substr($data1,strpos($data1, ",") + 1);
@@ -578,6 +718,22 @@ function actualizafuncionalidad($id,$prom){
   Close($link);
   return $consulta;
 }
+function actualizaplantillabd($id,$prom){
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET id_plantilla=".encrypt_decrypt('d',$id)." WHERE id=".$prom;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $consulta;
+}
 function existecupon($id,$prom)
 {
   $reg=0;
@@ -597,6 +753,42 @@ function existecupon($id,$prom)
       mysqli_free_result($resultado);
 
    }
+
+  Close($link);
+  return $salida;
+
+}
+function loadcupons($id,$prom)
+{
+  $ban=0;
+  $salida='';
+  $existen='';
+  $nuevos='';
+  $noinserted='';
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $cupones = explode(",", $id);
+  foreach( $cupones as $value ){
+        $inserted ="insert into gtrd_cupones(id_promo,codigo,estatus) values (".$prom.",".$value.",0)";
+        if (mysqli_query($link,$inserted)) {
+             $ins=str_replace('\'', '', $value);
+             $nuevos=$nuevos.$ins.',';
+         }
+         else {
+           $noins=str_replace('\'', '', $value);
+           $noinserted=$noinserted.$noins.',';
+         }
+          mysqli_commit($link);
+
+
+   }
+
+   $salida=$nuevos.';'.$existen.';'.$noinserted;
+  /* gtrd_proveedor
+  <option class="providerDefault" value="">Selecciona un Proveedor</option>
+  <option class="providerDefault" value="">OXXO</option>
+  <option class="providerDefault" value="">Seven Eleven</option>
+  */
 
   Close($link);
   return $salida;

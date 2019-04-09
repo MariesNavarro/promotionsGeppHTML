@@ -2286,7 +2286,10 @@ var MetodoEnum = {
   Insertageneral:5,
   ActualizaLegales:6,
   ActualizaFuncionalidad:7,
-  ExisteCupon:8
+  ExisteCupon:8,
+  CargarCupones:9,
+  ActualizaPlantillashtml:10,
+  ActualizaPlantilla:11
  };
  var codigo='';
  var idnvaprom=0;
@@ -2817,8 +2820,60 @@ function openLinks(c,t){
     ul.style.display = "none";
   }
 }
+function rContEditor(wr){
+  var wr = _(wr),
+      w = window.innerWidth - 350,
+      r = 1080/1920,
+      h = w * r;
+      wr.style.height = h+"px";
+}
+
+var countSliderMobScreens = 0;
+function sliderMobScreens(n){
+  var pageTx = ["Carga", "Inicio", "Cupón", "Mensaje Éxito", "Mensaje Error"],
+      p = _("#pagScreen"),
+      i = _("#indexPagScreen");
+  if(n === "next"){
+      countSliderMobScreens++;
+      if(countSliderMobScreens > 4) countSliderMobScreens = 0;
+      p.innerHTML = pageTx[countSliderMobScreens];
+      i.innerHTML = countSliderMobScreens + 1;
+      changeScreen(countSliderMobScreens);
+  } else {
+      countSliderMobScreens--;
+      if(countSliderMobScreens < 0) countSliderMobScreens = 4;
+      p.innerHTML = pageTx[countSliderMobScreens];
+      i.innerHTML = countSliderMobScreens + 1;
+      changeScreen(countSliderMobScreens);
+  }
+}
+
+function selectClassScreens(n){
+  var idxs = __(".indexScreenDesk");
+  for (var i = 0; i < idxs.length; i++) {
+    idxs[i].setAttribute("class", "indexScreenDesk screenDeskUnselect");
+  }
+  idxs[n].setAttribute("class", "indexScreenDesk screenDeskSelect");
+}
+
+function changeScreen(n){
+  var frame = _("#iframePlantilla");
+  frame.contentWindow.screensOnConf(n);
+  selectClassScreens(n);
+}
 function uncheckedfunctionall(t){
       var c = __('.checkBoxFunction');
+      if(t.checked)
+      {
+        for (var i = 0; i < c.length; i++) {
+          c[i].checked=false;
+        }
+        t.checked=true;
+      }
+      actualizaplantilla(t.value)
+}
+function uncheckedthemeall(t){
+      var c = __('.checkBoxTheme');
       if(t.checked)
       {
         for (var i = 0; i < c.length; i++) {
@@ -2846,8 +2901,25 @@ function ischeckedsome(n,t){
   }
 
 }
-function actualizafuncionalidad(n,t,id)
-{
+function ischeckedsometheme(n,t){
+  var c = __('.checkBoxTheme');
+  var id='';
+  for (var i = 0; i < c.length; i++) {
+    if(c[i].checked){
+       id=c[i].value;
+       i=c.length+1;
+    }
+  }
+  if(id!='')
+  {
+    actualizaplantillabd(n,t,id);
+  }
+  else {
+    responseStep(n,t,0);
+  }
+
+}
+function actualizafuncionalidad(n,t,id){
   var  m=MetodoEnum.ActualizaFuncionalidad;
   var dataString = 'm=' + m+'&fun=' + id+'&prom=' + idnvaprom;
   $.ajax({
@@ -2861,6 +2933,45 @@ function actualizafuncionalidad(n,t,id)
         responseStep(n,t,0);
       }
       else {
+
+        responseStep(n,t,1);
+      }
+
+    }
+  });
+
+
+}
+function actualizaplantilla(id){
+  var  m=MetodoEnum.ActualizaPlantillashtml;
+  var dataString = 'm=' + m+'&fun=' + id;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+      $('#plantillas').html(data).fadeIn();
+    }
+  });
+
+
+}
+function actualizaplantillabd(n,t,id){
+  var  m=MetodoEnum.ActualizaPlantilla;
+  var dataString = 'm=' + m+'&plan=' + id+'&prom=' + idnvaprom;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+      if(data=='error')
+      {
+        responseStep(n,t,0);
+      }
+      else {
+
         responseStep(n,t,1);
       }
 
@@ -2922,4 +3033,60 @@ function readtextcsv(callback) {
             callback(val);
         };
         r.readAsText(file);
+}
+function checkcuponstoload(n,t)
+{
+    var arc=document.getElementById("couponsUpload").files.length;
+    var toload=nuevos.length;
+    if(arc>0&&toload>0)
+    {
+      loadcupons(n,t);
+    }
+    else if(arc>0&&toload<1)
+    {
+      responseStep(n , t, 0);
+      alert('Has seleccionado un archivo pero no lo cargaste da click al boton cargar para procesarlo o eliminalo para continuar.');
+    }
+    else {
+      responseStep(n , t, 1);
+      alert('No se cargaron cupones podrias regresar y cargarlos o desde editar promocion.');
+    }
+}
+function loadcupons(n,t){
+  var str='\''+nuevos.join('\',\'')+'\'';
+  var  m=MetodoEnum.CargarCupones;
+  var dataString = 'm=' + m+'&cup=' +str+'&prom=' + idnvaprom;
+  var valor;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+      var arr=data.split(';');
+      var ex=[];
+      var nvos=[];
+      var noin=[];
+      if(arr[1]!="")
+      {
+        ex=arr[1].split(',');
+        var lee=ex.length-1;
+        ex.splice(lee,1);
+      }
+      if(arr[0]!="")
+      {
+        nvos=arr[0].split(',');
+        var len=nvos.length-1;
+        nvos.splice(len,1);
+      }
+      if(arr[2]!="")
+      {
+        noin=arr[2].split(',');
+        var leni=noin.length-1;
+        noin.splice(leni,1);
+      }
+      responseStep(n , t, 1);
+      alert('Se registraron '+nvos.length+' cupones, no se pudieron registrar '+noin.length+'.');
+    }
+  });
 }

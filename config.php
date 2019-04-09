@@ -10,6 +10,7 @@ else {
   $marcas= marcas();
   $proveedores=proveedores();
   $funcionalidades=funcionalidades();
+  $plantillas=plantillas(null);
 }
 ?>
 <!--
@@ -291,65 +292,25 @@ http://dragonflycity.com/
               <h2>Configurador de Promoción</h2>
               <h3>Selección de Plantilla</h3>
             </header>
-            <form action="" method="" autocomplete="off">
-              <div class="rowConfig displayFlex">
-                <!-- Plantilla 1 -->
-                <div class="containerRectW displayFlex">
-                  <p>Plantilla Entrega de Cupón 1</p>
-                  <div class="containerRect">
-                    <div class="picRect" style="background-image:url('ui/img/covers/plantilla-1.jpg')"></div>
-                    <div class="overRect displayFlex">
-                      <a href="#" target="_blank"><span>Ver Plantilla</span></a>
-                    </div>
-                  </div>
-                  <div class="selectionContainer">
-                    <label>Seleccionar</label>
-                    <input class="checkBoxTheme" id="" name="" type="checkbox">
-                  </div>
-                </div>
-                <!-- Plantilla 2 -->
-                <div class="containerRectW rectGrey displayFlex">
-                  <p class="opacityZero">Plantilla 2 Producto</p>
-                  <div class="containerRect"></div>
-                  <div class="selectionContainer opacityZero">
-                    <label>Seleccionar</label>
-                    <!-- <input id="" name="" type="checkbox"> -->
-                  </div>
-                </div>
-              </div>
-              <div class="rowConfig hideOnMobile">
-                <!-- Plantilla 3 -->
-                <div class="containerRectW rectGrey displayFlex">
-                  <p class="opacityZero">Plantilla 1 Producto</p>
-                  <div class="containerRect"></div>
-                  <div class="selectionContainer opacityZero">
-                    <label>Seleccionar</label>
-                    <!-- <input id="" name="" type="checkbox"> -->
-                  </div>
-                </div>
-                <!-- Plantilla 4 -->
-                <div class="containerRectW rectGrey displayFlex">
-                  <p class="opacityZero">Plantilla 2 Producto</p>
-                  <div class="containerRect"></div>
-                  <div class="selectionContainer opacityZero">
-                    <label>Seleccionar</label>
-                    <!-- <input id="" name="" type="checkbox"> -->
-                  </div>
-                </div>
-              </div>
-              <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(2)">Anterior</button>
-              <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(4, this)">Siguiente</button>
+            <form action="" method="" id="plantillas" autocomplete="off">
+              <?php echo $plantillas ?>
             </form>
           </li>
           <li id="editorPlantilla">
             <!-- Configurador Edición de Plantilla -->
-            <div class="errorWConfig trans5">
-              <p>Tienes que seleccionar una opción.</p>
+            <div id="wrapEditorPlantilla">
+              <div id="contEditorPlantilla">
+                <iframe id="iframePlantilla" src="plantilla-uno.html"></iframe>
+              </div>
+              <!-- index Edicion Plantilla -->
+              <div id="editorPlantillaInterfaz">
+                <ul>
+                  <li>
+                    <a role="button"></a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <header>
-              <h2>Configurador de Promoción</h2>
-              <h3>Edición de Plantilla</h3>
-            </header>
             <form action="" method="" autocomplete="off">
               <button class="buttonConfig leftButton" type="button" name="button" onclick="checkSteps(3, this)">Anterior</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
@@ -361,7 +322,11 @@ http://dragonflycity.com/
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>
     <script type="text/javascript">
+      window.onload = function(){
+        rContEditor("#contEditorPlantilla");
+      }
       window.onresize = function(){
+        rContEditor("#contEditorPlantilla");
         var w = window.innerWidth;
         if(compactMenu){
           if(w < 880){

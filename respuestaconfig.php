@@ -80,8 +80,7 @@ if($_POST["m"]==6)
   $result=actualizalegales($id,$url);
   echo $result;
 }
-if($_POST["m"]==7)
-{
+if($_POST["m"]==7){
   $id=$_POST["fun"];
   $prom=$_POST["prom"];
   $result=actualizafuncionalidad($id,$prom);
@@ -94,6 +93,25 @@ if($_POST["m"]==8)
   $result=existecupon($id,$prom);
   echo $result;
 }
-
-
+if($_POST["m"]==9)
+{
+  $id=$_POST["cup"];
+  $prom=$_POST["prom"];
+  $result=loadcupons($id,$prom);
+  echo $result;
+}
+if($_POST["m"]==10)
+{
+  //'m=' + m+'&fun=' + id+'&prom=' + idnvaprom;
+  $id=encrypt_decrypt('d',$_POST["fun"]);
+  $result=plantillas($id);
+  echo $result;
+}
+if($_POST["m"]==11)
+{
+  $id=$_POST["plan"];
+  $prom=$_POST["prom"];
+  $result=actualizaplantillabd($id,$prom);
+  echo $result;
+}
 ?>
