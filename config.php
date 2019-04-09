@@ -345,7 +345,7 @@ http://dragonflycity.com/
             <!-- Configurador Edición de Plantilla -->
             <div id="wrapEditorPlantilla">
               <div id="contEditorPlantilla">
-                <iframe id="iframePlantilla" src="plantilla.html"></iframe>
+                <iframe id="iframePlantilla" src="plantilla-uno.html"></iframe>
               </div>
               <!-- index Edicion Plantilla -->
               <div id="editorPlantillaInterfaz">
