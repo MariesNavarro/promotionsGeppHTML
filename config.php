@@ -343,13 +343,19 @@ http://dragonflycity.com/
           </li>
           <li id="editorPlantilla">
             <!-- Configurador Edición de Plantilla -->
-            <div class="errorWConfig trans5">
-              <p>Tienes que seleccionar una opción.</p>
+            <div id="wrapEditorPlantilla">
+              <div id="contEditorPlantilla">
+                <iframe id="iframePlantilla" src="plantilla.html"></iframe>
+              </div>
+              <!-- index Edicion Plantilla -->
+              <div id="editorPlantillaInterfaz">
+                <ul>
+                  <li>
+                    <a role="button"></a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <header>
-              <h2>Configurador de Promoción</h2>
-              <h3>Edición de Plantilla</h3>
-            </header>
             <form action="" method="" autocomplete="off">
               <button class="buttonConfig leftButton" type="button" name="button" onclick="checkSteps(3, this)">Anterior</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
@@ -361,7 +367,11 @@ http://dragonflycity.com/
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>
     <script type="text/javascript">
+      window.onload = function(){
+        rContEditor("#contEditorPlantilla");
+      }
       window.onresize = function(){
+        rContEditor("#contEditorPlantilla");
         var w = window.innerWidth;
         if(compactMenu){
           if(w < 880){

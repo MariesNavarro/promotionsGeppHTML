@@ -48,6 +48,12 @@ nav, section {display: block; } ol, ul {list-style: none; }
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease
 }
+.cw180{
+    -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg) }
 html{ height: 100%;}
 body{
   font-family: 'FuturaPT Book';
@@ -1061,8 +1067,118 @@ background-image:
 }
 .errorMissingColor{ color: #D8353D !important;}
 .errorMissingBorder{ border:1px solid #D8353D !important; }
+/* EDITOR DE PLANTILLA */
+#wrapEditorPlantilla{
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+#wrapEditorPlantilla>#contEditorPlantilla{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: calc(100% - 100px);
+  margin: 0 auto;
+  min-height: 400px;
+}
+#wrapEditorPlantilla>#contEditorPlantilla>iframe{
+  width: 100%;
+  min-height: 360px;
+}
+#editorPlantillaInterfaz{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  height: 100%;
+}
+#editorPlantillaInterfaz>div{
+  width: calc(100% - 100px);
+  background: none;
+  border:1px solid red;
+  margin:0 auto;
+}
+
+#indexEditorPlantilla{
+  margin: 10px auto;
+  width: calc(100% - 100px);
+  height: 60px;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#indexEditorPlantilla>div{
+  display: block;
+  color: #11396c;
+  width: 180px;
+  height: 100%;
+}
+#indexEditorPlantilla>a{ display: block; }
+#indexEditorPlantilla>div>p{
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+}
+#indexEditorPlantilla>div>span{
+  display: block;
+  text-align: center;
+}
+#indexEditorPlantilla>ul{
+  display: none;
+  width: 100%;
+  height: 100%;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+}
+#indexEditorPlantilla>ul>li{
+  width: 120px;
+  line-height: 30px;
+  height: 30px;
+  text-align: center;
+}
+#indexEditorPlantilla>ul>li>a{
+  display: block;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease
+}
+#indexEditorPlantilla>ul>li>a:hover{
+  background: #11396c;
+  color: #fff;
+}
+.screenDeskSelect{
+  background: #11396c;
+  color: #fff;
+}
+.screenDeskUnselect{
+  background: #fff;
+  border-bottom:1px solid #11396c;
+  color: #11396c;
+}
 /*DESKTOP*/
 @media (min-width: 880px) {
+  #indexEditorPlantilla>div{ display: none;}
+  #indexEditorPlantilla>a{ display: none; }
+  #indexEditorPlantilla>ul{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
   .hideOnMobile{
     display: -webkit-box;
     display: -ms-flexbox;

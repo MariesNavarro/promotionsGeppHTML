@@ -2817,6 +2817,47 @@ function openLinks(c,t){
     ul.style.display = "none";
   }
 }
+function rContEditor(wr){
+  var wr = _(wr),
+      w = window.innerWidth - 350,
+      r = 1080/1920,
+      h = w * r;
+      wr.style.height = h+"px";
+}
+
+var countSliderMobScreens = 0;
+function sliderMobScreens(n){
+  var pageTx = ["Carga", "Inicio", "Cupón", "Mensaje Éxito", "Mensaje Error"],
+      p = _("#pagScreen"),
+      i = _("#indexPagScreen");
+  if(n === "next"){
+      countSliderMobScreens++;
+      if(countSliderMobScreens > 4) countSliderMobScreens = 0;
+      p.innerHTML = pageTx[countSliderMobScreens];
+      i.innerHTML = countSliderMobScreens + 1;
+      changeScreen(countSliderMobScreens);
+  } else {
+      countSliderMobScreens--;
+      if(countSliderMobScreens < 0) countSliderMobScreens = 4;
+      p.innerHTML = pageTx[countSliderMobScreens];
+      i.innerHTML = countSliderMobScreens + 1;
+      changeScreen(countSliderMobScreens);
+  }
+}
+
+function selectClassScreens(n){
+  var idxs = __(".indexScreenDesk");
+  for (var i = 0; i < idxs.length; i++) {
+    idxs[i].setAttribute("class", "indexScreenDesk screenDeskUnselect");
+  }
+  idxs[n].setAttribute("class", "indexScreenDesk screenDeskSelect");
+}
+
+function changeScreen(n){
+  var frame = _("#iframePlantilla");
+  frame.contentWindow.screensOnConf(n);
+  selectClassScreens(n);
+}
 function uncheckedfunctionall(t){
       var c = __('.checkBoxFunction');
       if(t.checked)
