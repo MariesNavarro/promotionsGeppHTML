@@ -129,6 +129,7 @@ Author: OETCapital
       window.onorientationchange = function(){
         preventRot();
       };
+      loadingImages();
     </script>
   </body>
 </html>
