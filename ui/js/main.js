@@ -2709,6 +2709,7 @@ function checkSteps(n, t){
       responseStep(n , t, 1);
     break;
     case 4:
+      optionsConfig(0);
       compactMenu = true;
       if(w>=880)compactConfigMenu(0);
       responseStep(n , t, 1);
@@ -2869,6 +2870,84 @@ function changeScreen(n){
   frame.contentWindow.screensOnConf(n);
   frameIF.contentWindow.changeScreenInterfaz(n);
   selectClassScreens(n);
+  optionsConfig(n);
+}
+function optionsConfig(n){
+  var m = _("#iframePlantilla").contentWindow.document.getElementById("plantillaUnoHTML").getAttribute("data-marca"),
+      opts = __(".optionStep"),
+      opsLoad = _("#optionsCargando"),
+      opsHome = _("#optionsInicio");
+  switch (n) {
+    case 0:
+      clearAllOptions();
+      changeColorBrand(m, "#optionsCargando");
+      opsLoad.setAttribute("class", "optionStep displayFlex");
+    break;
+    case 1:
+      clearAllOptions();
+      changeColorBrand(m, "#optionsInicio");
+      opsHome.setAttribute("class", "optionStep displayFlex");
+    break;
+    case 2:
+      clearAllOptions();
+    break;
+    case 3:
+      clearAllOptions();
+    break;
+    case 4:
+      clearAllOptions();
+    break;
+  }
+  function clearAllOptions(){
+    for (var i = 0; i < opts.length; i++) {
+      opts[i].setAttribute("class", "optionStep displayNone");
+    }
+  }
+  function changeColorBrand(m, form){
+    var form = _(form),
+        formsColor = form.querySelectorAll(".optionsColor");
+    switch (m) {
+      case "pepsi":
+        clearAllForms();
+        formsColor[1].setAttribute("class", "optionsColor displayFlex");
+      break;
+      case "gatorade":
+        clearAllForms();
+        formsColor[2].setAttribute("class", "optionsColor displayFlex");
+      break;
+      case "sevenup":
+        clearAllForms();
+        formsColor[3].setAttribute("class", "optionsColor displayFlex");
+      break;
+      case "epura":
+        clearAllForms();
+        formsColor[4].setAttribute("class", "optionsColor displayFlex");
+      break;
+      case "frutzzo":
+        clearAllForms();
+        formsColor[5].setAttribute("class", "optionsColor displayFlex");
+      break;
+    }
+    function clearAllForms(){
+      for (var i = 1; i < formsColor.length; i++) {
+        formsColor[i].setAttribute("class", "optionsColor displayNone");
+      }
+    }
+  }
+}
+
+function hideInterfaz(e, t){
+  var f = t.previousElementSibling,
+      ic = t.children[1];
+  if(e === "hide"){
+    t.setAttribute("onclick", "hideInterfaz('show', this)");
+    f.style.opacity = "0";
+    ic.style.opacity = "1";
+  } else {
+    t.setAttribute("onclick", "hideInterfaz('hide', this)");
+    f.style.opacity = "1";
+    ic.setAttribute("style", " ");
+  }
 }
 function uncheckedfunctionall(t){
       var c = __('.checkBoxFunction');
