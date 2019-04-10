@@ -84,6 +84,14 @@ nav, section {display: block; } ol, ul {list-style: none; }
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg) }
+.hideInput{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
 html{ height: 100%;}
 body{
   font-family: 'FuturaPT Book';
@@ -1098,6 +1106,18 @@ background-image:
 .errorMissingColor{ color: #D8353D !important;}
 .errorMissingBorder{ border:1px solid #D8353D !important; }
 /* EDITOR DE PLANTILLA */
+#hideInterfaz{
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  background: #1a3969;
+}
+#hideInterfaz>img{ position: absolute; }
+#hideInterfaz>img:nth-child(2){ opacity: 0 }
+#hideInterfaz:hover>img:nth-child(2){ opacity:1 }
 #wrapEditorPlantilla{
   position: relative;
   width: 100%;
@@ -1137,7 +1157,7 @@ background-image:
 #indexEditorPlantilla{
   margin: 10px auto;
   width: calc(100% - 100px);
-  height: 60px;
+  height: 30px;
   -webkit-box-pack: space-between;
   -webkit-justify-content: space-between;
   -ms-flex-pack: space-between;
@@ -1198,6 +1218,47 @@ background-image:
   background: #fff;
   border-bottom:1px solid #11396c;
   color: #11396c;
+}
+#optionsEditorPlantilla{
+  margin: 15px auto;
+  width: calc(100% - 100px);
+  /* border:1px solid orange; */
+  color: #11396c;
+}
+#optionsEditorPlantilla>ul{
+  flex-direction: column;
+}
+#optionsEditorPlantilla>ul>li{
+  height: 30px;
+  align-items: center;
+  margin: 10px 0;
+}
+#optionsEditorPlantilla>ul>li>p{
+  display: block;
+  width: 110px;
+}
+#optionsEditorPlantilla>ul>li>form>label{
+  cursor: pointer;
+  display: block;
+  width: 70px;
+  height: 25px;
+  border:1px solid #aaa;
+  box-sizing: border-box;
+  margin: 0 5px;
+  text-align: center;
+}
+#optionsEditorPlantilla>ul>li>.textConf{
+  width: 250px;
+  height: 25px;
+  margin: 0 5px;
+  border:1px solid #aaa;
+}
+#optionsEditorPlantilla>ul>li>form>label>p{
+  font-size: 0.8rem;
+  line-height: 25px;
+}
+#optionsEditorPlantilla>ul>li>form>label:hover{
+  opacity: 0.9;
 }
 /*DESKTOP*/
 @media (min-width: 880px) {
