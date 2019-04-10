@@ -557,7 +557,7 @@ http://dragonflycity.com/
                 </li>
                 <li class="displayFlex">
                   <p><b>Texto Footer:</b></p>
-                  <input class="textConf" type="text">
+                  <input id="textFootConf" class="textConf" type="text">
                 </li>
               </ul>
             </div>
