@@ -187,6 +187,27 @@ table {
   color: #B7B9BB;
 }
 
+/* Gatorade Background */
+.naranjaUnoGatoradeBack {
+  background: #FF671F;
+}
+
+.naranjaDosGatoradeBack {
+  background: #F9A350;
+}
+
+.rojoGatoradeBack {
+  background: #EF3E42;
+}
+
+.verdeGatoradeBack {
+  background: #046A38;
+}
+
+.grisGatoradeBack {
+  background: #B7B9BB;
+}
+
 /* Seven Up */
 .verdeSevenUpUnoTx {
   color: #225D38;
@@ -208,6 +229,27 @@ table {
   color: #FFDD00;
 }
 
+/* Seven Up Background */
+.verdeSevenUpUnoBack {
+  background: #225D38;
+}
+
+.verdeSevenUpDosBack {
+  background: #00AB51;
+}
+
+.verdeSevenUpTresBack {
+  background: #80BC00;
+}
+
+.rojoSevenUpBack {
+  background: #EF3E42;
+}
+
+.amarilloSevenUpBack {
+  background: #FFDD00;
+}
+
 /* Frutzzo */
 .amarilloFrutzzoTx {
   color: #FDCE07;
@@ -219,6 +261,19 @@ table {
 
 .azulDosFrutzzoTx {
   color: #2BA8E0;
+}
+
+/* Frutzzo Background */
+.amarilloFrutzzoBack {
+  background: #FDCE07;
+}
+
+.azulUnoFrutzzoBack {
+  background: #18234C;
+}
+
+.azulDosFrutzzoBack {
+  background: #2BA8E0;
 }
 
 /* Epura */
@@ -240,6 +295,27 @@ table {
 
 .pinkEpuraTx {
   color: #E4238C;
+}
+
+/* Epura Background */
+.violetaUnoEpuraBack {
+  background: #1B1F6C;
+}
+
+.violetaDosEpuraBack {
+  background: #472F8B;
+}
+
+.cyanEpuraBack {
+  background: #27B2E3;
+}
+
+.yellowEpuraBack {
+  background: #FAEC3C;
+}
+
+.pinkEpuraBack {
+  background: #E4238C;
 }
 
 html#plantillaUnoHTML {
