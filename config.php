@@ -304,11 +304,11 @@ http://dragonflycity.com/
             <!-- Configurador Edición de Plantilla -->
             <div id="wrapEditorPlantilla">
               <div id="contEditorPlantilla">
-                <iframe id="iframePlantilla" src="plantilla-uno-pepsi.html"></iframe>
+                <iframe id="iframePlantilla" src="plantilla-uno-pepsi.php"></iframe>
               </div>
               <!-- index Edicion Plantilla -->
               <div id="editorPlantillaInterfaz">
-                <iframe id="iframeInterfaz" src="interfaz-uno.html"></iframe>
+                <iframe id="iframeInterfaz" src="interfaz-uno.php"></iframe>
                 <a role="button" id="hideInterfaz" title="Ocultar Interfaz" onclick="hideInterfaz('hide', this)">
                   <img class="trans5" src="ui/img/ic/show_interfaz.svg" width="40" height="40">
                   <img class="trans5" src="ui/img/ic/hide_interfaz.svg" width="40" height="40">
