@@ -562,7 +562,7 @@ http://dragonflycity.com/
               </ul>
             </div>
             <form action="" method="" autocomplete="off">
-              <button class="buttonConfig leftButton" type="button" name="button" onclick="checkSteps(3, this)">Anterior</button>
+              <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(3)">Anterior</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
             </form>
           </li>

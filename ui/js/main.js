@@ -2675,6 +2675,7 @@ function getNumCSV(){
   var textCSVLoaded = _(".numCSV"),
       textCSVNoLoaded = _(".noneNumCSV"),
       numCSVW = _("#numCSV");
+      showLoading(1);
   if(csvLoaded){
     readtextcsv(function(val){
        var p=val.split('\r\n');
@@ -2704,18 +2705,15 @@ function checkSteps(n, t){
       ischeckedsome(n,t);
     break;
     case 3:
-      compactMenu = false;
-      compactConfigMenu(1);
-      responseStep(n , t, 1);
+      checkcuponstoload(n,t);
+
     break;
     case 4:
-      optionsConfig(0);
-      compactMenu = true;
-      if(w>=880)compactConfigMenu(0);
-      responseStep(n , t, 1);
+      ischeckedsometheme(n,t);
     break;
     case 5:
-      responseStep(n , t, 1);
+      //  responseStep(n , t, 1);
+      loadcupons(n,t);
     break;
   }
 }
@@ -3003,6 +3001,10 @@ function ischeckedsometheme(n,t){
     actualizaplantillabd(n,t,id);
   }
   else {
+    var w=window.innerWidth;
+    optionsConfig(0);
+    compactMenu = true;
+    if(w>=880)compactConfigMenu(0);
     responseStep(n,t,0);
   }
 
@@ -3056,10 +3058,17 @@ function actualizaplantillabd(n,t,id){
       console.log(data);
       if(data=='error')
       {
+        var w=window.innerWidth;
+        optionsConfig(0);
+        compactMenu = true;
+        if(w>=880)compactConfigMenu(0);
         responseStep(n,t,0);
       }
       else {
-
+        var w=window.innerWidth;
+        optionsConfig(0);
+        compactMenu = true;
+        if(w>=880)compactConfigMenu(0);
         responseStep(n,t,1);
       }
 
@@ -3099,11 +3108,13 @@ function existecupon(p)
         numCSVW.innerHTML = numCupones;
         textCSVLoaded.style.display = "block";
         setTimeout(function(){
+          showLoading(0);
           textCSVLoaded.style.opacity = "1";
         },500);
       } else {
         textCSVNoLoaded.style.display = "block";
         setTimeout(function(){
+          showLoading(0);
           textCSVNoLoaded.style.opacity = "1";
         },500);
       }
@@ -3126,18 +3137,17 @@ function checkcuponstoload(n,t)
 {
     var arc=document.getElementById("couponsUpload").files.length;
     var toload=nuevos.length;
-    if(arc>0&&toload>0)
+    if(arc>0&&toload<1)
     {
-      loadcupons(n,t);
-    }
-    else if(arc>0&&toload<1)
-    {
+      compactMenu = false;
+      compactConfigMenu(1);
       responseStep(n , t, 0);
-      alert('Has seleccionado un archivo pero no lo cargaste da click al boton cargar para procesarlo o eliminalo para continuar.');
+      alert('Has seleccionado un archivo pero no lo cargaste da click al boton cargar para procesarlo o no cuenta con cupones validos,cambialo o eliminalo para continuar.');
     }
     else {
+      compactMenu = false;
+      compactConfigMenu(1);
       responseStep(n , t, 1);
-      alert('No se cargaron cupones podrias regresar y cargarlos o desde editar promocion.');
     }
 }
 function loadcupons(n,t){
@@ -3151,30 +3161,7 @@ function loadcupons(n,t){
     data:  dataString,
     success:function(data) {
       console.log(data);
-      var arr=data.split(';');
-      var ex=[];
-      var nvos=[];
-      var noin=[];
-      if(arr[1]!="")
-      {
-        ex=arr[1].split(',');
-        var lee=ex.length-1;
-        ex.splice(lee,1);
-      }
-      if(arr[0]!="")
-      {
-        nvos=arr[0].split(',');
-        var len=nvos.length-1;
-        nvos.splice(len,1);
-      }
-      if(arr[2]!="")
-      {
-        noin=arr[2].split(',');
-        var leni=noin.length-1;
-        noin.splice(leni,1);
-      }
-      responseStep(n , t, 1);
-      alert('Se registraron '+nvos.length+' cupones, no se pudieron registrar '+noin.length+'.');
+      window.location.href='home.php';
     }
   });
 }
