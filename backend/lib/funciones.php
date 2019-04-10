@@ -161,4 +161,15 @@ function encrypt_decrypt($action, $string) {
        }
        return $output;
 }
+function writetxtcupons($string,$promo){
+  $filepath="cupones/".encrypt_decrypt('e',$promo).".txt";
+   $fichero = fopen($filepath, "w");
+    if (flock($fichero, LOCK_EX)) {
+        fwrite($fichero,$string);
+        flock($fichero, LOCK_UN);
+        fclose($fichero);
+    }
+    return $filepath;
+
+}
 ?>

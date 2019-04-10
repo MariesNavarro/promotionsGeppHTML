@@ -760,36 +760,29 @@ function existecupon($id,$prom)
 }
 function loadcupons($id,$prom)
 {
-  $ban=0;
   $salida='';
-  $existen='';
-  $nuevos='';
-  $noinserted='';
   $link=connect();
-  mysqli_autocommit($link, FALSE);
   $cupones = explode(",", $id);
-  foreach( $cupones as $value ){
-        $inserted ="insert into gtrd_cupones(id_promo,codigo,estatus) values (".$prom.",".$value.",0)";
-        if (mysqli_query($link,$inserted)) {
-             $ins=str_replace('\'', '', $value);
-             $nuevos=$nuevos.$ins.',';
-         }
-         else {
-           $noins=str_replace('\'', '', $value);
-           $noinserted=$noinserted.$noins.',';
-         }
-          mysqli_commit($link);
+  $cuponesstring=str_replace('\'', '', $id);
+  $cuponesarray = explode(",", $cuponesstring);
+  $stradd=",".$prom.",0\n";
+  $txt=join($stradd,$cuponesarray);
+  $stradd2=",".$prom.",0".PHP_EOL;
+  $txt=$txt.$stradd2;
+  $path=writetxtcupons($txt,$prom);
+  $fullpath=dirname(__FILE__,3);
+  $fullpath=$fullpath.'/'.$path;
+   $inserted="LOAD DATA LOCAL INFILE '".$fullpath."' INTO TABLE gtrd_cupones
+        FIELDS TERMINATED BY ','
+       LINES TERMINATED BY '\\n'
+        (codigo,id_promo,estatus)";
+  mysqli_autocommit($link, FALSE);
+  if ($resultadoins = mysqli_query($link, $inserted)) {
 
-
-   }
-
-   $salida=$nuevos.';'.$existen.';'.$noinserted;
-  /* gtrd_proveedor
-  <option class="providerDefault" value="">Selecciona un Proveedor</option>
-  <option class="providerDefault" value="">OXXO</option>
-  <option class="providerDefault" value="">Seven Eleven</option>
-  */
-
+  }
+   mysqli_commit($link);
+   $salida=$fullpath;
+  mysqli_free_result($resultadoins);
   Close($link);
   return $salida;
 

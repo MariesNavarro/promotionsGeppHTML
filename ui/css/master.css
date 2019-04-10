@@ -31,6 +31,36 @@ nav, section {display: block; } ol, ul {list-style: none; }
 * a {cursor: pointer; text-decoration: none; color: #fff;}
 * i {font-style: italic; }
 * p { font-size: 1rem;}
+#loadingConf{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-width: 250px;
+  height: 100vh;
+  z-index: 999;
+  background-image: url('../img/curves.png');
+  background-repeat: no-repeat;
+  background-repeat: repeat-y;
+  background-size: cover;
+  background-color: #194d91;
+  background-color: -moz-linear-gradient(left, #194d91 1%, #11396c 100%);
+  background-color: -webkit-linear-gradient(left, #194d91 1%,#11396c 100%);
+  background-color: linear-gradient(to right, #194d91 1%,#11396c 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#194d91', endColorstr='#11396c',GradientType=1 );
+}
+#loadingConf>img{
+  position: absolute;
+  top: calc(50% - 80px);
+  left: calc(50% - 40px);
+}
+#loadingConf>p{
+  position: absolute;
+  width: 100px;
+  left: calc(50% - 50px);
+  top: calc(50% - 10px);
+  text-align: center;
+}
 .displayFlex {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -54,6 +84,14 @@ nav, section {display: block; } ol, ul {list-style: none; }
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg) }
+.hideInput{
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
 html{ height: 100%;}
 body{
   font-family: 'FuturaPT Book';
@@ -1068,6 +1106,18 @@ background-image:
 .errorMissingColor{ color: #D8353D !important;}
 .errorMissingBorder{ border:1px solid #D8353D !important; }
 /* EDITOR DE PLANTILLA */
+#hideInterfaz{
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  background: #1a3969;
+}
+#hideInterfaz>img{ position: absolute; }
+#hideInterfaz>img:nth-child(2){ opacity: 0 }
+#hideInterfaz:hover>img:nth-child(2){ opacity:1 }
 #wrapEditorPlantilla{
   position: relative;
   width: 100%;
@@ -1097,17 +1147,16 @@ background-image:
   display: flex;
   height: 100%;
 }
-#editorPlantillaInterfaz>div{
+#editorPlantillaInterfaz>iframe{
   width: calc(100% - 100px);
   background: none;
-  border:1px solid red;
   margin:0 auto;
 }
 
 #indexEditorPlantilla{
   margin: 10px auto;
   width: calc(100% - 100px);
-  height: 60px;
+  height: 30px;
   -webkit-box-pack: space-between;
   -webkit-justify-content: space-between;
   -ms-flex-pack: space-between;
@@ -1168,6 +1217,47 @@ background-image:
   background: #fff;
   border-bottom:1px solid #11396c;
   color: #11396c;
+}
+#optionsEditorPlantilla{
+  margin: 15px auto;
+  width: calc(100% - 100px);
+  /* border:1px solid orange; */
+  color: #11396c;
+}
+#optionsEditorPlantilla>ul{
+  flex-direction: column;
+}
+#optionsEditorPlantilla>ul>li{
+  height: 30px;
+  align-items: center;
+  margin: 10px 0;
+}
+#optionsEditorPlantilla>ul>li>p{
+  display: block;
+  width: 110px;
+}
+#optionsEditorPlantilla>ul>li>form>label{
+  cursor: pointer;
+  display: block;
+  width: 70px;
+  height: 25px;
+  border:1px solid #aaa;
+  box-sizing: border-box;
+  margin: 0 5px;
+  text-align: center;
+}
+#optionsEditorPlantilla>ul>li>.textConf{
+  width: 250px;
+  height: 25px;
+  margin: 0 5px;
+  border:1px solid #aaa;
+}
+#optionsEditorPlantilla>ul>li>form>label>p{
+  font-size: 0.8rem;
+  line-height: 25px;
+}
+#optionsEditorPlantilla>ul>li>form>label:hover{
+  opacity: 0.9;
 }
 /*DESKTOP*/
 @media (min-width: 880px) {
