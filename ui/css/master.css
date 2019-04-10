@@ -1147,10 +1147,9 @@ background-image:
   display: flex;
   height: 100%;
 }
-#editorPlantillaInterfaz>div{
+#editorPlantillaInterfaz>iframe{
   width: calc(100% - 100px);
   background: none;
-  border:1px solid red;
   margin:0 auto;
 }
 
