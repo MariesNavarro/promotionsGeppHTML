@@ -197,6 +197,108 @@ section{
   display: block;
   height: 90%;
 }
+#mensajeExitoIF{
+  position: fixed;
+  top: 60px;
+  left: 15px;
+  width: calc(100% - 30px);
+  min-width: 250px;
+  height: calc(100% - 130px);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+#mensajeExitoIF>.superior{
+  width: 100%;
+  height: calc(100% - 100px);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+#mensajeExitoIF>.superior>li{
+  text-align: center;
+  margin: 5px auto;
+  width: 80%;
+}
+#mensajeExitoIF>.superior>li:first-child{
+  width: 30%;
+  min-width: 100px;
+  max-width: 130px;
+  margin: 10px auto;
+}
+#mensajeExitoIF>.superior>li:first-child>img{ width: 100%;}
+#mensajeExitoIF>.superior>li:nth-child(2){
+  text-align: center;
+  margin: 5px auto;
+  width: 80%;
+  height: 60px;
+}
+#mensajeExitoIF>.superior>li:nth-child(2)>#labelMsgExito{
+    display: block;
+    position: relative;
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+    height: 100%;
+    margin: 0 auto;
+}
+#mensajeExitoIF>.superior>li:nth-child(3){
+  text-align: center;
+  margin: 5px auto;
+  width: 80%;
+  height: 30px;
+}
+#mensajeExitoIF>.superior>li:nth-child(3)>#labelHashtag{
+  height: 100%;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+#mensajeExitoIF>.inferior{
+  width: 100%;
+  height: 92px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+}
+#mensajeExitoIF>.inferior>li{
+  width: 45px;
+  height: 45px;
+  margin: 0 10px;
+}
+#mensajeExitoIF>.inferior>li>label{
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#mensajeErrorIF>div{
+  position:relative;
+  width: 100%;
+  margin-top: 80px;
+  height: calc(100% - 280px);
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+}
+#mensajeErrorIF>div>#labelError{
+  position: relative;
+  display: block;
+  width: 90%;
+  max-width: 550px;
+}
 label>.title, label>.titleDown{
   font-size: 0.8rem;
   position: absolute;
