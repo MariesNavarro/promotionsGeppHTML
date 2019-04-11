@@ -271,32 +271,51 @@ function getpromocion($idprom)
   $count=0;
   $link=connect();
   $resultado = null;
-  $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad,
-                      b.nombre marca_nombre, b.logo marca_logo, b.codigo marca_codigo, b.descripcion marca_descripcion,  c.logo proveedor_logo, d.valor_componente promo_img_back, e.valor_componente promo_img_prod,
-                      f.valor_componente promo_font, g.valor_componente promo_color, h.valor_componente promo_color_load, i.valor_componente promo_txt_footer, j.valor_componente promo_img_inicio,
-                      k.valor_componente promo_img_precio, l.valor_componente promo_img_obtenercupon, m.valor_componente promo_img_cupon,
-                      n.valor_componente promo_img_descargarcupon, o.valor_componente promo_img_exito, p.valor_componente promo_img_hashtag,
-                      q.valor_componente promo_img_error
+  $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad, a.id_proveedor
                 FROM gtrd_promociones a
-           LEFT JOIN gtrd_marca b ON a.id_marca = b.id
-           LEFT JOIN gtrd_proveedor c ON a.id_proveedor = c.id
-           LEFT JOIN gtrd_plantilla_config_producto d ON a.id_plantilla = d.id_plantilla AND a.id_marca = d.id_marca AND a.version = d.version AND d.producto = 1 AND d.id_componente = 'img_back'
-           LEFT JOIN gtrd_plantilla_config_producto e ON a.id_plantilla = e.id_plantilla AND a.id_marca = e.id_marca AND a.version = e.version AND e.producto = 1 AND e.id_componente = 'img_prod'
-           LEFT JOIN gtrd_plantilla_config_producto f ON a.id_plantilla = f.id_plantilla AND a.id_marca = f.id_marca AND a.version = f.version AND f.producto = 1 AND f.id_componente = 'font'
-           LEFT JOIN gtrd_plantilla_config_producto g ON a.id_plantilla = g.id_plantilla AND a.id_marca = g.id_marca AND a.version = g.version AND g.producto = 1 AND g.id_componente = 'color'
-           LEFT JOIN gtrd_plantilla_config_producto h ON a.id_plantilla = h.id_plantilla AND a.id_marca = h.id_marca AND a.version = h.version AND h.producto = 1 AND h.id_componente = 'color_load'
-           LEFT JOIN gtrd_plantilla_config_producto i ON a.id_plantilla = i.id_plantilla AND a.id_marca = i.id_marca AND a.version = i.version AND i.producto = 1 AND i.id_componente = 'txt_footer'
-           LEFT JOIN gtrd_plantilla_config_producto j ON a.id_plantilla = j.id_plantilla AND a.id_marca = j.id_marca AND a.version = j.version AND j.producto = 1 AND j.id_componente = 'img_inicio'
-           LEFT JOIN gtrd_plantilla_config_producto k ON a.id_plantilla = k.id_plantilla AND a.id_marca = k.id_marca AND a.version = k.version AND k.producto = 1 AND k.id_componente = 'img_precio'
-           LEFT JOIN gtrd_plantilla_config_producto l ON a.id_plantilla = l.id_plantilla AND a.id_marca = l.id_marca AND a.version = l.version AND l.producto = 1 AND l.id_componente = 'img_obtenercupon'
-           LEFT JOIN gtrd_plantilla_config_producto m ON a.id_plantilla = m.id_plantilla AND a.id_marca = m.id_marca AND a.version = m.version AND m.producto = 1 AND m.id_componente = 'img_cupon'
-           LEFT JOIN gtrd_plantilla_config_producto n ON a.id_plantilla = n.id_plantilla AND a.id_marca = n.id_marca AND a.version = n.version AND n.producto = 1 AND n.id_componente = 'img_descargarcupon'
-           LEFT JOIN gtrd_plantilla_config_producto o ON a.id_plantilla = o.id_plantilla AND a.id_marca = o.id_marca AND a.version = o.version AND o.producto = 1 AND o.id_componente = 'img_exito'
-           LEFT JOIN gtrd_plantilla_config_producto p ON a.id_plantilla = p.id_plantilla AND a.id_marca = p.id_marca AND a.version = p.version AND p.producto = 1 AND p.id_componente = 'img_hashtag'
-           LEFT JOIN gtrd_plantilla_config_producto q ON a.id_plantilla = q.id_plantilla AND a.id_marca = q.id_marca AND a.version = q.version AND q.producto = 1 AND q.id_componente = 'img_error'
                WHERE a.id=".$idprom;
   if ($registros = mysqli_query($link, $consulta)) {
     //echo  $consulta;
+    while ($fila = mysqli_fetch_array($registros)) {
+        $resultado = $fila;
+     }
+  }
+  Close($link);
+  return $resultado;
+}
+
+function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
+{
+
+  $count=0;
+  $link=connect();
+  $resultado = null;
+  $consulta = "SELECT  a.id_plantilla id_plantilla,a.id_marca id_marca,a.version version,a.valor_componente promo_img_back, e.valor_componente promo_img_prod,
+                       f.valor_componente promo_font, g.valor_componente promo_color, h.valor_componente promo_color_load, i.valor_componente promo_txt_footer, j.valor_componente promo_img_inicio,
+                       k.valor_componente promo_img_precio, l.valor_componente promo_img_obtenercupon, m.valor_componente promo_img_cupon,
+                       n.valor_componente promo_img_descargarcupon, o.valor_componente promo_img_exito, p.valor_componente promo_img_hashtag,
+                       q.valor_componente promo_img_error,r.logo marca_logo,s.logo proveedor_logo,
+                       r.nombre marca_nombre, r.logo marca_logo, r.codigo marca_codigo, r.descripcion marca_descripcion
+                FROM
+           (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_back') a
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_prod') e ON a.id_plantilla = e.id_plantilla AND a.id_marca = e.id_marca AND a.version = e.version  AND a.producto = e.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'font') f ON a.id_plantilla = f.id_plantilla AND a.id_marca = f.id_marca AND a.version = f.version AND a.producto = f.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'color') g ON a.id_plantilla = g.id_plantilla AND a.id_marca = g.id_marca AND a.version = g.version AND a.producto = g.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'color_load') h ON a.id_plantilla = h.id_plantilla AND a.id_marca = h.id_marca AND a.version = h.version AND a.producto = h.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'txt_footer') i ON a.id_plantilla = i.id_plantilla AND a.id_marca = i.id_marca AND a.version = i.version AND a.producto = i.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_inicio') j ON a.id_plantilla = j.id_plantilla AND a.id_marca = j.id_marca AND a.version = j.version AND a.producto = j.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_precio') k ON a.id_plantilla = k.id_plantilla AND a.id_marca = k.id_marca AND a.version = k.version AND a.producto = k.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_obtenercupon') l ON a.id_plantilla = l.id_plantilla AND a.id_marca = l.id_marca AND a.version = l.version AND a.producto =l.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_cupon') m ON a.id_plantilla = m.id_plantilla AND a.id_marca = m.id_marca AND a.version = m.version AND a.producto =m.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_descargarcupon') n ON a.id_plantilla = n.id_plantilla AND a.id_marca = n.id_marca AND a.version = n.version AND a.producto =n.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_exito') o ON a.id_plantilla = o.id_plantilla AND a.id_marca = o.id_marca AND a.version = o.version AND a.producto =o.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_error') q ON a.id_plantilla = q.id_plantilla AND a.id_marca = q.id_marca AND a.version = q.version AND a.producto =q.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_hashtag') p ON a.id_plantilla = p.id_plantilla AND a.id_marca = p.id_marca AND a.version = p.version AND a.producto =p.producto
+           LEFT JOIN gtrd_marca r on a.id_marca=r.id
+           LEFT JOIN gtrd_proveedor s on 1=1
+           where a.id_plantilla=".$idplantilla." and a.id_marca=".$idmarca." and a.version=".$version." and s.id=".$idproveedor." and a.producto = ".$producto;
+
+  if ($registros = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_array($registros)) {
         $resultado = $fila;
      }
