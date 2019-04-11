@@ -133,7 +133,10 @@ Author: OETCapital
       window.onorientationchange = function(){
         preventRot();
       };
-      if (config == 0){ loadingImages();}
+      if (config == 0){   /* no viene del configurador */
+        loadingImages();  /* quitar el loader */
+        //valido();         /* validar promo */
+      }
     </script>
   </body>
 </html>

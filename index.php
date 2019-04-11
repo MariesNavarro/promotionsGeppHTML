@@ -7,7 +7,7 @@ Author: OETCapital
 
 <?php
 require_once('backend/lib/db.php');
-$debug = true;
+$debug = false;
 $error = 0;
 $error_msg = "";
 $idprom = 0;
