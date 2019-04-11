@@ -14,7 +14,7 @@ $idprom = 0;
 $config = 0;
 
 /***************** GET PARAMETROS ******************/
-if (isset($_GET['id'])) {   $idprom = $_GET['id']; }  /* si viene una id_promo */
+if (isset($_GET['id'])) { $idprom = $_GET['id']; }  /* si viene una id_promo */
 if (isset($_GET['cf'])) { $config = $_GET['cf']; }    /* si viene del configurador */
 
 /* Obtener datos segun parametros */
@@ -69,14 +69,9 @@ switch ($error) {
       require_once('plantilla-'.$plantilla_id.'.php');
       break;
   case 1: /* redireccionar a la página de GEPP */
-      echo 'Voy a redirect...';
-      header('Location: https://gepp.com.mx');
-      exit();
+      echo '<script>window.location.href = "https://gepp.com.mx";</script>';
       break;
   default: /* Login */
-      require_once('home.php');
+      header('Location: login.php');
 }
-
-echo 'FIN...';
-
 ?>
