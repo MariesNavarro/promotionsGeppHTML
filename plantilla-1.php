@@ -124,6 +124,7 @@ Author: OETCapital
     </footer>
     <script src="ui/js/front-min.js" charset="utf-8"></script>
     <script type="text/javascript">
+      var config = "<?php echo $config ?>";
       preventHeight();
       preventRot();
       window.onresize = function(){
@@ -132,7 +133,7 @@ Author: OETCapital
       window.onorientationchange = function(){
         preventRot();
       };
-      loadingImages();
+      if (config == 0){ loadingImages();}
     </script>
   </body>
 </html>
