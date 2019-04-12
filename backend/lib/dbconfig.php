@@ -722,7 +722,7 @@ function actualizaplantillabd($id,$prom){
   $salida="";
   $link=connect();
   mysqli_autocommit($link, FALSE);
-  $consulta ="update gtrd_promociones SET id_plantilla=".encrypt_decrypt('d',$id)." WHERE id=".$prom;
+  $consulta ="update gtrd_promociones SET id_plantilla=".encrypt_decrypt('d',$id).",version=0 WHERE id=".$prom;
   if (mysqli_query($link, $consulta)) {
       $salida="success";
    }
@@ -786,6 +786,48 @@ function loadcupons($id,$prom)
   Close($link);
   return $salida;
 
+}
+function getmarca_redessocialesinterfaz($idmarca)
+{
+  $link=connect();
+  $resultado = null;
+  $consulta = "SELECT * FROM gtrd_marca_redessociales WHERE id_marca = ".$idmarca." AND activo =1";
+
+  if ($registros = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_array($registros)) {
+        switch($fila['nombre'])
+        {
+          case 'Facebook':
+          $label='labeFb';
+          $file='unoFb';
+          break;
+          case 'Twitter':
+          $label='labeTw';
+          $file='unoTw';
+          break;
+          case 'Instagram':
+          $label='labeIg';
+          $file='unoIg';
+          break;
+          case 'Youtube':
+          $label='labeYt';
+          $file='unoYt';
+          break;
+        }
+        $resultado .= '<li>
+        <label for="'.$file.'" id="'.$label.'" class="bordersetup colorBorderWhite">
+          <p class="title backWhite colorBlack">'.$fila['nombre'].'</p>
+          <div class="hoverLabel displayFlex trans5" style="background:rgba(0,0,0,0.8)">
+            <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
+          </div>
+        </label>
+        <input id="'.$file.'" type="file" onchange="updateimageplantilla(this,\'ic'.$fila['nombre'].'\',\'ui/img/ic/\')" class="hideInput">
+      </li>';
+     }
+  }
+
+  Close($link);
+  return $resultado;
 }
 
 ?>

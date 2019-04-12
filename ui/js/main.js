@@ -1042,7 +1042,6 @@ function login(){
   var usr=_("#userNameLog").value;
   var psw=_("#userPassLog").value;
   var method=MetodoEnum.Login;
-  huella();
   errorOnLog('close');
   //$('#errorLog').css("height", "0px");
   var dataString ='&usr=' + usr + '&pwd=' + psw+'&m='+method;
@@ -1067,7 +1066,6 @@ function login(){
 function logout()
 {
   var method=MetodoEnum.Logout;
-  huella();
   var dataString ='&m='+method;
   $.ajax({
      type : 'POST',
@@ -1232,12 +1230,13 @@ function sendfile(id){
   if($('#legalesUpload')[0].files.length>0)
   {
 
-
+    var rutalegales='legales/';
     let files = new FormData(), // you can consider this as 'data bag'
         url = 'upload.php';
 
     files.append('fileName',$('#legalesUpload')[0].files[0]); // append selected file to the bag named 'file'
     files.append('id',id);
+    files.append('dir',rutalegales);
     $.ajax({
         type: 'post',
         url: url,
@@ -1254,6 +1253,7 @@ function sendfile(id){
     });
   }
 }
+
 function actualizalegales(id,url)
 {
   var m=MetodoEnum.ActualizaLegales;
@@ -1546,6 +1546,16 @@ function changeScreen(n){
   optionsConfig(n);
 }
 function optionsConfig(n){
+  var ban=0;
+  do {
+    if(_("#iframePlantilla").contentWindow.document.getElementById("plantillaUnoHTML")!==null)
+    {
+      ban=1;
+    }
+      // execute code
+  } while (ban==0);
+
+
   var m = _("#iframePlantilla").contentWindow.document.getElementById("plantillaUnoHTML").getAttribute("data-marca"),
       opts = __(".optionStep"),
       opsLoad = _("#optionsCargando"),
@@ -1741,6 +1751,11 @@ function actualizaplantillabd(n,t,id){
       }
       else {
         var w=window.innerWidth;
+        var frame = _("#iframePlantilla"),
+        frameIF = _("#iframeInterfaz");
+        var mar=$('#selectBrand')[0].value;
+        frame.src='index.php?id='+idnvaprom+'&cf=1';
+        frameIF.src='interfaz-uno.php?mar='+mar;
         optionsConfig(0);
         compactMenu = true;
         if(w>=880)compactConfigMenu(0);
