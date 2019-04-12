@@ -44,7 +44,7 @@ var promo;
       var keys = {
         data: [],
         addPreprocessedComponent: function (pair) {
-          var componentValue = pair.value
+          var componentValue = pair.value;
           if (typeof that.options.preprocessor === 'function') {
             componentValue = that.options.preprocessor(pair.key, componentValue)
           }

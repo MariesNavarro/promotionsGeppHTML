@@ -59,3 +59,53 @@ function calculateR(el, side, sideConst, sideVar){
       el.style.height = sideC * ratio + "px";
   }
 }
+var srcfolder='';
+var srcsource='';
+function updateimageplantilla(input,idelement,ruta){
+  if(input.files.length>0)
+  {
+    let files = new FormData(), // you can consider this as 'data bag'
+        url = 'upload.php';
+    var ext=input.files[0].name.split('.').pop();
+    files.append('fileName',input.files[0]); // append selected file to the bag named 'file'
+    files.append('id',parent.idnvaprom);
+    files.append('dir',ruta);
+    files.append('ext',ext);
+    $.ajax({
+        type: 'post',
+        url: url,
+        processData: false,
+        contentType: false,
+        data: files,
+        success: function (response) {
+          if(response!='¡Posible ataque de subida de ficheros!')
+          {
+            srcfolder=ruta;
+            srcsource=response;
+            if(idelement.includes(',')){
+              var arrelem=idelement.split(',');
+              arrelem.forEach(changeimg);
+            }
+            else {
+              changeimg(idelement);
+            }
+
+          }
+
+        },
+        error: function (err) {
+
+        }
+    });
+  }
+}
+function changeimg(idelement) {
+  var ele=parent.frames['iframePlantilla'].contentDocument.getElementById(idelement);
+  if(idelement==='plantillaUno')
+  {
+    ele.style.backgroundImage='url("'+srcfolder+srcsource+'")';
+  }
+  else {
+      ele.src=srcfolder+srcsource;
+  }
+}
