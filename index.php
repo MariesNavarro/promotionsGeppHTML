@@ -7,19 +7,21 @@ Author: OETCapital
 
 <?php
 require_once('backend/lib/db.php');
-$debug = false;
-$error = 0;
-$error_msg = "";
-$idprom = 0;
-$config = 0;
+$debug      = false;
+$error      = 0;
+$error_msg  = "";
+$idpromo    = 0;
+$config     = 0;
+$test       = 0;
 
 /***************** GET PARAMETROS ******************/
-if (isset($_GET['id'])) { $idprom = $_GET['id']; }  /* si viene una id_promo */
-if (isset($_GET['cf'])) { $config = $_GET['cf']; }    /* si viene del configurador */
+if (isset($_GET['id'])) { $idpromo  = $_GET['id']; /* $idprom = encrypt_decrypt('d', $idprom); */}  /* si viene una id_promo */
+if (isset($_GET['cf'])) { $config   = $_GET['cf']; }    /* si viene del configurador */
+if (isset($_GET['ts'])) { $test     = $_GET['ts']; }    /* si es test */
 
 /* Obtener datos segun parametros */
-if ($idprom>0) {  /* viene una promo, obtener datos promo  */
-    $promo = getpromocion($idprom);
+if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
+    $promo = getpromocion($idpromo);
     $promo_nombre             = $promo['promo_nombre'];
     $marca_id                 = $promo['id_marca'];
     $plantilla_id             = $promo['id_plantilla'];
@@ -29,15 +31,15 @@ if ($idprom>0) {  /* viene una promo, obtener datos promo  */
 }
 
 if ($config>0 && $promo==0) { /* viene del configurador y no viene promo , inicilaizar plantilla por defecto */
-    $promo_nombre = "Descuento Pepsi";
-    $marca_id = 1;
-    $plantilla_id =1;
-    $promo_legales ="";
-    $promo_version = 0;
-    $proveedor_id = 1;
+    $promo_nombre       = "Descuento Pepsi";
+    $marca_id           = 1; /* PEPSI */
+    $plantilla_id       = 1; /* PLANTILLA 1 */
+    $promo_legales      = "";
+    $promo_version      = 0; /* VER. 0 */
+    $proveedor_id       = 1; /* OXXO */
 }
 
-if ($idprom>0 || ($idprom==0 && $config>0)) { /* viene promo o no viene promo pero vengo del confiuradorm hay que obtener datos de la plantilla */
+if ($idpromo>0 || ($idpromo==0 && $config>0)) { /* viene promo o no viene promo pero vengo del confiuradorm hay que obtener datos de la plantilla */
   $plantilla = getplatilla($marca_id,$promo_version,$plantilla_id,1,$proveedor_id);
   $marca                    = $plantilla['marca_codigo'];
   $marca_descripcion        = $plantilla['marca_descripcion'];
@@ -62,7 +64,7 @@ if ($idprom>0 || ($idprom==0 && $config>0)) { /* viene promo o no viene promo pe
 /* Si no viene promo y no viene del config, error, redireccionar a la pagina de GEPP */
 if ($promo==0 && $config==0) {  $error = 1;  $error_msg ="Promo no encontrada";}
 
-if ($debug) { echo 'idprom: '.$idprom.' config: '.$config.' proveedor_id: '.$proveedor_id.' error: '.$error; }
+if ($debug) { echo 'idpromo: '.$idpromo.' config: '.$config.' proveedor_id: '.$proveedor_id.' error: '.$error.' test: '.$test; }
 
 switch ($error) {
   case 0: /* plantilla uno */
@@ -73,5 +75,5 @@ switch ($error) {
       break;
   default: /* Login */
       header('Location: login.php');
-}
+ }
 ?>

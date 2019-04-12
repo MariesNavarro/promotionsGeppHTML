@@ -13,7 +13,7 @@ $ismob = (isset($_GET["ismob"])&&$_GET["ismob"]=='true'?true:false);
 //barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob );
 
 
-function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal", $code_type="code128", $print=false, $SizeFactor=1,$ismob=false ) {
+function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal", $code_type="code128", $print=false, $SizeFactor=1,$ismob=false,$idpromo,$promo_imgcupon) {
 	$code_string = "";
 
 	if ( in_array(strtolower($code_type), array("code128", "code128b")) ) {
@@ -123,34 +123,31 @@ function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal"
 				imagettftext ($image ,36 , 0 , 118 , $img_height , $black ,"ui/fonts/g-black.ttf" , $text );
 			}
 
-
 	$location = 10;
 	for ( $position = 1 ; $position <= strlen($code_string); $position++ ) {
 		$cur_size = $location + ( substr($code_string, ($position-1), 1) );
 		if ( strtolower($orientation) == "horizontal" ){
 			  imagefilledrectangle( $image, $location*$SizeFactor, 50, $cur_size*$SizeFactor, $img_height-50, ($position % 2 == 0 ? $white : $black) );
-		}
-
-		else
+		}	else
 			imagefilledrectangle( $image, 0, $location*$SizeFactor, $img_width, $cur_size*$SizeFactor, ($position % 2 == 0 ? $white : $black) );
 		$location = $cur_size;
 	}
 
-	// Draw barcode to the screen or save in a file
-		//imagepng($image,$filepath);
-		//
-		//$stamp = imagecreatefrompng('./img/'.$nombre.'mob.png');
-		$im = imagecreatefromjpeg('ui/img/promoMob.jpg');
-		$marge_right = 180;
+  // Draw barcode to the screen or save in a file
+	//imagepng($image,$filepath);
+	//
+	//$stamp = imagecreatefrompng('./img/'.$nombre.'mob.png');
+		$im = imagecreatefromjpeg('ui/img/cupon/'.$promo_imgcupon);    //.$promo_imgcupon //$im = imagecreatefromjpeg('ui/img/promoMob.jpg');
+		$marge_right 	= 180;
 		$marge_bottom = 180;
 		$sx = imagesx($image);
 		$sy = imagesy($image);
 		imagecopy($im, $image, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($image), imagesy($image));
-		$newfilemob='ui/img/promoMob-'.$text.'.jpg';
+		$newfilemob='cupones/img/'.$idpromo.'_'.$text.'.jpg';
 		imagejpeg($im,$newfilemob);
 
-
 		//$stamp = imagecreatefrompng('./img/'.$nombre.'.png');
+		/*
 		$im2 = imagecreatefromjpeg('ui/img/promoDesk.jpg');
 		$marge_right2 = 162;
 		$marge_bottom2 = 75;
@@ -159,13 +156,16 @@ function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal"
 		imagecopy($im2, $image, imagesx($im2) - $sx2 - $marge_right2, imagesy($im2) - $sy2 - $marge_bottom2, 0, 0, imagesx($image), imagesy($image));
 		$newfile='ui/img/promoDesk-'.$text.'.jpg';
 		imagejpeg($im2,$newfile);
+		*/
+
 		//imagedestroy($im);
 		//return $newfilemob;
 		//header('Content-type: image/phg');
 		//imagepng($im);
-		imagedestroy($im2);
-		 imagedestroy($im);
-		 imagedestroy($image);
+
+		//imagedestroy($im2);
+		imagedestroy($im);
+		imagedestroy($image);
 
 }
 ?>
