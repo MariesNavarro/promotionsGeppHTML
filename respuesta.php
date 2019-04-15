@@ -36,6 +36,7 @@ function validarpromo ($idprom,$ip) {
   $count =0;
   $cads;
   $val=validafechas($cads,$idprom);
+  //echo 'validafechas: '.val;
   if($val[0]>0.000001&&$val[1]<0.00000001) { /* ya comenzo */
     $count = validalistanegra($idprom,$ip);
     if($count<1) { /* No esta en la lista Negra */
