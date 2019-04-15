@@ -334,7 +334,7 @@ body#plantillaUno {
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #000;
+  /*background: #000;*/
   overflow: hidden;
   background-repeat: no-repeat;
   background-position: center;
@@ -597,7 +597,7 @@ body#plantillaUno {
 /* + Setup */
 @media (min-width: 880px) {
   body#plantillaUno {
-    background: #000;
+    /*background: #000;*/
   }
 
   #plantillaUno > footer {

@@ -304,7 +304,7 @@ http://dragonflycity.com/
             <!-- Configurador Edición de Plantilla -->
             <div id="wrapEditorPlantilla">
               <div id="contEditorPlantilla">
-                <iframe id="iframePlantilla" src="plantilla-uno-pepsi.php"></iframe>
+                <iframe id="iframePlantilla" src="index.php?id=1&cf=1"></iframe>
               </div>
               <!-- index Edicion Plantilla -->
               <div id="editorPlantillaInterfaz">
