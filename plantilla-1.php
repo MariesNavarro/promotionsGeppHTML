@@ -88,7 +88,7 @@ Author: OETCapital
         <img id="couponImg" src="ui/img/cupon/<?php echo $promo_img_cupon; ?>">
       </div>
       <div class="wrapInferiorButton">
-        <a role="button" onclick="ctaDownloadImg()">
+        <a id="couponImgCaptureScreen"  role="button" onclick="ctaDownloadImg()" href="" download="cupon.jpg">
           <img id="btCaptureScreen" class="trans5" src="ui/img/botonDescarga/<?php echo $promo_img_descargarcupon; ?>">
         </a>
       </div>
@@ -103,7 +103,7 @@ Author: OETCapital
         <li><img id="msgErrorImg" src="ui/img/mensajeError/<?php echo $promo_img_error; ?>"></li>
       </ul>
       <div class="wrapInferiorSocial displayFlex">
-        <?php echo getmarca_redessociales($marca_id); ?>
+        <?php echo getmarca_redessociales($marca_id,$plantilla_id,$promo_version); ?>
         <!--
         <a href="https://www.facebook.com/pepsimexico/" target="_blank"><img id="icFacebook" src="ui/img/ic/facebook.png" width="45" height="45"></a>
         <a href="https://twitter.com/PepsiMEX" target="_blank"><img id="icInstagram" src="ui/img/ic/twitter.png" width="45" height="45"></a>

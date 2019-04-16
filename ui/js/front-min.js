@@ -1315,10 +1315,8 @@ function huella(){
 }
 
 /* Obtener cupon */
-function obtencupon(idpromo,promo_imgcupon,idproveedor,test)
-{
+function obtencupon(idpromo,promo_imgcupon,idproveedor,test){
   var param1=MetodoEnum.Obten_Cupon;
-  var codigo = "";
 
   codigo = huella();
   var dataString = 'param1=' + param1 + '&codigo=' + codigo + '&idpromo='+ idpromo+ '&promo_imgcupon='+promo_imgcupon+'&idproveedor='+idproveedor+'&test='+test;
@@ -1328,65 +1326,34 @@ function obtencupon(idpromo,promo_imgcupon,idproveedor,test)
            data:  dataString,
            success:function(data) {
                 console.log('obtencupon Result: '+data);
-                //loadingCoupon(data);
+                generateCoupon(idpromo,data);
            }
         });
 }
 
-function loadingCoupon(d){
-    var generando = _("#generandocupon"),
-        n = 0,
-        counter = _("#counter>p"),
-        cPath = _('#ccircleW'),
-        cLen = cPath.getTotalLength(),
-        stroke = -cLen;
-    var interval = setInterval(function(){
-      n++;
-      stroke += 3.2999804878;
-      if(stroke >= 0) stroke = 0;
-      cPath.style.strokeDashoffset = stroke;
-      counter.innerHTML = n;
-      if(n===100) {
-        clearInterval(interval);
-        setTimeout(function(){
-          generando.style.opacity = "0";
-          setTimeout(function(){ generando.style.display = "none"; },800);
-          if(d==="VUELVE")
-          {
-            horasDisplay("displayBlock");
-          }
-          else if(d==="AGOTADO") {
-
-              horasDisplay("displayNone");
-              var cupon = _("#cupon").style.display = "none";
-              agotadoDisplay("displayBlock");
-          }
-          else {
-            generateCoupon(d);
-
-            var arch='';
-            if(cB){
-              arch='ui/img/promoMob-'+d+'.jpg';
-            } else if (!cB && w < 960) {
-              arch='ui/img/promoMob-'+d+'.jpg';
-            } else if (!cB && w >= 960) {
-              arch='ui/img/promoDesk-'+d+'.jpg';
-            }
-            toDataURL(arch, function(dataUrl) {
-
-               var dow=_("#download");
-               dow.download="cupon.jpg"
-
-               dow.href=arch;
-               dow.target='_blank';
-            });
-
-            horasDisplay("displayNone");
-          }
-        },2000);
-      }
-    },10);
+function generateCoupon(idpromo,data){
+  if (data=='AGOTADO' || data=='ERROR') {
+    wLoadCoupon.setAttribute("style", "display:none");
+    textoEdo.setAttribute("style", "display:none");
+    showMsg(1);  /* ERROR */
+  } else {
+    $("#couponImg").attr('src','cupones/img/'+idpromo+'_'+data+'.jpg');
+    $("#couponImgCaptureScreen").attr('href','cupones/img/'+idpromo+'_'+data+'.jpg');
+    $("#couponImgCaptureScreen").attr('download',idpromo+'_'+data+'.jpg');
+    showCoupon();
+  }
+  /*
+  interno = i;
+  if(cB){
+    cupon.style.backgroundImage = "url('ui/img/promoMob-"+interno+".jpg')";
+  } else if (!cB && w < 960) {
+    cupon.style.backgroundImage = "url('ui/img/promoMob-"+interno+".jpg')";
+  } else if (!cB && w >= 960) {
+    cupon.style.backgroundImage = "url('ui/img/promoDesk-"+interno+".jpg')";
+  }
+  */
 }
+
 
 /* Validar promo */
 function validarpromo(idpromo) {
@@ -1397,17 +1364,16 @@ function validarpromo(idpromo) {
     url     : 'respuesta.php',
     data    :  dataString,
     success :  function(data) {
-      //console.log('validarpromo Result: '+data);
-      if (data>0) {  // Mostrar mensaje
-        window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
-      }
+      console.log('validarpromo Result: '+data);
+
+      //if (data>0) {  // Mostrar mensaje
+      //  window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
+      //}
       //if(data=="SI")  { initFront(); }
       //else  {  $('#index').html(data).fadeIn();  }
     }
   });
 }
-
-
 
 function _(el){return document.querySelector(el); }
 function __(el){return document.querySelectorAll(el); }
@@ -1560,7 +1526,6 @@ function ctaCoupon(idpromo,promo_imgcupon,idproveedor,test){
   showLoadCoupon();
   setTimeout(function(){
     obtencupon(idpromo,promo_imgcupon,idproveedor,test);
-    showCoupon();
   },3000);
 }
 
@@ -1568,6 +1533,10 @@ function ctaDownloadImg(){
   hideCoupon();
   //Si 0 = Mensaje de éxito
   //Si 1 = Mensaje de error
+  //var cupon = _("#couponImg").style.display = "none";
+  //var guardado = _("#guardado").style.display = "block";
+  //var tx = _('#stateText').innerHTML = "Cupón Guardado Exitosamente";
+  //var blk = _('#blk').style.backgroundImage = "url('ui/img/blank.png')";
   showMsg(0);
 }
 
