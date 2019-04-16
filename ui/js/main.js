@@ -976,6 +976,9 @@ var MetodoEnum = {
  var idnvaprom=0;
  var exist=[];
  var nuevos=[];
+ var infopromocrear=[];
+ var infopromoedit=[];
+ var bancarga=0;
 
 function _(el){return document.querySelector(el); }
 function __(el){return document.querySelectorAll(el); }
@@ -1291,6 +1294,7 @@ function sliderConfigFun(e){
     break;
     case 4:
      w.style.marginLeft = "-400%";
+     changeScreen(0);
     break;
   }
   function clearBullets(){
@@ -1751,11 +1755,80 @@ function actualizaplantillabd(n,t,id){
       }
       else {
         var w=window.innerWidth;
-        var frame = _("#iframePlantilla"),
-        frameIF = _("#iframeInterfaz");
-        var mar=$('#selectBrand')[0].value;
-        frame.src='index.php?id='+idnvaprom+'&cf=1';
-        frameIF.src='interfaz-uno.php?mar='+mar;
+        if(bancarga==0)
+        {
+          infopromocrear=data.split('&@;');
+          infopromoedit=infopromocrear;
+          bancarga=1;
+        }
+        else
+        {
+          var infotemp=data.split('&@;');
+          if(infopromoedit[3]!=infotemp[3])
+          {
+            infopromoedit=infotemp;
+          }
+          else {
+            infopromoedit[0]=infotemp[0];
+            infopromoedit[1]=infotemp[1];
+            infopromoedit[2]=infotemp[2];
+            infopromoedit[3]=infotemp[3];
+            infopromoedit[4]=infotemp[4];
+            infopromoedit[5]=infotemp[5];
+            infopromoedit[6]=infotemp[6];
+            infopromoedit[7]=infotemp[7];
+            infopromoedit[8]=infotemp[8];
+            infopromoedit[9]=infotemp[9];
+            infopromoedit[10]=infotemp[10];
+            infopromoedit[11]=infotemp[11];
+            infopromoedit[12]=infotemp[12];
+            infopromoedit[13]=infotemp[13];
+            infopromoedit[15]=infotemp[15];
+
+          }
+        }
+        var frame = _("#iframePlantilla").contentWindow,
+        frameIF = _("#iframeInterfaz").contentWindow;
+        frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
+        frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
+        frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
+        //Cambiar colores,texto,fuentes
+        //Color BACK
+        var documentplantilla=frame.document;
+        var back=documentplantilla.getElementById("loading");
+        var classcolor=infopromoedit[20];
+        var arrclass=back.className.split(" ");
+        arrclass.pop();
+        arrclass.push(classcolor);
+        back.className=arrclass.join(' ');
+        //Fuente color y tipo
+        var body=documentplantilla.getElementById("plantillaUno");
+        var colorfuente=infopromoedit[19];
+        var fuente=infopromoedit[18];
+        var arrclassbody=body.className.split(" ");
+        arrclassbody[0]=fuente;
+        arrclassbody[1]=colorfuente;
+        body.className=arrclass.join(' ');
+        //Texto footer
+        var footer=documentplantilla.getElementById("footerPromoCopy");
+        var txt=infopromoedit[21];
+        footer.textContent=txt;
+        //Cambiar imagenes
+        updateimagemodiplantilla(infopromoedit[15],'proveedorUnoLogo','ui/img/proveedor/');
+        updateimagemodiplantilla(infopromoedit[14],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
+        updateimagemodiplantilla(infopromoedit[16],'plantillaUno','ui/img/back/');
+        updateimagemodiplantilla(infopromoedit[17],'productoImg','ui/img/producto/');
+        updateimagemodiplantilla(infopromoedit[22],'textoInicioImg','ui/img/textoInicio/');
+        updateimagemodiplantilla(infopromoedit[23],'prizeImg','ui/img/precio/');
+        updateimagemodiplantilla(infopromoedit[24],'btCouponImg','ui/img/botonCupon/');
+        updateimagemodiplantilla(infopromoedit[25],'couponImg','ui/img/cupon/');
+        updateimagemodiplantilla(infopromoedit[26],'btCaptureScreen','ui/img/botonDescarga/');
+        updateimagemodiplantilla(infopromoedit[27],'msgExitoImg','ui/img/mensajeExito/');
+        updateimagemodiplantilla(infopromoedit[28],'msgHashtagImg','ui/img/hashtag/');
+        updateimagemodiplantilla(infopromoedit[29],'msgErrorImg','ui/img/mensajeError/');
+        //var mar=$('#selectBrand')[0].value;
+        //frame.src='index.php?id='+idnvaprom+'&cf=1';
+        //frameIF.src='interfaz-uno.php?mar='+mar;
         optionsConfig(0);
         compactMenu = true;
         if(w>=880)compactConfigMenu(0);
@@ -1854,4 +1927,59 @@ function loadcupons(n,t){
       window.location.href='home.php';
     }
   });
+}
+function changecolorback(t)
+{
+    var back= _("#iframePlantilla").contentWindow.document.getElementById("loading");
+    var classcolor=t.value.split('.')[1];
+    var arrclass=back.className.split(" ");
+    arrclass.pop();
+    arrclass.push(classcolor);
+    back.className=arrclass.join(' ');
+}
+function changecolortext(t)
+{
+  var body= _("#iframePlantilla").contentWindow.document.getElementById("plantillaUno");
+  var classcolor=t.value.split('.')[1];
+  var arrclass=body.className.split(" ");
+  arrclass[1]=classcolor;
+  body.className=arrclass.join(' ');
+
+}
+function changefont(t)
+{
+  var body= _("#iframePlantilla").contentWindow.document.getElementById("plantillaUno");
+  var classcolor=t.value.split('.')[1];
+  var arrclass=body.className.split(" ");
+  arrclass[0]=classcolor;
+  body.className=arrclass.join(' ');
+}
+function changetxt(t)
+{
+  var footer= _("#iframePlantilla").contentWindow.document.getElementById("footerPromoCopy");
+  var txt=t.value;
+  footer.textContent=txt;
+}
+var folderui='';
+var imguifolder='';
+function updateimagemodiplantilla(input,idelement,ruta){
+  folderui=ruta;
+  imguifolder=input;
+  if(idelement.includes(',')){
+      var arrelem=idelement.split(',');
+      arrelem.forEach(changeimgemodiplantilla);
+  }
+  else {
+    changeimgemodiplantilla(idelement);
+  }
+}
+function changeimgemodiplantilla(idelement) {
+  var ele=_("#iframePlantilla").contentWindow.document.getElementById(idelement);
+  if(idelement==='plantillaUno')
+  {
+    ele.style.backgroundImage='url("'+folderui+imguifolder+'")';
+  }
+  else {
+      ele.src=folderui+imguifolder;
+  }
 }
