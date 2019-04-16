@@ -49,7 +49,7 @@ Author: OETCapital
         <img id="navLogo" src="ui/img/logotipo/<?php echo $marca_logo; ?>" height="45">
       </a>
       <a id="proveedorUno" class="trans5" style="opacity:0">
-        <img src="ui/img/proveedor/<?php echo $proveedor_logo; ?>" height="45">
+        <img id="proveedorUnoLogo" src="ui/img/proveedor/<?php echo $proveedor_logo; ?>" height="45">
       </a>
     </nav>
     <div id="textoEdo" class="trans5" style="opacity:0">

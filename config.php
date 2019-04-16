@@ -340,83 +340,83 @@ http://dragonflycity.com/
 
                   <form class="optionsColor displayFlex">
                     <label for="backBlackConf" style="background:#000"></label>
-                    <input id="backBlackConf" type="checkbox" value=".negroBack" class="hideInput">
+                    <input id="backBlackConf" onclick="changecolorback(this);" type="checkbox" value=".negroBack" class="hideInput">
 
                     <label for="backWhiteConf" style="background:#FFF"></label>
-                    <input id="backWhiteConf" type="checkbox" value=".blancoBack" class="hideInput">
+                    <input id="backWhiteConf" onclick="changecolorback(this);" type="checkbox" value=".blancoBack" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="backAzulUnoPepsiConf" style="background:#15355b"></label>
-                    <input id="backAzulUnoPepsiConf" type="checkbox" value=".azulUnoPepsiBack" class="hideInput">
+                    <input id="backAzulUnoPepsiConf" onclick="changecolorback(this);" type="checkbox" value=".azulUnoPepsiBack" class="hideInput">
 
                     <label for="backAzulDosPepsiConf" style="background:#005cb9"></label>
-                    <input id="backAzulDosPepsiConf" type="checkbox" value=".azulDosPepsiBack" class="hideInput">
+                    <input id="backAzulDosPepsiConf" onclick="changecolorback(this);" type="checkbox" value=".azulDosPepsiBack" class="hideInput">
 
                     <label for="backRojoPepsiConf" style="background:#e71d2f"></label>
-                    <input id="backRojoPepsiConf" type="checkbox" value=".rojoPepsiBack" class="hideInput">
+                    <input id="backRojoPepsiConf" onclick="changecolorback(this);" type="checkbox" value=".rojoPepsiBack" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="backNaranjaUnoGatoradeConf" style="background:#FF671F"></label>
-                    <input id="backNaranjaUnoGatoradeConf" type="checkbox" value=".naranjaUnoGatoradeBack" class="hideInput">
+                    <input id="backNaranjaUnoGatoradeConf" onclick="changecolorback(this);" type="checkbox" value=".naranjaUnoGatoradeBack" class="hideInput">
 
                     <label for="backNaranjaDosGatoradeConf" style="background:#F9A350"></label>
-                    <input id="backNaranjaDosGatoradeConf" type="checkbox" value=".naranjaDosGatoradeBack" class="hideInput">
+                    <input id="backNaranjaDosGatoradeConf" onclick="changecolorback(this);" type="checkbox" value=".naranjaDosGatoradeBack" class="hideInput">
 
                     <label for="backRojoGatoradeConf" style="background:#EF3E42"></label>
-                    <input id="backRojoGatoradeConf" type="checkbox" value=".rojoGatoradeBack" class="hideInput">
+                    <input id="backRojoGatoradeConf" onclick="changecolorback(this);" type="checkbox" value=".rojoGatoradeBack" class="hideInput">
 
                     <label for="backVerdeGatoradeConf" style="background:#046A38"></label>
-                    <input id="backVerdeGatoradeConf" type="checkbox" value=".verdeGatoradeBack" class="hideInput">
+                    <input id="backVerdeGatoradeConf" onclick="changecolorback(this);" type="checkbox" value=".verdeGatoradeBack" class="hideInput">
 
                     <label for="backGrisGatoradeConf" style="background:#B7B9BB"></label>
-                    <input id="backGrisGatoradeConf" type="checkbox" value=".grisGatoradeBack" class="hideInput">
+                    <input id="backGrisGatoradeConf" onclick="changecolorback(this);" type="checkbox" value=".grisGatoradeBack" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="backVerdeUnoSevenConf" style="background:#225D38"></label>
-                    <input id="backVerdeUnoSevenConf" type="checkbox" value=".verdeSevenUpUnoBack" class="hideInput">
+                    <input id="backVerdeUnoSevenConf" onclick="changecolorback(this);" type="checkbox" value=".verdeSevenUpUnoBack" class="hideInput">
 
                     <label for="backVerdeDosSevenConf" style="background:#00AB51"></label>
-                    <input id="backVerdeDosSevenConf" type="checkbox" value=".verdeSevenUpDosBack" class="hideInput">
+                    <input id="backVerdeDosSevenConf" onclick="changecolorback(this);" type="checkbox" value=".verdeSevenUpDosBack" class="hideInput">
 
                     <label for="backVerdeTresSevenConf" style="background:#00AB51"></label>
-                    <input id="backVerdeTresSevenConf" type="checkbox" value=".verdeSevenUpTresBack" class="hideInput">
+                    <input id="backVerdeTresSevenConf" onclick="changecolorback(this);" type="checkbox" value=".verdeSevenUpTresBack" class="hideInput">
 
                     <label for="backRojoSevenConf" style="background:#EF3E42"></label>
-                    <input id="backRojoSevenConf" type="checkbox" value=".rojoSevenUpBack" class="hideInput">
+                    <input id="backRojoSevenConf" onclick="changecolorback(this);" type="checkbox" value=".rojoSevenUpBack" class="hideInput">
 
                     <label for="backAmarilloSevenConf" style="background:#FFDD00"></label>
-                    <input id="backAmarilloSevenConf" type="checkbox" value=".amarilloSevenUpBack" class="hideInput">
+                    <input id="backAmarilloSevenConf" onclick="changecolorback(this);" type="checkbox" value=".amarilloSevenUpBack" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="backVioletaUnoEpuraConf" style="background:#1B1F6C"></label>
-                    <input id="backVioletaUnoEpuraConf" type="checkbox" value=".violetaUnoEpuraBack" class="hideInput">
+                    <input id="backVioletaUnoEpuraConf" onclick="changecolorback(this);" type="checkbox" value=".violetaUnoEpuraBack" class="hideInput">
 
                     <label for="backVioletaDosEpuraConf" style="background:#472F8B"></label>
-                    <input id="backVioletaDosEpuraConf" type="checkbox" value=".violetaDosEpuraBack" class="hideInput">
+                    <input id="backVioletaDosEpuraConf" onclick="changecolorback(this);" type="checkbox" value=".violetaDosEpuraBack" class="hideInput">
 
                     <label for="backCyanEpuraConf" style="background:#27B2E3"></label>
-                    <input id="backCyanEpuraConf" type="checkbox" value=".cyanEpuraBack" class="hideInput">
+                    <input id="backCyanEpuraConf" onclick="changecolorback(this);" type="checkbox" value=".cyanEpuraBack" class="hideInput">
 
                     <label for="backAmarilloEpuraConf" style="background:#FAEC3C"></label>
-                    <input id="backAmarilloEpuraConf" type="checkbox" value=".yellowEpuraBack" class="hideInput">
+                    <input id="backAmarilloEpuraConf" onclick="changecolorback(this);" type="checkbox" value=".yellowEpuraBack" class="hideInput">
 
                     <label for="backRosaEpuraConf" style="background:#E4238C"></label>
-                    <input id="backRosaEpuraConf" type="checkbox" value=".pinkEpuraBack" class="hideInput">
+                    <input id="backRosaEpuraConf" onclick="changecolorback(this);" type="checkbox" value=".pinkEpuraBack" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="backAmarilloFrutzzoConf" style="background:#FDCE07"></label>
-                    <input id="backAmarilloFrutzzoConf" type="checkbox" value=".amarilloFrutzzoBack" class="hideInput">
+                    <input id="backAmarilloFrutzzoConf" onclick="changecolorback(this);" type="checkbox" value=".amarilloFrutzzoBack" class="hideInput">
 
                     <label for="backAzulUnoFrutzzoConf" style="background:#18234C"></label>
-                    <input id="backAzulUnoFrutzzoConf" type="checkbox" value=".azulUnoFrutzzoBack" class="hideInput">
+                    <input id="backAzulUnoFrutzzoConf" onclick="changecolorback(this);" type="checkbox" value=".azulUnoFrutzzoBack" class="hideInput">
 
                     <label for="backAzulDosFrutzzoConf" style="background:#2BA8E0"></label>
-                    <input id="backAzulDosFrutzzoConf" type="checkbox" value=".azulDosFrutzzoBack" class="hideInput">
+                    <input id="backAzulDosFrutzzoConf" onclick="changecolorback(this);" type="checkbox" value=".azulDosFrutzzoBack" class="hideInput">
                   </form>
                 </li>
               </ul>
@@ -426,83 +426,83 @@ http://dragonflycity.com/
                   <p><b>Color Texto:</b></p>
                   <form class="optionsColor displayFlex">
                     <label for="colorBlackConf" style="background:#000"></label>
-                    <input id="colorBlackConf" type="checkbox" value=".negroTx" class="hideInput">
+                    <input id="colorBlackConf" onclick="changecolortext(this);" type="checkbox" value=".negroTx" class="hideInput">
 
                     <label for="colorWhiteConf" style="background:#FFF"></label>
-                    <input id="colorWhiteConf" type="checkbox" value=".blancoTx" class="hideInput">
+                    <input id="colorWhiteConf" onclick="changecolortext(this);" type="checkbox" value=".blancoTx" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="colorAzulUnoPepsiConf" style="background:#15355b"></label>
-                    <input id="colorAzulUnoPepsiConf" type="checkbox" value=".azulUnoPepsiTx" class="hideInput">
+                    <input id="colorAzulUnoPepsiConf" onclick="changecolortext(this);" type="checkbox" value=".azulUnoPepsiTx" class="hideInput">
 
                     <label for="colorAzulDosPepsiConf" style="background:#005cb9"></label>
-                    <input id="colorAzulDosPepsiConf" type="checkbox" value=".azulDosPepsiTx" class="hideInput">
+                    <input id="colorAzulDosPepsiConf" onclick="changecolortext(this);" type="checkbox" value=".azulDosPepsiTx" class="hideInput">
 
                     <label for="colorRojoPepsiConf" style="background:#e71d2f"></label>
-                    <input id="colorRojoPepsiConf" type="checkbox" value=".rojoPepsiTx" class="hideInput">
+                    <input id="colorRojoPepsiConf" onclick="changecolortext(this);" type="checkbox" value=".rojoPepsiTx" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="colorNaranjaUnoGatoradeConf" style="background:#FF671F"></label>
-                    <input id="colorNaranjaUnoGatoradeConf" type="checkbox" value=".naranjaUnoGatoradeTx" class="hideInput">
+                    <input id="colorNaranjaUnoGatoradeConf" onclick="changecolortext(this);" type="checkbox" value=".naranjaUnoGatoradeTx" class="hideInput">
 
                     <label for="colorNaranjaDosGatoradeConf" style="background:#F9A350"></label>
-                    <input id="colorNaranjaDosGatoradeConf" type="checkbox" value=".naranjaDosGatoradeTx" class="hideInput">
+                    <input id="colorNaranjaDosGatoradeConf" onclick="changecolortext(this);" type="checkbox" value=".naranjaDosGatoradeTx" class="hideInput">
 
                     <label for="colorRojoGatoradeConf" style="background:#EF3E42"></label>
-                    <input id="colorRojoGatoradeConf" type="checkbox" value=".rojoGatoradeTx" class="hideInput">
+                    <input id="colorRojoGatoradeConf" onclick="changecolortext(this);" type="checkbox" value=".rojoGatoradeTx" class="hideInput">
 
                     <label for="colorVerdeGatoradeConf" style="background:#046A38"></label>
-                    <input id="colorVerdeGatoradeConf" type="checkbox" value=".verdeGatoradeTx" class="hideInput">
+                    <input id="colorVerdeGatoradeConf" onclick="changecolortext(this);" type="checkbox" value=".verdeGatoradeTx" class="hideInput">
 
                     <label for="colorGrisGatoradeConf" style="background:#B7B9BB"></label>
-                    <input id="colorGrisGatoradeConf" type="checkbox" value=".grisGatoradeTx" class="hideInput">
+                    <input id="colorGrisGatoradeConf" onclick="changecolortext(this);" type="checkbox" value=".grisGatoradeTx" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="colorVerdeUnoSevenConf" style="background:#225D38"></label>
-                    <input id="colorVerdeUnoSevenConf" type="checkbox" value=".verdeSevenUpUnoTx" class="hideInput">
+                    <input id="colorVerdeUnoSevenConf" onclick="changecolortext(this);" type="checkbox" value=".verdeSevenUpUnoTx" class="hideInput">
 
                     <label for="colorVerdeDosSevenConf" style="background:#00AB51"></label>
-                    <input id="colorVerdeDosSevenConf" type="checkbox" value=".verdeSevenUpDosTx" class="hideInput">
+                    <input id="colorVerdeDosSevenConf" onclick="changecolortext(this);" type="checkbox" value=".verdeSevenUpDosTx" class="hideInput">
 
                     <label for="colorVerdeTresSevenConf" style="background:#00AB51"></label>
-                    <input id="colorVerdeTresSevenConf" type="checkbox" value=".verdeSevenUpTresTx" class="hideInput">
+                    <input id="colorVerdeTresSevenConf" onclick="changecolortext(this);" type="checkbox" value=".verdeSevenUpTresTx" class="hideInput">
 
                     <label for="colorRojoSevenConf" style="background:#EF3E42"></label>
-                    <input id="colorRojoSevenConf" type="checkbox" value=".rojoSevenUpTx" class="hideInput">
+                    <input id="colorRojoSevenConf" onclick="changecolortext(this);" type="checkbox" value=".rojoSevenUpTx" class="hideInput">
 
                     <label for="colorAmarilloSevenConf" style="background:#FFDD00"></label>
-                    <input id="colorAmarilloSevenConf" type="checkbox" value=".amarilloSevenUpTx" class="hideInput">
+                    <input id="colorAmarilloSevenConf" onclick="changecolortext(this);" type="checkbox" value=".amarilloSevenUpTx" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="colorVioletaUnoEpuraConf" style="background:#1B1F6C"></label>
-                    <input id="colorVioletaUnoEpuraConf" type="checkbox" value=".violetaUnoEpuraTx" class="hideInput">
+                    <input id="colorVioletaUnoEpuraConf" onclick="changecolortext(this);" type="checkbox" value=".violetaUnoEpuraTx" class="hideInput">
 
                     <label for="colorVioletaDosEpuraConf" style="background:#472F8B"></label>
-                    <input id="colorVioletaDosEpuraConf" type="checkbox" value=".violetaDosEpuraTx" class="hideInput">
+                    <input id="colorVioletaDosEpuraConf" onclick="changecolortext(this);" type="checkbox" value=".violetaDosEpuraTx" class="hideInput">
 
                     <label for="colorCyanEpuraConf" style="background:#27B2E3"></label>
-                    <input id="colorCyanEpuraConf" type="checkbox" value=".cyanEpuraTx" class="hideInput">
+                    <input id="colorCyanEpuraConf" onclick="changecolortext(this);" type="checkbox" value=".cyanEpuraTx" class="hideInput">
 
                     <label for="colorAmarilloEpuraConf" style="background:#FAEC3C"></label>
-                    <input id="colorAmarilloEpuraConf" type="checkbox" value=".yellowEpuraTx" class="hideInput">
+                    <input id="colorAmarilloEpuraConf" onclick="changecolortext(this);" type="checkbox" value=".yellowEpuraTx" class="hideInput">
 
                     <label for="colorRosaEpuraConf" style="background:#E4238C"></label>
-                    <input id="colorRosaEpuraConf" type="checkbox" value=".pinkEpuraTx" class="hideInput">
+                    <input id="colorRosaEpuraConf" onclick="changecolortext(this);" type="checkbox" value=".pinkEpuraTx" class="hideInput">
                   </form>
 
                   <form class="optionsColor displayNone">
                     <label for="colorAmarilloFrutzzoConf" style="background:#FDCE07"></label>
-                    <input id="colorAmarilloFrutzzoConf" type="checkbox" value=".amarilloFrutzzoTx" class="hideInput">
+                    <input id="colorAmarilloFrutzzoConf" onclick="changecolortext(this);" type="checkbox" value=".amarilloFrutzzoTx" class="hideInput">
 
                     <label for="colorAzulUnoFrutzzoConf" style="background:#18234C"></label>
-                    <input id="colorAzulUnoFrutzzoConf" type="checkbox" value=".azulUnoFrutzzoTx" class="hideInput">
+                    <input id="colorAzulUnoFrutzzoConf" onclick="changecolortext(this);" type="checkbox" value=".azulUnoFrutzzoTx" class="hideInput">
 
                     <label for="colorAzulDosFrutzzoConf" style="background:#2BA8E0"></label>
-                    <input id="colorAzulDosFrutzzoConf" type="checkbox" value=".azulDosFrutzzoTx" class="hideInput">
+                    <input id="colorAzulDosFrutzzoConf" onclick="changecolortext(this);" type="checkbox" value=".azulDosFrutzzoTx" class="hideInput">
                   </form>
                 </li>
                 <li class="displayFlex">
@@ -511,53 +511,53 @@ http://dragonflycity.com/
                     <label for="fontArialConf">
                       <p style="font-family:'Arial', sans-serif">Arial</p>
                     </label>
-                    <input id="fontArialConf" type="checkbox" value=".fontArial" class="hideInput">
+                    <input id="fontArialConf" onclick="changefont(this)" type="checkbox" value=".fontArial" class="hideInput">
 
 
                     <label for="fontArialBlackConf">
                       <p style="font-family:'Arial Black', sans-serif">A. Black</p>
                     </label>
-                    <input id="fontArialBlackConf" type="checkbox" value=".fontArialBlack" class="hideInput">
+                    <input id="fontArialBlackConf" onclick="changefont(this)" type="checkbox" value=".fontArialBlack" class="hideInput">
 
                     <label for="fontHelveticaConf">
                       <p style="font-family:'Helvetica', sans-serif">Helvetica</p>
                     </label>
-                    <input id="fontHelveticaConf" type="checkbox" value=".fontHelvetica" class="hideInput">
+                    <input id="fontHelveticaConf" onclick="changefont(this)" type="checkbox" value=".fontHelvetica" class="hideInput">
 
                     <label for="fontCourierConf">
                       <p style="font-family:'Courier', serif">Courier</p>
                     </label>
-                    <input id="fontCourierConf" type="checkbox" value=".fontCourier" class="hideInput">
+                    <input id="fontCourierConf" onclick="changefont(this)" type="checkbox" value=".fontCourier" class="hideInput">
 
                     <label for="fontVerdanaConf">
                       <p style="font-family:'Verdana', sans-serif">Verdana</p>
                     </label>
-                    <input id="fontVerdanaConf" type="checkbox" value=".fontVerdana" class="hideInput">
+                    <input id="fontVerdanaConf" onclick="changefont(this)" type="checkbox" value=".fontVerdana" class="hideInput">
 
                     <label for="fontGeorgiaConf">
                       <p style="font-family:'Georgia', serif">Georgia</p>
                     </label>
-                    <input id="fontGeorgiaConf" type="checkbox" value=".fontGeorgia" class="hideInput">
+                    <input id="fontGeorgiaConf" onclick="changefont(this)" type="checkbox" value=".fontGeorgia" class="hideInput">
 
                     <label for="fontGaramondConf">
                       <p style="font-family:'Garamond', serif">Garamond</p>
                     </label>
-                    <input id="fontGaramondConf" type="checkbox" value=".fontGaramond" class="hideInput">
+                    <input id="fontGaramondConf" onclick="changefont(this)" type="checkbox" value=".fontGaramond" class="hideInput">
 
                     <label for="fontTrebuchetConf">
                       <p style="font-family:'Trebuchet', serif">Trebuchet</p>
                     </label>
-                    <input id="fontTrebuchetConf" type="checkbox" value=".fontTrebuchet" class="hideInput">
+                    <input id="fontTrebuchetConf" onclick="changefont(this)" type="checkbox" value=".fontTrebuchet" class="hideInput">
 
                     <label for="fontImpactConf">
                       <p style="font-family:'Impact', sans-serif">Impact</p>
                     </label>
-                    <input id="fontImpactConf" type="checkbox" value=".fontImpact" class="hideInput">
+                    <input id="fontImpactConf" onclick="changefont(this)" type="checkbox" value=".fontImpact" class="hideInput">
                   </form>
                 </li>
                 <li class="displayFlex">
                   <p><b>Texto Footer:</b></p>
-                  <input id="textFootConf" class="textConf" type="text">
+                  <input id="textFootConf" onkeyup="changetxt(this)" class="textConf" type="text">
                 </li>
               </ul>
             </div>
