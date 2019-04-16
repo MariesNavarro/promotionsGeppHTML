@@ -5,6 +5,10 @@ require_once('conexion.php');
 require_once('funciones.php');
 require_once('barcode.php');
 
+//echo  'Valida lista negra: '.validalistanegra(1,'187.188.22.208').PHP_EOL;
+//echo 'validaregion: '.validaregion(1).PHP_EOL;
+//echo 'promvalidestado  :'.promvalidestado(1,'187.188.22.208').PHP_EOL;
+
 function validafechas(&$cad,$promo){
   $reg;
   $contador=0;
@@ -29,7 +33,7 @@ function validafechas(&$cad,$promo){
   return $reg;
 }
 
-function validaregion($idprom,$ip)
+function validaregion($idprom)
 {
   $count=0;
   $link=connect();
@@ -43,7 +47,7 @@ function validaregion($idprom,$ip)
   return $count;
 }
 
-function validalistanegra($idprom,$ip)
+function validalistanegra($ip,$idprom)
 {
   $count=0;
   $link=connect();
@@ -239,11 +243,16 @@ function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
   return $resultado;
 }
 
-function getmarca_redessociales($idmarca)
+function getmarca_redessociales($idmarca,$idplantilla,$version)
 {
   $link=connect();
   $resultado = null;
-  $consulta = "SELECT * FROM gtrd_marca_redessociales WHERE id_marca = ".$idmarca." AND activo =1";
+  //$consulta = "SELECT * FROM gtrd_marca_redessociales WHERE id_marca = ".$idmarca." AND activo =1 ";
+
+  $consulta = "SELECT a.url, a.nombre, b.valor_componente logo
+                FROM gtrd_marca_redessociales a
+               LEFT JOIN gtrd_plantilla_config_producto b ON  a.codigo = b.id_componente  AND b.id_plantilla = ".$idplantilla." AND a.id_marca = b.id_marca AND b.version = ".$version." AND b.producto = 1
+                WHERE a.id_marca = ".$idmarca." AND a.activo =1";
 
   if ($registros = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_array($registros)) {

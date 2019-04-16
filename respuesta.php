@@ -5,6 +5,9 @@
   $accion   = $_POST['param1'];
   $idpromo  = $_POST['idpromo'];
 
+  //$accion   = $_GET['param1'];
+  //$idpromo  = $_GET['idpromo'];
+
   /* Ontener la IP */
   $ip = '';
   if (!empty($_SERVER['HTTP_CLIENT_IP'])) {  $ip = $_SERVER['HTTP_CLIENT_IP']; }
@@ -31,26 +34,30 @@
 
 
 /* Validar Promo: vigencia, lista negra, regiones, estados */
-function validarpromo ($idprom,$ip) {
+function validarpromo ($idpromo,$ip) {
   $result=0; /* promo valida */
   $count =0;
   $cads;
-  $val=validafechas($cads,$idprom);
-  //echo 'validafechas: '.val;
+  $val=validafechas($cads,$idpromo);
+  //echo 'validafechas: idpromo='.$idpromo.' ip='.$ip.PHP_EOL;
   if($val[0]>0.000001&&$val[1]<0.00000001) { /* ya comenzo */
-    $count = validalistanegra($idprom,$ip);
+    //echo 'voy a validalistanegra...'.PHP_EOL;
+    $count = validalistanegra($idpromo,$ip);
     if($count<1) { /* No esta en la lista Negra */
-      $count=validaregion($idprom,$ip); /* validar region */
-      if($count<1) {
-        $count = promvalidestado($ip,$idprom);
+      //echo 'voy a validaregion...'.PHP_EOL;
+      $count=validaregion($idpromo); /* validar region */
+      if($count>1) {
+        //echo 'voy a promvalidestado...'.PHP_EOL;
+        $count = promvalidestado($idpromo,$ip);
         if($count<1) { $result=1; } /* ubicación no valida */
-      }
+      } else { $result=1;} /* ubicación no valida */
     } else { $result=2;} /* esta en lista negra */
   }
   else {
     if ($val[0]<0.000001) {  $result=3; } // no ha comenzado
     else {  $result=4; }// ya finalizo
   }
+  //echo 'validarpromo: '.$resul.PHP_EOL;
   return $result;
 }
 

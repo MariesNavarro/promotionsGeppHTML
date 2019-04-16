@@ -1,4 +1,4 @@
-<?php
+ <?php
   require_once('backend/lib/db.php');
   $mensaje = "";
   $idpromo = 0;

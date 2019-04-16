@@ -2,15 +2,17 @@
 
 
 $filepath = (isset($_GET["filepath"])?$_GET["filepath"]:"");
-$text = (isset($_GET["text"])?$_GET["text"]:"0");
-$size = (isset($_GET["size"])?$_GET["size"]:"20");
+$text = (isset($_GET["text"])?$_GET["text"]:"AAAA-BBBB-CCCC-DDDD");
+$size = (isset($_GET["size"])?$_GET["size"]:"450");
 $orientation = (isset($_GET["orientation"])?$_GET["orientation"]:"horizontal");
 $code_type = (isset($_GET["codetype"])?$_GET["codetype"]:"code128");
-$print = (isset($_GET["print"])&&$_GET["print"]=='true'?true:false);
-$sizefactor = (isset($_GET["sizefactor"])?$_GET["sizefactor"]:"1");
-$ismob = (isset($_GET["ismob"])&&$_GET["ismob"]=='true'?true:false);
+$print = (isset($_GET["print"])&&$_GET["print"]=='true'?true:true);
+$sizefactor = (isset($_GET["sizefactor"])?$_GET["sizefactor"]:"3");
+$ismob = (isset($_GET["ismob"])&&$_GET["ismob"]=='true'?true:true);
+$idpromo =1;
+$promo_imgcupon = '1_AAAA-BBBB-CCCC-DDDD.jpg';
 
-//barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob );
+//barcode($filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon );
 
 
 function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal", $code_type="code128", $print=false, $SizeFactor=1,$ismob=false,$idpromo,$promo_imgcupon) {
@@ -103,7 +105,7 @@ function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal"
 
 	for ( $i=1; $i <= strlen($code_string); $i++ ){
 		$code_length = $code_length + (integer)(substr($code_string,($i-1),1));
-        }
+  }
 
 	if ( strtolower($orientation) == "horizontal" ) {
 		$img_width = $code_length*$SizeFactor;
@@ -117,11 +119,17 @@ function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal"
 	$black = imagecolorallocate ($image, 0, 0, 0);
 	$white = imagecolorallocate ($image, 255, 255, 255);
 
+	//echo 'textLength: '.$textLength.' '.imagefontwidth(36).' '.strlen($text);
+
 	imagefill( $image, 0, 0, $white );
 			if ( $print ) {
+				$textLength = 27*strlen($text);
 				//imagestring($image,5, 225, $img_height, $text, $black );
-				imagettftext ($image ,36 , 0 , 118 , $img_height , $black ,"ui/fonts/g-black.ttf" , $text );
+				//imagettftext ($image ,36 , 0 , 118 , $img_height , $black ,"ui/fonts/g-black.ttf" , $text );
+				imagettftext ($image ,36 , 0 , $img_width/2-$textLength/2 , $img_height , $black ,"ui/fonts/g-black.ttf" , $text );
+				//echo $img_width/2-$textLength/2;
 			}
+
 
 	$location = 10;
 	for ( $position = 1 ; $position <= strlen($code_string); $position++ ) {
@@ -138,11 +146,11 @@ function barcode( $filepath="", $text="0", $size="20", $orientation="horizontal"
 	//
 	//$stamp = imagecreatefrompng('./img/'.$nombre.'mob.png');
 		$im = imagecreatefromjpeg('ui/img/cupon/'.$promo_imgcupon);    //.$promo_imgcupon //$im = imagecreatefromjpeg('ui/img/promoMob.jpg');
-		$marge_right 	= 180;
+		$marge_right 	= 0; //180;
 		$marge_bottom = 180;
 		$sx = imagesx($image);
 		$sy = imagesy($image);
-		imagecopy($im, $image, imagesx($im) - $sx - $marge_right, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($image), imagesy($image));
+		imagecopy($im, $image, (imagesx($im) - $sx - $marge_right)/2, imagesy($im) - $sy - $marge_bottom, 0, 0, imagesx($image), imagesy($image));
 		$newfilemob='cupones/img/'.$idpromo.'_'.$text.'.jpg';
 		imagejpeg($im,$newfilemob);
 
