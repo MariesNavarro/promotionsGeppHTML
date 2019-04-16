@@ -15,10 +15,10 @@ function validafechas(&$cad,$promo){
   $link=connect();
 
   $consulta = "select 'fecha_inicio',fecha_inicio,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_inicio)) valor
-               from gtrd_promociones where id=".$promo."
+               from gtrd_promociones where estatus=1 and id=".$promo."
                union
                select 'fecha_fin',fecha_fin,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_fin)) valor
-               from gtrd_promociones where id=".$promo;
+               from gtrd_promociones where estatus=1 and id=".$promo;
 
   if ($resultado = mysqli_query($link, $consulta)) {
    while ($fila = mysqli_fetch_row($resultado)) {
@@ -251,8 +251,7 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
   $consulta = "SELECT a.url, a.nombre, b.valor_componente logo
                 FROM gtrd_marca_redessociales a
-               LEFT JOIN gtrd_plantilla_config_producto b ON  a.codigo = b.id_componente  AND b.id_plantilla = ".$idplantilla." AND a.id_marca = b.id_marca AND b.version = ".$version." AND b.producto = 1
-                WHERE a.id_marca = ".$idmarca." AND a.activo =1";
+               LEFT JOIN gtrd_plantilla_config_producto b ON  a.codigo = b.id_componente  AND b.id_plantilla = ".$idplantilla." AND a.id_marca = b.id_marca AND b.version = ".$version." AND b.producto = 1 WHERE a.id_marca = ".$idmarca." AND a.activo =1";
 
   if ($registros = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_array($registros)) {

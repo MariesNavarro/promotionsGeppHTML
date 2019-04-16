@@ -1366,9 +1366,9 @@ function validarpromo(idpromo) {
     success :  function(data) {
       console.log('validarpromo Result: '+data);
 
-      //if (data>0) {  // Mostrar mensaje
-      //  window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
-      //}
+      if (data>0) {  // Mostrar mensaje
+        window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
+      }
       //if(data=="SI")  { initFront(); }
       //else  {  $('#index').html(data).fadeIn();  }
     }
