@@ -263,4 +263,41 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
   Close($link);
   return $resultado;
 }
+
+
+function actualizalegales($id,$url){
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET archivo_legales='".$url."' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $consulta;
+}
+
+/**************** PASAR A dbconfig.php **************************/
+
+function actualizarstatus($id,$st){
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET estatus='.$st.' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $consulta;
+}
 ?>

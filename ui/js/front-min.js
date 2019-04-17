@@ -1438,11 +1438,13 @@ function loadingImages(){
   function imgReady(){
     setTimeout(function(){
       wLoad.style.opacity = "0";
-      wHome.setAttribute("class", "trans5");
-      setTimeout(function(){
-        wLoad.style.display = "none";
-        wHome.style.opacity = "1";
-      },700);
+      if (wHome!=null) {
+        wHome.setAttribute("class", "trans5");
+        setTimeout(function(){
+          wLoad.style.display = "none";
+          wHome.style.opacity = "1";
+        },700);
+      }
     },2000);
   }
 }
@@ -1469,11 +1471,13 @@ function loadingImagesresult(){
   function imgReady(){
     setTimeout(function(){
       wLoad.style.opacity = "0";
-      wHome.setAttribute("class", "trans5");
-      setTimeout(function(){
-        wLoad.style.display = "none";
-        // /wHome.style.opacity = "1";
-      },700);
+      if (wHome!=null) {
+        wHome.setAttribute("class", "trans5");
+        setTimeout(function(){
+          wLoad.style.display = "none";
+          // /wHome.style.opacity = "1";
+        },700);
+      }
     },2000);
   }
 }

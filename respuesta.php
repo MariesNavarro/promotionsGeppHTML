@@ -32,7 +32,6 @@
         echo "Sin parametros";
    }
 
-
 /* Validar Promo: vigencia, lista negra, regiones, estados */
 function validarpromo ($idpromo,$ip) {
   $result=0; /* promo valida */
@@ -66,5 +65,15 @@ function validarpromo ($idpromo,$ip) {
   //echo 'validarpromo: '.$resul.PHP_EOL;
   return $result;
 }
+
+
+/**************** PASAR A respuestaconfig.php **************************/
+ if($_POST["m"]==12) /* Cambiar estatus la promo pasada como parametro */
+ {
+   $id    = $_POST["id"];
+   $status= $_POST["st"];
+   $result= actualizarstatus($id,$st);
+   echo $result;
+ }
 
 ?>
