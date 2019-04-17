@@ -1636,6 +1636,20 @@ function hideInterfaz(e, t){
     ic.setAttribute("style", " ");
   }
 }
+function popActionFun(e, fun){
+  var wr = _("#popAction"),
+      yes = _("#popAction>div>div>.doAction"),
+      main = _("main");
+      console.log(yes);
+  if(e === "show"){
+    wr.setAttribute("class", "displayFlex");
+    yes.setAttribute("onclick", fun);
+    main.classList.add("blur");
+  } else {
+    wr.setAttribute("class", "displayNone");
+    main.classList.remove("blur");
+  }
+}
 function uncheckedfunctionall(t){
       var c = __('.checkBoxFunction');
       if(t.checked)
