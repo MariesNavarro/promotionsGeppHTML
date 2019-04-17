@@ -61,7 +61,56 @@ function calculateR(el, side, sideConst, sideVar){
 }
 var srcfolder='';
 var srcsource='';
-function updateimageplantilla(input,idelement,ruta){
+var indexarray=0;
+function getidComponente(idelement)
+{
+  switch(idelement)
+  {
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+    case '':
+    return '';
+    break;
+  }
+}
+function updateimageplantilla(input,index,idelement,ruta){
   if(input.files.length>0)
   {
     let files = new FormData(), // you can consider this as 'data bag'
@@ -81,6 +130,7 @@ function updateimageplantilla(input,idelement,ruta){
           if(response!='¡Posible ataque de subida de ficheros!')
           {
             srcfolder=ruta;
+            indexarray=index;
             srcsource=response;
             if(idelement.includes(',')){
               var arrelem=idelement.split(',');
@@ -101,6 +151,33 @@ function updateimageplantilla(input,idelement,ruta){
 }
 function changeimg(idelement) {
   var ele=parent.frames['iframePlantilla'].contentDocument.getElementById(idelement);
+  var componenteelement=parent.infopromoedit[indexarray];
+  if(indexarray!==32)
+  {
+    var arrcompoele=componenteelement.split('?');
+    arrcompoele[1]=srcsource;
+    componenteelement=arrcompoele.join('?');
+    parent.infopromoedit[indexarray]=componenteelement;
+  }
+  else {
+    var arrayRS= parent.infopromoedit[indexarray].split('|');
+    for(var irs=0;irs<arrayRS.length;irs++)
+    {
+
+      var rsClaveValor=arrayRS[irs].split('?');
+      if(rsClaveValor.length>2)
+      {
+        var idel='ic'+rsClaveValor[0];
+        if(idel==idelement)
+        {
+          rsClaveValor[2]=srcsource;
+          arrayRS[irs]=rsClaveValor.join('?')
+        }
+      }
+
+    }
+    parent.infopromoedit[indexarray]=arrayRS.join('|')
+  }
   if(idelement==='plantillaUno')
   {
     ele.style.backgroundImage='url("'+srcfolder+srcsource+'")';
