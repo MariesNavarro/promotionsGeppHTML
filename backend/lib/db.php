@@ -267,11 +267,83 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
 
 /**************** PASAR A dbconfig.php **************************/
+
+/* modifcada */
+function getpromociones2($estatus){
+  $html='';
+  $link=connect();
+  $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,fecha_inicio,fecha_fin,gtrd_promociones.id FROM gtrd_promociones inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca where estatus='$estatus' order by fecha_inicio";
+  $result = mysqli_query($link, $query);
+  while ($fila = mysqli_fetch_row($result)) {
+        $htmldat='<div class="promoItemDash displayFlex">
+          <div>
+            <p class="promoItemDash_Name">'.$fila[0].'</p>
+          </div>
+          <div>
+            <p class="promoItemDash_Brand">'.$fila[1].'</p>
+          </div>
+          <div>
+            <span>
+            <p class="promoItemDash_Validity">'.$fila[2].' <br> '.$fila[3].'</p>
+            </span>
+          </div>';
+          if($estatus==1) { // Activas
+            $htmlact='<div class="actions displayFlex">
+                <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
+                <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
+                if($_SESSION['Rol']=='Admin') {
+                  //$htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                  //<a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
+                  $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                  <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres pausar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',2)\')"></a>';
+                }
+
+                $htmlact=$htmlact.'</div>
+                <ul class="linksWrap trans5">
+                  <li class="displayFlex">
+                    <h3>Página de Desarrollo:</h3>
+                    <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
+                  </li>
+                  <li class="displayFlex">
+                    <h3>Página de Producción:</h3>
+                    <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
+                  </li>
+                </ul>
+                 </div>';
+          }
+          else if($estatus==2){ // Por activar
+            $htmlact='<div class="actions displayFlex">';
+            if($_SESSION['Rol']=='Admin')
+            {
+              $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+              <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
+              <a class="itemDash_action_delete" href="delete.php?id='.encrypt_decrypt('e', $fila[4]).'"  class="trans5"></a>';
+            }
+            $htmlact=$htmlact.'</div>
+            </div>';
+          }
+          else { // Finalizadas
+            $htmlact='<div class="actions displayFlex">
+              <a class="itemDash_action_report" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+            </div>
+           </div>';
+          }
+          $html=$html.$htmldat.$htmlact;
+  }
+  mysqli_free_result($result);
+  Close($link);
+  return $html;
+}
+
+
+/* NUEVAS */
 function actualizarstatus($id,$st){
-  $salida="";
+  $salida   = "";
+  $username = $_SESSION["Nombre"];
+
   $link=connect();
   mysqli_autocommit($link, FALSE);
-  $consulta ="update gtrd_promociones SET estatus='.$st.' WHERE id=".$id;
+  $consulta ="update gtrd_promociones SET estatus=".$st.", fecha_update = now(), usuario = '".$username."' WHERE id=".$id;
   if (mysqli_query($link, $consulta)) {
       $salida="success";
    }
@@ -281,6 +353,7 @@ function actualizarstatus($id,$st){
    mysqli_commit($link);
 
   Close($link);
+
   return $salida;
 }
 
