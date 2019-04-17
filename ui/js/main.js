@@ -1636,18 +1636,24 @@ function hideInterfaz(e, t){
     ic.setAttribute("style", " ");
   }
 }
-function popActionFun(e, fun){
+function popActionFun(e, tx, fun){
   var wr = _("#popAction"),
       yes = _("#popAction>div>div>.doAction"),
+      p = _("#popAction>div>p"),
       main = _("main");
-      console.log(yes);
   if(e === "show"){
     wr.setAttribute("class", "displayFlex");
     yes.setAttribute("onclick", fun);
     main.classList.add("blur");
+    if(tx != 0){
+      p.innerHTML = tx;
+    } else {
+      p.innerHTML = "¿Estás seguro que quieres realizar esta acción?";
+    }
   } else {
     wr.setAttribute("class", "displayNone");
     main.classList.remove("blur");
+    p.innerHTML = "¿Estás seguro que quieres realizar esta acción?";
   }
 }
 function uncheckedfunctionall(t){

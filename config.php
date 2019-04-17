@@ -66,10 +66,10 @@ http://dragonflycity.com/
     </div>
     <div id="popAction" class="displayNone">
       <div>
-        <p>¿Estás seguro que quieres hacer esta acción?</p>
+        <p>¿Estás seguro que quieres realizar esta acción?</p>
         <div class="displayFlex">
           <button class="doAction trans5">Sí</button>
-          <button class="trans5" onclick="popActionFun('hide', null)">No</button>
+          <button class="trans5" onclick="popActionFun('hide', 0, null)">No</button>
         </div>
       </div>
     </div>
@@ -572,7 +572,7 @@ http://dragonflycity.com/
             </div>
             <form action="" method="" autocomplete="off">
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(3)">Anterior</button>
-              <button class="buttonConfig centerButton" type="button" name="button" onclick="popActionFun('show', 'ifSayYes(1)')">Cancelar</button>
+              <button class="buttonConfig centerButton" type="button" name="button" onclick="popActionFun('show', '¿Estás seguro que quieres cancelar?','ifSayYes(1)')">Cancelar</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
             </form>
           </li>
