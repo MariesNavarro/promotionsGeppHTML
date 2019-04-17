@@ -10,9 +10,10 @@
 
   /***************** SET MENSAJE ******************/
   switch ($idmsg) {
-    case 1:  $mensaje = 'Promoción no válida para tu ubicación'; break;
+    case 1:  $mensaje = 'Promoción no es válida para tu ubicación'; break;
     case 2:  $mensaje = 'Promoción no disponible'; /* lista negra */  break;
-    case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;
+    case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;  /* ya publicada, pero no ha iniciado */
+    case 4:  $mensaje = 'Promoción disponible próximamente'; break; /* no esta publicada */
     case 4:  $mensaje = 'Promoción ya finalizó'; break;
     default: $mensaje = "Se ha presentado un problema";
    }
@@ -20,11 +21,13 @@
    if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
        $promo = getpromocion($idpromo);
        $promo_nombre             = $promo['promo_nombre'];
+       $promo_descripcion        = $promo['promo_descripcion'];
        $marca_id                 = $promo['id_marca'];
        $plantilla_id             = $promo['id_plantilla'];
        $promo_legales            = $promo['archivo_legales'];
        $promo_version            = $promo['version'];
        $proveedor_id             = $promo['id_proveedor'];
+       $fecha_inicio             = str_replace("-","/",$promo['fecha_inicio']);
    } else {
        $promo_nombre = "Descuento Pepsi";
        $marca_id = 1;
@@ -93,6 +96,7 @@
     <link rel="manifest" href="/ui/img/fav/<?php echo $marca; ?>/site.webmanifest">
     <link rel="mask-icon" href="/ui/img/fav/<?php echo $marca; ?>/safari-pinned-tab.svg" color="#000000">
     <link rel="shortcut icon" href="/ui/img/fav/<?php echo $marca; ?>/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/ui/countdown/count.min.css">
     <link rel="stylesheet" href="/ui/css/style.css">
   </head>
   <body id="plantillaUno" class="<?php echo $promo_font; ?> <?php echo $promo_color_load; ?>" style="">
@@ -117,52 +121,26 @@
         </div>
       </div>
     </section>
-    <section id="homeUno" class="trans5 displayNone">
-      <div class="wrapSuperior displayFlex">
-        <img id="productoImg" src="/ui/img/producto/<?php echo $promo_img_prod; ?>">
-        <div class="productoInfo">
-          <div class="infoTitle">
-            <img id="textoInicioImg" src="/ui/img/textoInicio/<?php echo $promo_img_inicio; ?>">
-          </div>
-          <div class="prize">
-            <img id="prizeImg" src="/ui/img/precio/<?php echo $promo_img_precio; ?>">
-          </div>
-        </div>
-      </div>
-      <div class="wrapInferiorButton">
-        <a role="button" onclick="ctaCoupon()">
-          <img id="btCouponImg" class="trans5" src="/ui/img/botonCupon/<?php echo $promo_img_obtenercupon; ?>">
-        </a>
-      </div>
-    </section>
-    <section id="cuponUno" class="trans5" style="display:none">
-      <div class="wrapSuperior displayFlex">
-        <img id="couponImg" src="/ui/img/cupon/<?php echo $promo_img_cupon; ?>">
-      </div>
-      <div class="wrapInferiorButton">
-        <a role="button" onclick="ctaDownloadImg()">
-          <img id="btCaptureScreen" class="trans5" src="/ui/img/botonDescarga/<?php echo $promo_img_descargarcupon; ?>">
-        </a>
-      </div>
-    </section>
+
     <section id="mensajeUno" class="trans5" style="display:none">
-      <ul class="wrapSuperiorMensajeExito" class="displayFlex" style="display:none">
-        <li ><img id="msgLogo" src="/ui/img/logotipo/<?php echo $marca_logo; ?>"></li>
-        <li><img id="msgExitoImg" src="/ui/img/mensajeExito/<?php echo $promo_img_exito; ?>"></li>
-        <li><img id="msgHashtagImg" src="/ui/img/hashtag/<?php echo $promo_img_hashtag; ?>"></li>
+
+      <ul class="countdown" class="displayFlex" style="display:none">
+          <ul class="wrapSuperiorMensajeExito">
+            <li><span style="font-size: 30px; color: #fff;">La promoción <?php echo $promo_descripcion; ?> comienza en</span></li>
+          </ul>
+          <li><span class="days">00</span> <p class="days_ref">Días</p></li>
+          <li class="seperator">.</li>
+          <li><span class="hours">00</span><p class="hours_ref">Horas</p></li>
+          <li class="seperator">:</li>
+          <li><span class="minutes">00</span><p class="minutes_ref">Minutos</p></li>
+          <li class="seperator">:</li>
+          <li><span class="seconds">00</span><p class="seconds_ref">Segundos</p></li>
       </ul>
-      <ul class="wrapSuperiorMensajeError" style="display:block">
+
+      <ul class="wrapSuperiorMensajeError" style="display:none">
         <li><img id="msgErrorImg" src="/ui/img/mensajeError/result.png"></li>
         <li><span style="font-size: 45px; color: #fff;"><?php echo $mensaje; ?></span></li>
       </ul>
-      <div class="wrapInferiorSocial displayFlex">
-        <!--
-        <a href="https://www.facebook.com/pepsimexico/" target="_blank"><img id="icFacebook" src="ui/img/ic/facebook.png" width="45" height="45"></a>
-        <a href="https://twitter.com/PepsiMEX" target="_blank"><img id="icInstagram" src="ui/img/ic/twitter.png" width="45" height="45"></a>
-        <a href="https://www.instagram.com/pepsimex/" target="_blank"><img id="icTwitter" src="ui/img/ic/instagram.png" width="45" height="45"></a>
-        <a href="https://www.youtube.com/channel/UCIa9XW9bbvfWKfU97COtCbw" target="_blank"><img id="icYoutube" src="ui/img/ic/youtube.png" width="45" height="45"></a>
-      -->
-      </div>
     </section>
     <div id="prevent" class="displayNone" style="background-image:url('/ui/img/back/<?php echo $promo_img_back; ?>')">
       <p></p>
@@ -176,11 +154,15 @@
       <p>® Marca Registrada</p>
     -->
     </footer>
-    <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/ui/js/front-min.js" charset="utf-8"></script>
+    <script src="/ui/countdown/jquery.downCount.js"></script>
     <script type="text/javascript">
-      var config = "<?php echo $config ?>";
+      var idmsg = "<?php echo $idmsg ?>";
       var idpromo = "<?php echo $idpromo ?>";
+      var fecha_inic =  "<?php echo $fecha_inicio ?>";
+
+      console.log(idmsg+' '+idpromo+' '+fecha_inic);
 
       preventHeight();
       preventHeight();
@@ -194,8 +176,14 @@
 
       window.onload = function(){
           loadingImagesresult();      /* quitar el loader */
-          showMsg(1);
+          if (idmsg==3) {
+            $('.countdown').downCount({ date: fecha_inic, offset: -5  }, function () { window.location.href = "index.php?id="+idpromo; });
+             showMsg(0); /* mostrar coutdown */
+           } else {
+             showMsg(1); /* mostrar mensaje error */
+           }
       };
+
     </script>
   </body>
 </html>

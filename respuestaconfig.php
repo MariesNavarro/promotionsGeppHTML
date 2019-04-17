@@ -114,4 +114,20 @@ if($_POST["m"]==11)
   $result=actualizaplantillabd($id,$prom);
   echo $result;
 }
+
+if($_POST["m"]==12) /* Cambiar estatus la promo pasada como parametro */
+{
+  $id    = $_POST["id"];
+  $status= $_POST["st"];
+  $result= actualizarstatus($id,$st);
+  echo $result;
+}
+
+if($_POST["m"]==13) /* eliminar promocion */
+{
+  $id    = $_POST["id"];
+  $result= eliminarpromo($id,$st);
+  echo $result;
+}
+
 ?>

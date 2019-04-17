@@ -569,7 +569,7 @@ body#plantillaUno {
   padding: 0;
   font-size: 0.8rem;
 }
-
+#plantillaUno > footer > p, #plantillaUno > footer > p > a { color: inherit; }
 #prevent {
   position: fixed;
   width: 100vw;

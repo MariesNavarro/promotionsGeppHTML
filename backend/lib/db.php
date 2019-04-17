@@ -5,25 +5,26 @@ require_once('conexion.php');
 require_once('funciones.php');
 require_once('barcode.php');
 
-//echo  'Valida lista negra: '.validalistanegra(1,'187.188.22.208').PHP_EOL;
+//echo  'Valida lista negra: '.validalistanegra('187.188.22.208').PHP_EOL;
 //echo 'validaregion: '.validaregion(1).PHP_EOL;
 //echo 'promvalidestado  :'.promvalidestado(1,'187.188.22.208').PHP_EOL;
 
-function validafechas(&$cad,$promo){
+function validafechas(&$cad,$promo,&$estatus){
   $reg;
   $contador=0;
   $link=connect();
 
-  $consulta = "select 'fecha_inicio',fecha_inicio,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_inicio)) valor
-               from gtrd_promociones where id=".$promo."
+  $consulta = "select 'fecha_inicio',fecha_inicio,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_inicio)) valor, estatus
+               from gtrd_promociones where estatus=1 and id=".$promo."
                union
-               select 'fecha_fin',fecha_fin,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_fin)) valor
-               from gtrd_promociones where id=".$promo;
+               select 'fecha_fin',fecha_fin,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_fin)) valor, estatus
+               from gtrd_promociones where estatus=1 and id=".$promo;
 
   if ($resultado = mysqli_query($link, $consulta)) {
    while ($fila = mysqli_fetch_row($resultado)) {
      $reg[$contador]=$fila[3];
      $cad[$contador]=$fila[1];
+     $estatus = $fila[4];
      $contador++;
     }
    /* liberar el conjunto de resultados */
@@ -47,7 +48,7 @@ function validaregion($idprom)
   return $count;
 }
 
-function validalistanegra($ip,$idprom)
+function validalistanegra($ip)
 {
   $count=0;
   $link=connect();
@@ -61,7 +62,7 @@ function validalistanegra($ip,$idprom)
   return $count;
 }
 
-function promvalidestado($ip,$idprom)
+function promvalidestado($idprom,$ip)
 {
   $link=connect();
   $salida          = 0;
@@ -213,7 +214,7 @@ function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
                        f.valor_componente promo_font, g.valor_componente promo_color, h.valor_componente promo_color_load, i.valor_componente promo_txt_footer, j.valor_componente promo_img_inicio,
                        k.valor_componente promo_img_precio, l.valor_componente promo_img_obtenercupon, m.valor_componente promo_img_cupon,
                        n.valor_componente promo_img_descargarcupon, o.valor_componente promo_img_exito, p.valor_componente promo_img_hashtag,
-                       q.valor_componente promo_img_error,r.logo marca_logo,s.logo proveedor_logo,
+                       q.valor_componente promo_img_error, t.valor_componente marca_logo, s.logo proveedor_logo,
                        r.nombre marca_nombre, r.logo marca_logo, r.codigo marca_codigo, r.descripcion marca_descripcion
                 FROM
            (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_back') a
@@ -230,6 +231,7 @@ function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_exito') o ON a.id_plantilla = o.id_plantilla AND a.id_marca = o.id_marca AND a.version = o.version AND a.producto =o.producto
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_error') q ON a.id_plantilla = q.id_plantilla AND a.id_marca = q.id_marca AND a.version = q.version AND a.producto =q.producto
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_hashtag') p ON a.id_plantilla = p.id_plantilla AND a.id_marca = p.id_marca AND a.version = p.version AND a.producto =p.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_logomarca') t ON a.id_plantilla = t.id_plantilla AND a.id_marca = t.id_marca AND a.version = t.version AND a.producto =t.producto
            LEFT JOIN gtrd_marca r on a.id_marca=r.id
            LEFT JOIN gtrd_proveedor s on 1=1
            where a.id_plantilla=".$idplantilla." and a.id_marca=".$idmarca." and a.version=".$version." and s.id=".$idproveedor." and a.producto = ".$producto;
@@ -251,8 +253,7 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
   $consulta = "SELECT a.url, a.nombre, b.valor_componente logo
                 FROM gtrd_marca_redessociales a
-               LEFT JOIN gtrd_plantilla_config_producto b ON  a.codigo = b.id_componente  AND b.id_plantilla = ".$idplantilla." AND a.id_marca = b.id_marca AND b.version = ".$version." AND b.producto = 1
-                WHERE a.id_marca = ".$idmarca." AND a.activo =1";
+               LEFT JOIN gtrd_plantilla_config_producto b ON  a.codigo = b.id_componente  AND b.id_plantilla = ".$idplantilla." AND a.id_marca = b.id_marca AND b.version = ".$version." AND b.producto = 1 WHERE a.id_marca = ".$idmarca." AND a.activo =1";
 
   if ($registros = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_array($registros)) {
@@ -262,5 +263,43 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
   Close($link);
   return $resultado;
+}
+
+
+/**************** PASAR A dbconfig.php **************************/
+function actualizarstatus($id,$st){
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET estatus='.$st.' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $salida;
+}
+
+function eliminarpromo($id){
+  $salida="";
+  /*
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET estatus='.$st.' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  */
+  return $consulta;
 }
 ?>

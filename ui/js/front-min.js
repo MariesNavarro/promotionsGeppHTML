@@ -1366,9 +1366,10 @@ function validarpromo(idpromo) {
     success :  function(data) {
       console.log('validarpromo Result: '+data);
 
-      //if (data>0) {  // Mostrar mensaje
-      //  window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
-      //}
+      if (data>0) {  // Mostrar mensaje
+        window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
+      }
+
       //if(data=="SI")  { initFront(); }
       //else  {  $('#index').html(data).fadeIn();  }
     }
@@ -1437,11 +1438,13 @@ function loadingImages(){
   function imgReady(){
     setTimeout(function(){
       wLoad.style.opacity = "0";
-      wHome.setAttribute("class", "trans5");
-      setTimeout(function(){
-        wLoad.style.display = "none";
-        wHome.style.opacity = "1";
-      },700);
+      if (wHome!=null) {
+        wHome.setAttribute("class", "trans5");
+        setTimeout(function(){
+          wLoad.style.display = "none";
+          wHome.style.opacity = "1";
+        },700);
+      }
     },2000);
   }
 }
@@ -1468,11 +1471,13 @@ function loadingImagesresult(){
   function imgReady(){
     setTimeout(function(){
       wLoad.style.opacity = "0";
-      wHome.setAttribute("class", "trans5");
-      setTimeout(function(){
-        wLoad.style.display = "none";
-        // /wHome.style.opacity = "1";
-      },700);
+      if (wHome!=null) {
+        wHome.setAttribute("class", "trans5");
+        setTimeout(function(){
+          wLoad.style.display = "none";
+          // /wHome.style.opacity = "1";
+        },700);
+      }
     },2000);
   }
 }
