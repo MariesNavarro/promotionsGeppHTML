@@ -214,7 +214,7 @@ function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
                        f.valor_componente promo_font, g.valor_componente promo_color, h.valor_componente promo_color_load, i.valor_componente promo_txt_footer, j.valor_componente promo_img_inicio,
                        k.valor_componente promo_img_precio, l.valor_componente promo_img_obtenercupon, m.valor_componente promo_img_cupon,
                        n.valor_componente promo_img_descargarcupon, o.valor_componente promo_img_exito, p.valor_componente promo_img_hashtag,
-                       q.valor_componente promo_img_error,r.logo marca_logo,s.logo proveedor_logo,
+                       q.valor_componente promo_img_error, t.valor_componente marca_logo, s.logo proveedor_logo,
                        r.nombre marca_nombre, r.logo marca_logo, r.codigo marca_codigo, r.descripcion marca_descripcion
                 FROM
            (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_back') a
@@ -231,6 +231,7 @@ function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_exito') o ON a.id_plantilla = o.id_plantilla AND a.id_marca = o.id_marca AND a.version = o.version AND a.producto =o.producto
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_error') q ON a.id_plantilla = q.id_plantilla AND a.id_marca = q.id_marca AND a.version = q.version AND a.producto =q.producto
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_hashtag') p ON a.id_plantilla = p.id_plantilla AND a.id_marca = p.id_marca AND a.version = p.version AND a.producto =p.producto
+           LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_logomarca') t ON a.id_plantilla = t.id_plantilla AND a.id_marca = t.id_marca AND a.version = t.version AND a.producto =t.producto
            LEFT JOIN gtrd_marca r on a.id_marca=r.id
            LEFT JOIN gtrd_proveedor s on 1=1
            where a.id_plantilla=".$idplantilla." and a.id_marca=".$idmarca." and a.version=".$version." and s.id=".$idproveedor." and a.producto = ".$producto;
@@ -265,25 +266,7 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 }
 
 
-function actualizalegales($id,$url){
-  $salida="";
-  $link=connect();
-  mysqli_autocommit($link, FALSE);
-  $consulta ="update gtrd_promociones SET archivo_legales='".$url."' WHERE id=".$id;
-  if (mysqli_query($link, $consulta)) {
-      $salida="success";
-   }
-   else {
-     $salida="error";
-   }
-   mysqli_commit($link);
-
-  Close($link);
-  return $consulta;
-}
-
 /**************** PASAR A dbconfig.php **************************/
-
 function actualizarstatus($id,$st){
   $salida="";
   $link=connect();
@@ -298,6 +281,25 @@ function actualizarstatus($id,$st){
    mysqli_commit($link);
 
   Close($link);
+  return $salida;
+}
+
+function eliminarpromo($id){
+  $salida="";
+  /*
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET estatus='.$st.' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  */
   return $consulta;
 }
 ?>

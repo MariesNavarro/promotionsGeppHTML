@@ -66,14 +66,4 @@ function validarpromo ($idpromo,$ip) {
   return $result;
 }
 
-
-/**************** PASAR A respuestaconfig.php **************************/
- if($_POST["m"]==12) /* Cambiar estatus la promo pasada como parametro */
- {
-   $id    = $_POST["id"];
-   $status= $_POST["st"];
-   $result= actualizarstatus($id,$st);
-   echo $result;
- }
-
 ?>
