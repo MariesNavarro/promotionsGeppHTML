@@ -64,6 +64,15 @@ http://dragonflycity.com/
       <img src="ui/img/dragonfly.gif" width="80">
       <p>Cargando...</p>
     </div>
+    <div id="popAction" class="displayNone">
+      <div>
+        <p>¿Estás seguro que quieres hacer esta acción?</p>
+        <div class="displayFlex">
+          <button class="doAction trans5">Sí</button>
+          <button class="trans5" onclick="popActionFun('hide', null)">No</button>
+        </div>
+      </div>
+    </div>
     <div id="extMenu" class="trans5 displayFlex">
       <a class="closeMenu" role="button" onclick="menuConfig('close')">
         <div class="closeConfig">
@@ -563,6 +572,7 @@ http://dragonflycity.com/
             </div>
             <form action="" method="" autocomplete="off">
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(3)">Anterior</button>
+              <button class="buttonConfig centerButton" type="button" name="button" onclick="popActionFun('show', 'ifSayYes(1)')">Cancelar</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
             </form>
           </li>
@@ -572,6 +582,15 @@ http://dragonflycity.com/
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>
     <script type="text/javascript">
+      //Quitar ejemplo
+      function ifSayYes(n){
+        if(n == 0){
+          console.log("Dijo que si :) ");
+        } else {
+          console.log("Dijo que no ): ");
+        }
+      }
+      //Quitar ejemplo
       window.onload = function(){
         rContEditor("#contEditorPlantilla");
       }
