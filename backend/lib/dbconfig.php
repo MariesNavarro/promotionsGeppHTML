@@ -790,6 +790,26 @@ function loadcupons($id,$prom)
   return $salida;
 
 }
+function getmarca_redessocialesimgchange($idmarca,$idplantilla,$version)
+{
+  $link=connect();
+  $resultado = null;
+  //$consulta = "SELECT * FROM gtrd_marca_redessociales WHERE id_marca = ".$idmarca." AND activo =1 ";
+
+  $consulta = "SELECT a.url, a.nombre, b.valor_componente logo,a.codigo
+                FROM gtrd_marca_redessociales a
+               LEFT JOIN gtrd_plantilla_config_producto b ON  a.codigo = b.id_componente  AND b.id_plantilla = ".$idplantilla." AND a.id_marca = b.id_marca AND b.version = ".$version." AND b.producto = 1
+                WHERE a.id_marca = ".$idmarca." AND a.activo =1";
+
+  if ($registros = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_array($registros)) {
+        $resultado .= $fila['nombre'].'?'.$fila['codigo'].'?'.$fila['logo'].'|';
+     }
+  }
+
+  Close($link);
+  return $resultado;
+}
 function getmarca_redessocialesinterfaz($idmarca)
 {
   $link=connect();
@@ -824,7 +844,7 @@ function getmarca_redessocialesinterfaz($idmarca)
             <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
           </div>
         </label>
-        <input id="'.$file.'" type="file" onchange="updateimageplantilla(this,\'ic'.$fila['nombre'].'\',\'ui/img/ic/\')" class="hideInput">
+        <input id="'.$file.'" type="file" onchange="updateimageplantilla(this,32,\'ic'.$fila['nombre'].'\',\'ui/img/ic/\')" class="hideInput">
       </li>';
      }
   }
@@ -851,24 +871,25 @@ function getpromocioneditdata($idpromo)
   $plantilla = getplatilla($marca_id,$promo_version,$plantilla_id,1,$proveedor_id);
   $marca                    = $plantilla['marca_codigo'];
   $marca_descripcion        = $plantilla['marca_descripcion'];
-  $marca_logo               = $plantilla['marca_logo'];
-  $proveedor_logo           = $plantilla['proveedor_logo'];
-  $promo_img_back           = $plantilla['promo_img_back'];
-  $promo_img_prod           = $plantilla['promo_img_prod'];
-  $promo_font               = $plantilla['promo_font'];
-  $promo_color              = $plantilla['promo_color'];
-  $promo_color_load         = $plantilla['promo_color_load'];
-  $promo_txt_footer         = $plantilla['promo_txt_footer'];
-  $promo_img_inicio         = $plantilla['promo_img_inicio'];
-  $promo_img_precio         = $plantilla['promo_img_precio'];
-  $promo_img_obtenercupon   = $plantilla['promo_img_obtenercupon'];
-  $promo_img_cupon          = $plantilla['promo_img_cupon'];
-  $promo_img_descargarcupon = $plantilla['promo_img_descargarcupon'];
-  $promo_img_exito          = $plantilla['promo_img_exito'];
-  $promo_img_hashtag        = $plantilla['promo_img_hashtag'];
-  $promo_img_error          = $plantilla['promo_img_error'];
+  $marca_logo               = 'img_logomarca?'.$plantilla['marca_logo'];
+  $proveedor_logo           = 'img_logoproveedor?'.$plantilla['proveedor_logo'];
+  $promo_img_back           = 'img_back?'.$plantilla['promo_img_back'];
+  $promo_img_prod           = 'img_prod?'.$plantilla['promo_img_prod'];
+  $promo_font               = 'font?'.$plantilla['promo_font'];
+  $promo_color              = 'color?'.$plantilla['promo_color'];
+  $promo_color_load         = 'color_load?'.$plantilla['promo_color_load'];
+  $promo_txt_footer         = 'txt_footer?'.$plantilla['promo_txt_footer'];
+  $promo_img_inicio         = 'img_inicio?'.$plantilla['promo_img_inicio'];
+  $promo_img_precio         = 'img_precio?'.$plantilla['promo_img_precio'];
+  $promo_img_obtenercupon     = 'img_obtenercupon?'.$plantilla['promo_img_obtenercupon'];
+  $promo_img_cupon          = 'img_cupon?'.$plantilla['promo_img_cupon'];
+  $promo_img_descargarcupon = 'img_descargarcupon?'.$plantilla['promo_img_descargarcupon'];
+  $promo_img_exito          = 'img_exito?'.$plantilla['promo_img_exito'];
+  $promo_img_hashtag        = 'img_hashtag?'.$plantilla['promo_img_hashtag'];
+  $promo_img_error          = 'img_error?'.$plantilla['promo_img_error'];
   $interfazmarca            =getmarca_redessocialesinterfaz($marca_id);
   $plantillamarca           =getmarca_redessociales($marca_id,$plantilla_id,$promo_version);
+  $plantillamarcaimg        =getmarca_redessocialesimgchange($marca_id,$plantilla_id,$promo_version);
   $result=$promo_nombre.'&@;'.$producto.'&@;'.$descripcion.'&@;'.$marca_id.'&@;'.$plantilla_id;
   $result.='&@;'.$promo_legales.'&@;'.$promo_version.'&@;'.$estatus.'&@;'.$proveedor_id;
   $result.='&@;'.$id_funcionalidad.'&@;'.$fecha_inicio.'&@;'.$fecha_fin.'&@;'.$marca;
@@ -877,7 +898,7 @@ function getpromocioneditdata($idpromo)
   $result.='&@;'.$promo_img_inicio.'&@;'.$promo_img_precio.'&@;'.$promo_img_obtenercupon;
   $result.='&@;'.$promo_img_cupon.'&@;'.$promo_img_descargarcupon.'&@;'.$promo_img_exito;
   $result.='&@;'.$promo_img_hashtag.'&@;'.$promo_img_error.'&@;'.$interfazmarca;
-  $result.='&@;'.$plantillamarca;
+  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg;
   return $result;
 }
 ?>

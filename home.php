@@ -6,10 +6,10 @@ if(!isset($_SESSION["userName"]))
   header("Location:login.php");
 }
 else {
-  $username=$_SESSION["Nombre"];
-  $active=getpromociones(1);
-  $foractive=getpromociones(2);
-  $past=getpromociones(3);
+  $username = $_SESSION["Nombre"];
+  $active   = getpromociones2(1);
+  $foractive= getpromociones2(2);
+  $past     = getpromociones2(3);
 }
 ?>
 <!--
@@ -61,6 +61,15 @@ http://dragonflycity.com/
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
   </head>
   <body class="login body">
+    <div id="popAction" class="displayNone">
+      <div>
+        <p>¿Estás seguro que quieres realizar esta acción?</p>
+        <div class="displayFlex">
+          <button class="doAction trans5">Sí</button>
+          <button class="trans5" onclick="popActionFun('hide', 0, null)">No</button>
+        </div>
+      </div>
+    </div>
     <ul id="menuMobile" class="displayNone trans5">
       <li>Hola <span class="userName""><?php echo $username; ?></span></li>
       <li><a href="#">Tutoriales</a></li>
@@ -136,6 +145,27 @@ http://dragonflycity.com/
     <script type="text/javascript">
       window.onload = function(){
         //putUserName();
+      }
+
+      /******** LUEGO MOVERLO PARA EL main.js *********/
+      /* actualizar estatus de la promo */
+      function actualizarstatus(idpromo,estatus) {
+        var param1=12;
+        var dataString = 'm=' + param1+ '&id=' + idpromo +'&st=' + estatus;
+        $.ajax({
+          type    : 'POST',
+          url     : 'respuestaconfig.php',
+          data    :  dataString,
+          success :  function(data) {
+            console.log('actualizarstatus Result: '+data);
+            //popActionFun('hide', 0, null);
+            location.reload();
+            //if (data>0) {  // Mostrar mensaje
+            //  window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
+            //}
+
+          }
+        });
       }
     </script>
   </body>

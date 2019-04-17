@@ -970,7 +970,8 @@ var MetodoEnum = {
   ExisteCupon:8,
   CargarCupones:9,
   ActualizaPlantillashtml:10,
-  ActualizaPlantilla:11
+  ActualizaPlantilla:11,
+  CreaEditaVersionPlantilla:14
  };
  var codigo='';
  var idnvaprom=0;
@@ -1392,7 +1393,14 @@ function checkSteps(n, t){
     break;
     case 5:
       //  responseStep(n , t, 1);
-      loadcupons(n,t);
+      if(nuevos.length>0)
+      {
+        loadcupons(n,t);
+      }
+      else {
+        checksaveversion();
+      }
+
     break;
   }
 }
@@ -1816,36 +1824,51 @@ function actualizaplantillabd(n,t,id){
         //Color BACK
         var documentplantilla=frame.document;
         var back=documentplantilla.getElementById("loading");
-        var classcolor=infopromoedit[20];
+        var classcolor=infopromoedit[20].split('?')[1];
         var arrclass=back.className.split(" ");
         arrclass.pop();
         arrclass.push(classcolor);
         back.className=arrclass.join(' ');
         //Fuente color y tipo
         var body=documentplantilla.getElementById("plantillaUno");
-        var colorfuente=infopromoedit[19];
-        var fuente=infopromoedit[18];
+        var colorfuente=infopromoedit[19].split('?')[1];
+        var fuente=infopromoedit[18].split('?')[1];
         var arrclassbody=body.className.split(" ");
         arrclassbody[0]=fuente;
         arrclassbody[1]=colorfuente;
         body.className=arrclass.join(' ');
         //Texto footer
         var footer=documentplantilla.getElementById("footerPromoCopy");
-        var txt=infopromoedit[21];
+        var txt=infopromoedit[21].split('?')[1];
         footer.textContent=txt;
         //Cambiar imagenes
-        updateimagemodiplantilla(infopromoedit[15],'proveedorUnoLogo','ui/img/proveedor/');
-        updateimagemodiplantilla(infopromoedit[14],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
-        updateimagemodiplantilla(infopromoedit[16],'plantillaUno','ui/img/back/');
-        updateimagemodiplantilla(infopromoedit[17],'productoImg','ui/img/producto/');
-        updateimagemodiplantilla(infopromoedit[22],'textoInicioImg','ui/img/textoInicio/');
-        updateimagemodiplantilla(infopromoedit[23],'prizeImg','ui/img/precio/');
-        updateimagemodiplantilla(infopromoedit[24],'btCouponImg','ui/img/botonCupon/');
-        updateimagemodiplantilla(infopromoedit[25],'couponImg','ui/img/cupon/');
-        updateimagemodiplantilla(infopromoedit[26],'btCaptureScreen','ui/img/botonDescarga/');
-        updateimagemodiplantilla(infopromoedit[27],'msgExitoImg','ui/img/mensajeExito/');
-        updateimagemodiplantilla(infopromoedit[28],'msgHashtagImg','ui/img/hashtag/');
-        updateimagemodiplantilla(infopromoedit[29],'msgErrorImg','ui/img/mensajeError/');
+        updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
+        updateimagemodiplantilla(infopromoedit[14].split('?')[1],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
+        updateimagemodiplantilla(infopromoedit[16].split('?')[1],'plantillaUno','ui/img/back/');
+        updateimagemodiplantilla(infopromoedit[17].split('?')[1],'productoImg','ui/img/producto/');
+        updateimagemodiplantilla(infopromoedit[22].split('?')[1],'textoInicioImg','ui/img/textoInicio/');
+        updateimagemodiplantilla(infopromoedit[23].split('?')[1],'prizeImg','ui/img/precio/');
+        updateimagemodiplantilla(infopromoedit[24].split('?')[1],'btCouponImg','ui/img/botonCupon/');
+        updateimagemodiplantilla(infopromoedit[25].split('?')[1],'couponImg','ui/img/cupon/');
+        updateimagemodiplantilla(infopromoedit[26].split('?')[1],'btCaptureScreen','ui/img/botonDescarga/');
+        updateimagemodiplantilla(infopromoedit[27].split('?')[1],'msgExitoImg','ui/img/mensajeExito/');
+        updateimagemodiplantilla(infopromoedit[28].split('?')[1],'msgHashtagImg','ui/img/hashtag/');
+        updateimagemodiplantilla(infopromoedit[29].split('?')[1],'msgErrorImg','ui/img/mensajeError/');
+        //Redes sociales icons
+        var arrayRS=infopromoedit[32].split('|');
+        for(var irs=0;irs<arrayRS.length;irs++)
+        {
+
+          var rsClaveValor=arrayRS[irs].split('?');
+          if(rsClaveValor.length>2)
+          {
+            var idel='ic'+rsClaveValor[0];
+            var valor=rsClaveValor[2];
+            updateimagemodiplantilla(valor,idel,'ui/img/ic/');
+          }
+
+
+        }
         //var mar=$('#selectBrand')[0].value;
         //frame.src='index.php?id='+idnvaprom+'&cf=1';
         //frameIF.src='interfaz-uno.php?mar='+mar;
@@ -1859,6 +1882,89 @@ function actualizaplantillabd(n,t,id){
   });
 
 
+}
+function checksaveversion()
+{
+
+  var updcre='';
+  var plantillaedit[];
+
+
+  plantillaedit.push(infopromoedit[3]);
+  plantillaedit.push(infopromoedit[4]);
+  plantillaedit.push(infopromoedit[6]);
+  plantillaedit.push(infopromoedit[14].split('?').join('-'));
+  plantillaedit.push(infopromoedit[16].split('?').join('-'));
+  plantillaedit.push(infopromoedit[17].split('?').join('-'));
+  plantillaedit.push(infopromoedit[18].split('?').join('-'));
+  plantillaedit.push(infopromoedit[19].split('?').join('-'));
+  plantillaedit.push(infopromoedit[20].split('?').join('-'));
+  plantillaedit.push(infopromoedit[21].split('?').join('-'));
+  plantillaedit.push(infopromoedit[22].split('?').join('-'));
+  plantillaedit.push(infopromoedit[23].split('?').join('-'));
+  plantillaedit.push(infopromoedit[24].split('?').join('-'));
+  plantillaedit.push(infopromoedit[25].split('?').join('-'));
+  plantillaedit.push(infopromoedit[26].split('?').join('-'));
+  plantillaedit.push(infopromoedit[27].split('?').join('-'));
+  plantillaedit.push(infopromoedit[28].split('?').join('-'));
+  plantillaedit.push(infopromoedit[29].split('?').join('-'));
+  var arrayplantillaedirs=infopromoedit[32].split('|');
+  for(var i=0;i<arrayplantillaedirs.length;i++)
+  {
+    var rsClaveValor=arrayplantillaedirs[i].split('?');
+    if(rsClaveValor.length>2)
+    {
+      plantillaini.push(rsClaveValor.join('-'));
+    }
+  }
+
+  if(infopromocrear[3]==infopromoedit[3]&&infopromocrear[4]==infopromoedit[4]&&infopromocrear[6]==infopromoedit[6])
+  {
+       if(infopromocrear[6]==0)
+       {
+         if(revisarconfigplantilla()==1)
+         {
+           updcre='crear';
+         }
+       }
+       else
+       {
+         if(revisarconfigplantilla()==1)
+         {
+           updcre='update';
+         }
+       }
+  }
+  if(updcre=='crear'||updcre=='update')
+  {
+    var  m=MetodoEnum.CreaEditaVersionPlantilla;
+    var dataString = 'm=' + m+'&data=' + plantillaedit.join(',')+'&updcre=' + updcre;
+    $.ajax({
+      type : 'POST',
+      url  : 'respuestaconfig.php',
+      data:  dataString,
+      success:function(data) {
+        window.location.href='home.php';
+      }
+    });
+  }
+  else {
+    window.location.href='home.php';
+  }
+
+}
+function revisarconfigplantilla()
+{
+  var ban=0;
+   for(var i=14;i<infopromocrear.length;i++)
+   {
+     if(infopromocrear[i]!==infopromoedit[i])
+     {
+       ban=1;
+       break;
+     }
+   }
+   return ban;
 }
 function existecupon(p)
 {
@@ -1944,7 +2050,8 @@ function loadcupons(n,t){
     data:  dataString,
     success:function(data) {
       console.log(data);
-      window.location.href='home.php';
+      //window.location.href='home.php';
+      checksaveversion();
     }
   });
 }

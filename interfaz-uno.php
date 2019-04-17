@@ -43,14 +43,14 @@ else {
           </div>
         </label>
       </form>
-      <input id="unoChangeLogo" class="hideInput" type="file" onchange="updateimageplantilla(this,'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/')">
+      <input id="unoChangeLogo" class="hideInput" type="file" onchange="updateimageplantilla(this,14,'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/')">
     </div>
   </section>
   <section id="homeIF" class="displayNone">
     <label for="unoBack" id="labelBack" class="backWhite">
       <p>Imagen de Fondo</p>
     </label>
-    <input id="unoBack" type="file" onchange="updateimageplantilla(this,'plantillaUno','ui/img/back/')"  class="hideInput">
+    <input id="unoBack" type="file" onchange="updateimageplantilla(this,16,'plantillaUno','ui/img/back/')"  class="hideInput">
     <div class="superior">
       <div class="botella displayFlex">
           <label for="unoBottle" id="labelBottle" class="bordersetup colorBorderWhite">
@@ -63,7 +63,7 @@ else {
               <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
             </div>
           </label>
-          <input id="unoBottle" type="file" onchange="updateimageplantilla(this,'productoImg','ui/img/producto/')" class="hideInput">
+          <input id="unoBottle" type="file" onchange="updateimageplantilla(this,17,'productoImg','ui/img/producto/')" class="hideInput">
         <div>
           <div class="infoTitleIF">
             <label for="unoTextoInicio" id="labelTxInicio" class="bordersetup colorBorderWhite">
@@ -76,7 +76,7 @@ else {
                 <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
               </div>
             </label>
-            <input id="unoTextoInicio" type="file" onchange="updateimageplantilla(this,'textoInicioImg','ui/img/textoInicio/')"  class="hideInput">
+            <input id="unoTextoInicio" type="file" onchange="updateimageplantilla(this,22,'textoInicioImg','ui/img/textoInicio/')"  class="hideInput">
           </div>
           <div class="prizeIF">
             <label for="unoPrize" id="labelPrize" class="bordersetup colorBorderWhite">
@@ -89,7 +89,7 @@ else {
                 <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
               </div>
             </label>
-            <input id="unoPrize" type="file" onchange="updateimageplantilla(this,'prizeImg','ui/img/precio/')" class="hideInput">
+            <input id="unoPrize" type="file" onchange="updateimageplantilla(this,23,'prizeImg','ui/img/precio/')" class="hideInput">
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@ else {
             <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
           </div>
         </label>
-        <input id="unoBtCupon" type="file" onchange="updateimageplantilla(this,'btCouponImg','ui/img/botonCupon/')" class="hideInput">
+        <input id="unoBtCupon" type="file" onchange="updateimageplantilla(this,24,'btCouponImg','ui/img/botonCupon/')" class="hideInput">
       </div>
     </div>
   </section>
@@ -121,7 +121,7 @@ else {
             <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
           </div>
         </label>
-        <input id="unoCupon" type="file" onchange="updateimageplantilla(this,'couponImg','ui/img/cupon/')"  class="hideInput">
+        <input id="unoCupon" type="file" onchange="updateimageplantilla(this,25,'couponImg','ui/img/cupon/')"  class="hideInput">
       </div>
       <div class="captura">
         <label for="unoCaptura" id="labelObtenerCaptura" class="bordersetup colorBorderWhite">
@@ -134,7 +134,7 @@ else {
             <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
           </div>
         </label>
-        <input id="unoCaptura" type="file" onchange="updateimageplantilla(this,'btCaptureScreen','ui/img/botonDescarga/')" class="hideInput">
+        <input id="unoCaptura" type="file" onchange="updateimageplantilla(this,26,'btCaptureScreen','ui/img/botonDescarga/')" class="hideInput">
       </div>
     </div>
   </section>
@@ -154,7 +154,7 @@ else {
             <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
           </div>
         </label>
-        <input id="unoMsgExito" type="file" onchange="updateimageplantilla(this,'msgExitoImg','ui/img/mensajeExito/')" class="hideInput">
+        <input id="unoMsgExito" type="file" onchange="updateimageplantilla(this,27,'msgExitoImg','ui/img/mensajeExito/')" class="hideInput">
       </li>
       <li>
         <label for="unoHashtag" id="labelHashtag" class="bordersetup colorBorderWhite">
@@ -163,7 +163,7 @@ else {
             <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
           </div>
         </label>
-        <input id="unoHashtag" type="file" onchange="updateimageplantilla(this,'msgHashtagImg','ui/img/hashtag/')" class="hideInput">
+        <input id="unoHashtag" type="file" onchange="updateimageplantilla(this,28,'msgHashtagImg','ui/img/hashtag/')" class="hideInput">
       </li>
     </ul>
     <ul class="inferior displayFlex">
@@ -236,7 +236,7 @@ else {
           <svg viewBox="0 0 30 30"> <g> <path class="uploadFillWhite" d="M0.6,26c0-3,0-6,0-9.1c0.9,0,1.8,0,2.7,0c0,2.1,0,4.2,0,6.4c7.8,0,15.6,0,23.4,0c0-2.1,0-4.2,0-6.4 c0.9,0,1.8,0,2.7,0c0,3,0,6,0,9.1C19.8,26,10.2,26,0.6,26z"/> <path class="uploadFillWhite" d="M7.9,10.9c0.3-0.3,0.6-0.5,0.8-0.8c2-2,4-4,6-6c0.2-0.2,0.3-0.2,0.5,0c2.2,2.2,4.4,4.4,6.6,6.6 c0.1,0.1,0.1,0.1,0.2,0.2c-0.1,0.1-0.1,0.1-0.2,0.2c-0.5,0.5-1,1-1.5,1.5c-0.2,0.2-0.3,0.1-0.4,0c-1.1-1.1-2.2-2.2-3.2-3.2 c-0.1-0.1-0.2-0.1-0.3-0.3c0,0.2,0,0.3,0,0.5c0,4,0,7.9,0,11.9c0,0.3-0.1,0.3-0.3,0.3c-0.8,0-1.5,0-2.3,0c0-4.2,0-8.5,0-12.8 c-0.1,0.1-0.2,0.2-0.3,0.3c-1.1,1.1-2.2,2.1-3.2,3.2c-0.2,0.2-0.3,0.2-0.5,0C9.1,12,8.5,11.5,7.9,10.9z"/> </g> </svg>
         </div>
       </label>
-      <input id="unoError" type="file" onchange="updateimageplantilla(this,'msgErrorImg','ui/img/mensajeError/')"  class="hideInput">
+      <input id="unoError" type="file" onchange="updateimageplantilla(this,29,'msgErrorImg','ui/img/mensajeError/')"  class="hideInput">
     </div>
   </section>
   <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
