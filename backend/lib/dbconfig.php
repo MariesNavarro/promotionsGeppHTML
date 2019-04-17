@@ -881,7 +881,7 @@ function getpromocioneditdata($idpromo)
   $promo_txt_footer         = 'txt_footer?'.$plantilla['promo_txt_footer'];
   $promo_img_inicio         = 'img_inicio?'.$plantilla['promo_img_inicio'];
   $promo_img_precio         = 'img_precio?'.$plantilla['promo_img_precio'];
-$promo_img_obtenercupon     = 'img_obtenercupon?'.$plantilla['promo_img_obtenercupon'];
+  $promo_img_obtenercupon     = 'img_obtenercupon?'.$plantilla['promo_img_obtenercupon'];
   $promo_img_cupon          = 'img_cupon?'.$plantilla['promo_img_cupon'];
   $promo_img_descargarcupon = 'img_descargarcupon?'.$plantilla['promo_img_descargarcupon'];
   $promo_img_exito          = 'img_exito?'.$plantilla['promo_img_exito'];

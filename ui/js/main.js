@@ -970,7 +970,8 @@ var MetodoEnum = {
   ExisteCupon:8,
   CargarCupones:9,
   ActualizaPlantillashtml:10,
-  ActualizaPlantilla:11
+  ActualizaPlantilla:11,
+  CreaEditaVersionPlantilla:14
  };
  var codigo='';
  var idnvaprom=0;
@@ -1392,7 +1393,14 @@ function checkSteps(n, t){
     break;
     case 5:
       //  responseStep(n , t, 1);
-      loadcupons(n,t);
+      if(nuevos.length>0)
+      {
+        loadcupons(n,t);
+      }
+      else {
+        checksaveversion();
+      }
+
     break;
   }
 }
@@ -1875,6 +1883,89 @@ function actualizaplantillabd(n,t,id){
 
 
 }
+function checksaveversion()
+{
+
+  var updcre='';
+  var plantillaedit[];
+
+
+  plantillaedit.push(infopromoedit[3]);
+  plantillaedit.push(infopromoedit[4]);
+  plantillaedit.push(infopromoedit[6]);
+  plantillaedit.push(infopromoedit[14].split('?').join('-'));
+  plantillaedit.push(infopromoedit[16].split('?').join('-'));
+  plantillaedit.push(infopromoedit[17].split('?').join('-'));
+  plantillaedit.push(infopromoedit[18].split('?').join('-'));
+  plantillaedit.push(infopromoedit[19].split('?').join('-'));
+  plantillaedit.push(infopromoedit[20].split('?').join('-'));
+  plantillaedit.push(infopromoedit[21].split('?').join('-'));
+  plantillaedit.push(infopromoedit[22].split('?').join('-'));
+  plantillaedit.push(infopromoedit[23].split('?').join('-'));
+  plantillaedit.push(infopromoedit[24].split('?').join('-'));
+  plantillaedit.push(infopromoedit[25].split('?').join('-'));
+  plantillaedit.push(infopromoedit[26].split('?').join('-'));
+  plantillaedit.push(infopromoedit[27].split('?').join('-'));
+  plantillaedit.push(infopromoedit[28].split('?').join('-'));
+  plantillaedit.push(infopromoedit[29].split('?').join('-'));
+  var arrayplantillaedirs=infopromoedit[32].split('|');
+  for(var i=0;i<arrayplantillaedirs.length;i++)
+  {
+    var rsClaveValor=arrayplantillaedirs[i].split('?');
+    if(rsClaveValor.length>2)
+    {
+      plantillaini.push(rsClaveValor.join('-'));
+    }
+  }
+
+  if(infopromocrear[3]==infopromoedit[3]&&infopromocrear[4]==infopromoedit[4]&&infopromocrear[6]==infopromoedit[6])
+  {
+       if(infopromocrear[6]==0)
+       {
+         if(revisarconfigplantilla()==1)
+         {
+           updcre='crear';
+         }
+       }
+       else
+       {
+         if(revisarconfigplantilla()==1)
+         {
+           updcre='update';
+         }
+       }
+  }
+  if(updcre=='crear'||updcre=='update')
+  {
+    var  m=MetodoEnum.CreaEditaVersionPlantilla;
+    var dataString = 'm=' + m+'&data=' + plantillaedit.join(',')+'&updcre=' + updcre;
+    $.ajax({
+      type : 'POST',
+      url  : 'respuestaconfig.php',
+      data:  dataString,
+      success:function(data) {
+        window.location.href='home.php';
+      }
+    });
+  }
+  else {
+    window.location.href='home.php';
+  }
+
+}
+function revisarconfigplantilla()
+{
+  var ban=0;
+   for(var i=14;i<infopromocrear.length;i++)
+   {
+     if(infopromocrear[i]!==infopromoedit[i])
+     {
+       ban=1;
+       break;
+     }
+   }
+   return ban;
+}
 function existecupon(p)
 {
 
@@ -1959,7 +2050,8 @@ function loadcupons(n,t){
     data:  dataString,
     success:function(data) {
       console.log(data);
-      window.location.href='home.php';
+      //window.location.href='home.php';
+      checksaveversion();
     }
   });
 }
