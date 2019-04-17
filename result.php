@@ -13,7 +13,8 @@
     case 1:  $mensaje = 'Promoción no válida para tu ubicación'; break;
     case 2:  $mensaje = 'Promoción no disponible'; /* lista negra */  break;
     case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;
-    case 4:  $mensaje = 'Promoción ya finalizó'; break;
+    case 4:  $mensaje = 'Promoción disponible próximamente'; break;
+    case 5:  $mensaje = 'Promoción ya finalizó'; break;
     default: $mensaje = "Se ha presentado un problema";
    }
 

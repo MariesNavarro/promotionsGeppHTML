@@ -37,25 +37,31 @@
 function validarpromo ($idpromo,$ip) {
   $result=0; /* promo valida */
   $count =0;
+  $count2 =0;
   $cads;
-  $val=validafechas($cads,$idpromo);
+  $estatus=0;
+  $val=validafechas($cads,$idpromo,$estatus);
   //echo 'validafechas: idpromo='.$idpromo.' ip='.$ip.PHP_EOL;
   if($val[0]>0.000001&&$val[1]<0.00000001) { /* ya comenzo */
     //echo 'voy a validalistanegra...'.PHP_EOL;
-    $count = validalistanegra($idpromo,$ip);
+    $count = validalistanegra($ip);
     if($count<1) { /* No esta en la lista Negra */
       //echo 'voy a validaregion...'.PHP_EOL;
       $count=validaregion($idpromo); /* validar region */
       if($count>1) {
         //echo 'voy a promvalidestado...'.PHP_EOL;
-        $count = promvalidestado($idpromo,$ip);
-        if($count<1) { $result=1; } /* ubicación no valida */
+        $count2 = promvalidestado($idpromo,$ip);
+        if($count2<1) { $result=1; } /* ubicación no valida */
       } else { $result=1;} /* ubicación no valida */
     } else { $result=2;} /* esta en lista negra */
   }
   else {
-    if ($val[0]<0.000001) {  $result=3; } // no ha comenzado
-    else {  $result=4; }// ya finalizo
+    if ($val[0]<0.000001) {
+      if ($estatus==1) /* por activar */ {
+         $result=3; // no disponible
+      } else { $result=4; } // no ha comenzado
+    }
+    else {  $result=5; }// ya finalizo
   }
   //echo 'validarpromo: '.$resul.PHP_EOL;
   return $result;

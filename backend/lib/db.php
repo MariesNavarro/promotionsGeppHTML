@@ -5,25 +5,26 @@ require_once('conexion.php');
 require_once('funciones.php');
 require_once('barcode.php');
 
-//echo  'Valida lista negra: '.validalistanegra(1,'187.188.22.208').PHP_EOL;
+//echo  'Valida lista negra: '.validalistanegra('187.188.22.208').PHP_EOL;
 //echo 'validaregion: '.validaregion(1).PHP_EOL;
 //echo 'promvalidestado  :'.promvalidestado(1,'187.188.22.208').PHP_EOL;
 
-function validafechas(&$cad,$promo){
+function validafechas(&$cad,$promo,&$estatus){
   $reg;
   $contador=0;
   $link=connect();
 
-  $consulta = "select 'fecha_inicio',fecha_inicio,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_inicio)) valor
+  $consulta = "select 'fecha_inicio',fecha_inicio,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_inicio)) valor, estatus
                from gtrd_promociones where estatus=1 and id=".$promo."
                union
-               select 'fecha_fin',fecha_fin,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_fin)) valor
+               select 'fecha_fin',fecha_fin,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_fin)) valor, estatus
                from gtrd_promociones where estatus=1 and id=".$promo;
 
   if ($resultado = mysqli_query($link, $consulta)) {
    while ($fila = mysqli_fetch_row($resultado)) {
      $reg[$contador]=$fila[3];
      $cad[$contador]=$fila[1];
+     $estatus = $fila[4];
      $contador++;
     }
    /* liberar el conjunto de resultados */
@@ -47,7 +48,7 @@ function validaregion($idprom)
   return $count;
 }
 
-function validalistanegra($ip,$idprom)
+function validalistanegra($ip)
 {
   $count=0;
   $link=connect();
@@ -61,7 +62,7 @@ function validalistanegra($ip,$idprom)
   return $count;
 }
 
-function promvalidestado($ip,$idprom)
+function promvalidestado($idprom,$ip)
 {
   $link=connect();
   $salida          = 0;

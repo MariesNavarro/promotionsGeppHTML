@@ -1369,6 +1369,7 @@ function validarpromo(idpromo) {
       if (data>0) {  // Mostrar mensaje
         window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
       }
+
       //if(data=="SI")  { initFront(); }
       //else  {  $('#index').html(data).fadeIn();  }
     }
