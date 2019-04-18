@@ -7,9 +7,9 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username = $_SESSION["Nombre"];
-  $active   = getpromociones2(1);
-  $foractive= getpromociones2(2);
-  $past     = getpromociones2(3);
+  $active   = getpromociones(1);
+  $foractive= getpromociones(2);
+  $past     = getpromociones(3);
 }
 
 ?>
@@ -149,36 +149,6 @@ http://dragonflycity.com/
       }
 
       /******** LUEGO MOVERLO PARA EL main.js *********/
-
-      /* actualizar estatus de la promo */
-      function actualizarstatus(idpromo,estatus) {
-        var param1=12;
-        var dataString = 'm=' + param1+ '&id=' + idpromo +'&st=' + estatus;
-        $.ajax({
-          type    : 'POST',
-          url     : 'respuestaconfig.php',
-          data    :  dataString,
-          success :  function(data) {
-            console.log('actualizarstatus Result: '+data);
-            location.reload();
-          }
-        });
-      }
-
-      /* eliminar promo */
-      function eliminarpromo(idpromo) {
-        var param1=13;
-        var dataString = 'm=' + param1+ '&id=' + idpromo;
-        $.ajax({
-          type    : 'POST',
-          url     : 'respuestaconfig.php',
-          data    :  dataString,
-          success :  function(data) {
-            console.log('eliminarpromo Result: '+data);
-            location.reload();
-          }
-        });
-      }
 
       function topFunction() {
           $('#promosW').scrollTop(0);

@@ -28,7 +28,11 @@ function login($usr,$pwd)
 function getpromociones($estatus){
   $html='';
   $link=connect();
-  $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,fecha_inicio,fecha_fin,gtrd_promociones.id FROM gtrd_promociones inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca where estatus='$estatus'";
+  $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'), gtrd_promociones.id
+              FROM gtrd_promociones
+              inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca
+              where estatus='$estatus'
+              order by fecha_update desc";
   $result = mysqli_query($link, $query);
   while ($fila = mysqli_fetch_row($result)) {
         $htmldat='<div class="promoItemDash displayFlex">
@@ -43,42 +47,53 @@ function getpromociones($estatus){
             <p class="promoItemDash_Validity">'.$fila[2].' <br> '.$fila[3].'</p>
             </span>
           </div>';
-          if($estatus==1)
-          {
+          if($estatus==1) { // Activas
             $htmlact='<div class="actions displayFlex">
                 <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
                 <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
-                if($_SESSION['Rol']=='Admin')
-                {
+                if($_SESSION['Rol']=='Admin') {
+                  //$htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                  //<a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
                   $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-                  <a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
+                  <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres pausar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',2)\')"></a>';
                 }
 
-            $htmlact=$htmlact.'</div>
-            <ul class="linksWrap trans5">
-              <li class="displayFlex">
-                <h3>Página de Desarrollo:</h3>
-                <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
-              </li>
-              <li class="displayFlex">
-                <h3>Página de Producción:</h3>
-                <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
-              </li>
-            </ul>
-             </div>';
+                $htmlact=$htmlact.'</div>
+                <ul class="linksWrap trans5">
+                  <li class="displayFlex">
+                    <h3>Página de Prueba:</h3>
+                    <a href="./?id='.$fila[4].'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'&ts=1</a>
+                  </li>
+                  <li class="displayFlex">
+                    <h3>Página de Producción:</h3>
+                    <a href="./?id='.$fila[4].'" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'</a>
+                  </li>
+                </ul>
+                 </div>';
           }
-          else if($estatus==2){
-            $htmlact='<div class="actions displayFlex">';
+          else if($estatus==2){ // Por activar
+            $htmlact='<div class="actions displayFlex">
+                      <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>';
             if($_SESSION['Rol']=='Admin')
             {
               $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-              <a class="itemDash_action_publish" href="pub.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-              <a class="itemDash_action_delete" href="delete.php?id='.encrypt_decrypt('e', $fila[4]).'"  class="trans5"></a>';
+              <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
+              <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
             }
             $htmlact=$htmlact.'</div>
+            <ul class="linksWrap trans5">
+              <li class="displayFlex">
+                <h3>Página de Prueba:</h3>
+                <a href="./?id='.$fila[4].'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'&ts=1</a>
+              </li>
+              <li class="displayFlex">
+                <h3>Página de Producción:</h3>
+                <a href="./?id='.$fila[4].'" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'</a>
+              </li>
+            </ul>
             </div>';
           }
-          else {
+          else { // Finalizadas
             $htmlact='<div class="actions displayFlex">
               <a class="itemDash_action_report" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
             </div>
@@ -90,6 +105,7 @@ function getpromociones($estatus){
   Close($link);
   return $html;
 }
+
 function descPromo($link,$promo) {
   /* recuperar todas las filas de myCity */
    $data="";
@@ -985,5 +1001,29 @@ else {
 
   Close($link);
   return $salida;
+}
+
+function actualizarstatus($id,$st){
+  $salida   = "";
+  $username = $_SESSION["Nombre"];
+
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_promociones SET estatus=".$st.", fecha_update = now(), usuario = '".$username."' WHERE id=".$id;
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+  mysqli_commit($link);
+  Close($link);
+  return $salida;
+}
+
+function eliminarpromo($id){
+  $salida="";
+  actualizarstatus($id,4); /* Cambiar a estatus = 4 (eliminado)*/
+  return $consulta;
 }
 ?>

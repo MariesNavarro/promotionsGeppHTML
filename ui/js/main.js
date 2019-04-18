@@ -2124,3 +2124,32 @@ function changeimgemodiplantilla(idelement) {
       ele.src=folderui+imguifolder;
   }
 }
+/* actualizar estatus de la promo */
+function actualizarstatus(idpromo,estatus) {
+  var param1=12;
+  var dataString = 'm=' + param1+ '&id=' + idpromo +'&st=' + estatus;
+  $.ajax({
+    type    : 'POST',
+    url     : 'respuestaconfig.php',
+    data    :  dataString,
+    success :  function(data) {
+      console.log('actualizarstatus Result: '+data);
+      location.reload();
+    }
+  });
+}
+
+/* eliminar promo */
+function eliminarpromo(idpromo) {
+  var param1=13;
+  var dataString = 'm=' + param1+ '&id=' + idpromo;
+  $.ajax({
+    type    : 'POST',
+    url     : 'respuestaconfig.php',
+    data    :  dataString,
+    success :  function(data) {
+      console.log('eliminarpromo Result: '+data);
+      location.reload();
+    }
+  });
+}
