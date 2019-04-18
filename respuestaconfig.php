@@ -129,5 +129,11 @@ if($_POST["m"]==13) /* eliminar promocion */
   $result= eliminarpromo($id);
   echo $result;
 }
-
+if($_POST["m"]==14) /* eliminar promocion */
+{
+  $updcre    = $_POST["updcre"];
+  $data    = $_POST["data"];
+  $result= actualizaplantillaversion($updcre,$data);
+  echo $result;
+}
 ?>
