@@ -100,22 +100,26 @@ function getcupon($client,$idClient,$idpromo,$promo_imgcupon,$idproveedor,$test)
   $result ='';
   $count=0;
   $link=connect();
-  $query1 = "SELECT ((TIME_TO_SEC(TIMEDIFF(NOW(), fecha_entregado))>(1*1*1)) and ('".$client."'  not in (select ip from gtrd_listanegra))) Entregar,TIMEDIFF(NOW(), fecha_entregado) TiempoTranscurrido,TIMEDIFF( TIMEDIFF('2018-08-01 00:00:00', '2018-07-31 00:00:00'),TIMEDIFF(NOW(), fecha_entregado)) TiempoRestante from gtrd_cupones where estatus=1 and ip='".$client."' and huella_digital='".$idClient."' and id_promo=".$idpromo." order by fecha_entregado desc LIMIT 1;";
 
-  if ($resultado = mysqli_query($link, $query1)) {
-    while ($fila = mysqli_fetch_row($resultado)) {
-        $count++;
-        if($fila[0]=='1') {
-          $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
-        }
-        else {	$result = 'VUELVE';  }
-     }
-     if($count<1) {
-       $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
-     }
-  }
-  else {
-     $result = 'ERROR';
+  if ($test==0) {/* No es test */
+    $query1 = "SELECT ((TIME_TO_SEC(TIMEDIFF(NOW(), fecha_entregado))>(1*1*1)) and ('".$client."'  not in (select ip from gtrd_listanegra))) Entregar,TIMEDIFF(NOW(), fecha_entregado) TiempoTranscurrido,TIMEDIFF( TIMEDIFF('2018-08-01 00:00:00', '2018-07-31 00:00:00'),TIMEDIFF(NOW(), fecha_entregado)) TiempoRestante from gtrd_cupones where estatus=1 and ip='".$client."' and huella_digital='".$idClient."' and id_promo=".$idpromo." order by fecha_entregado desc LIMIT 1;";
+    if ($resultado = mysqli_query($link, $query1)) {
+      while ($fila = mysqli_fetch_row($resultado)) {
+          $count++;
+          if($fila[0]=='1') {
+            $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
+          }
+          else {	$result = 'VUELVE';  }
+       }
+       if($count<1) {
+         $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
+       }
+    }
+    else {
+       $result = 'ERROR';
+    }
+  } else {
+      $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
   }
   return $result;
 }
@@ -127,7 +131,7 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
 
   mysqli_autocommit($link, FALSE);
   //$query2= "SELECT codigo FROM gtrd_cupones where estatus=0 and id_promo=".$idpromo." LIMIT 1 FOR UPDATE;";
-  $query2= "SELECT codigo FROM gtrd_cupones  WHERE estatus=0 AND id_promo=".$idpromo." AND ".$test."=0 UNION SELECT cupon_test FROM gtrd_proveedor WHERE id = ".$idpromo." AND ".$test."=1 LIMIT 1 FOR UPDATE";
+  $query2= "SELECT codigo FROM gtrd_cupones  WHERE estatus=0 AND id_promo=".$idpromo." AND ".$test."=0 UNION SELECT cupon_test FROM gtrd_proveedor WHERE id = ".$idproveedor." AND ".$test."=1 LIMIT 1 FOR UPDATE";
 
  if ($resultado = mysqli_query($link, $query2)) {
       while ($fila = mysqli_fetch_row($resultado)) {
@@ -215,7 +219,7 @@ function getplatilla($idmarca,$version,$idplantilla,$producto,$idproveedor)
                        k.valor_componente promo_img_precio, l.valor_componente promo_img_obtenercupon, m.valor_componente promo_img_cupon,
                        n.valor_componente promo_img_descargarcupon, o.valor_componente promo_img_exito, p.valor_componente promo_img_hashtag,
                        q.valor_componente promo_img_error, t.valor_componente marca_logo, s.logo proveedor_logo,
-                       r.nombre marca_nombre, r.logo marca_logo, r.codigo marca_codigo, r.descripcion marca_descripcion
+                       r.nombre marca_nombre, r.codigo marca_codigo, r.descripcion marca_descripcion
                 FROM
            (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_back') a
            LEFT JOIN (SELECT * FROM gtrd_plantilla_config_producto WHERE id_componente = 'img_prod') e ON a.id_plantilla = e.id_plantilla AND a.id_marca = e.id_marca AND a.version = e.version  AND a.producto = e.producto
@@ -272,7 +276,11 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 function getpromociones2($estatus){
   $html='';
   $link=connect();
-  $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,fecha_inicio,fecha_fin,gtrd_promociones.id FROM gtrd_promociones inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca where estatus='$estatus' order by fecha_inicio";
+  $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'), gtrd_promociones.id
+              FROM gtrd_promociones
+              inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca
+              where estatus='$estatus'
+              order by fecha_inicio";
   $result = mysqli_query($link, $query);
   while ($fila = mysqli_fetch_row($result)) {
         $htmldat='<div class="promoItemDash displayFlex">
@@ -301,12 +309,12 @@ function getpromociones2($estatus){
                 $htmlact=$htmlact.'</div>
                 <ul class="linksWrap trans5">
                   <li class="displayFlex">
-                    <h3>Página de Desarrollo:</h3>
-                    <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
+                    <h3>Página de Prueba:</h3>
+                    <a href="./?id='.$fila[4].'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'&ts=1</a>
                   </li>
                   <li class="displayFlex">
                     <h3>Página de Producción:</h3>
-                    <a href="./'.$fila[0].'" target="_blank">http://siguesudando.com/'.$fila[0].'</a>
+                    <a href="./?id='.$fila[4].'" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'</a>
                   </li>
                 </ul>
                  </div>';
@@ -317,7 +325,7 @@ function getpromociones2($estatus){
             {
               $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
               <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
-              <a class="itemDash_action_delete" href="delete.php?id='.encrypt_decrypt('e', $fila[4]).'"  class="trans5"></a>';
+              <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
             }
             $htmlact=$htmlact.'</div>
             </div>';
@@ -359,20 +367,7 @@ function actualizarstatus($id,$st){
 
 function eliminarpromo($id){
   $salida="";
-  /*
-  $link=connect();
-  mysqli_autocommit($link, FALSE);
-  $consulta ="update gtrd_promociones SET estatus='.$st.' WHERE id=".$id;
-  if (mysqli_query($link, $consulta)) {
-      $salida="success";
-   }
-   else {
-     $salida="error";
-   }
-   mysqli_commit($link);
-
-  Close($link);
-  */
+  actualizarstatus($id,4); /* Cambiar a estatus = 4 (eliminado)*/
   return $consulta;
 }
 ?>

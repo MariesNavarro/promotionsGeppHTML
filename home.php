@@ -11,6 +11,7 @@ else {
   $foractive= getpromociones2(2);
   $past     = getpromociones2(3);
 }
+
 ?>
 <!--
 v1
@@ -96,9 +97,9 @@ http://dragonflycity.com/
     <main class="home displayFlex">
       <nav class="displayFlex">
         <ul class="displayFlex">
-          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this)">Activas</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this)">Por Activar</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this)">Pasadas</a></li>
+          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this);topFunction();">Activas</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this);topFunction();">Por Activar</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this);topFunction();">Pasadas</a></li>
         </ul>
         <div>
           <a role="button" href="config.php" id="newPromo" class="button trans5">
@@ -148,6 +149,7 @@ http://dragonflycity.com/
       }
 
       /******** LUEGO MOVERLO PARA EL main.js *********/
+
       /* actualizar estatus de la promo */
       function actualizarstatus(idpromo,estatus) {
         var param1=12;
@@ -158,15 +160,30 @@ http://dragonflycity.com/
           data    :  dataString,
           success :  function(data) {
             console.log('actualizarstatus Result: '+data);
-            //popActionFun('hide', 0, null);
             location.reload();
-            //if (data>0) {  // Mostrar mensaje
-            //  window.location.href = "result.php?id="+idpromo+"&idmsg="+data;
-            //}
-
           }
         });
       }
+
+      /* eliminar promo */
+      function eliminarpromo(idpromo) {
+        var param1=13;
+        var dataString = 'm=' + param1+ '&id=' + idpromo;
+        $.ajax({
+          type    : 'POST',
+          url     : 'respuestaconfig.php',
+          data    :  dataString,
+          success :  function(data) {
+            console.log('eliminarpromo Result: '+data);
+            location.reload();
+          }
+        });
+      }
+
+      function topFunction() {
+          $('#promosW').scrollTop(0);
+      }
+
     </script>
   </body>
 </html>
