@@ -655,6 +655,7 @@ return $res;
 }
 
 function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
+  $username = $_SESSION["Nombre"];
   $salida='';
   $link=connect();
   mysqli_autocommit($link, FALSE);
@@ -662,10 +663,10 @@ function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
   $prodec=encrypt_decrypt('d',$pro);
   if($idnvaprom>0)
   {
-    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', estatus=2 where id=".$idnvaprom;
+    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', estatus=2,usuario='".$username."' where id=".$idnvaprom;
   }
     else {
-      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2)";
+      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus,usuario) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2,'".$username."')";
     }
 
   if (mysqli_query($link, $consulta)) {
@@ -678,8 +679,22 @@ function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
 
    }
    else {
-     $salida='fallo sql insert';
+     $salida=$consulta.'fallo sql insert';
    }
+   if($idnvaprom>0)
+   {
+     $consulta1 ="ya existian estados";
+   }
+     else {
+       $consulta1 ="insert into gtrd_promociones_estados(id_promo,id_estado) VALUES(".$salida.",33),(".$salida.",34)";
+       if (mysqli_query($link, $consulta1)) {
+        }
+        else {
+
+        }
+     }
+
+
    mysqli_commit($link);
   Close($link);
   return $salida;
