@@ -901,4 +901,74 @@ function getpromocioneditdata($idpromo)
   $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg;
   return $result;
 }
+function actualizaplantillaversion($updcre,$data)
+{
+  $salida='';
+  $link=connect();
+  $arraydata=explode(',',$data);
+  $marca=explode('-',$arraydata[0])[0];
+  $idpromo=explode('-',$arraydata[0])[1];
+  $plantilla=$arraydata[1];
+  $version=$arraydata[2];
+  $nvomax=0;
+  if($updcre!='update')
+  {
+  mysqli_autocommit($link, FALSE);
+  $maximo="SELECT version FROM gtrd_secuencias_version where id_plantilla=".$plantilla." and id_marca=".$marca." and producto=1 LIMIT 1 FOR UPDATE;";
+  if ($registrosv = mysqli_query($link, $maximo)) {
+    while ($fila = mysqli_fetch_array($registrosv)) {
+        $nvomax=$fila[0]+1;
+         $maximoupd="update gtrd_secuencias_version set version=".$nvomax." where id_plantilla=".$plantilla." and id_marca=".$marca." and producto=1";
+         if (mysqli_query($link, $maximoupd)) {
+              mysqli_commit($link);
+           }
+             else {
+             }
+
+          }
+     }
+ }
+ else {
+   $nvomax=$version;
+ }
+  if($nvomax!=0)
+  {
+    $salida=''.$nvomax;
+  mysqli_autocommit($link, FALSE);
+  $count=count($arraydata);
+  for ($i=3;$i<$count;$i++) {
+    $clv=explode('-',$arraydata[$i]);
+    if($updcre=='update')
+    {
+      $consulta ="update gtrd_plantilla_config_producto set id_componente='".$clv[0]."',valor_componente='".$clv[1]."' where id_plantilla=".$plantilla." and id_marca=".$marca." and version=".$version." and producto=1";
+    }
+      else {
+        $consulta ="insert into gtrd_plantilla_config_producto(id_plantilla,id_marca,version,producto,id_componente,valor_componente) VALUES(".$plantilla.",".$marca.",".$nvomax.",1,'".$clv[0]."','".$clv[1]."')";
+      }
+
+    if (mysqli_query($link, $consulta)) {
+      $salida.='Exito:'.$clv[0].'-'.$clv[1].',';
+     }
+     else {
+       $salida.='Fallo:'.$consulta.mysqli_error($link).$clv[0].'-'.$clv[1].',';
+     }
+  }
+
+  $consultapromo ="update gtrd_promociones set version=".$nvomax." where id=".$idpromo;
+  if (mysqli_query($link, $consultapromo)) {
+    $salida.='Exito:'.$consultapromo;
+   }
+   else {
+     $salida.='Fallo:'.$consultapromo;
+   }
+  mysqli_commit($link);
+}
+else {
+  $salida='No se pudo obtener el siguiente';
+}
+
+
+  Close($link);
+  return $salida;
+}
 ?>

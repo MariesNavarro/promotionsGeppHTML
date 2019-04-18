@@ -1786,7 +1786,7 @@ function actualizaplantillabd(n,t,id){
         if(bancarga==0)
         {
           infopromocrear=data.split('&@;');
-          infopromoedit=infopromocrear;
+          infopromoedit=data.split('&@;');
           bancarga=1;
         }
         else
@@ -1887,10 +1887,10 @@ function checksaveversion()
 {
 
   var updcre='';
-  var plantillaedit[];
+  var plantillaedit=[];
 
 
-  plantillaedit.push(infopromoedit[3]);
+  plantillaedit.push(infopromoedit[3]+'-'+idnvaprom);
   plantillaedit.push(infopromoedit[4]);
   plantillaedit.push(infopromoedit[6]);
   plantillaedit.push(infopromoedit[14].split('?').join('-'));
@@ -1914,7 +1914,7 @@ function checksaveversion()
     var rsClaveValor=arrayplantillaedirs[i].split('?');
     if(rsClaveValor.length>2)
     {
-      plantillaini.push(rsClaveValor.join('-'));
+      plantillaedit.push(rsClaveValor[1]+'-'+rsClaveValor[2]);
     }
   }
 
@@ -1944,11 +1944,13 @@ function checksaveversion()
       url  : 'respuestaconfig.php',
       data:  dataString,
       success:function(data) {
+        console.log(data);
         window.location.href='home.php';
       }
     });
   }
   else {
+    console.log('misma plantilla');
     window.location.href='home.php';
   }
 
@@ -2057,34 +2059,46 @@ function loadcupons(n,t){
 }
 function changecolorback(t)
 {
+    var ar=infopromoedit[20].split('?');
     var back= _("#iframePlantilla").contentWindow.document.getElementById("loading");
     var classcolor=t.value.split('.')[1];
     var arrclass=back.className.split(" ");
     arrclass.pop();
     arrclass.push(classcolor);
+    ar[1]=classcolor;
+    infopromoedit[20]=ar.join('?');
     back.className=arrclass.join(' ');
 }
 function changecolortext(t)
 {
+  var ar=infopromoedit[19].split('?');
   var body= _("#iframePlantilla").contentWindow.document.getElementById("plantillaUno");
   var classcolor=t.value.split('.')[1];
   var arrclass=body.className.split(" ");
   arrclass[1]=classcolor;
+  ar[1]=classcolor;
+  infopromoedit[19]=ar.join('?');
   body.className=arrclass.join(' ');
 
 }
 function changefont(t)
 {
+  var ar=infopromoedit[18].split('?');
   var body= _("#iframePlantilla").contentWindow.document.getElementById("plantillaUno");
   var classcolor=t.value.split('.')[1];
   var arrclass=body.className.split(" ");
   arrclass[0]=classcolor;
+  ar[1]=classcolor;
+  infopromoedit[18]=ar.join('?');
   body.className=arrclass.join(' ');
 }
 function changetxt(t)
 {
+  var ar=infopromoedit[21].split('?');
   var footer= _("#iframePlantilla").contentWindow.document.getElementById("footerPromoCopy");
   var txt=t.value;
+  ar[1]=txt;
+  infopromoedit[21]=ar.join('?');
   footer.textContent=txt;
 }
 var folderui='';
