@@ -972,7 +972,8 @@ var MetodoEnum = {
   ActualizaPlantillashtml:10,
   ActualizaPlantilla:11,
   CreaEditaVersionPlantilla:14,
-  CreaDirectorio:16
+  CreaDirectorio:16,
+  GetPromoPlantilla:17
  };
  var codigo='';
  var idnvaprom=0;
@@ -1884,6 +1885,114 @@ function actualizaplantillabd(n,t,id){
         compactMenu = true;
         if(w>=880)compactConfigMenu(0);
         responseStep(n,t,1);
+      }
+
+    }
+  });
+
+
+}
+function getpromoplantillabd(id){
+  var  m=MetodoEnum.GetPromoPlantilla;
+  var dataString = 'm=' + m+'&prom=' + id;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+      if(data=='error')
+      {
+
+      }
+      else {
+        var w=window.innerWidth;
+        if(bancarga==0)
+        {
+          infopromocrear=data.split('&@;');
+          infopromoedit=data.split('&@;');
+          bancarga=1;
+        }
+        else
+        {
+          var infotemp=data.split('&@;');
+          if(infopromoedit[3]!=infotemp[3])
+          {
+            infopromoedit=infotemp;
+          }
+          else {
+            infopromoedit[0]=infotemp[0];
+            infopromoedit[1]=infotemp[1];
+            infopromoedit[2]=infotemp[2];
+            infopromoedit[3]=infotemp[3];
+            infopromoedit[4]=infotemp[4];
+            infopromoedit[5]=infotemp[5];
+            infopromoedit[6]=infotemp[6];
+            infopromoedit[7]=infotemp[7];
+            infopromoedit[8]=infotemp[8];
+            infopromoedit[9]=infotemp[9];
+            infopromoedit[10]=infotemp[10];
+            infopromoedit[11]=infotemp[11];
+            infopromoedit[12]=infotemp[12];
+            infopromoedit[13]=infotemp[13];
+            infopromoedit[15]=infotemp[15];
+
+          }
+        }
+        var frame = _("#iframePlantilla").contentWindow,
+        frameIF = _("#iframeInterfaz").contentWindow;
+        frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
+        frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
+        frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
+        //Cambiar colores,texto,fuentes
+        //Color BACK
+        var documentplantilla=frame.document;
+        var back=documentplantilla.getElementById("loading");
+        var classcolor=infopromoedit[20].split('?')[1];
+        var arrclass=back.className.split(" ");
+        arrclass.pop();
+        arrclass.push(classcolor);
+        back.className=arrclass.join(' ');
+        //Fuente color y tipo
+        var body=documentplantilla.getElementById("plantillaUno");
+        var colorfuente=infopromoedit[19].split('?')[1];
+        var fuente=infopromoedit[18].split('?')[1];
+        var arrclassbody=body.className.split(" ");
+        arrclassbody[0]=fuente;
+        arrclassbody[1]=colorfuente;
+        body.className=arrclassbody.join(' ');
+        //Texto footer
+        var footer=documentplantilla.getElementById("footerPromoCopy");
+        var txt=infopromoedit[21].split('?')[1];
+        footer.textContent=txt;
+        //Cambiar imagenes
+        updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
+        updateimagemodiplantilla(infopromoedit[14].split('?')[1],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
+        updateimagemodiplantilla(infopromoedit[16].split('?')[1],'plantillaUno','ui/img/back/');
+        updateimagemodiplantilla(infopromoedit[17].split('?')[1],'productoImg','ui/img/producto/');
+        updateimagemodiplantilla(infopromoedit[22].split('?')[1],'textoInicioImg','ui/img/textoInicio/');
+        updateimagemodiplantilla(infopromoedit[23].split('?')[1],'prizeImg','ui/img/precio/');
+        updateimagemodiplantilla(infopromoedit[24].split('?')[1],'btCouponImg','ui/img/botonCupon/');
+        updateimagemodiplantilla(infopromoedit[25].split('?')[1],'couponImg','ui/img/cupon/');
+        updateimagemodiplantilla(infopromoedit[26].split('?')[1],'btCaptureScreen','ui/img/botonDescarga/');
+        updateimagemodiplantilla(infopromoedit[27].split('?')[1],'msgExitoImg','ui/img/mensajeExito/');
+        updateimagemodiplantilla(infopromoedit[28].split('?')[1],'msgHashtagImg','ui/img/hashtag/');
+        updateimagemodiplantilla(infopromoedit[29].split('?')[1],'msgErrorImg','ui/img/mensajeError/');
+        //Redes sociales icons
+        var arrayRS=infopromoedit[32].split('|');
+        for(var irs=0;irs<arrayRS.length;irs++)
+        {
+
+          var rsClaveValor=arrayRS[irs].split('?');
+          if(rsClaveValor.length>2)
+          {
+            var idel='ic'+rsClaveValor[0];
+            var valor=rsClaveValor[2];
+            updateimagemodiplantilla(valor,idel,'ui/img/ic/');
+          }
+
+
+        }
       }
 
     }

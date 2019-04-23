@@ -11,6 +11,7 @@ else {
   $proveedores=proveedores();
   $funcionalidades=funcionalidades();
   $plantillas=plantillas(null);
+
 }
 ?>
 <!--
@@ -248,7 +249,7 @@ http://dragonflycity.com/
                   <input id="legalesUpload" class="textInput legalesConfig" type="file" name="">
                 </div>
               </div>
-              
+
               <button class="buttonConfig centerButton" type="button" name="button" onclick="checkSteps(1, this);">Siguiente</button>
             </form>
           </li>
@@ -595,6 +596,14 @@ http://dragonflycity.com/
       //Quitar ejemplo
       window.onload = function(){
         rContEditor("#contEditorPlantilla");
+
+        /*
+        infopromocrear=data.split('&@;');
+        infopromoedit=data.split('&@;');
+        bancarga=1;
+        */
+      <?php if(isset($_GET["id"])) {echo "getpromoplantillabd('".encrypt_decrypt('d', $_GET['id'])."')";}?>
+
       }
       window.onresize = function(){
         rContEditor("#contEditorPlantilla");

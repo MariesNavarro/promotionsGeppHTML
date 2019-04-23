@@ -149,4 +149,10 @@ if($_POST["m"]==16) /* Crear directorio promocion */
   $result= creaactualizadir($idpromo,$dir);
   echo $result;
 }
+if($_POST["m"]==17) /* Crear directorio promocion */
+{
+  $idpromo    = $_POST["prom"];
+  $result=getpromocioneditdata($idpromo);
+  echo $result;
+}
 ?>

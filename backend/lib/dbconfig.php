@@ -61,7 +61,7 @@ function getpromociones($estatus){
                 if($_SESSION['Rol']=='Admin') {
                   //$htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                   //<a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
-                  $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                  $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                   <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres pausar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',2)\')"></a>';
                 }
 
@@ -88,12 +88,12 @@ function getpromociones($estatus){
             if($_SESSION['Rol']=='Admin')
             {
               if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {  /* verificar que tenga legales y cupones cargados */
-                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                 <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
                 <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
                 ';
               } else {
-                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                 <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
                 <a class="itemDash_action_question" href="#" class="trans5" onclick="" style="" title="Falta cargar cupones o los legales, favor revisar."></a>
                 ';
@@ -923,6 +923,7 @@ function getpromocioneditdata($idpromo)
   $id_funcionalidad         = $promo['id_funcionalidad'];
   $fecha_inicio             =$promo['fecha_inicio'];
   $fecha_fin                =$promo['fecha_fin'];
+  $dir_promo                =$promo['dir'];
   $plantilla = getplatilla($marca_id,$promo_version,$plantilla_id,1,$proveedor_id);
   $marca                    = $plantilla['marca_codigo'];
   $marca_descripcion        = $plantilla['marca_descripcion'];
@@ -953,7 +954,7 @@ function getpromocioneditdata($idpromo)
   $result.='&@;'.$promo_img_inicio.'&@;'.$promo_img_precio.'&@;'.$promo_img_obtenercupon;
   $result.='&@;'.$promo_img_cupon.'&@;'.$promo_img_descargarcupon.'&@;'.$promo_img_exito;
   $result.='&@;'.$promo_img_hashtag.'&@;'.$promo_img_error.'&@;'.$interfazmarca;
-  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg;
+  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg.'&@;'.$dir_promo;
   return $result;
 }
 function actualizaplantillaversion($updcre,$data)
