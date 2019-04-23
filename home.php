@@ -7,9 +7,9 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username = $_SESSION["Nombre"];
-  $active   = getpromociones(1);
-  $foractive= getpromociones(2);
-  $past     = getpromociones(3);
+  $active   = getpromociones2(1);  /* Activas */
+  $foractive= getpromociones2(2);  /* Por activar */
+  $past     = getpromociones2(3);  /* Finalizadas */
 }
 
 ?>
@@ -73,7 +73,7 @@ http://dragonflycity.com/
     </div>
     <ul id="menuMobile" class="displayNone trans5">
       <li>Hola <span class="userName""><?php echo $username; ?></span></li>
-      <li><a href="#">Tutoriales</a></li>
+      <!--<li><a href="#">Tutoriales</a></li>-->
       <li><a id="closeLog"  onclick="logout()" role="button">Cerrar Sesión</a></li>
     </ul>
     <nav class="home displayFlex">
@@ -84,7 +84,7 @@ http://dragonflycity.com/
         </div>
       </a>
       <a role="contentinfo" class="trans5 desktopNav">Hola <span class="userName""><?php echo $username; ?></span></a>
-      <a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>
+      <!--<a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>-->
       <a role="button" class="trans5 desktopNav" onclick="logout()" target="_blank" >Cerrar Sesión</a>
       <a role="button" class="mobileNav" onclick="menuMobile('open', this)">
         <div class="hamburgerMenu hamburgerHover displayFlex">

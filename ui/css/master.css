@@ -546,13 +546,15 @@ main.home>#promosW>ul>li{
 .itemDash_action_modify{ background-image: url('../img/ic/action_modify.svg'); }
 .itemDash_action_modify::after{content: "Modificar"}
 .itemDash_action_end{ background-image: url('../img/ic/action_end.svg'); }
-.itemDash_action_end::after{content: "Finalizar"}
+.itemDash_action_end::after{content: "Pausar"}
 .itemDash_action_publish{ background-image: url('../img/ic/action_publish.svg'); }
 .itemDash_action_publish::after{ content: "Publicar"}
 .itemDash_action_delete{ background-image: url('../img/ic/action_delete.svg'); }
 .itemDash_action_delete::after{ content: "Eliminar"}
 .itemDash_action_report{ background-image: url('../img/ic/action_report.svg'); }
 .itemDash_action_report::after{ content: "Reporte" }
+.itemDash_action_question{ background-image: url('../img/ic/action_question.svg');  color: red;}
+.itemDash_action_question::after{ content: "Falta info" }
 
 #infoHomeW>h1, #infoHomeW>h2{
   width: 90%;
@@ -1555,6 +1557,7 @@ background-image:
 .promoItemDash>.linksWrap>li{
   width: 100%;
   height: 25px;
+  border-bottom: 2px solid #11396c;
 }
 .promoItemDash>.linksWrap>li:first-child{
   border-bottom: 2px solid #11396c;

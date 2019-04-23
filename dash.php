@@ -62,7 +62,7 @@ http://dragonflycity.com/
   <body class="login body">
     <ul id="menuMobile" class="displayNone trans5">
       <li>Hola <span id="userNameMobile"><?php echo $username; ?></span></li>
-      <li><a href="#">Tutoriales</a></li>
+      <!--<li><a href="#">Tutoriales</a></li>-->
       <li><a id="closeLog"  onclick="logout()" role="button">Cerrar Sesión</a></li>
     </ul>
     <nav class="home displayFlex">
@@ -73,7 +73,7 @@ http://dragonflycity.com/
         </div>
       </a>
       <a role="contentinfo" class="trans5 desktopNav">Hola <span id="userNameDesktop"><?php echo $username; ?></span></a>
-      <a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>
+      <!--<a href="#" class="trans5 desktopNav" target="_blank" >Tutoriales</a>-->
       <a role="button" class="trans5 desktopNav" onclick="logout()" target="_blank" >Cerrar Sesión</a>
       <a role="button" class="mobileNav" onclick="menuMobile('open', this)">
         <div class="hamburgerMenu hamburgerHover displayFlex">
