@@ -334,14 +334,16 @@ function getpromociones2($estatus){
                       <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>';
             if($_SESSION['Rol']=='Admin')
             {
-              if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {
+              if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {  /* verificar que tenga legales y cupones cargados */
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
                 <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
-                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
+                ';
               } else {
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-                <a class="itemDash_action_publish" href="#" class="trans5" onclick="" style="color: gray;" title="Falta cargar cupones o los legales, favor revisar."></a>
-                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
+                <a class="itemDash_action_question" href="#" class="trans5" onclick="" style="" title="Falta cargar cupones o los legales, favor revisar."></a>
+                ';
               }
             }
             $htmlact=$htmlact.'</div>
