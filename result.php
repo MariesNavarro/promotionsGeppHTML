@@ -5,7 +5,7 @@
   $idmsg = 0;
 
   /***************** GET PARAMETROS ******************/
-  if (isset($_GET['id'])) { $idpromo = $_GET['id'];}
+  if (isset($_GET['id'])) { $idpromo = $_GET['id'];  $idpromo = encrypt_decrypt('d', $idpromo);}
   if (isset($_GET['idmsg'])) { $idmsg = $_GET['idmsg'];}
 
   /***************** SET MENSAJE ******************/
@@ -14,7 +14,7 @@
     case 2:  $mensaje = 'Promoción no disponible'; /* lista negra */  break;
     case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;  /* ya publicada, pero no ha iniciado */
     case 4:  $mensaje = 'Promoción disponible próximamente'; break; /* no esta publicada */
-    case 4:  $mensaje = 'Promoción ya finalizó'; break;
+    case 5:  $mensaje = 'Promoción ya finalizó'; break;
     default: $mensaje = "Se ha presentado un problema";
    }
 

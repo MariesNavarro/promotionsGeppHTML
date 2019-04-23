@@ -62,11 +62,11 @@ function getpromociones($estatus){
                 <ul class="linksWrap trans5">
                   <li class="displayFlex">
                     <h3>Página de Prueba:</h3>
-                    <a href="./?id='.$fila[4].'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'&ts=1</a>
+                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
                   </li>
                   <li class="displayFlex">
                     <h3>Página de Producción:</h3>
-                    <a href="./?id='.$fila[4].'" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'</a>
+                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
                   </li>
                 </ul>
                  </div>';
@@ -84,11 +84,11 @@ function getpromociones($estatus){
             <ul class="linksWrap trans5">
               <li class="displayFlex">
                 <h3>Página de Prueba:</h3>
-                <a href="./?id='.$fila[4].'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'&ts=1</a>
+                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
               </li>
               <li class="displayFlex">
                 <h3>Página de Producción:</h3>
-                <a href="./?id='.$fila[4].'" target="_blank">http://fun.siguesudando.com/?id='.$fila[4].'</a>
+                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
               </li>
             </ul>
             </div>';

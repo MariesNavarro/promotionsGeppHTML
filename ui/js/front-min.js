@@ -1326,20 +1326,20 @@ function obtencupon(idpromo,promo_imgcupon,idproveedor,test){
            data:  dataString,
            success:function(data) {
                 console.log('obtencupon Result: '+data);
-                generateCoupon(idpromo,data);
+                generateCoupon(data);
            }
         });
 }
 
-function generateCoupon(idpromo,data){
+function generateCoupon(data){
   if (data=='AGOTADO' || data=='ERROR') {
     wLoadCoupon.setAttribute("style", "display:none");
     textoEdo.setAttribute("style", "display:none");
     showMsg(1);  /* ERROR */
   } else {
-    $("#couponImg").attr('src','cupones/img/'+idpromo+'_'+data+'.jpg');
-    $("#couponImgCaptureScreen").attr('href','cupones/img/'+idpromo+'_'+data+'.jpg');
-    $("#couponImgCaptureScreen").attr('download',idpromo+'_'+data+'.jpg');
+    $("#couponImg").attr('src','cupones/img/'+data+'.jpg');
+    $("#couponImgCaptureScreen").attr('href','cupones/img/'+data+'.jpg');
+    $("#couponImgCaptureScreen").attr('download',data+'.jpg');
     showCoupon();
   }
   /*

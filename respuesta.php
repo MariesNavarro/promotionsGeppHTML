@@ -3,7 +3,7 @@
 
   /* Obtener parametros  */
   $accion   = $_POST['param1'];
-  $idpromo  = $_POST['idpromo'];
+  $idpromo  = encrypt_decrypt('d', $_POST['idpromo']);
 
   //$accion   = $_GET['param1'];
   //$idpromo  = $_GET['idpromo'];
