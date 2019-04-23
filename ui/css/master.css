@@ -1555,6 +1555,7 @@ background-image:
 .promoItemDash>.linksWrap>li{
   width: 100%;
   height: 25px;
+  border-bottom: 2px solid #11396c;
 }
 .promoItemDash>.linksWrap>li:first-child{
   border-bottom: 2px solid #11396c;

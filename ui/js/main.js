@@ -1503,8 +1503,8 @@ function openLinks(c,t){
       ul = p.lastElementChild;
   if(c === "open"){
     t.setAttribute("onclick", "openLinks('close', this)");
-    p.style.height = "100px";
-    ul.style.height = "50px";
+    p.style.height = "125px";  /* 100px */
+    ul.style.height = "75px";  /* 50px */
     ul.style.display = "block";
   } else if (c === "close") {
     t.setAttribute("onclick", "openLinks('open', this)");

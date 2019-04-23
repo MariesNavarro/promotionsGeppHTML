@@ -272,5 +272,105 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
 /**************** PASAR A dbconfig.php **************************/
 
+function getpromociones2($estatus){
+  $html='';
+  $link=connect();
+  $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
+	                DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
+                  gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
+                  count(gtrd_cupones.codigo) cupones
+             FROM gtrd_promociones
+	     INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
+        LEFT JOIN gtrd_cupones On gtrd_cupones.id_promo=gtrd_promociones.id
+            WHERE gtrd_promociones.estatus='$estatus'
+         GROUP BY gtrd_promociones.nombre,gtrd_marca.nombre,
+	                DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
+                  gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales
+         ORDER BY gtrd_promociones.fecha_update DESC";
+  $result = mysqli_query($link, $query);
+  while ($fila = mysqli_fetch_row($result)) {
+        $htmldat='<div class="promoItemDash displayFlex">
+          <div>
+            <p class="promoItemDash_Name">'.$fila[0].'</p>
+          </div>
+          <div>
+            <p class="promoItemDash_Brand">'.$fila[1].'</p>
+          </div>
+          <div>
+            <span>
+            <p class="promoItemDash_Validity">'.$fila[2].' <br> '.$fila[3].'</p>
+            </span>
+          </div>';
+          if($estatus==1) { // Activas
+            $htmlact='<div class="actions displayFlex">
+                <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
+                <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
+                if($_SESSION['Rol']=='Admin') {
+                  //$htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                  //<a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
+                  $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                  <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres pausar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',2)\')"></a>';
+                }
 
+                $htmlact=$htmlact.'</div>
+                <ul class="linksWrap trans5">
+                  <li class="displayFlex">
+                    <h3>Página de Prueba:</h3>
+                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
+                  </li>
+                  <li class="displayFlex">
+                    <h3>Página de Producción:</h3>
+                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+                  </li>
+                  <li class="displayFlex">
+                    <h3>Página de Distribución:</h3>
+                    <a href="./'.$fila[5].'" target="_blank">http://fun.siguesudando.com/'.$fila[5].'</a>
+                  </li>
+                </ul>
+                 </div>';
+          }
+          else if($estatus==2){ // Por activar
+            $htmlact='<div class="actions displayFlex">
+                      <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>';
+            if($_SESSION['Rol']=='Admin')
+            {
+              if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {
+                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
+              } else {
+                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                <a class="itemDash_action_publish" href="#" class="trans5" onclick="" style="color: gray;" title="Falta cargar cupones o los legales, favor revisar."></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
+              }
+            }
+            $htmlact=$htmlact.'</div>
+            <ul class="linksWrap trans5">
+              <li class="displayFlex">
+                <h3>Página de Prueba:</h3>
+                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
+              </li>
+              <li class="displayFlex">
+                <h3>Página de Producción:</h3>
+                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+              </li>
+              <li class="displayFlex">
+                <h3>Página de Distribución:</h3>
+                <a href="./'.$fila[5].'" target="_blank">http://fun.siguesudando.com/'.$fila[5].'</a>
+              </li>
+            </ul>
+            </div>';
+          }
+          else { // Finalizadas
+            $htmlact='<div class="actions displayFlex">
+              <a class="itemDash_action_report" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+            </div>
+           </div>';
+          }
+          $html=$html.$htmldat.$htmlact;
+  }
+  mysqli_free_result($result);
+  Close($link);
+  return $html;
+}
 ?>
