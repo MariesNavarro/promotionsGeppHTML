@@ -220,18 +220,18 @@ function preparedirname($string){
     return strtolower($string);
 }
 function creadirectoriopromo($idpromo,$nombredir){
-  $carpeta = preparedirname($nombredir);
+  $carpeta = 'promos/'.preparedirname($nombredir);
 if (!file_exists($carpeta)) {
     mkdir($carpeta, 0777, true);
     $filepath=$carpeta."/index.php";
-    $txtinfile="<?php header(\"Location:https://fun.siguesudando.com/?id=".encrypt_decrypt('e',$idpromo)."\"); ?>";
+    $txtinfile="<?php header(\"Location:https://fun.siguesudando.com/?id=".$idpromo."\"); ?>";
      $fichero = fopen($filepath, "w");
       if (flock($fichero, LOCK_EX)) {
           fwrite($fichero,$txtinfile);
           flock($fichero, LOCK_UN);
           fclose($fichero);
       }
-      return $filepath;
+      return $carpeta;
 }
 }
 ?>

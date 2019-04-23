@@ -971,7 +971,8 @@ var MetodoEnum = {
   CargarCupones:9,
   ActualizaPlantillashtml:10,
   ActualizaPlantilla:11,
-  CreaEditaVersionPlantilla:14
+  CreaEditaVersionPlantilla:14,
+  CreaDirectorio:16
  };
  var codigo='';
  var idnvaprom=0;
@@ -1420,7 +1421,7 @@ function compactConfigMenu(n){
 }
 
 function checkConfig_1(n, t){
-  var nom,desc,mar,pro,fi,ff;
+  var nom,desc,mar,pro,fi,ff,url;
   var d=new Date();
   var datesinhoras=new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
   if($('#fechaInicio')[0].value!=''&&datesinhoras.toISOString().slice(0,10)<=$('#fechaInicio')[0].value){
@@ -1441,6 +1442,13 @@ function checkConfig_1(n, t){
   else {
     nom=0;
   }
+  if($('#nombreURL')[0].value!=''&&$('#nombreURL')[0].value!=undefined){
+    url=1;
+  }
+  else {
+    url=0;
+  }
+  //nombreURL
   if($('#descripcionPromo')[0].value!=''&&$('#descripcionPromo')[0].value!=undefined){
     desc=1;
   }
@@ -1461,25 +1469,25 @@ function checkConfig_1(n, t){
   }
   /* Comprobar Configuración 1 */
   //NUM SLIDER, THIS, nombre, descripción, marca, fecha Inicio, fecha Final
-  responseConfig_1(n, t,nom,desc,mar,pro,fi,ff);
+  responseConfig_1(n, t,nom,desc,mar,pro,fi,ff,url);
 }
 
-function responseConfig_1(ns,t,n, d, m, p, fInit, fLast){
-  var g = n + d + m + p + fInit + fLast;
+function responseConfig_1(ns,t,n, d, m, p, fInit, fLast,url){
+  var g = n + d + m + p + fInit + fLast+url;
   var labels = __(".labelData1"),
       inputs = __(".inputData1");
       for (var i = 0; i < labels.length; i++) {
         labels[i].setAttribute("style", " ");
         inputs[i].setAttribute("style", " ");
       }
-  if(g === 6){
+  if(g === 7){
 
     savedatageneral(ns,t);
 
-  } else if (g < 6) {
+  } else if (g < 7) {
     responseStep(ns, t, 0);
   }
-  if(n === 0){ redField(0); } if(d === 0){ redField(1); } if(m === 0){ redField(2); } if(p === 0){ redField(3); } if(fInit === 0){ redField(4); } if(fLast === 0){ redField(5); }
+  if(n === 0){ redField(0); } if(d === 0){ redField(1); } if(m === 0){ redField(2); } if(p === 0){ redField(3); } if(fInit === 0){ redField(4); } if(fLast === 0){ redField(5); } if(url === 0){ redField(6); }
   function redField(n){
     labels[n].style.color = "#D8353D";
     inputs[n].style.color = "#D8353D";
@@ -1836,7 +1844,7 @@ function actualizaplantillabd(n,t,id){
         var arrclassbody=body.className.split(" ");
         arrclassbody[0]=fuente;
         arrclassbody[1]=colorfuente;
-        body.className=arrclass.join(' ');
+        body.className=arrclassbody.join(' ');
         //Texto footer
         var footer=documentplantilla.getElementById("footerPromoCopy");
         var txt=infopromoedit[21].split('?')[1];
@@ -1945,15 +1953,33 @@ function checksaveversion()
       data:  dataString,
       success:function(data) {
         console.log(data);
-        window.location.href='home.php';
+        creardir();
       }
     });
   }
   else {
     console.log('misma plantilla');
-    window.location.href='home.php';
+    creardir();
   }
 
+}
+function creardir()
+{
+  if($('#nombreURL')[0].value!=''&&$('#nombreURL')[0].value!=undefined){
+       var dirprom=$('#nombreURL')[0].value;
+       var  m=MetodoEnum.CreaDirectorio;
+       var dataString = 'm=' + m+'&idpromo=' +idnvaprom+'&dir=' + dirprom;
+       $.ajax({
+         type : 'POST',
+         url  : 'respuestaconfig.php',
+         data:  dataString,
+         success:function(data) {
+           console.log(data);
+           window.location.href='home.php';
+         }
+       });
+
+  }
 }
 function revisarconfigplantilla()
 {
