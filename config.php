@@ -236,17 +236,19 @@ http://dragonflycity.com/
 
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
+                  <label class="labelData1">Nombre de la URL</label>
+                  <input id="nombreURL" class="textInput inputData1" type="text" required/>
+                </div>
+                <div class="fieldConfigWrap">
                   <label>Cargar Legales</label>
                   <label class="legalesConfigButton trans5 displayFlex" for="legalesUpload" onclick="loadFileName(this)">
-                    <img src="ui/img/ic/upload.svg" width="20" height="20">
-                    <p id="legalFileTx">Subir PDF</p>
+                  <img src="ui/img/ic/upload.svg" width="20" height="20">
+                  <p id="legalFileTx">Subir PDF</p>
                   </label>
                   <input id="legalesUpload" class="textInput legalesConfig" type="file" name="">
                 </div>
-                <div class="fieldConfigWrap">
-                <!-- Segmentación por país -->
-                </div>
               </div>
+              
               <button class="buttonConfig centerButton" type="button" name="button" onclick="checkSteps(1, this);">Siguiente</button>
             </form>
           </li>
