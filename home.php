@@ -7,9 +7,9 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username = $_SESSION["Nombre"];
-  $active   = getpromociones2(1);  /* Activas */
-  $foractive= getpromociones2(2);  /* Por activar */
-  $past     = getpromociones2(3);  /* Finalizadas */
+  $active   = getpromociones(1);  /* Activas */
+  $foractive= getpromociones(2);  /* Por activar */
+  $past     = getpromociones(3);  /* Finalizadas */
 }
 
 ?>

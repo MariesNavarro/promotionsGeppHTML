@@ -547,7 +547,7 @@ main.home>#promosW>ul>li{
 .itemDash_action_modify::after{content: "Modificar"}
 .itemDash_action_end{ background-image: url('../img/ic/action_end.svg'); }
 .itemDash_action_end::after{content: "Pausar"}
-.itemDash_action_publish{ background-image: url('../img/ic/action_publish.svg'); }
+.itemDash_action_publish{ background-image: url('../img/ic/action_publish.svg'); color: greenyellow;}
 .itemDash_action_publish::after{ content: "Publicar"}
 .itemDash_action_delete{ background-image: url('../img/ic/action_delete.svg'); }
 .itemDash_action_delete::after{ content: "Eliminar"}

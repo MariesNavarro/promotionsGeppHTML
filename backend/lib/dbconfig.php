@@ -28,11 +28,18 @@ function login($usr,$pwd)
 function getpromociones($estatus){
   $html='';
   $link=connect();
-  $query = "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'), gtrd_promociones.id
-              FROM gtrd_promociones
-              inner join gtrd_marca on gtrd_marca.Id=gtrd_promociones.id_marca
-              where estatus='$estatus'
-              order by fecha_update desc";
+  $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
+                  DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
+                  gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
+                  count(gtrd_cupones.codigo) cupones
+             FROM gtrd_promociones
+       INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
+        LEFT JOIN gtrd_cupones On gtrd_cupones.id_promo=gtrd_promociones.id
+            WHERE gtrd_promociones.estatus='$estatus'
+         GROUP BY gtrd_promociones.nombre,gtrd_marca.nombre,
+                  DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
+                  gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales
+         ORDER BY gtrd_promociones.fecha_update DESC";
   $result = mysqli_query($link, $query);
   while ($fila = mysqli_fetch_row($result)) {
         $htmldat='<div class="promoItemDash displayFlex">
@@ -68,6 +75,10 @@ function getpromociones($estatus){
                     <h3>Página de Producción:</h3>
                     <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
                   </li>
+                  <li class="displayFlex">
+                    <h3>Página de Distribución:</h3>
+                    <a href="./'.$fila[5].'" target="_blank">http://fun.siguesudando.com/'.$fila[5].'</a>
+                  </li>
                 </ul>
                  </div>';
           }
@@ -76,9 +87,17 @@ function getpromociones($estatus){
                       <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>';
             if($_SESSION['Rol']=='Admin')
             {
-              $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-              <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
-              <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>';
+              if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {  /* verificar que tenga legales y cupones cargados */
+                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
+                <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
+                ';
+              } else {
+                $htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
+                <a class="itemDash_action_question" href="#" class="trans5" onclick="" style="" title="Falta cargar cupones o los legales, favor revisar."></a>
+                ';
+              }
             }
             $htmlact=$htmlact.'</div>
             <ul class="linksWrap trans5">
@@ -89,6 +108,10 @@ function getpromociones($estatus){
               <li class="displayFlex">
                 <h3>Página de Producción:</h3>
                 <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+              </li>
+              <li class="displayFlex">
+                <h3>Página de Distribución:</h3>
+                <a href="./'.$fila[5].'" target="_blank">http://fun.siguesudando.com/'.$fila[5].'</a>
               </li>
             </ul>
             </div>';
