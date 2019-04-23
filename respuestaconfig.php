@@ -142,4 +142,11 @@ if($_POST["m"]==15) /* cancelar promocion */
   $result= eliminarpromo($id);
   echo $result;
 }
+if($_POST["m"]==16) /* Crear directorio promocion */
+{
+  $idpromo    = $_POST["idpromo"];
+  $dir    = $_POST["dir"];
+  $result= creaactualizadir($idpromo,$dir);
+  echo $result;
+}
 ?>

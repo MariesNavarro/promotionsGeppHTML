@@ -727,7 +727,7 @@ function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
      else {
        $consulta1 ="insert into gtrd_promociones_estados(id_promo,id_estado) VALUES(".$salida.",33),(".$salida.",34)";
        if (mysqli_query($link, $consulta1)) {
-            creadirectoriopromo($salida,$nom);
+            //creadirectoriopromo($salida,$nom);
         }
         else {
 
@@ -962,7 +962,7 @@ function actualizaplantillaversion($updcre,$data)
   $link=connect();
   $arraydata=explode(',',$data);
   $marca=explode('-',$arraydata[0])[0];
-  $idpromo=explode('-',$arraydata[0])[1];
+  $idpromo=encrypt_decrypt('d',explode('-',$arraydata[0])[1]);
   $plantilla=$arraydata[1];
   $version=$arraydata[2];
   $nvomax=0;
@@ -993,19 +993,30 @@ function actualizaplantillaversion($updcre,$data)
   $count=count($arraydata);
   for ($i=3;$i<$count;$i++) {
     $clv=explode('-',$arraydata[$i]);
+    if(count($clv)>2)
+    {
+      $idcomp=$clv[0];
+      unset($clv[0]);
+      $valcomp=implode("-", $clv);
+    }
+    else {
+      $idcomp=$clv[0];
+      $valcomp=$clv[1];
+    }
+
     if($updcre=='update')
     {
-      $consulta ="update gtrd_plantilla_config_producto set id_componente='".$clv[0]."',valor_componente='".$clv[1]."' where id_plantilla=".$plantilla." and id_marca=".$marca." and version=".$version." and producto=1";
+      $consulta ="update gtrd_plantilla_config_producto set id_componente='".$idcomp."',valor_componente='".$valcomp."' where id_plantilla=".$plantilla." and id_marca=".$marca." and version=".$version." and producto=1";
     }
       else {
-        $consulta ="insert into gtrd_plantilla_config_producto(id_plantilla,id_marca,version,producto,id_componente,valor_componente) VALUES(".$plantilla.",".$marca.",".$nvomax.",1,'".$clv[0]."','".$clv[1]."')";
+        $consulta ="insert into gtrd_plantilla_config_producto(id_plantilla,id_marca,version,producto,id_componente,valor_componente) VALUES(".$plantilla.",".$marca.",".$nvomax.",1,'".$idcomp."','".$valcomp."')";
       }
 
     if (mysqli_query($link, $consulta)) {
-      $salida.='Exito:'.$clv[0].'-'.$clv[1].',';
+      $salida.='Exito:'.$idcomp.'-'.$valcomp.',';
      }
      else {
-       $salida.='Fallo:'.$consulta.mysqli_error($link).$clv[0].'-'.$clv[1].',';
+       $salida.='Fallo:'.$consulta.mysqli_error($link).$idcomp.'-'.$valcomp.',';
      }
   }
 
@@ -1049,5 +1060,38 @@ function eliminarpromo($id){
   $salida="";
   actualizarstatus($id,4); /* Cambiar a estatus = 4 (eliminado)*/
   return $consulta;
+}
+
+function creaactualizadir($idpromo,$dir)
+{
+    $link=connect();
+    $idpromodecryp=encrypt_decrypt('d',$idpromo);
+    $resultado = null;
+    $consulta = "SELECT dir FROM gtrd_promociones WHERE id = ".$idpromodecryp;
+
+    if ($registros = mysqli_query($link, $consulta)) {
+      while ($fila = mysqli_fetch_array($registros)) {
+          if(empty($fila["dir"]))
+          {
+
+            $salida   = "";
+            $username = $_SESSION["Nombre"];
+            $dirname=creadirectoriopromo($idpromo,$dir);
+            mysqli_autocommit($link, FALSE);
+            $consulta ="update gtrd_promociones SET dir='".$dirname."', fecha_update = now(), usuario = '".$username."' WHERE id=".$idpromodecryp;
+            if (mysqli_query($link, $consulta)) {
+                $salida="success".$consulta.$dirname;
+             }
+             else {
+               $salida="error".$consulta;
+             }
+            mysqli_commit($link);
+
+          }
+       }
+    }
+
+    Close($link);
+    return $salida;
 }
 ?>
