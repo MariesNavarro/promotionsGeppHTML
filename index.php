@@ -15,7 +15,7 @@ $config     = 0;
 $test       = 0;
 
 /***************** GET PARAMETROS ******************/
-if (isset($_GET['id'])) { $idpromo  = $_GET['id']; /* $idprom = encrypt_decrypt('d', $idprom); */}  /* si viene una id_promo */
+if (isset($_GET['id'])) { $idpromo  = $_GET['id'];  $idpromo = encrypt_decrypt('d', $idpromo); }  /* si viene una id_promo */
 if (isset($_GET['cf'])) { $config   = $_GET['cf']; }    /* si viene del configurador */
 if (isset($_GET['ts'])) { $test     = $_GET['ts']; }    /* si es test */
 

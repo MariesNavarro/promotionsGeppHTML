@@ -78,7 +78,7 @@ Author: OETCapital
         </div>
       </div>
       <div class="wrapInferiorButton">
-        <a role="button" onclick="ctaCoupon(<?php echo $idpromo ?>,'<?php echo $promo_img_cupon ?>',<?php echo $proveedor_id ?>,<?php echo $test ?>)">
+        <a role="button" onclick="ctaCoupon('<?php echo encrypt_decrypt('e', $idpromo); ?>','<?php echo $promo_img_cupon ?>',<?php echo $proveedor_id ?>,<?php echo $test ?>)">
           <img id="btCouponImg" class="trans5" src="ui/img/botonCupon/<?php echo $promo_img_obtenercupon; ?>">
         </a>
       </div>
@@ -126,7 +126,7 @@ Author: OETCapital
     <script src="ui/js/front-min.js" charset="utf-8"></script>
     <script type="text/javascript">
       var config          = "<?php echo $config ?>";
-      var idpromo         = "<?php echo $idpromo ?>";
+      var idpromo         = "<?php echo encrypt_decrypt('e', $idpromo); ?>";
       var test            = "<?php echo $test ?>";
       var promo_img_cupon = "<?php echo $promo_img_cupon ?>";
       var proveedor_id    = "<?php echo $proveedor_id ?>";

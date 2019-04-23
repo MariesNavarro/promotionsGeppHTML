@@ -315,7 +315,7 @@ http://dragonflycity.com/
             <!-- Configurador Edición de Plantilla -->
             <div id="wrapEditorPlantilla">
               <div id="contEditorPlantilla">
-                <iframe id="iframePlantilla" src="index.php?id=1&cf=1"></iframe>
+                <iframe id="iframePlantilla" src="index.php?cf=1"></iframe>
               </div>
               <!-- index Edicion Plantilla -->
               <div id="editorPlantillaInterfaz">
@@ -574,7 +574,7 @@ http://dragonflycity.com/
             </div>
             <form action="" method="" autocomplete="off">
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(3)">Anterior</button>
-              <button class="buttonConfig centerButton" type="button" name="button" onclick="popActionFun('show', '¿Estás seguro que quieres cancelar?','ifSayYes(1)')">Cancelar</button>
+              <button class="buttonConfig centerButton" type="button" name="button" onclick="popActionFun('show', '¿Estás seguro que quieres cancelar?','cancelarpromo()')">Cancelar</button>
               <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(5, this)">Guardar</button>
             </form>
           </li>

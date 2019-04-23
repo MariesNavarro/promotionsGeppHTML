@@ -146,7 +146,7 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
         $ismob          = true;
         barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
         if ($test==0) { update_codigos($fila[0],$ip,$huella,$link); }
-        $result =  $fila[0];
+        $result =  $idpromo.'_'.$fila[0];
         //$result = $fila[0].' '.$promo_imgcupon.' '.$idproveedor;
       }
       if($count<1)  { $result = 'AGOTADO'; }

@@ -69,34 +69,34 @@ if($_POST["m"]==5)
   $desc=$_POST["desc"];
   $mar=$_POST["mar"];
   $pro=$_POST["pro"];
-  $idnvaprom=$_POST["idnvaprom"];
+  $idnvaprom=encrypt_decrypt('d',$_POST["idnvaprom"]);
   $result=insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom);
-  echo $result;
+  echo encrypt_decrypt('e',$result);
 }
 if($_POST["m"]==6)
 {
-  $id=$_POST["id"];
+  $id=encrypt_decrypt('d',$_POST["id"]);
   $url=$_POST["url"];
   $result=actualizalegales($id,$url);
   echo $result;
 }
 if($_POST["m"]==7){
   $id=$_POST["fun"];
-  $prom=$_POST["prom"];
+  $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=actualizafuncionalidad($id,$prom);
   echo $result;
 }
 if($_POST["m"]==8)
 {
   $id=$_POST["cup"];
-  $prom=$_POST["prom"];
+  $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=existecupon($id,$prom);
   echo $result;
 }
 if($_POST["m"]==9)
 {
   $id=$_POST["cup"];
-  $prom=$_POST["prom"];
+  $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=loadcupons($id,$prom);
   echo $result;
 }
@@ -110,7 +110,7 @@ if($_POST["m"]==10)
 if($_POST["m"]==11)
 {
   $id=$_POST["plan"];
-  $prom=$_POST["prom"];
+  $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=actualizaplantillabd($id,$prom);
   echo $result;
 }
@@ -129,11 +129,17 @@ if($_POST["m"]==13) /* eliminar promocion */
   $result= eliminarpromo($id);
   echo $result;
 }
-if($_POST["m"]==14) /* eliminar promocion */
+if($_POST["m"]==14) /* actualizar plantilla promocion */
 {
   $updcre    = $_POST["updcre"];
   $data    = $_POST["data"];
   $result= actualizaplantillaversion($updcre,$data);
+  echo $result;
+}
+if($_POST["m"]==15) /* cancelar promocion */
+{
+  $id    = encrypt_decrypt('d',$_POST["id"]);
+  $result= eliminarpromo($id);
   echo $result;
 }
 ?>

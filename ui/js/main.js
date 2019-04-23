@@ -2149,7 +2149,22 @@ function eliminarpromo(idpromo) {
     data    :  dataString,
     success :  function(data) {
       console.log('eliminarpromo Result: '+data);
-      location.reload();
+      location.href="home.php";
+    }
+  });
+}
+
+/* calvelar promo */
+function cancelarpromo() {
+  var param1=15;
+  var dataString = 'm=' + param1+ '&id=' + idnvaprom;
+  $.ajax({
+    type    : 'POST',
+    url     : 'respuestaconfig.php',
+    data    :  dataString,
+    success :  function(data) {
+      console.log('cancelarpromo Result: '+data);
+      location.href="home.php";
     }
   });
 }
