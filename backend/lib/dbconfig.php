@@ -704,6 +704,7 @@ function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
      else {
        $consulta1 ="insert into gtrd_promociones_estados(id_promo,id_estado) VALUES(".$salida.",33),(".$salida.",34)";
        if (mysqli_query($link, $consulta1)) {
+            creadirectoriopromo($salida,$nom);
         }
         else {
 
