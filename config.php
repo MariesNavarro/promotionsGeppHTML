@@ -8,8 +8,13 @@ if(!isset($_SESSION["userName"])) {
   $username       = $_SESSION["Nombre"];
   $marcas         = marcas();
   $proveedores    = proveedores();
-  $funcionalidades= funcionalidades();
+
   $plantillas     = plantillas(null);
+  $disabled='';
+  if(isset($_GET["id"])) {
+    $disabled='disabled';
+  }
+  $funcionalidades= funcionalidades($disabled);
 }
 ?>
 <!--
@@ -199,25 +204,25 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Nombre de la Promoción</label>
-                  <input id="nombrePromo" class="textInput inputData1" type="text" required/>
+                  <input <?php echo $disabled; ?> id="nombrePromo" class="textInput inputData1" type="text" required/>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Descripción de la promoción</label>
-                  <textarea id="descripcionPromo" class="textInput inputData1" name=""></textarea>
+                  <textarea <?php echo $disabled; ?> id="descripcionPromo" class="textInput inputData1" name=""></textarea>
                 </div>
               </div>
 
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Marca</label>
-                  <select id="selectBrand" name="" class="inputData1">
+                  <select <?php echo $disabled; ?> id="selectBrand" name="" class="inputData1">
                     <?php echo $marcas; ?>
                   </select>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Proveedor</label>
-                  <select id="selectProvider" name="" class="inputData1">
-                  <?php echo $proveedores; ?>
+                  <select <?php echo $disabled; ?> id="selectProvider" name="" class="inputData1">
+                  <?php  echo $proveedores; ?>
                   </select>
                 </div>
               </div>
@@ -236,7 +241,7 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Nombre de la subcarpeta en la URL</label>
-                  <input id="nombreURL" class="textInput inputData1" type="text" required/>
+                  <input <?php echo $disabled; ?> id="nombreURL" class="textInput inputData1" type="text" required/>
                   <label class=""><?php echo getdominio()."/promos/"; ?></label>
                 </div>
                 <div class="fieldConfigWrap">
@@ -246,6 +251,7 @@ http://dragonflycity.com/
                   <p id="legalFileTx">Subir PDF</p>
                   </label>
                   <input id="legalesUpload" class="textInput legalesConfig" type="file" name="">
+                  <?php if(isset($_GET["id"])) { echo '<a id="legalesedit" style="color: #11396C" href="" target="_blank">Actuales</a>';}?>
                 </div>
               </div>
 
@@ -597,12 +603,15 @@ http://dragonflycity.com/
         rContEditor("#contEditorPlantilla");
 
         /*
+        legales/<?php echo $promo_legales; ?>
         infopromocrear=data.split('&@;');
         infopromoedit=data.split('&@;');
         bancarga=1;
         */
       <?php if(isset($_GET["id"])) {echo "getpromoplantillabd('".encrypt_decrypt('d', $_GET['id'])."')";}?>;
        idnvaprom='<?php if(isset($_GET["id"])) {echo $_GET["id"] ;} else{echo '0';}?>';
+
+
 
       }
       window.onresize = function(){

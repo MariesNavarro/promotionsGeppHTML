@@ -1,6 +1,7 @@
 <?php
+require_once('backend/lib/funciones.php');
 if (isset($_FILES) && !empty($_FILES)) {
-    $id=$_POST["id"];
+    $id=encrypt_decrypt('d',$_POST["id"]);
     $file = $_FILES['fileName'];
     if(isset($_POST["ext"]))
     {

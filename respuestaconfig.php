@@ -155,4 +155,10 @@ if($_POST["m"]==17) /* Crear directorio promocion */
   $result=getpromocioneditdata($idpromo);
   echo $result;
 }
+if($_POST["m"]==18) /* Crear directorio promocion */
+{
+  $idprov   = encrypt_decrypt('d',$_POST["prov"]);
+  $result=getproveedordata($idprov);
+  echo $result;
+}
 ?>

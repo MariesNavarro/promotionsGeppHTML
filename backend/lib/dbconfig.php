@@ -254,7 +254,7 @@ function createhtml($link,$promo)
     if ($porc_disponibles >= 25 and $porc_disponibles < 40) { $color = "orange";}
 
     $salida = number_format($cup_entregadoshoy, 0, '.', ',').";".number_format($cup_entregados, 0, '.', ',').";".number_format($cup_disponibles, 0, '.', ',').";Total Entregados (".number_format($porc_entregados, 2, '.', ',')."%);Total Disponibles (".number_format($porc_disponibles, 2, '.', ',')."%);".$color.";".$cup_ultimo.";";
-
+    Close($link);
     return $salida;
 }
 
@@ -384,7 +384,7 @@ function proveedores(){
   return $salida;
 
 }
-function funcionalidades(){
+function funcionalidades($varconfig){
   $reg=0;
   $salida='';
   $link=connect();
@@ -457,7 +457,7 @@ function funcionalidades(){
              </div>
              <div class="selectionContainer">
                <label>Seleccionar</label>
-               <input onclick="uncheckedfunctionall(this)" class="checkBoxFunction" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
+               <input '.$varconfig.' onclick="uncheckedfunctionall(this)" class="checkBoxFunction" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
              </div>
            </div>
            </div>';
@@ -475,7 +475,7 @@ function funcionalidades(){
                </div>
                <div class="selectionContainer">
                  <label>Seleccionar</label>
-                 <input onclick="uncheckedfunctionall(this)" class="checkBoxFunction" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
+                 <input '.$varconfig.' onclick="uncheckedfunctionall(this)" class="checkBoxFunction" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
                </div>
              </div>';
          }
@@ -954,6 +954,10 @@ function getpromocioneditdata($idpromo)
   $interfazmarca            =getmarca_redessocialesinterfaz($marca_id);
   $plantillamarca           =getmarca_redessociales($marca_id,$plantilla_id,$promo_version);
   $plantillamarcaimg        =getmarca_redessocialesimgchange($marca_id,$plantilla_id,$promo_version);
+  $link=connect();
+  $disponibles=cuponesDisponibles($link,$idpromo);
+  Close($link);
+
   $result=$promo_nombre.'&@;'.$producto.'&@;'.$descripcion.'&@;'.encrypt_decrypt('e',$marca_id).'&@;'.encrypt_decrypt('e',$plantilla_id);
   $result.='&@;'.$promo_legales.'&@;'.$promo_version.'&@;'.$estatus.'&@;'.encrypt_decrypt('e',$proveedor_id);
   $result.='&@;'.encrypt_decrypt('e',$id_funcionalidad).'&@;'.$fecha_inicio.'&@;'.$fecha_fin.'&@;'.$marca;
@@ -962,7 +966,7 @@ function getpromocioneditdata($idpromo)
   $result.='&@;'.$promo_img_inicio.'&@;'.$promo_img_precio.'&@;'.$promo_img_obtenercupon;
   $result.='&@;'.$promo_img_cupon.'&@;'.$promo_img_descargarcupon.'&@;'.$promo_img_exito;
   $result.='&@;'.$promo_img_hashtag.'&@;'.$promo_img_error.'&@;'.$interfazmarca;
-  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg.'&@;'.$dir_promo;
+  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg.'&@;'.$dir_promo.'&@;'.$disponibles;
   return $result;
 }
 function actualizaplantillaversion($updcre,$data)
@@ -1118,4 +1122,22 @@ function getdominio()
   Close($link);
   return $result;
 }
+function getproveedordata($idproveedor)
+{
+
+  $count=0;
+  $link=connect();
+  $resultado = null;
+  $consulta = "SELECT * FROM gtrd_proveedor where id=".$idproveedor;
+
+  if ($registros = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_array($registros)) {
+        $resultado = $fila[0].'&@'. $fila[1].'&@'. $fila[2];
+     }
+  }
+  Close($link);
+  return $resultado;
+}
+
+
 ?>

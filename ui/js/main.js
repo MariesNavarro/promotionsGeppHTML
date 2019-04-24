@@ -973,7 +973,8 @@ var MetodoEnum = {
   ActualizaPlantilla:11,
   CreaEditaVersionPlantilla:14,
   CreaDirectorio:16,
-  GetPromoPlantilla:17
+  GetPromoPlantilla:17,
+  GetProveedorSelected:18
  };
  var codigo='';
  var idnvaprom=0;
@@ -1751,8 +1752,12 @@ function ischeckedsometheme(n,t){
   {
     if(bancarga==1)
     {
-      if(infopromocrear[4]==infopromoedit[4])
+      if(infopromocrear[4]==infopromoedit[4]&&$('#selectBrand')[0].value==infopromoedit[3])
       {
+        if($('#selectProvider')[0].value!=infopromoedit[8])
+        {
+            getproveedordataselected();
+        }
         var w=window.innerWidth;
         //console.log('iguales');
         optionsConfig(0);
@@ -1761,6 +1766,7 @@ function ischeckedsometheme(n,t){
         responseStep(n,t,1);
       }
       else {
+
         actualizaplantillabd(n,t,id);
       }
     }
@@ -1777,6 +1783,26 @@ function ischeckedsometheme(n,t){
     responseStep(n,t,0);
   }
 
+}
+function getproveedordataselected()
+{
+  var  m=MetodoEnum.GetProveedorSelected;
+  var dataString = 'm=' + m+'&prov=' + $('#selectProvider')[0].value;
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      console.log(data);
+      var arrprov=data.split('&@')
+      var arrimgprovCL=infopromoedit[15].split('?');
+      arrimgprovCL[1]=arrprov[2];
+      infopromoedit[15]=arrimgprovCL.join('?');
+      infopromoedit[8]=$('#selectProvider')[0].value;
+      updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
+
+    }
+  });
 }
 function actualizafuncionalidad(n,t,id){
   var  m=MetodoEnum.ActualizaFuncionalidad;
@@ -1918,6 +1944,8 @@ function actualizaplantillabd(n,t,id){
         updateimagemodiplantilla(infopromoedit[27].split('?')[1],'msgExitoImg','ui/img/mensajeExito/');
         updateimagemodiplantilla(infopromoedit[28].split('?')[1],'msgHashtagImg','ui/img/hashtag/');
         updateimagemodiplantilla(infopromoedit[29].split('?')[1],'msgErrorImg','ui/img/mensajeError/');
+        //texto footer
+        $('#textFootConf')[0].value=infopromoedit[21].split('?')[1];
         //Redes sociales icons
         var arrayRS=infopromoedit[32].split('|');
         for(var irs=0;irs<arrayRS.length;irs++)
@@ -2033,6 +2061,32 @@ function getpromoplantillabd(id){
         updateimagemodiplantilla(infopromoedit[27].split('?')[1],'msgExitoImg','ui/img/mensajeExito/');
         updateimagemodiplantilla(infopromoedit[28].split('?')[1],'msgHashtagImg','ui/img/hashtag/');
         updateimagemodiplantilla(infopromoedit[29].split('?')[1],'msgErrorImg','ui/img/mensajeError/');
+        //Texto footer
+        $('#textFootConf')[0].value=infopromoedit[21].split('?')[1];
+        //legales
+        if($('#legalesedit').length>0)
+        {
+          if(infopromoedit[5]!=='')
+          {
+            $('#legalesedit')[0].href='legales/'+infopromoedit[5];
+          }
+          else {
+            $('#legalesedit')[0].style.display='none';
+          }
+        }
+        //Cupones
+        if(infopromoedit[34]!==""&&infopromoedit[34]!=="0")
+        {
+          numCupones=infopromoedit[34];
+          var textCSVLoaded = _(".numCSV"),
+          numCSVW = _("#numCSV");
+          numCSVW.innerHTML = "disponibles "+numCupones;
+          textCSVLoaded.style.display = "block";
+          setTimeout(function(){
+            textCSVLoaded.style.opacity = "1";
+          },500);
+        }
+
         //Redes sociales icons
         var arrayRS=infopromoedit[32].split('|');
         for(var irs=0;irs<arrayRS.length;irs++)
@@ -2210,7 +2264,7 @@ function existecupon(p)
         var textCSVLoaded = _(".numCSV"),
             textCSVNoLoaded = _(".noneNumCSV"),
             numCSVW = _("#numCSV");
-        numCSVW.innerHTML = numCupones;
+        numCSVW.innerHTML = 'en este archivo para agregar'+numCupones;
         textCSVLoaded.style.display = "block";
         setTimeout(function(){
           showLoading(0);
