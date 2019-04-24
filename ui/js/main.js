@@ -982,6 +982,7 @@ var MetodoEnum = {
  var infopromocrear=[];
  var infopromoedit=[];
  var bancarga=0;
+ var plantseledit='';
 
 function _(el){return document.querySelector(el); }
 function __(el){return document.querySelectorAll(el); }
@@ -1768,6 +1769,18 @@ function actualizaplantilla(id){
     success:function(data) {
       console.log(data);
       $('#plantillas').html(data).fadeIn();
+      if(plantseledit!=='')
+      {
+        var c = __('.checkBoxTheme');
+          for (var i = 0; i < c.length; i++) {
+            if(c[i].value==plantseledit)
+            {
+               c[i].checked=true;
+            }
+          }
+
+
+      }
     }
   });
 
@@ -1993,9 +2006,26 @@ function getpromoplantillabd(id){
 
 
         }
-      }
+        plantseledit=infopromoedit[4];
+        $('#fechaInicio')[0].value=infopromocrear[10].split(' ')[0];
+        $('#fechaFin')[0].value=infopromocrear[11].split(' ')[0];
+        $('#nombrePromo')[0].value=infopromoedit[0];
+        $('#nombreURL')[0].value=infopromoedit[33].split('/')[1];
+        $('#descripcionPromo')[0].value=infopromoedit[2];
+        $('#selectBrand')[0].value=infopromoedit[3];
+        $('#selectProvider')[0].value=infopromoedit[8];
+        var inputfun = __('.checkBoxFunction');
+        for (var i = 0; i < inputfun.length; i++) {
+           if(inputfun[i].value==infopromocrear[9])
+            {
+              var t= inputfun[i];
+              t.checked=true;
+              actualizaplantilla(t.value)
+            }
+          }
 
-    }
+        }
+      }
   });
 
 
