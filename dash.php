@@ -120,6 +120,7 @@ http://dragonflycity.com/
           </li>
         </ul>
       </div>
+      </div>
     </main>
     <footer class="login">
       <p>2019 © OETCapital S.A.P.I.de C.V.<?php echo $id;?></p>

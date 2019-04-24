@@ -29,6 +29,8 @@ function getpromociones($estatus){
   $html    = '';
   $dominio = getdominio();
   $link    = connect();
+  $msg     = '';
+
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
@@ -94,9 +96,11 @@ function getpromociones($estatus){
                 <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
                 ';
               } else {
+                if ($fila[6] == null || $fila[6] == "") { $msg = "&#8226; cargar los legales"; }
+                if ($fila[7] == 0) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; cargar los cupones"; }
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                 <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
-                <a class="itemDash_action_question" href="#" class="trans5" onclick="" style="" title="Falta cargar cupones o los legales, favor revisar."></a>
+                <a class="itemDash_action_question" href="#" class="trans5" onclick="popInfoFun(\'show\', \''.$msg.'\')"  title="Falta cargar cupones o los legales, favor revisar."></a>
                 ';
               }
             }
@@ -1096,5 +1100,19 @@ function creaactualizadir($idpromo,$dir)
 
     Close($link);
     return $salida;
+}
+
+function getdominio()
+{
+  $result="https://siguesudando.com";  /* por defecto */
+  $link=connect();
+
+  $query = "SELECT value FROM gtrd_settings WHERE Module='Config' AND  setting = 'dominio'";
+  $registros = mysqli_query($link, $query);
+  while ($fila = mysqli_fetch_array($registros)) {
+        $result=$fila['value'];
+  }
+  Close($link);
+  return $result;
 }
 ?>

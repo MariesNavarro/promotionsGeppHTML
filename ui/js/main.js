@@ -1102,13 +1102,13 @@ function actualizaDatos(p){
   var param3=MetodoEnum.ActualizaDash;
   var param4=p;  // promo
   var dataString = '&m=' + param3+'&prom=' + param4;
-  console.log(dataString);
+  //console.log(dataString);
    $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       //$("#cupEntregadosHoy").text(data.split(";")[0]); // Cupones entregados hoy
       //$("#cupEntregados").text(data.split(";")[1]); // Cupones entregados
       //$("#cupDisponibles").text(data.split(";")[2]); // Cupones Disponibles
@@ -1121,13 +1121,13 @@ function actualizaDatos(p){
   });
   param3=MetodoEnum.ActualizaDashreport;
   dataString = '&m=' + param3+'&prom=' + param4;
-  console.log(dataString);
+  //console.log(dataString);
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       //$("#cupEntregadosHoy").text(data.split(";")[0]); // Cupones entregados hoy
       //$("#cupEntregados").text(data.split(";")[1]); // Cupones entregados
       //$("#cupDisponibles").text(data.split(";")[2]); // Cupones Disponibles
@@ -1217,7 +1217,7 @@ function savedatageneral(ns,t)
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       if(data=='fallo sql insert')
       {
         responseStep(ns, t, 0);
@@ -1251,7 +1251,7 @@ function sendfile(id){
         contentType: false,
         data: files,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             actualizalegales(id,response)
         },
         error: function (err) {
@@ -1270,7 +1270,7 @@ function actualizalegales(id,url)
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
     }
   });
 
@@ -1517,7 +1517,7 @@ function openLinks(c,t){
     t.setAttribute("onclick", "openLinks('close', this)");
     if (w>880) { ul.style.display = "block";}
     p.style.height = "125px";
-    ul.style.height = "75px";    
+    ul.style.height = "75px";
   } else if (c === "close") {
     t.setAttribute("onclick", "openLinks('open', this)");
     p.style.height = "auto";
@@ -1676,6 +1676,24 @@ function popActionFun(e, tx, fun){
     p.innerHTML = "¿Estás seguro que quieres realizar esta acción?";
   }
 }
+function popInfoFun(e, tx){
+  var wr = _("#popInfo"),
+      p = _("#popInfo>div>p"),
+      main = _("main");
+  if(e === "show"){
+    wr.setAttribute("class", "displayFlex");
+    main.classList.add("blur");
+    if(tx != 0){
+      p.innerHTML = tx;
+    } else {
+      p.innerHTML = "";
+    }
+  } else {
+    wr.setAttribute("class", "displayNone");
+    main.classList.remove("blur");
+    p.innerHTML = "";
+  }
+}
 function uncheckedfunctionall(t){
       var c = __('.checkBoxFunction');
       if(t.checked)
@@ -1736,7 +1754,7 @@ function ischeckedsometheme(n,t){
       if(infopromocrear[4]==infopromoedit[4])
       {
         var w=window.innerWidth;
-        console.log('iguales');
+        //console.log('iguales');
         optionsConfig(0);
         compactMenu = true;
         if(w>=880)compactConfigMenu(0);
@@ -1768,7 +1786,7 @@ function actualizafuncionalidad(n,t,id){
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       if(data=='error')
       {
         responseStep(n,t,0);
@@ -1791,7 +1809,7 @@ function actualizaplantilla(id){
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       $('#plantillas').html(data).fadeIn();
       if(plantseledit!=='')
       {
@@ -1818,7 +1836,7 @@ function actualizaplantillabd(n,t,id){
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       if(data=='error')
       {
         var w=window.innerWidth;
@@ -1937,7 +1955,7 @@ function getpromoplantillabd(id){
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       if(data=='error')
       {
 
@@ -2122,13 +2140,13 @@ function checksaveversion()
       url  : 'respuestaconfig.php',
       data:  dataString,
       success:function(data) {
-        console.log(data);
+        //console.log(data);
         creardir();
       }
     });
   }
   else {
-    console.log('misma plantilla');
+    //console.log('misma plantilla');
     creardir();
   }
 
@@ -2144,7 +2162,7 @@ function creardir()
          url  : 'respuestaconfig.php',
          data:  dataString,
          success:function(data) {
-           console.log(data);
+           //console.log(data);
            window.location.href='home.php';
          }
        });
@@ -2247,7 +2265,7 @@ function loadcupons(n,t){
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      console.log(data);
+      //console.log(data);
       //window.location.href='home.php';
       checksaveversion();
     }
@@ -2329,7 +2347,7 @@ function actualizarstatus(idpromo,estatus) {
     url     : 'respuestaconfig.php',
     data    :  dataString,
     success :  function(data) {
-      console.log('actualizarstatus Result: '+data);
+      //console.log('actualizarstatus Result: '+data);
       location.reload();
     }
   });
@@ -2344,7 +2362,7 @@ function eliminarpromo(idpromo) {
     url     : 'respuestaconfig.php',
     data    :  dataString,
     success :  function(data) {
-      console.log('eliminarpromo Result: '+data);
+      //console.log('eliminarpromo Result: '+data);
       location.href="home.php";
     }
   });
@@ -2359,7 +2377,7 @@ function cancelarpromo() {
     url     : 'respuestaconfig.php',
     data    :  dataString,
     success :  function(data) {
-      console.log('cancelarpromo Result: '+data);
+      //console.log('cancelarpromo Result: '+data);
       location.href="home.php";
     }
   });

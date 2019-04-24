@@ -271,19 +271,4 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
 
 /**************** PASAR A dbconfig.php **************************/
-
-function getdominio()
-{
-  $result='https://siguesudando.com';  /* por defecto */
-  $link=connect();
-
-  $query = "SELECT value FROM gtrd_settings WHERE Module='Config' AND  setting = 'dominio'";
-  $result = mysqli_query($link, $query);
-  while ($fila = mysqli_fetch_row($result)) {
-        $result=$fila[0];
-  }
-  mysqli_free_result($result);
-  Close($link);
-  return $result;
-}
 ?>

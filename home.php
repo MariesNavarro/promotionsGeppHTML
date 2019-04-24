@@ -71,6 +71,15 @@ http://dragonflycity.com/
         </div>
       </div>
     </div>
+    <div id="popInfo" class="displayNone">
+      <div>
+        <span style="font-size: 18px;">Para poder activar la promoción es requerido lo siguiente:</span>
+        <p></p>
+        <div class="displayFlex">
+          <button class="trans5" onclick="popInfoFun('hide', 0)">Cerrar</button>
+        </div>
+      </div>
+    </div>
     <ul id="menuMobile" class="displayNone trans5">
       <li>Hola <span class="userName""><?php echo $username; ?></span></li>
       <!--<li><a href="#">Tutoriales</a></li>-->

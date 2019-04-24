@@ -315,6 +315,69 @@ nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
   background: none;
   color: #fff;
 }
+#popInfo{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(255,255,255,0.5);
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  z-index: 999;
+}
+#popInfo>div{
+  position: relative;
+  margin-top: -100px;
+  width: 300px;
+  height: 210px;
+  background: #11396c;
+  padding: 5px;
+  text-align: center;
+  -webkit-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.65);
+  -moz-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.65);
+  box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.65);
+}
+#popInfo>div>p{
+  height: 20px;
+  line-height: 20px;
+  margin: 10px;
+  margin-left: 25px;
+  margin-top: 15px;
+  text-align: left;
+}
+#popInfo>div>div{
+  width: 90%;
+  position: relative;
+  margin: 34px auto 34px auto;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+}
+#popInfo>div>div>button{
+  font-family: 'FuturaPT Bold', sans-serif;
+  font-size: 1.05rem;
+  border:0;
+  background: #fff;
+  width: 100px;
+  height: 40px;
+  border-radius: 40px;
+  margin: 10px auto;
+  margin-top: 25px;
+  cursor: pointer;
+}
+#popInfo>div>div>button:hover{
+  border:1px solid #fff;
+  background: none;
+  color: #fff;
+}
 footer.login{
   position: absolute;
   bottom: 10px;
