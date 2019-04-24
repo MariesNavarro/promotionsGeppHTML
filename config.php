@@ -602,7 +602,8 @@ http://dragonflycity.com/
         infopromoedit=data.split('&@;');
         bancarga=1;
         */
-      <?php if(isset($_GET["id"])) {echo "getpromoplantillabd('".encrypt_decrypt('d', $_GET['id'])."')";}?>
+      <?php if(isset($_GET["id"])) {echo "getpromoplantillabd('".encrypt_decrypt('d', $_GET['id'])."')";}?>;
+       idnvaprom='<?php if(isset($_GET["id"])) {echo $_GET["id"] ;} else{echo '0';}?>';
 
       }
       window.onresize = function(){

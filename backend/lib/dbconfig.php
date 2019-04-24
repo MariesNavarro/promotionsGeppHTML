@@ -946,9 +946,9 @@ function getpromocioneditdata($idpromo)
   $interfazmarca            =getmarca_redessocialesinterfaz($marca_id);
   $plantillamarca           =getmarca_redessociales($marca_id,$plantilla_id,$promo_version);
   $plantillamarcaimg        =getmarca_redessocialesimgchange($marca_id,$plantilla_id,$promo_version);
-  $result=$promo_nombre.'&@;'.$producto.'&@;'.$descripcion.'&@;'.$marca_id.'&@;'.$plantilla_id;
-  $result.='&@;'.$promo_legales.'&@;'.$promo_version.'&@;'.$estatus.'&@;'.$proveedor_id;
-  $result.='&@;'.$id_funcionalidad.'&@;'.$fecha_inicio.'&@;'.$fecha_fin.'&@;'.$marca;
+  $result=$promo_nombre.'&@;'.$producto.'&@;'.$descripcion.'&@;'.encrypt_decrypt('e',$marca_id).'&@;'.encrypt_decrypt('e',$plantilla_id);
+  $result.='&@;'.$promo_legales.'&@;'.$promo_version.'&@;'.$estatus.'&@;'.encrypt_decrypt('e',$proveedor_id);
+  $result.='&@;'.encrypt_decrypt('e',$id_funcionalidad).'&@;'.$fecha_inicio.'&@;'.$fecha_fin.'&@;'.$marca;
   $result.='&@;'.$marca_descripcion.'&@;'.$marca_logo.'&@;'.$proveedor_logo.'&@;'.$promo_img_back;
   $result.='&@;'.$promo_img_prod.'&@;'.$promo_font.'&@;'.$promo_color.'&@;'.$promo_color_load.'&@;'.$promo_txt_footer;
   $result.='&@;'.$promo_img_inicio.'&@;'.$promo_img_precio.'&@;'.$promo_img_obtenercupon;
