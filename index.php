@@ -70,8 +70,9 @@ switch ($error) {
   case 0: /* plantilla uno */
       require_once('plantilla-'.$plantilla_id.'.php');
       break;
-  case 1: /* redireccionar a la página de GEPP */
-      echo '<script>window.location.href = "https://gepp.com.mx";</script>';
+  case 1:
+      //echo '<script>window.location.href = "https://gepp.com.mx";</script>';  /* redireccionar a la página de GEPP */
+      echo '<script>window.location.href = "home.php";</script>';
       break;
   default: /* Login */
       header('Location: login.php');

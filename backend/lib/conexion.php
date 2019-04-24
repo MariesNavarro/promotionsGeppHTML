@@ -20,10 +20,9 @@ class foo_mysqli extends mysqli {
 }
 function connect()
 {
-  // PRODUCCION
   $hostname_conexion = "oetcapital.com";
-  $database_conexion = "admin_gatoradedev";
-  //$database_conexion = "admin_gatorade";
+  //$database_conexion = "admin_gatoradedev";   // DESARROLLO
+  $database_conexion = "admin_gatorade";    // PRODUCCION
   $username_conexion = "admin_gatorade";
   $password_conexion = "#i-SexW_[MBE";
   $link  = new foo_mysqli($hostname_conexion, $username_conexion, $password_conexion, $database_conexion);

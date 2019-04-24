@@ -60,7 +60,7 @@ http://dragonflycity.com/
           <img src="ui/img/dragonf-title.svg" width="166.2" height="15">
         </div>
       </a>
-      <a href="#" class="trans5" target="_blank" >Tutoriales</a>
+      <!--<a href="#" class="trans5" target="_blank" >Tutoriales</a>-->
     </nav>
     <main class="displayFlex login">
       <div class="displayFlex">
