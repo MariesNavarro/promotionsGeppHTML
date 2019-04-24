@@ -26,8 +26,9 @@ function login($usr,$pwd)
 }
 
 function getpromociones($estatus){
-  $html='';
-  $link=connect();
+  $html    = '';
+  $dominio = getdominio();
+  $link    = connect();
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
@@ -69,15 +70,15 @@ function getpromociones($estatus){
                 <ul class="linksWrap trans5">
                   <li class="displayFlex">
                     <h3>Página de Prueba:</h3>
-                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
+                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
                   </li>
                   <li class="displayFlex">
                     <h3>Página de Producción:</h3>
-                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+                    <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'</a>
                   </li>
                   <li class="displayFlex">
                     <h3>Página de Distribución:</h3>
-                    <a href="./'.$fila[5].'" target="_blank">http://fun.siguesudando.com/'.$fila[5].'</a>
+                    <a href="./'.$fila[5].'" target="_blank">'.$dominio.'/'.$fila[5].'</a>
                   </li>
                 </ul>
                  </div>';
@@ -103,15 +104,15 @@ function getpromociones($estatus){
             <ul class="linksWrap trans5">
               <li class="displayFlex">
                 <h3>Página de Prueba:</h3>
-                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
+                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
               </li>
               <li class="displayFlex">
                 <h3>Página de Producción:</h3>
-                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">http://fun.siguesudando.com/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+                <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'</a>
               </li>
               <li class="displayFlex">
                 <h3>Página de Distribución:</h3>
-                <a href="./'.$fila[5].'" target="_blank">http://fun.siguesudando.com/'.$fila[5].'</a>
+                <a href="./'.$fila[5].'" target="_blank">'.$dominio.'/'.$fila[5].'</a>
               </li>
             </ul>
             </div>';
@@ -1065,6 +1066,7 @@ function eliminarpromo($id){
 
 function creaactualizadir($idpromo,$dir)
 {
+    $dominio = getdominio();
     $link=connect();
     $idpromodecryp=encrypt_decrypt('d',$idpromo);
     $resultado = null;
@@ -1077,7 +1079,7 @@ function creaactualizadir($idpromo,$dir)
 
             $salida   = "";
             $username = $_SESSION["Nombre"];
-            $dirname=creadirectoriopromo($idpromo,$dir);
+            $dirname=creadirectoriopromo($idpromo,$dir,$dominio);
             mysqli_autocommit($link, FALSE);
             $consulta ="update gtrd_promociones SET dir='".$dirname."', fecha_update = now(), usuario = '".$username."' WHERE id=".$idpromodecryp;
             if (mysqli_query($link, $consulta)) {
