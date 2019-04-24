@@ -7,6 +7,7 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username = $_SESSION["Nombre"];
+  $rol      = $_SESSION['Rol'];
   $active   = getpromociones(1);  /* Activas */
   $foractive= getpromociones(2);  /* Por activar */
   $past     = getpromociones(3);  /* Finalizadas */
@@ -110,12 +111,14 @@ http://dragonflycity.com/
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this);topFunction();">Por Activar</a></li>
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this);topFunction();">Pasadas</a></li>
         </ul>
+        <?php if ($rol=='Admin') { ?>
         <div>
           <a role="button" href="config.php" id="newPromo" class="button trans5">
             <span  class="mobileNav">Nueva Promoción</span>
             <span  class="desktopNav">Nueva Promoción</span>
           </a>
         </div>
+      <?php } ?>
       </nav>
       <header class=desktopNav>
         <ul class="displayFlex">
