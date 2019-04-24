@@ -703,10 +703,10 @@ function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
   $prodec=encrypt_decrypt('d',$pro);
   if($idnvaprom>0)
   {
-    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', estatus=2,usuario='".$username."' where id=".$idnvaprom;
+    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', fecha_update = now(), usuario='".$username."' where id=".$idnvaprom;
   }
     else {
-      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus,usuario) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2,'".$username."')";
+      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus,usuario,fecha_update) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2,'".$username."',now())";
     }
 
   if (mysqli_query($link, $consulta)) {
@@ -963,9 +963,9 @@ function actualizaplantillaversion($updcre,$data)
   $salida='';
   $link=connect();
   $arraydata=explode(',',$data);
-  $marca=explode('-',$arraydata[0])[0];
+  $marca=encrypt_decrypt('d',explode('-',$arraydata[0])[0]);
   $idpromo=encrypt_decrypt('d',explode('-',$arraydata[0])[1]);
-  $plantilla=$arraydata[1];
+  $plantilla=encrypt_decrypt('d',$arraydata[1]);
   $version=$arraydata[2];
   $nvomax=0;
   if($updcre!='update')
@@ -1008,7 +1008,7 @@ function actualizaplantillaversion($updcre,$data)
 
     if($updcre=='update')
     {
-      $consulta ="update gtrd_plantilla_config_producto set id_componente='".$idcomp."',valor_componente='".$valcomp."' where id_plantilla=".$plantilla." and id_marca=".$marca." and version=".$version." and producto=1";
+      $consulta ="update gtrd_plantilla_config_producto set valor_componente='".$valcomp."' where id_plantilla=".$plantilla." and id_marca=".$marca." and version=".$version." and producto=1 and id_componente='".$idcomp."'";
     }
       else {
         $consulta ="insert into gtrd_plantilla_config_producto(id_plantilla,id_marca,version,producto,id_componente,valor_componente) VALUES(".$plantilla.",".$marca.",".$nvomax.",1,'".$idcomp."','".$valcomp."')";

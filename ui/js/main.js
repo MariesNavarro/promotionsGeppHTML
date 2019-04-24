@@ -1358,8 +1358,9 @@ function getNumCSV(){
   var textCSVLoaded = _(".numCSV"),
       textCSVNoLoaded = _(".noneNumCSV"),
       numCSVW = _("#numCSV");
-      showLoading(1);
+
   if(csvLoaded){
+    showLoading(1);
     readtextcsv(function(val){
        var p=val.split('\r\n');
        var c=p.length-1;
@@ -1694,6 +1695,10 @@ function uncheckedthemeall(t){
           c[i].checked=false;
         }
         t.checked=true;
+        if(bancarga==1)
+        {
+          infopromoedit[4]=t.value;
+        }
       }
 
 }
@@ -1726,7 +1731,25 @@ function ischeckedsometheme(n,t){
   }
   if(id!='')
   {
-    actualizaplantillabd(n,t,id);
+    if(bancarga==1)
+    {
+      if(infopromocrear[4]==infopromoedit[4])
+      {
+        var w=window.innerWidth;
+        console.log('iguales');
+        optionsConfig(0);
+        compactMenu = true;
+        if(w>=880)compactConfigMenu(0);
+        responseStep(n,t,1);
+      }
+      else {
+        actualizaplantillabd(n,t,id);
+      }
+    }
+    else {
+      actualizaplantillabd(n,t,id);
+    }
+
   }
   else {
     var w=window.innerWidth;
@@ -2011,7 +2034,14 @@ function getpromoplantillabd(id){
         $('#fechaInicio')[0].value=infopromocrear[10].split(' ')[0];
         $('#fechaFin')[0].value=infopromocrear[11].split(' ')[0];
         $('#nombrePromo')[0].value=infopromoedit[0];
-        $('#nombreURL')[0].value=infopromoedit[33].split('/')[1];
+        if(infopromoedit[33].split('/').length>1)
+        {
+          $('#nombreURL')[0].value=infopromoedit[33].split('/')[1];
+        }
+        else {
+          $('#nombreURL')[0].value=infopromoedit[33];
+        }
+
         $('#descripcionPromo')[0].value=infopromoedit[2];
         $('#selectBrand')[0].value=infopromoedit[3];
         $('#selectProvider')[0].value=infopromoedit[8];
