@@ -1511,11 +1511,12 @@ function responseStep(n, t, c){
 function openLinks(c,t){
   var p = t.parentElement.parentElement,
       ul = p.lastElementChild;
+  var w = window.innerWidth;
   if(c === "open"){
     t.setAttribute("onclick", "openLinks('close', this)");
-    p.style.height = "125px";  /* 100px */
-    ul.style.height = "75px";  /* 50px */
-    ul.style.display = "block";
+    if (w>880) { ul.style.display = "block";}
+    p.style.height = "125px";
+    ul.style.height = "75px";    
   } else if (c === "close") {
     t.setAttribute("onclick", "openLinks('open', this)");
     p.style.height = "auto";

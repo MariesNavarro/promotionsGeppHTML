@@ -1590,6 +1590,11 @@ background-image:
   }
 }
 
+@media (max-width: 880px) {
+  .promoItemDash>.linksWrap{
+    display: none;
+  }
+}
 
 ._1{background: teal}
 ._2{background: LightSeaGreen}
