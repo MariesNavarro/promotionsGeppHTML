@@ -72,7 +72,7 @@ switch ($error) {
       break;
   case 1:
       //echo '<script>window.location.href = "https://gepp.com.mx";</script>';  /* redireccionar a la página de GEPP */
-      echo '<script>window.location.href = "home.php";</script>';
+      echo '<script>window.location.href = "result.php";</script>';
       break;
   default: /* Login */
       header('Location: login.php');

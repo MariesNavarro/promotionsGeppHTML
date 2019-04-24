@@ -8,9 +8,12 @@ if(!isset($_SESSION["userName"]))
 else {
   $username = $_SESSION["Nombre"];
   $rol      = $_SESSION['Rol'];
-  $active   = getpromociones(1);  /* Activas */
-  $foractive= getpromociones(2);  /* Por activar */
-  $past     = getpromociones(3);  /* Finalizadas */
+  $count1   = 0;
+  $count2   = 0;
+  $count3   = 0;
+  $active   = getpromociones(1,$count1);  /* Activas */
+  $foractive= getpromociones(2,$count2);  /* Por activar */
+  $past     = getpromociones(3,$count3);  /* Finalizadas */
 }
 
 ?>
@@ -107,9 +110,9 @@ http://dragonflycity.com/
     <main class="home displayFlex">
       <nav class="displayFlex">
         <ul class="displayFlex">
-          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this);topFunction();">Activas</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this);topFunction();">Por Activar</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this);topFunction();">Pasadas</a></li>
+          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this);topFunction();">Por Activar (<?php echo $count2; ?>)</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this);topFunction();">Activas (<?php echo $count1; ?>)</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this);topFunction();">Finalizadas (<?php echo $count3; ?>)</a></li>
         </ul>
         <?php if ($rol=='Admin') { ?>
         <div>
@@ -139,11 +142,11 @@ http://dragonflycity.com/
       </header>
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
-          <li id="activePromoWrap">
-            <?php echo $active;?>
-          </li>
           <li id="forActivationWrap">
             <?php echo $foractive;?>
+          </li>
+          <li id="activePromoWrap">
+            <?php echo $active;?>
           </li>
           <li id="pastPromotionsWrap">
             <?php echo $past;?>

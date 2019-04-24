@@ -1395,7 +1395,7 @@ function preventHeight(){
   if(!checkMobile){
   	var h = window.innerHeight;
   	if(h <= 350){
-      preventTx.innerHTML = "Porfavor haz más grande tu ventana";
+      preventTx.innerHTML = "Por favor haz más grande tu ventana";
   		preventW.setAttribute("class", "displayFlex");
   	} else {
       preventTx.innerHTML = " ";
@@ -1407,7 +1407,7 @@ function preventHeight(){
 function preventRot(){
   if(checkMobile){
     if(window.orientation == 90 || window.orientation == -90){
-      preventTx.innerHTML = "Porfavor voltea tu celular";
+      preventTx.innerHTML = "Por favor voltea tu celular";
       preventW.setAttribute("class", "displayFlex");
     } else {
       preventTx.innerHTML = " ";

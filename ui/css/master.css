@@ -277,7 +277,7 @@ nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
   position: relative;
   margin-top: -100px;
   width: 300px;
-  height: 156px;
+  height: 185px;  /*156px;*/
   background: #11396c;
   padding: 5px;
   text-align: center;
@@ -293,7 +293,7 @@ nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
 #popAction>div>div{
   width: 90%;
   position: relative;
-  margin: 34px auto 34px auto;
+  margin: 70px auto 34px auto;
   -webkit-box-pack: space-between;
   -webkit-justify-content: space-between;
   -ms-flex-pack: space-between;
@@ -597,6 +597,13 @@ main.home>#promosW>ul>li{
   -ms-flex-pack:space-between;
   justify-content:space-between;
 }
+.promoItemDash>div.actionsFin{
+  width: 110px;
+  -webkit-box-pack:space-between;
+  -webkit-justify-content:space-between;
+  -ms-flex-pack:space-between;
+  justify-content:space-between;
+}
 #promosPasadas>.promoItemDash>div.actions{
   -webkit-box-pack:center;
   -webkit-justify-content:center;
@@ -628,7 +635,9 @@ main.home>#promosW>ul>li{
 .itemDash_action_modify{ background-image: url('../img/ic/action_modify.svg'); }
 .itemDash_action_modify::after{content: "Modificar"}
 .itemDash_action_end{ background-image: url('../img/ic/action_end.svg'); }
-.itemDash_action_end::after{content: "Pausar"}
+.itemDash_action_end::after{content: "Finalizar"}
+.itemDash_action_stop{ background-image: url('../img/ic/action_stop.svg'); }
+.itemDash_action_stop::after{content: "Pausar"}
 .itemDash_action_publish{ background-image: url('../img/ic/action_publish.svg'); }
 .itemDash_action_publish::after{ content: "Publicar"}
 .itemDash_action_delete{ background-image: url('../img/ic/action_delete.svg'); }

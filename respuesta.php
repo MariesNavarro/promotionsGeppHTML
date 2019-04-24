@@ -34,14 +34,16 @@
 
 /* Validar Promo: vigencia, lista negra, regiones, estados */
 function validarpromo ($idpromo,$ip) {
-  $result=0; /* promo valida */
-  $count =0;
-  $count2 =0;
+  $result   =0; /* promo valida */
+  $count    =0;
+  $count2   =0;
   $cads;
-  $estatus=0;
-  $val=validafechas($cads,$idpromo,$estatus);
+  $estatus  =0;
+  $val      =validafechas($cads,$idpromo,$estatus);
   //echo 'validafechas: idpromo='.$idpromo.' ip='.$ip.PHP_EOL;
-  if($val[0]>0.000001&&$val[1]<0.00000001) { /* ya comenzo */
+if ($estatus==2) { $result=4; /* proximamente */ } else {
+  if ($estatus==3) { $result=5; /* finalizada */ } else {
+   if($val[0]>0.000001&&$val[1]<0.00000001) { /* ya comenzo */
     //echo 'voy a validalistanegra...'.PHP_EOL;
     $count = validalistanegra($ip);
     if($count<1) { /* No esta en la lista Negra */
@@ -53,17 +55,19 @@ function validarpromo ($idpromo,$ip) {
         if($count2<1) { $result=1; } /* ubicación no valida */
       } else { $result=1;} /* ubicación no valida */
     } else { $result=2;} /* esta en lista negra */
-  }
-  else {
+   }
+   else {
     if ($val[0]<0.000001) {
       if ($estatus==1) /* por activar */ {
          $result=3; // no disponible
       } else { $result=4; } // no ha comenzado
     }
     else {  $result=5; }// ya finalizo
-  }
-  //echo 'validarpromo: '.$resul.PHP_EOL;
-  return $result;
+   }
+ }
+}
+//echo 'validarpromo: '.$resul.PHP_EOL;
+ return $result;
 }
 
 ?>

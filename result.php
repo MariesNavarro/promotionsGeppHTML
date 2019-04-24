@@ -15,7 +15,7 @@
     case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;  /* ya publicada, pero no ha iniciado */
     case 4:  $mensaje = 'Promoción disponible próximamente'; break; /* no esta publicada */
     case 5:  $mensaje = 'Promoción ya finalizó'; break;
-    default: $mensaje = "Se ha presentado un problema";
+    default: $mensaje = "Promociones de Gatorade <br> próximamente";
    }
 
    if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
@@ -29,8 +29,8 @@
        $proveedor_id             = $promo['id_proveedor'];
        $fecha_inicio             = str_replace("-","/",$promo['fecha_inicio']);
    } else {
-       $promo_nombre = "Descuento Pepsi";
-       $marca_id = 1;
+       $promo_nombre = "Promo Gatorade";
+       $marca_id = 2;
        $plantilla_id =1;
        $promo_legales ="";
        $promo_version = 0;
@@ -138,11 +138,11 @@
       </ul>
 
       <ul class="wrapSuperiorMensajeError" style="display:none">
-        <li><img id="msgErrorImg" src="/ui/img/mensajeError/result.png"></li>
+        <?php if ($idmsg!=0) { echo '<li><img id="msgErrorImg" src="/ui/img/mensajeError/result.png"></li>'; } ?>
         <li><span style="font-size: 45px; color: #fff;"><?php echo $mensaje; ?></span></li>
       </ul>
     </section>
-    <div id="prevent" class="displayNone" style="background-image:url('/ui/img/back/<?php echo $promo_img_back; ?>')">
+      <div id="prevent" class="displayNone" style="background-image:url('/ui/img/back/<?php echo $promo_img_back; ?>')">
       <p></p>
     </div>
     <footer class="displayFlex">
@@ -161,9 +161,7 @@
       var idmsg = "<?php echo $idmsg ?>";
       var idpromo = "<?php echo $idpromo ?>";
       var fecha_inic =  "<?php echo $fecha_inicio ?>";
-
-      console.log(idmsg+' '+idpromo+' '+fecha_inic);
-
+      //console.log(idmsg+' '+idpromo+' '+fecha_inic);
       preventHeight();
       preventHeight();
       preventRot();

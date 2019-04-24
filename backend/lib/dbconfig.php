@@ -25,7 +25,7 @@ function login($usr,$pwd)
   return $valid;
 }
 
-function getpromociones($estatus){
+function getpromociones($estatus,&$count){
   $html    = '';
   $dominio = getdominio();
   $link    = connect();
@@ -44,6 +44,7 @@ function getpromociones($estatus){
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales
          ORDER BY gtrd_promociones.fecha_update DESC";
   $result = mysqli_query($link, $query);
+  $count  = mysqli_num_rows($result);
   while ($fila = mysqli_fetch_row($result)) {
         $htmldat='<div class="promoItemDash displayFlex">
           <div>
@@ -65,7 +66,8 @@ function getpromociones($estatus){
                   //$htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                   //<a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
                   $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-                  <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres pausar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',2)\')"></a>';
+                  <a class="itemDash_action_stop" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres PAUSAR la promo '.$fila[0].' ? <br> Pasará a por activar y luego se podrá volver a publicar.\',\'actualizarstatus('.$fila[4].',2)\')"></a>
+                  <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres FINALIZAR la promo '.$fila[0].' ? <br> Pasará a finalizar y NO se podrá volver a activar.\',\'actualizarstatus('.$fila[4].',3)\')"></a>';
                 }
 
                 $htmlact=$htmlact.'</div>
@@ -87,20 +89,22 @@ function getpromociones($estatus){
           }
           else if($estatus==2){ // Por activar
             $htmlact='<div class="actions displayFlex">
-                      <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>';
+                      <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
+                      <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
             if($_SESSION['Rol']=='Admin')
             {
               if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {  /* verificar que tenga legales y cupones cargados */
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
-                <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres publicar la promo '.$fila[0].' ?\',\'actualizarstatus('.$fila[4].',1)\')"></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ? <br> Ya no la podrás ver.\',\'eliminarpromo('.$fila[4].')\')"></a>
+                <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres PUBLICAR la promo '.$fila[0].' ? <br> Pasará a activas y la podrás volver a pausar o finalizar.\',\'actualizarstatus('.$fila[4].',1)\')"></a>
                 ';
               } else {
+                $msg = "";
                 if ($fila[6] == null || $fila[6] == "") { $msg = "&#8226; cargar los legales"; }
                 if ($fila[7] == 0) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; cargar los cupones"; }
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ?\',\'eliminarpromo('.$fila[4].')\')"></a>
-                <a class="itemDash_action_question" href="#" class="trans5" onclick="popInfoFun(\'show\', \''.$msg.'\')"  title="Falta cargar cupones o los legales, favor revisar."></a>
+                <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ? <br> Ya no la podrás ver.\',\'eliminarpromo('.$fila[4].')\')"></a>
+                <a class="itemDash_action_question" href="#" class="trans5" onclick="popInfoFun(\'show\', \''.$msg.'\')" ></a>
                 ';
               }
             }
@@ -122,10 +126,25 @@ function getpromociones($estatus){
             </div>';
           }
           else { // Finalizadas
-            $htmlact='<div class="actions displayFlex">
-              <a class="itemDash_action_report" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-            </div>
-           </div>';
+            $htmlact='<div class="actionsFin displayFlex">
+              <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
+              <a class="itemDash_action_report" class="trans5" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
+              $htmlact=$htmlact.'</div>
+              <ul class="linksWrap trans5">
+                <li class="displayFlex">
+                  <h3>Página de Prueba:</h3>
+                  <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
+                </li>
+                <li class="displayFlex">
+                  <h3>Página de Producción:</h3>
+                  <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+                </li>
+                <li class="displayFlex">
+                  <h3>Página de Distribución:</h3>
+                  <a href="./'.$fila[5].'" target="_blank">'.$dominio.'/'.$fila[5].'</a>
+                </li>
+              </ul>
+              </div>';
           }
           $html=$html.$htmldat.$htmlact;
   }

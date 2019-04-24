@@ -15,10 +15,10 @@ function validafechas(&$cad,$promo,&$estatus){
   $link=connect();
 
   $consulta = "select 'fecha_inicio',fecha_inicio,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_inicio)) valor, estatus
-               from gtrd_promociones where estatus=1 and id=".$promo."
+               from gtrd_promociones where id=".$promo."
                union
                select 'fecha_fin',fecha_fin,NOW(),TIME_TO_SEC(TIMEDIFF(NOW(), fecha_fin)) valor, estatus
-               from gtrd_promociones where estatus=1 and id=".$promo;
+               from gtrd_promociones where id=".$promo;
 
   if ($resultado = mysqli_query($link, $consulta)) {
    while ($fila = mysqli_fetch_row($resultado)) {
