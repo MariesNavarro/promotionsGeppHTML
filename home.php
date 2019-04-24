@@ -158,11 +158,6 @@ http://dragonflycity.com/
       }
 
       /******** LUEGO MOVERLO PARA EL main.js *********/
-
-      function topFunction() {
-          $('#promosW').scrollTop(0);
-      }
-
     </script>
   </body>
 </html>

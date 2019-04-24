@@ -378,6 +378,25 @@ nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
   background: none;
   color: #fff;
 }
+.btnDashboard {
+  font-family: 'FuturaPT Bold', sans-serif;
+  font-size: 1.05rem;
+  border:0;
+  background: #fff;
+  width: 100px;
+  height: 40px;
+  border-radius: 40px;
+  margin: 10px auto;
+  margin-top: 25px;
+  margin-right: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.btnDashboard:hover{
+  border:1px solid #fff;
+  background: none;
+  color: #fff;
+}
 footer.login{
   position: absolute;
   bottom: 10px;

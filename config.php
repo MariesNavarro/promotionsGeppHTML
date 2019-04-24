@@ -1,17 +1,15 @@
 <?php
 session_start();
 require_once('backend/lib/dbconfig.php');
-if(!isset($_SESSION["userName"]))
-{
-  header("Location:login.php");
-}
-else {
-  $username=$_SESSION["Nombre"];
-  $marcas= marcas();
-  $proveedores=proveedores();
-  $funcionalidades=funcionalidades();
-  $plantillas=plantillas(null);
 
+if(!isset($_SESSION["userName"])) {
+  header("Location:login.php");
+} else {
+  $username       = $_SESSION["Nombre"];
+  $marcas         = marcas();
+  $proveedores    = proveedores();
+  $funcionalidades= funcionalidades();
+  $plantillas     = plantillas(null);
 }
 ?>
 <!--
@@ -237,8 +235,9 @@ http://dragonflycity.com/
 
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
-                  <label class="labelData1">Nombre de la URL</label>
+                  <label class="labelData1">Nombre de la subcarpeta en la URL</label>
                   <input id="nombreURL" class="textInput inputData1" type="text" required/>
+                  <label class=""><?php echo getdominio()."/promos/"; ?></label>
                 </div>
                 <div class="fieldConfigWrap">
                   <label>Cargar Legales</label>

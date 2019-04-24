@@ -2382,3 +2382,6 @@ function cancelarpromo() {
     }
   });
 }
+function topFunction() {
+    $('#promosW').scrollTop(0);
+}

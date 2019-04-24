@@ -92,7 +92,7 @@ http://dragonflycity.com/
               <input id="userPassLog" name="userPassword" type="password" placeholder="* * * * * *" required>
             </div>
             <a id="submitLogin" onclick="login()" role="button" class="button login">Entrar</a>
-            <a class="forgotPass" href="#">¿Olvidaste tu contraseña?</a>
+            <!--<a class="forgotPass" href="#">¿Olvidaste tu contraseña?</a>-->
           </form>
         </div>
       </div>

@@ -193,9 +193,10 @@ function cuponesUltimo($link,$promo) {
    if ($resultado = mysqli_query($link, $consulta)) {
      while ($fila = mysqli_fetch_row($resultado)) {
          $score=$fila[0];
-
-         $date = new DateTime($score);
-         $new_date_format = $date->format('d-m-Y H:i:s');
+         if ($score!=null) {
+           $date = new DateTime($score);
+           $new_date_format = $date->format('d-m-Y H:i:s');
+         } else {$new_date_format="(No entregado)";}
       }
       /* liberar el conjunto de resultados */
       mysqli_free_result($resultado);
@@ -204,13 +205,13 @@ function cuponesUltimo($link,$promo) {
 }
 function createhtml($link,$promo)
 {
-  $des_promo = descPromo($link,$promo);
-  $cup_entregadoshoy = cuponesEntregadosHoy($link,$promo);
-  $cup_entregados = cuponesEntregados($link,$promo);
-  $cup_disponibles = cuponesDisponibles($link,$promo);
-  $cup_ultimo = cuponesUltimo($link,$promo);
-  $porc_disponibles = 0;
-  $porc_entregados = 0;
+  $des_promo          = descPromo($link,$promo);
+  $cup_entregadoshoy  = cuponesEntregadosHoy($link,$promo);
+  $cup_entregados     = cuponesEntregados($link,$promo);
+  $cup_disponibles    = cuponesDisponibles($link,$promo);
+  $cup_ultimo         = cuponesUltimo($link,$promo);
+  $porc_disponibles   = 0;
+  $porc_entregados    = 0;
   if ($cup_disponibles+$cup_entregados > 0) {
     $porc_entregados = ($cup_entregados*100)/($cup_disponibles+$cup_entregados);
     $porc_disponibles = ($cup_disponibles*100)/($cup_disponibles+$cup_entregados);
@@ -221,28 +222,28 @@ function createhtml($link,$promo)
   if ($porc_disponibles >= 25 and $porc_disponibles < 40) { $color = "orange";}
 
   echo '<!-- Tab content -->
-<div id="Consolidados" class="tabcontent"  style="text-align: center;">
-  <p class="descPromo">'.$des_promo.'</p><br />
-  <p style="font-size: 1.9rem;margin-top: 20px;">Cupones</p><br />
-  <p id="cupEntregadosHoy" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;">'.number_format($cup_entregadoshoy, 0, '.', ',').'</p><br />
-  <p style="font-size: 15px; margin-top: -32px;color:black;">Entregados Hoy</p><br />
-  <p id="cupEntregados" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;">'.number_format($cup_entregados, 0, '.', ',').'</p><br />
-  <p id="cupEntregadosPorc" style="font-size: 15px; margin-top: -32px;color:black;">Total Entregados ('.number_format($porc_entregados, 2, '.', ',').'%)</p><br />
-  <p id="cupDisponibles" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;color: '.$color.';">'.number_format($cup_disponibles, 0, '.', ',').'</p><br />
-  <p id="cupDisponiblesPorc" style="font-size: 15px; margin-top: -32px;color:black;">Total Disponibles ('.number_format($porc_disponibles, 2, '.', ',').'%)</p><br />
-  <p style="font-size: 15px; margin-top: -5px;color:black;">Último cupón entregado el <span id="cupUltimo" style="color:white;">'.$cup_ultimo.'</span</p><br />
-</div>';
+        <div id="Consolidados" class="tabcontent"  style="text-align: center;">
+          <p class="descPromo" style="font-size: 1.9rem;font-weight: bold;">'.$des_promo.'</p><br />
+          <p style="font-size: 1.9rem;margin-top: 20px;">Cupones</p><br />
+          <p id="cupEntregadosHoy" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;">'.number_format($cup_entregadoshoy, 0, '.', ',').'</p><br />
+          <p style="font-size: 15px; margin-top: -32px;color:black;">Entregados Hoy</p><br />
+          <p id="cupEntregados" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;">'.number_format($cup_entregados, 0, '.', ',').'</p><br />
+          <p id="cupEntregadosPorc" style="font-size: 15px; margin-top: -32px;color:black;">Total Entregados ('.number_format($porc_entregados, 2, '.', ',').'%)</p><br />
+          <p id="cupDisponibles" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;color: '.$color.';">'.number_format($cup_disponibles, 0, '.', ',').'</p><br />
+          <p id="cupDisponiblesPorc" style="font-size: 15px; margin-top: -32px;color:black;">Total Disponibles ('.number_format($porc_disponibles, 2, '.', ',').'%)</p><br />
+          <p style="font-size: 15px; margin-top: -5px;color:black;">Último cupón entregado el <span id="cupUltimo" style="color:white;">'.$cup_ultimo.'</span</p><br />
+        </div>';
 }
 
   function  getDatos($promo) {
-    $link=connect();
-    $promdecr=encrypt_decrypt('d',$promo);
-    $cup_entregadoshoy = cuponesEntregadosHoy($link,$promdecr);
-    $cup_entregados = cuponesEntregados($link,$promdecr);
-    $cup_disponibles = cuponesDisponibles($link,$promdecr);
-    $cup_ultimo = cuponesUltimo($link,$promdecr);
-    $porc_disponibles = 0;
-    $porc_entregados = 0;
+    $link               = connect();
+    $promdecr           = encrypt_decrypt('d',$promo);
+    $cup_entregadoshoy  = cuponesEntregadosHoy($link,$promdecr);
+    $cup_entregados     = cuponesEntregados($link,$promdecr);
+    $cup_disponibles    = cuponesDisponibles($link,$promdecr);
+    $cup_ultimo         = cuponesUltimo($link,$promdecr);
+    $porc_disponibles   = 0;
+    $porc_entregados    = 0;
     if ($cup_disponibles+$cup_entregados > 0) {
       $porc_entregados = ($cup_entregados*100)/($cup_disponibles+$cup_entregados);
       $porc_disponibles = ($cup_disponibles*100)/($cup_disponibles+$cup_entregados);
@@ -265,6 +266,7 @@ function dashboard($promo)
   $salida='<div id="disclaimerIndex" class="">
              <div id="content">
               <section id_estatus="'.$estatus.'"  id_promo="'.$promo.'" id="disclaimer">'.createhtml($link,$promo);
+              /*
                if($estatus==1)
                {
                  $salida=$salida.'
@@ -272,6 +274,7 @@ function dashboard($promo)
                    <a role="button" class="buttonG trans7 btnActualizar"   onclick="actualizaDatos(\''.encrypt_decrypt('e',$promo).'\')">Actualizar</a>
                  </div>';
                }
+               */
               $salida=$salida.'
              </section>
              </div>
@@ -321,7 +324,7 @@ function dasboard_report($promo){
       }
       if($reg<1)
       {
-        $salida='<div id="contentreport">No se encontraron resultados</div';
+        $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
       }
       /* liberar el conjunto de resultados */
       mysqli_free_result($resultado);

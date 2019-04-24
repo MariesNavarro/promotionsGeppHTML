@@ -6,9 +6,9 @@ if(!isset($_SESSION["userName"]))
   header("Location:login.php");
 }
 else {
-  $username=$_SESSION["Nombre"];
-  $id=encrypt_decrypt('d',$_GET[id]);
-
+  $username = $_SESSION["Nombre"];
+  $id_encry = $_GET[id];
+  $id       = encrypt_decrypt('d',$id_encry);
 }
 ?>
 <!--
@@ -120,10 +120,13 @@ http://dragonflycity.com/
           </li>
         </ul>
       </div>
+      <div class="displayFlex">
+        <button class="btnDashboard" onclick="window.location.href='home.php';">Regresar</button>
+        <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')">Actualizar</button>
       </div>
     </main>
     <footer class="login">
-      <p>2019 © OETCapital S.A.P.I.de C.V.<?php echo $id;?></p>
+      <p>2019 © OETCapital S.A.P.I.de C.V.</p>
     </footer>
     <script src="ui/js/main.js" charset="utf-8" async></script>
   </body>
