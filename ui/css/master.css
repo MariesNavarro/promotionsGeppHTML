@@ -1497,6 +1497,9 @@ background-image:
     line-height: 20px;
     text-transform: uppercase;
   }
+  #indexConfig>ul>li>div>p{
+    opacity: 0.6;
+    font-size: 0.8rem; }
   #indexConfig>ul>li>div>a{
     opacity: 0.6;
     font-size: 0.8rem; }

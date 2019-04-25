@@ -112,6 +112,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>1. Datos Básicos</h3>
+                  <p>Introducir el nombre (este se verá en la pestaña del navegador), descripción, seleccionar la marca, proveedor, fecha de inicio y fin, el nombre de la subcarpeta donde estará alojada</p>
                   <!--<a href="#" target="_blank">Ver Tutorial</a>-->
                 </div>
               </li>
@@ -245,7 +246,7 @@ http://dragonflycity.com/
                 </div>
                 <div class="fieldConfigWrap">
                   <?php if(isset($_GET["id"])) {
-                    echo '<a id="legalesedit" style="color: #11396C; text-decoration: underline;" href="" target="_blank">Ver archivo de legales cargado</a>';
+                    echo '<a id="legalesedit" style="color: #11396C; text-decoration: underline;" href="" target="_blank">Ver archivo de legales</a>';
                   } ?>
                   <label>Cargar Legales</label>
                   <label class="legalesConfigButton trans5 displayFlex" for="legalesUpload" onclick="loadFileName(this)">
