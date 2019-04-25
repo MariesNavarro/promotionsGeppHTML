@@ -15,7 +15,7 @@
     case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;  /* ya publicada, pero no ha iniciado */
     case 4:  $mensaje = 'Promoción disponible próximamente'; break; /* no esta publicada */
     case 5:  $mensaje = 'Promoción ya finalizó'; break;
-    default: $mensaje = "Promociones de Gatorade <br> próximamente";
+    default: $mensaje = "Página en construcción";
    }
 
    if ($idpromo>0) {  /* viene una promo, obtener datos promo  */

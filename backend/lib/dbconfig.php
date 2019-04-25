@@ -30,6 +30,9 @@ function getpromociones($estatus,&$count){
   $dominio = getdominio();
   $link    = connect();
   $msg     = '';
+  $estatus2=0;
+
+  if ($estatus==2) { $estatus2=5;}; /* Si es estatus por activar, tambien traer las pausadas */
 
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
@@ -38,7 +41,7 @@ function getpromociones($estatus,&$count){
                FROM gtrd_promociones
          INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
           LEFT JOIN (select id_promo,COUNT(*) numcupones from gtrd_cupones group by id_promo) NC On NC.id_promo=gtrd_promociones.id
-              WHERE gtrd_promociones.estatus=".$estatus."
+              WHERE gtrd_promociones.estatus in (".$estatus.",".$estatus2.")
            ORDER BY gtrd_promociones.fecha_update DESC";
 /*
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
@@ -77,7 +80,7 @@ function getpromociones($estatus,&$count){
                   //$htmlact=$htmlact.'<a class="itemDash_action_modify" href="mod.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                   //<a class="itemDash_action_end" href="end.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
                   $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
-                  <a class="itemDash_action_stop" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres PAUSAR la promo '.$fila[0].' ? <br> Pasará a por activar y luego se podrá volver a publicar.\',\'actualizarstatus('.$fila[4].',2)\')"></a>
+                  <a class="itemDash_action_stop" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres PAUSAR la promo '.$fila[0].' ? <br> Pasará a por activar y luego se podrá volver a publicar.\',\'actualizarstatus('.$fila[4].',5)\')"></a>
                   <a class="itemDash_action_end" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres FINALIZAR la promo '.$fila[0].' ? <br> Pasará a finalizar y NO se podrá volver a activar.\',\'actualizarstatus('.$fila[4].',3)\')"></a>';
                 }
 

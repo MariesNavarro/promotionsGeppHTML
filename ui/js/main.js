@@ -1428,7 +1428,7 @@ function checkConfig_1(n, t){
   var nom,desc,mar,pro,fi,ff,url;
   var d=new Date();
   var datesinhoras=new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
-  if((infopromoedit.length>0&&infopromoedit[7]==1)||($('#fechaInicio')[0].value!=''&&datesinhoras.toISOString().slice(0,10)<=$('#fechaInicio')[0].value)){
+  if((infopromoedit.length>0&&(infopromoedit[7]==1 || infopromoedit[7]==5))||($('#fechaInicio')[0].value!=''&&datesinhoras.toISOString().slice(0,10)<=$('#fechaInicio')[0].value)){
     fi=1;
   }
   else {
@@ -2127,7 +2127,7 @@ function getpromoplantillabd(id){
               actualizaplantilla(t.value)
             }
           }
-          if(infopromoedit[7]==1)
+          if(infopromoedit[7]==1 || infopromoedit[7]==5)
           {
             $("#fechaInicio")[0].disabled=true;
           }
