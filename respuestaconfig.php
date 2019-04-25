@@ -21,36 +21,54 @@ if($_POST["m"]==1){
        }
        else
        {
-            /*$username = mysqli_real_escape_string($connect, $_POST["username"]);
-            $password = mysqli_real_escape_string($connect, $_POST["password"]);
-            $password = md5($password);
-            $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-            $result = mysqli_query($connect, $query);
-            if(mysqli_num_rows($result) > 0)
-            {
-                 $_SESSION['username'] = $username;
-                 header("location:home.php");
-            }
-            else
-            {
-                 echo '<script>alert("Wrong User Details")</script>';
-            } */
+
             $valid=login($_POST["usr"],$_POST["pwd"]);
             $array=explode(",", $valid);
             $valid=$array[0];
             if($valid=='SI')
             {
-              $_SESSION['userName'] = $_POST["usr"];
-              $_SESSION['Nombre']=$array[1];
-              $_SESSION['Email']=$array[2];
-              $_SESSION['Rol']=$array[3];
+              $result=checkusersession($_POST['huella'],$_POST["usr"]);
+              if($result=='success')
+              {
+                $result2=updateusersession($_POST['huella'],$_POST["usr"]);
+                if($result2=='success')
+                {
+                  $_SESSION['userName'] = $_POST["usr"];
+                  $_SESSION['Nombre']=$array[1];
+                  $_SESSION['Email']=$array[2];
+                  $_SESSION['Rol']=$array[3];
+                }
+                else {
+                  $valid='Error con usuario';
+                }
+              }
+              else {
+                $valid='Error con usuario';
+              }
+
             }
            echo $valid;
        }
 }
 if($_POST["m"]==2){
-    session_destroy();
-    echo 'success';
+  $result=checkusersession($_POST['huella'],$_SESSION['userName']);
+  $valid='error';
+  if($result=='success')
+  {
+    $result2=updateusersessionclose($_SESSION['userName']);
+    if($result2=='success')
+    {
+      session_destroy();
+      $valid=$result2;
+    }
+    else {
+      $valid='No se pudo actualizar';
+    }
+  }
+  else {
+    $valid='No es el mismo dispositivo';
+  }
+  echo $valid;
 }
 if($_POST["m"]==3){
   $result=dashboard(encrypt_decrypt('d',$_POST["prom"]));
@@ -159,6 +177,34 @@ if($_POST["m"]==18) /* Crear directorio promocion */
 {
   $idprov   = encrypt_decrypt('d',$_POST["prov"]);
   $result=getproveedordata($idprov);
+  echo $result;
+}
+if($_POST["m"]==19) /* Crear directorio promocion */
+{
+  $huella   = $_POST["huella"];
+  if(isset($_SESSION["userName"])) {
+    $result=checkusersession($huella,$_SESSION["userName"]);
+    if($result=='success')
+    {
+      $result2=updateusersession($huella,$_SESSION["userName"]);
+      if($result2=='success')
+      {
+        $result=$result2;
+      }
+      else {
+        session_destroy();
+        $result='Error Usuario';
+      }
+    }
+    else {
+      session_destroy();
+      $result='Error Usuario';
+    }
+  }
+  else {
+    $result='success';
+  }
+
   echo $result;
 }
 ?>
