@@ -269,6 +269,64 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
   return $resultado;
 }
 
-
 /**************** PASAR A dbconfig.php **************************/
+function dasboard_entregados($promo,&$count){
+  $reg=0;
+  $salida='';
+  $link=connect();
+  $consulta ="SELECT gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado
+              FROM   gtrd_cupones
+              INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado
+              WHERE id_promo=".$promo." and estatus=1 and gtrd_cupones.estado NOT IN ('ALL')
+              UNION
+              SELECT gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, 'MX' pais,'(No registrado)' estado
+              FROM   gtrd_cupones
+              WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." and estatus=1
+              ORDER BY Entregado_El DESC";
+  if ($resultado = mysqli_query($link, $consulta)) {
+    $count  = mysqli_num_rows($resultado);
+    while ($fila = mysqli_fetch_row($resultado)) {
+         $reg++;
+         $salida=$salida.'<div class="promoItemDash displayFlex">
+                          <div><p class="promoItemDash_Validity">'.$fila[1].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[0].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[2].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[3].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[4].'</p></div>
+                          </div>';
+      }
+      if($reg<1) {
+        $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
+      }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+   }
+  Close($link);
+  return $salida;
+}
+function dasboard_disponibles($promo,&$count){
+  $reg=0;
+  $salida='';
+  $link=connect();
+  $consulta ="SELECT codigo Cupon
+              FROM   gtrd_cupones
+              WHERE id_promo=".$promo." and estatus=0
+              ORDER BY codigo";
+  if ($resultado = mysqli_query($link, $consulta)) {
+    $count  = mysqli_num_rows($resultado);
+    while ($fila = mysqli_fetch_row($resultado)) {
+         $reg++;
+         $salida=$salida.'<div class="promoItemDash displayFlex">
+                          <div><p class="promoItemDash_Brand"><input type="checkbox" class="cuponcheck" name="cuponcheck_'.$reg.'" value="'.$fila[0].'"> '.$fila[0].'</p></div>
+                          </div>';
+      }
+      if($reg<1) {
+        $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
+      }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+   }
+  Close($link);
+  return $salida;
+}
 ?>

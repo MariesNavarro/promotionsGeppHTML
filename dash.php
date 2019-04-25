@@ -6,9 +6,14 @@ if(!isset($_SESSION["userName"]))
   header("Location:login.php");
 }
 else {
-  $username = $_SESSION["Nombre"];
-  $id_encry = $_GET[id];
-  $id       = encrypt_decrypt('d',$id_encry);
+  $username     = $_SESSION["Nombre"];
+  $id_encry     = $_GET[id];
+  $id           = encrypt_decrypt('d',$id_encry);
+  $count1       = 0;
+  $count2       = 0;
+//  $consolidado  = dashboard($id);
+  $entregados   = dasboard_entregados($id,$count1);
+  $disponibles  = dasboard_disponibles($id,$count2);
 }
 ?>
 <!--
@@ -57,7 +62,7 @@ http://dragonflycity.com/
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="ui/css/master.css">
-    <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body class="login body">
     <ul id="menuMobile" class="displayNone trans5">
@@ -86,48 +91,62 @@ http://dragonflycity.com/
     <main class="home displayFlex">
       <nav class="displayFlex">
         <ul class="displayFlex">
-          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this)">Consolidado</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this)">Registros</a></li>
+          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();">Consolidado</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this);topFunction();">Entregados (<?php echo $count1; ?>)</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();">Disponibles (<?php echo $count2; ?>)</a></li>
         </ul>
       </nav>
       <header id='headerreport' class=desktopNav style="display:none">
         <ul class="displayFlex">
-          <li class="displayFlex">
-            <span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span>
-            <p>Cupon Entregado</p>
-          </li>
-          <li class="displayFlex">
-            <p>Fecha Entrega</p>
-          </li>
-          <li class="displayFlex">
-            <p>Ip Solicitud</p>
-          </li>
-          <li class="displayFlex">
-            <p>Pais</p>
-          </li>
-          <li class="displayFlex">
-            <p>Estado</p>
-          </li>
+          <li class="displayFlex"><span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span><p>Fecha Entrega</p></li>
+          <li class="displayFlex"><p>Cupón Entregado</p></li>
+          <li class="displayFlex"><p>IP Solicitud</p></li>
+          <li class="displayFlex"><p>País</p></li>
+          <li class="displayFlex"><p>Estado</p></li>
         </ul>
       </header>
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
-          <li id="activePromoWrap">
-            <?php echo dashboard($id); ?>
-          </li>
-          <li id="forActivationWrap">
-            <?php echo dasboard_report($id) ; ?>
-          </li>
+          <li id="consolidado"><?php echo dashboard($id); ?></li>
+          <li id="entregados"> <?php echo $entregados; ?></li>
+          <li id="disponibles"><input type="checkbox" id="todos" name="" value=""> Todos <input type="checkbox" id="primeros1000" name="" value=""> Primeros 1000<?php echo $disponibles; ?></li>
         </ul>
       </div>
       <div class="displayFlex">
         <button class="btnDashboard" onclick="window.location.href='home.php';">Regresar</button>
-        <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')">Actualizar</button>
+        <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')" style="display:none" id="btnActuaizar">Actualizar</button>
       </div>
     </main>
     <footer class="login">
       <p>2019 © OETCapital S.A.P.I.de C.V.</p>
     </footer>
     <script src="ui/js/main.js" charset="utf-8" async></script>
+    <script>
+      $(document).ready(function(){
+        /* Solo si esta cativo, mostrar el boton de Actualizar */
+        if ($("#disclaimer").attr("id_estatus")==1) { $("#btnActuaizar").css("display","block");  }
+
+        $('#disponibles').on('click', '#todos', function () {
+            if (this.checked) { $('.cuponcheck').each(function () { this.checked = true; }); }
+            else {  $('.cuponcheck').each(function () {this.checked = false; }); }
+        });
+
+        $('#disponibles').on('click', '#primeros1000', function () {
+            var i=0;
+            if (this.checked) {
+              $('.cuponcheck').each(function () {
+                this.checked = true; i++;  return (i<10); 
+              });
+            }
+            else {
+              $('.cuponcheck').each(function () {
+                this.checked = false; i++; return (i<10);
+              });
+            }
+
+        });
+
+      });
+    </script>
   </body>
 </html>
