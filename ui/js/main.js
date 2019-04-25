@@ -2264,7 +2264,7 @@ function existecupon(p)
         var textCSVLoaded = _(".numCSV"),
             textCSVNoLoaded = _(".noneNumCSV"),
             numCSVW = _("#numCSV");
-        numCSVW.innerHTML = 'en este archivo para agregar'+numCupones;
+        numCSVW.innerHTML = 'en este archivo para agregar '+numCupones;
         textCSVLoaded.style.display = "block";
         setTimeout(function(){
           showLoading(0);

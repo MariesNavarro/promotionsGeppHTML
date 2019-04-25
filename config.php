@@ -86,8 +86,8 @@ http://dragonflycity.com/
       </a>
       <ul class="displayFlex">
         <li><a role="button" class="trans5">Hola <span class="userName"><?php echo $username; ?></span></a></li>
-        <li><a role="button" class="trans5">Promociones</a></li>
-        <li><a role="button" class="trans5">Tutoriales</a></li>
+        <li><a role="button" class="trans5" href="home.php">Promociones</a></li>
+        <!--<li><a role="button" class="trans5">Tutoriales</a></li>-->
         <li><a role="button" onclick="logout()" class="trans5">Cerrar Sesión</a></li>
       </ul>
       <p>2019 © OETCapital S.A.P.I.de C.V.</p>
@@ -112,7 +112,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>1. Datos Básicos</h3>
-                  <a href="#" target="_blank">Ver Tutorial</a>
+                  <!--<a href="#" target="_blank">Ver Tutorial</a>-->
                 </div>
               </li>
               <li class="displayFlex">
@@ -124,7 +124,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>2. Funcionalidad</h3>
-                  <a href="#" target="_blank">Ver Tutorial</a>
+                  <!--<a href="#" target="_blank">Ver Tutorial</a>-->
                 </div>
               </li>
               <li class="displayFlex">
@@ -136,7 +136,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>3. Conf. Funcionalidad</h3>
-                  <a href="#" target="_blank">Ver Tutorial</a>
+                  <!--<a href="#" target="_blank">Ver Tutorial</a>-->
                 </div>
               </li>
               <li class="displayFlex">
@@ -148,7 +148,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>4.Plantilla</h3>
-                  <a href="#">Ver Tutorial</a>
+                  <!--<a href="#">Ver Tutorial</a>-->
                 </div>
               </li>
               <li class="displayFlex">
@@ -160,7 +160,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>5. Edición de Plantilla</h3>
-                  <a href="#">Ver Tutorial</a>
+                  <!--<a href="#">Ver Tutorial</a>-->
                 </div>
               </li>
             </ul>
@@ -185,7 +185,7 @@ http://dragonflycity.com/
         </div>
         <div id="headerMob" class="displayFlex">
           <h1>Datos Básicos</h1>
-          <a href="#">Ver Tutorial</a>
+          <!--<a href="#">Ver Tutorial</a>-->
         </div>
         <footer id="configFoot" class="login"> <p>2019 © OETCapital S.A.P.I.de C.V.</p> </footer>
       </nav>
@@ -240,18 +240,19 @@ http://dragonflycity.com/
 
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
-                  <label class="labelData1">Nombre de la subcarpeta en la URL</label>
+                  <label class="labelData1">Nombre de la subcarpeta después de <?php echo getdominio()."/promos/"; ?></label>
                   <input <?php echo $disabled; ?> id="nombreURL" class="textInput inputData1" type="text" required/>
-                  <label class=""><?php echo getdominio()."/promos/"; ?></label>
                 </div>
                 <div class="fieldConfigWrap">
+                  <?php if(isset($_GET["id"])) {
+                    echo '<a id="legalesedit" style="color: #11396C; text-decoration: underline;" href="" target="_blank">Ver archivo de legales cargado</a>';
+                  } ?>
                   <label>Cargar Legales</label>
                   <label class="legalesConfigButton trans5 displayFlex" for="legalesUpload" onclick="loadFileName(this)">
                   <img src="ui/img/ic/upload.svg" width="20" height="20">
                   <p id="legalFileTx">Subir PDF</p>
                   </label>
                   <input id="legalesUpload" class="textInput legalesConfig" type="file" name="">
-                  <?php if(isset($_GET["id"])) { echo '<a id="legalesedit" style="color: #11396C" href="" target="_blank">Actuales</a>';}?>
                 </div>
               </div>
 

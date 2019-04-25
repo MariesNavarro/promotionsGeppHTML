@@ -997,6 +997,7 @@ main.home>#promosW>ul>li{
 .rowConfig>.fieldConfigWrap>label{
   color: #11396C;
   margin-left: 5px;
+  text-align: center;
 }
 .rowConfig>.fieldConfigWrap>select,
 .rowConfig>.fieldConfigWrap>input,

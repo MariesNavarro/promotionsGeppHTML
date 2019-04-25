@@ -34,6 +34,16 @@ function getpromociones($estatus,&$count){
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
+                  NC.numcupones
+               FROM gtrd_promociones
+         INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
+          LEFT JOIN (select id_promo,COUNT(*) numcupones from gtrd_cupones group by id_promo) NC On NC.id_promo=gtrd_promociones.id
+              WHERE gtrd_promociones.estatus=".$estatus."
+           ORDER BY gtrd_promociones.fecha_update DESC";
+/*
+  $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
+                  DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
+                  gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
                   count(gtrd_cupones.codigo) cupones
              FROM gtrd_promociones
        INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
@@ -43,6 +53,7 @@ function getpromociones($estatus,&$count){
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales
          ORDER BY gtrd_promociones.fecha_update DESC";
+  */
   $result = mysqli_query($link, $query);
   $count  = mysqli_num_rows($result);
   while ($fila = mysqli_fetch_row($result)) {

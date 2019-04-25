@@ -111,7 +111,7 @@ http://dragonflycity.com/
       <nav class="displayFlex">
         <ul class="displayFlex">
           <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this);topFunction();">Por Activar (<?php echo $count2; ?>)</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this);topFunction();">Activas (<?php echo $count1; ?>)</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-100%', this);topFunction();">Activas (<?php echo $count2; ?>)</a></li>
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabs('-200%', this);topFunction();">Finalizadas (<?php echo $count3; ?>)</a></li>
         </ul>
         <?php if ($rol=='Admin') { ?>
