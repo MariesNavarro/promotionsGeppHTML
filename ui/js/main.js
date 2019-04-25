@@ -1428,13 +1428,13 @@ function checkConfig_1(n, t){
   var nom,desc,mar,pro,fi,ff,url;
   var d=new Date();
   var datesinhoras=new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
-  if($('#fechaInicio')[0].value!=''&&datesinhoras.toISOString().slice(0,10)<=$('#fechaInicio')[0].value){
+  if((infopromoedit.length>0&&infopromoedit[7]==1)||($('#fechaInicio')[0].value!=''&&datesinhoras.toISOString().slice(0,10)<=$('#fechaInicio')[0].value)){
     fi=1;
   }
   else {
     fi=0;
   }
-  if($('#fechaFin')[0].value!=''&&$('#fechaInicio')[0].value!=''&&$('#fechaInicio')[0].value>=$('#fechaInicio')[0].value){
+  if($('#fechaFin')[0].value!=''&&$('#fechaInicio')[0].value!=''&&$('#fechaFin')[0].value>=$('#fechaInicio')[0].value){
     ff=1;
   }
   else {
@@ -2103,6 +2103,7 @@ function getpromoplantillabd(id){
 
         }
         plantseledit=infopromoedit[4];
+
         $('#fechaInicio')[0].value=infopromocrear[10].split(' ')[0];
         $('#fechaFin')[0].value=infopromocrear[11].split(' ')[0];
         $('#nombrePromo')[0].value=infopromoedit[0];
@@ -2126,7 +2127,10 @@ function getpromoplantillabd(id){
               actualizaplantilla(t.value)
             }
           }
-
+          if(infopromoedit[7]==1)
+          {
+            $("#fechaInicio")[0].disabled=true;
+          }
         }
       }
   });
@@ -2300,8 +2304,13 @@ function checkcuponstoload(n,t)
     {
       compactMenu = false;
       compactConfigMenu(1);
+      var textCSVNoLoaded = _(".noneNumCSV");
+      textCSVNoLoaded.style.display = "block";
+      setTimeout(function(){
+        textCSVNoLoaded.style.opacity = "1";
+        },500);
       responseStep(n , t, 0);
-      alert('Has seleccionado un archivo pero no lo cargaste da click al boton cargar para procesarlo o no cuenta con cupones validos,cambialo o eliminalo para continuar.');
+      //alert('Has seleccionado un archivo pero no lo cargaste da click al boton cargar para procesarlo o no cuenta con cupones validos,cambialo o eliminalo para continuar.');
     }
     else {
       compactMenu = false;

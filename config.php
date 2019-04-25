@@ -205,11 +205,11 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Nombre de la Promoción</label>
-                  <input <?php echo $disabled; ?> id="nombrePromo" class="textInput inputData1" type="text" required/>
+                  <input  id="nombrePromo" class="textInput inputData1" type="text" required/>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Descripción de la promoción</label>
-                  <textarea <?php echo $disabled; ?> id="descripcionPromo" class="textInput inputData1" name=""></textarea>
+                  <textarea id="descripcionPromo" class="textInput inputData1" name=""></textarea>
                 </div>
               </div>
 
