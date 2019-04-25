@@ -1173,4 +1173,90 @@ function getproveedordata($idproveedor)
 }
 
 
+function checkusersession($huella,$name)
+{
+  $link=connect();
+  $resultado = null;
+  $consulta = "select observa,
+fecha_update,
+TIME_TO_SEC(
+	TIMEDIFF(
+    DATE_ADD(
+					IFNULL(fecha_update,NOW()),
+                    INTERVAL 1 HOUR
+                    ),
+			NOW()
+
+			)
+		) segundos
+from gtrd_settings where Module='Admin' and setting='".$name."'";
+
+  if ($registros = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_array($registros)) {
+        if($fila[0]!=''&&$fila[0]!=null)
+        {
+          if($fila[0]==$huella)
+          {
+            $resultado='success';
+          }
+          else {
+            if($fila[1]!=''&&$fila[1]!=null)
+            {
+              if($fila[2]<=0)
+              {
+                $resultado='success';
+              }
+              else {
+                $resultado='diferente dispositivo';
+              }
+            }
+            else {
+              $resultado='success';
+            }
+
+          }
+        }
+        else {
+          $resultado='success';
+        }
+     }
+  }
+
+  Close($link);
+  return $resultado;
+}
+function updateusersession($huella,$name)
+{
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_settings SET observa='".$huella."',fecha_update=NOW() WHERE Module='Admin' and setting='".$name."' LIMIT 1";
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $salida;
+}
+function updateusersessionclose($name)
+{
+  $salida="";
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="update gtrd_settings SET observa=null,fecha_update=null WHERE Module='Admin' and setting='".$name."' LIMIT 1";
+  if (mysqli_query($link, $consulta)) {
+      $salida="success";
+   }
+   else {
+     $salida="error";
+   }
+   mysqli_commit($link);
+
+  Close($link);
+  return $salida;
+}
 ?>
