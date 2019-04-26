@@ -93,7 +93,7 @@ http://dragonflycity.com/
         <ul class="displayFlex">
           <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();">Consolidado</a></li>
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this);topFunction();">Entregados (<?php echo $count1; ?>)</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();">Disponibles (<?php echo $count2; ?>)</a></li>
+          <!--<li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();">Disponibles (<?php echo $count2; ?>)</a></li>-->
         </ul>
       </nav>
       <header id='headerreport' class=desktopNav style="display:none">
@@ -109,7 +109,12 @@ http://dragonflycity.com/
         <ul id="promoTabs" class="displayFlex trans5">
           <li id="consolidado"><?php echo dashboard($id); ?></li>
           <li id="entregados"> <?php echo $entregados; ?></li>
-          <li id="disponibles"><input type="checkbox" id="todos" name="" value=""> Todos <input type="checkbox" id="primeros1000" name="" value=""> Primeros 1000<?php echo $disponibles; ?></li>
+          <li id="disponibles">
+            <!--
+            <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
+            <?php echo $disponibles; ?>
+            -->
+          </li>
         </ul>
       </div>
       <div class="displayFlex">
@@ -131,16 +136,18 @@ http://dragonflycity.com/
             else {  $('.cuponcheck').each(function () {this.checked = false; }); }
         });
 
-        $('#disponibles').on('click', '#primeros1000', function () {
+        $('#disponibles').on('click', '#primeros', function () {
             var i=0;
+            var max=$('#numerocupones').val();
+            $('.cuponcheck').each(function () {this.checked = false; });
             if (this.checked) {
               $('.cuponcheck').each(function () {
-                this.checked = true; i++;  return (i<10); 
+                this.checked = true; i++;  return (i<max);
               });
             }
             else {
               $('.cuponcheck').each(function () {
-                this.checked = false; i++; return (i<10);
+                this.checked = false; i++; return (i<max);
               });
             }
 

@@ -72,7 +72,8 @@ http://dragonflycity.com/
       <div class="displayFlex">
         <div id="logHomeW">
           <div id="errorLog" class="trans5">
-            <p>Los datos de inicio de sesión son incorrectos. Vuelve a intentar. Si continúas con problemas, ingresa <a class="forgotPass" role="button">aquí.</a></p>
+            <p id="errormsg">Los datos de inicio de sesión son incorrectos. Vuelve a intentar. </p>
+            <!--<p>Si continúas con problemas, ingresa <a class="forgotPass" role="button">aquí.</a></p>-->
           </div>
           <form action="" method="" autocomplete="on">
             <div class="formDiv displayFlex">

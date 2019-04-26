@@ -8,7 +8,7 @@ require_once('db.php');
 function login($usr,$pwd)
 {
   $valid='';
-  $valid='Error con usuario';
+  $valid='Los datos de inicio de sesión son incorrectos. Vuelve a intentar.';
   $link=connect();
 
   $username = mysqli_real_escape_string($link, $usr);
@@ -18,7 +18,7 @@ function login($usr,$pwd)
   $result = mysqli_query($link, $query);
   while ($fila = mysqli_fetch_row($result)) {
         $datos=$fila[4];
-        $valid='SI,'.$datos;
+        $valid='success,'.$datos;
   }
   mysqli_free_result($result);
   Close($link);
@@ -30,7 +30,8 @@ function getpromociones($estatus,&$count){
   $dominio = getdominio();
   $link    = connect();
   $msg     = '';
-  $estatus2=0;
+  $estatus2= 0;
+  $now     = date('d/m/Y');
 
   if ($estatus==2) { $estatus2=5;}; /* Si es estatus por activar, tambien traer las pausadas */
 
@@ -113,9 +114,15 @@ function getpromociones($estatus,&$count){
                 <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres PUBLICAR la promo '.$fila[0].' ? <br> Pasará a activas y la podrás volver a pausar o finalizar.\',\'actualizarstatus('.$fila[4].',1)\')"></a>
                 ';
               } else {
+                // VALIDACIONES PARA PODER PUBLICAR
+                // 1-legales cargados
+                // 2-Cupones cargados
+                // 3-fecha fin mayor a la de hoy
                 $msg = "";
                 if ($fila[6] == null || $fila[6] == "") { $msg = "&#8226; cargar los legales"; }
                 if ($fila[7] == 0) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; cargar los cupones"; }
+                if ($fila[3] < $now) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; verificar fecha fin"; }
+                //$msg .="&#8226; verificar fecha fin ".$fila[3]." es menor que ".$now;
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                 <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ? <br> Ya no la podrás ver.\',\'eliminarpromo('.$fila[4].')\')"></a>
                 <a class="itemDash_action_question" href="#" class="trans5" onclick="popInfoFun(\'show\', \''.$msg.'\')" ></a>
@@ -148,14 +155,6 @@ function getpromociones($estatus,&$count){
                 <li class="displayFlex">
                   <h3>Página de Prueba:</h3>
                   <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
-                </li>
-                <li class="displayFlex">
-                  <h3>Página de Producción:</h3>
-                  <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'</a>
-                </li>
-                <li class="displayFlex">
-                  <h3>Página de Distribución:</h3>
-                  <a href="./'.$fila[5].'" target="_blank">'.$dominio.'/'.$fila[5].'</a>
                 </li>
               </ul>
               </div>';
@@ -314,7 +313,66 @@ function dashboard($promo)
             </div>';
   Close($link);
   return $salida;
+}
 
+function dasboard_entregados($promo,&$count){
+  $reg=0;
+  $salida='';
+  $link=connect();
+  $consulta ="SELECT gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado
+              FROM   gtrd_cupones
+              INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado
+              WHERE id_promo=".$promo." and estatus=1 and gtrd_cupones.estado NOT IN ('ALL')
+              UNION
+              SELECT gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, 'MX' pais,'(No registrado)' estado
+              FROM   gtrd_cupones
+              WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." and estatus=1
+              ORDER BY Entregado_El DESC";
+  if ($resultado = mysqli_query($link, $consulta)) {
+    $count  = mysqli_num_rows($resultado);
+    while ($fila = mysqli_fetch_row($resultado)) {
+         $reg++;
+         $salida=$salida.'<div class="promoItemDash displayFlex">
+                          <div><p class="promoItemDash_Validity">'.$fila[1].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[0].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[2].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[3].'</p></div>
+                          <div><p class="promoItemDash_Brand">'.$fila[4].'</p></div>
+                          </div>';
+      }
+      if($reg<1) {
+        $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
+      }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+   }
+  Close($link);
+  return $salida;
+}
+function dasboard_disponibles($promo,&$count){
+  $reg=0;
+  $salida='';
+  $link=connect();
+  $consulta ="SELECT codigo Cupon
+              FROM   gtrd_cupones
+              WHERE id_promo=".$promo." and estatus=0
+              ORDER BY codigo";
+  if ($resultado = mysqli_query($link, $consulta)) {
+    $count  = mysqli_num_rows($resultado);
+    while ($fila = mysqli_fetch_row($resultado)) {
+         $reg++;
+         $salida=$salida.'<div class="promoItemDash displayFlex">
+                          <div><p class="promoItemDash_Brand"><input type="checkbox" class="cuponcheck" name="cuponcheck_'.$reg.'" value="'.$fila[0].'"> '.$fila[0].'</p></div>
+                          </div>';
+      }
+      if($reg<1) {
+        $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
+      }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+   }
+  Close($link);
+  return $salida;
 }
 
 //encrypt_decrypt('d','aTlCQkkyK1p2dHU5Z2pYY0NEcnN0UT09')
@@ -1155,6 +1213,7 @@ function getdominio()
   Close($link);
   return $result;
 }
+
 function getproveedordata($idproveedor)
 {
 
@@ -1172,24 +1231,12 @@ function getproveedordata($idproveedor)
   return $resultado;
 }
 
-
 function checkusersession($huella,$name)
 {
   $link=connect();
   $resultado = null;
-  $consulta = "select observa,
-fecha_update,
-TIME_TO_SEC(
-	TIMEDIFF(
-    DATE_ADD(
-					IFNULL(fecha_update,NOW()),
-                    INTERVAL 1 HOUR
-                    ),
-			NOW()
-
-			)
-		) segundos
-from gtrd_settings where Module='Admin' and setting='".$name."'";
+  $consulta = "select observa,fecha_update,TIME_TO_SEC(	TIMEDIFF(DATE_ADD(IFNULL(fecha_update,NOW()),INTERVAL 1 HOUR),NOW())) segundos
+                 from gtrd_settings where Module='Admin' and setting='".$name."'";
 
   if ($registros = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_array($registros)) {
@@ -1207,13 +1254,12 @@ from gtrd_settings where Module='Admin' and setting='".$name."'";
                 $resultado='success';
               }
               else {
-                $resultado='diferente dispositivo';
+                $resultado='Existe otra sesión abierta con este usuario. Favor verificar.';
               }
             }
             else {
               $resultado='success';
             }
-
           }
         }
         else {
@@ -1221,10 +1267,10 @@ from gtrd_settings where Module='Admin' and setting='".$name."'";
         }
      }
   }
-
   Close($link);
   return $resultado;
 }
+
 function updateusersession($huella,$name)
 {
   $salida="";
@@ -1242,6 +1288,7 @@ function updateusersession($huella,$name)
   Close($link);
   return $salida;
 }
+
 function updateusersessionclose($name)
 {
   $salida="";

@@ -2281,6 +2281,7 @@ var MetodoEnum = {
  var infopromoedit=[];
  var bancarga=0;
  var plantseledit='';
+
  /* Obtener la huella para registrar la participación */
  function huella(){
   var d1 = new Date();
@@ -2291,29 +2292,30 @@ var MetodoEnum = {
   });
   return codigo;
  }
+ /* verificalogin que el usuario ya no tenga una sessión abierta en otro dispositivo */
  function verificalogin(){
    var  m=MetodoEnum.CheckSession;
    var huellalogin=huella();
    var dataString = 'm=' + m+'&huella=' + huellalogin;
+   console.log(dataString);
    $.ajax({
      type : 'POST',
      url  : 'respuestaconfig.php',
      data:  dataString,
      success:function(data) {
        console.log(data);
-       if(data!=='success')
-       {
-        window.location.href='login.php';
+       /*
+       if(data!=='success') {
+         window.location.href='login.php';
        }
-
+       */
      }
    });
-
-
  }
 
 function _(el){return document.querySelector(el); }
 function __(el){return document.querySelectorAll(el); }
+
 function showLoading(e){
   var wr = _("#loadingConf");
   if(e === 1){
@@ -2322,6 +2324,7 @@ function showLoading(e){
     wr.style.display = "none";
   }
 }
+
 function promoTabs(p,t){
   var w = _("#promoTabs"),
       ch = __(".tabButtons");
@@ -2331,6 +2334,7 @@ function promoTabs(p,t){
   }
   t.setAttribute("class", "trans5 tabButtons selectTab");
 }
+
 function promoTabsrep(p,t){
   var w = _("#headerreport");
   promoTabs(p,t);
@@ -2364,15 +2368,20 @@ function menuMobile(e, t){
     },700);
   }
 }
-function errorOnLog(e){
+
+function errorOnLog(e,msg){
   var w = _("#errorLog");
   if(e === "open"){
-    w.style.height = "70px";
+    w.style.height = "50px";
+    w.style.padding = "5px";
+    $("#errormsg").text(msg);
   } else {
     w.style.height = "0";
+    w.style.padding = "0";
   }
 }
 
+/* login */
 function login(){
   var usr=_("#userNameLog").value;
   var psw=_("#userPassLog").value;
@@ -2382,25 +2391,23 @@ function login(){
   //$('#errorLog').css("height", "0px");
   var dataString ='&usr=' + usr + '&pwd=' + psw+'&m='+method+'&huella=' + huellalogin;
       $.ajax({
-         type : 'POST',
-         url  : 'respuestaconfig.php',
-         data:  dataString,
-
+         type   : 'POST',
+         url    : 'respuestaconfig.php',
+         data   :  dataString,
          success:function(data) {
-           if(data=='Ambos valores son requerido'|| data=='Error con usuario')
-           {
+           console.log(data);
+           if (data!='success') {
                //$('#errorLog').css("height", "65px");
-               errorOnLog('open');
-           }
-           else {
+               errorOnLog('open',data);
+           } else {
               window.location.href='home.php';
            }
-
          }
       });
 }
-function logout()
-{
+
+/* Logout - cerrar sessión */
+function logout() {
   var method=MetodoEnum.Logout;
   var huellalogin=huella();
   var dataString ='&m='+method+'&huella=' + huellalogin;
@@ -3787,4 +3794,5 @@ function cancelarpromo() {
 function topFunction() {
     $('#promosW').scrollTop(0);
 }
+
 verificalogin();

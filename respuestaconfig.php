@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 // $connect = mysqli_connect("localhost", "root", "", "testing");
 require_once('backend/lib/dbconfig.php');
@@ -13,43 +12,35 @@ else {
   $ip = $_SERVER['REMOTE_ADDR'];
 }
 
-
+/* Login */
 if($_POST["m"]==1){
-       if(empty($_POST["usr"]) || empty($_POST["pwd"]))
-       {
-            echo 'Ambos valores son requerido';
+       $valid = "";
+       if(empty($_POST["usr"]) || empty($_POST["pwd"])) {
+            $valid = 'Los datos de inicio de sesión son requeridos. Vuelve a intentar.';
        }
-       else
-       {
-
+       else  {
             $valid=login($_POST["usr"],$_POST["pwd"]);
             $array=explode(",", $valid);
             $valid=$array[0];
-            if($valid=='SI')
-            {
+            if($valid=='success') {
               $result=checkusersession($_POST['huella'],$_POST["usr"]);
-              if($result=='success')
-              {
+              if($result=='success') {
                 $result2=updateusersession($_POST['huella'],$_POST["usr"]);
-                if($result2=='success')
-                {
+                if($result2=='success') {
                   $_SESSION['userName'] = $_POST["usr"];
-                  $_SESSION['Nombre']=$array[1];
-                  $_SESSION['Email']=$array[2];
-                  $_SESSION['Rol']=$array[3];
+                  $_SESSION['Nombre']   = $array[1];
+                  $_SESSION['Email']    = $array[2];
+                  $_SESSION['Rol']      = $array[3];
                 }
-                else {
-                  $valid='Error con usuario';
-                }
+                else { $valid=$result; } /* Error actualizando la sessión */
               }
-              else {
-                $valid='Error con usuario';
-              }
-
+              else {  $valid=$result;  } /* Existe una sesión en otro dispositivo */
             }
-           echo $valid;
        }
+       echo $valid;
 }
+
+/* Logout */
 if($_POST["m"]==2){
   $result=checkusersession($_POST['huella'],$_SESSION['userName']);
   $valid='error';
@@ -70,17 +61,21 @@ if($_POST["m"]==2){
   }
   echo $valid;
 }
+
+/* Dashboard consolidado */
 if($_POST["m"]==3){
   $result=dashboard(encrypt_decrypt('d',$_POST["prom"]));
   echo $result;
 }
+
+/* Dashboard report entregados */
 if($_POST["m"]==4){
   $result=dasboard_report(encrypt_decrypt('d',$_POST["prom"]));
   echo $result;
 }
 
-if($_POST["m"]==5)
-{
+/* Insert datos generales */
+if($_POST["m"]==5) {
   $fi=$_POST["fi"];
   $ff=$_POST["ff"];
   $nom=$_POST["nom"];
@@ -91,120 +86,127 @@ if($_POST["m"]==5)
   $result=insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom);
   echo encrypt_decrypt('e',$result);
 }
-if($_POST["m"]==6)
-{
+
+/* Actualizar legales */
+if($_POST["m"]==6){
   $id=encrypt_decrypt('d',$_POST["id"]);
   $url=$_POST["url"];
   $result=actualizalegales($id,$url);
   echo $result;
 }
+
+ /* Actualizar Funcionalidad */
 if($_POST["m"]==7){
   $id=$_POST["fun"];
   $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=actualizafuncionalidad($id,$prom);
   echo $result;
 }
-if($_POST["m"]==8)
-{
+
+/*Validación existe cupón */
+if($_POST["m"]==8) {
   $id=$_POST["cup"];
   $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=existecupon($id,$prom);
   echo $result;
 }
-if($_POST["m"]==9)
-{
+
+/* Cargar cupones */
+if($_POST["m"]==9) {
   $id=$_POST["cup"];
   $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=loadcupons($id,$prom);
   echo $result;
 }
-if($_POST["m"]==10)
-{
+
+/* Actuaizar plantilla HTML */
+if($_POST["m"]==10) {
   //'m=' + m+'&fun=' + id+'&prom=' + idnvaprom;
   $id=encrypt_decrypt('d',$_POST["fun"]);
   $result=plantillas($id);
   echo $result;
 }
-if($_POST["m"]==11)
-{
+
+/* Actuaizar plantilla */
+if($_POST["m"]==11) {
   $id=$_POST["plan"];
   $prom=encrypt_decrypt('d',$_POST["prom"]);
   $result=actualizaplantillabd($id,$prom);
   echo $result;
 }
 
-if($_POST["m"]==12) /* Cambiar estatus la promo pasada como parametro */
-{
+/* Cambiar estatus la promo pasada como parametro */
+if($_POST["m"]==12) {
   $id    = $_POST["id"];
   $st    = $_POST["st"];
   $result= actualizarstatus($id,$st);
   echo $result;
 }
 
-if($_POST["m"]==13) /* eliminar promocion */
-{
+/* eliminar promocion */
+if($_POST["m"]==13) {
   $id    = $_POST["id"];
   $result= eliminarpromo($id);
   echo $result;
 }
-if($_POST["m"]==14) /* actualizar plantilla promocion */
-{
+
+/* actualizar plantilla promocion */
+if($_POST["m"]==14) {
   $updcre    = $_POST["updcre"];
   $data    = $_POST["data"];
   $result= actualizaplantillaversion($updcre,$data);
   echo $result;
 }
-if($_POST["m"]==15) /* cancelar promocion */
-{
+
+/* cancelar promocion */
+if($_POST["m"]==15) {
   $id    = encrypt_decrypt('d',$_POST["id"]);
   $result= eliminarpromo($id);
   echo $result;
 }
-if($_POST["m"]==16) /* Crear directorio promocion */
-{
-  $idpromo    = $_POST["idpromo"];
-  $dir    = $_POST["dir"];
-  $result= creaactualizadir($idpromo,$dir);
+
+/* Crear directorio promocion */
+if($_POST["m"]==16) {
+  $idpromo  = $_POST["idpromo"];
+  $dir      = $_POST["dir"];
+  $result   = creaactualizadir($idpromo,$dir);
   echo $result;
 }
-if($_POST["m"]==17) /* Crear directorio promocion */
-{
+
+/* Crear directorio promocion */
+if($_POST["m"]==17) {
   $idpromo    = $_POST["prom"];
-  $result=getpromocioneditdata($idpromo);
+  $result     = getpromocioneditdata($idpromo);
   echo $result;
 }
-if($_POST["m"]==18) /* Crear directorio promocion */
-{
+
+/* Crear directorio promocion */
+if($_POST["m"]==18) {
   $idprov   = encrypt_decrypt('d',$_POST["prov"]);
-  $result=getproveedordata($idprov);
+  $result   = getproveedordata($idprov);
   echo $result;
 }
-if($_POST["m"]==19) /* Crear directorio promocion */
-{
+
+/* CheckSession Validar sesión del usuario */
+if($_POST["m"]==19) {
   $huella   = $_POST["huella"];
   if(isset($_SESSION["userName"])) {
     $result=checkusersession($huella,$_SESSION["userName"]);
-    if($result=='success')
-    {
+    if($result=='success') {
       $result2=updateusersession($huella,$_SESSION["userName"]);
-      if($result2=='success')
-      {
+      if($result2=='success') {
         $result=$result2;
-      }
-      else {
+      } else {
         session_destroy();
         $result='Error Usuario';
       }
-    }
-    else {
+    } else {
       session_destroy();
       $result='Error Usuario';
     }
   }
-  else {
-    $result='success';
-  }
-
+  else { $result='success'; }
   echo $result;
 }
+
 ?>

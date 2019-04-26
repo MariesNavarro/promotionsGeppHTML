@@ -688,6 +688,7 @@ main.home>#promosW>ul>li{
   overflow: hidden;
   background: #11396c;
   height: 0;
+  padding: 0px;
 }
 #errorLog>p>a{text-decoration: underline;}
 #errorLog>p>a:hover{opacity: 0.7;}
