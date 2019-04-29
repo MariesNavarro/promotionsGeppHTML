@@ -93,7 +93,7 @@ http://dragonflycity.com/
         <ul class="displayFlex">
           <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();">Consolidado</a></li>
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this);topFunction();">Entregados (<?php echo $count1; ?>)</a></li>
-          <!--<li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();">Disponibles (<?php echo $count2; ?>)</a></li>-->
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();">Disponibles (<?php echo $count2; ?>)</a></li>
         </ul>
       </nav>
       <header id='headerreport' class=desktopNav style="display:none">
@@ -110,10 +110,8 @@ http://dragonflycity.com/
           <li id="consolidado"><?php echo dashboard($id); ?></li>
           <li id="entregados"> <?php echo $entregados; ?></li>
           <li id="disponibles">
-            <!--
             <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
             <?php echo $disponibles; ?>
-            -->
           </li>
         </ul>
       </div>
