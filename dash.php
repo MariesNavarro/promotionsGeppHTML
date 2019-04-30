@@ -99,8 +99,8 @@ http://dragonflycity.com/
       </nav>
       <header id='headerreport' class=desktopNav style="display:none">
         <ul class="displayFlex">
-          <li class="displayFlex"><span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span><p>Fecha Entrega</p></li>
-          <li class="displayFlex"><p>Cupón Entregado</p></li>
+          <li class="displayFlex"><span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span><p>Fecha</p></li>
+          <li class="displayFlex"><p>Cupón</p></li>
           <li class="displayFlex"><p>IP Solicitud</p></li>
           <li class="displayFlex"><p>País</p></li>
           <li class="displayFlex"><p>Estado</p></li>
@@ -121,8 +121,9 @@ http://dragonflycity.com/
       </div>
       <div class="displayFlex">
         <button class="btnDashboard" onclick="window.location.href='home.php';">Regresar</button>
-        <a href="export_excel.php?id=<?php echo $id_encry; ?>"><button class="btnDashboard" onclick="descargarEntregados('<?php echo $id_encry; ?>')">Descargar</button></a>
         <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')" style="display:none" id="btnActuaizar">Actualizar</button>
+        <a href="export_excel.php?id=<?php echo $id_encry; ?>"><button class="btnDashboard">Descargar</button></a>
+        <a href=""><button class="btnDashboard">Liberar</button></a>
       </div>
     </main>
     <footer class="login">

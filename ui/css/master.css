@@ -383,7 +383,7 @@ nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
   font-size: 1.05rem;
   border:0;
   background: #fff;
-  width: 100px;
+  width: 100px; 
   height: 40px;
   border-radius: 40px;
   margin: 10px auto;
