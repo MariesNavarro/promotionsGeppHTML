@@ -220,7 +220,7 @@ function preparedirname($string){
     return strtolower($string);
 }
 function creadirectoriopromo($idpromo,$nombredir,$dominio){
-  $carpeta = 'promos/'.preparedirname($nombredir);    
+  $carpeta = 'promos/'.preparedirname($nombredir);
   if (!file_exists($carpeta)) {
     mkdir($carpeta, 0777, true);
     $filepath=$carpeta."/index.php";
@@ -234,4 +234,25 @@ function creadirectoriopromo($idpromo,$nombredir,$dominio){
       return $carpeta;
 }
 }
+function send_email($email,$parametro) {
+
+ 		$texto_mail ='Tu contraseña es: '.$parametro;
+        $para  		= $email;
+        $de    		="info@oetcapital.com";   // email que envia
+        $titulo='	=?UTF-8?B?'.base64_encode("Colocar aqui el titulo del email").'?=';
+
+        // Para enviar un correo HTML mail, la cabecera Content-type debe fijarse
+        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $cabeceras .= 'Content-Transfer-Encoding: 7bit' . "\r\n";
+
+        $cabeceras .= 'From: javier.corona@oetcapital.com '. $de . "\r\n";
+
+        // con copia oculta
+        //$cabeceras .= 'BCC: xxxxxx@gmail.com';
+
+         mail($para, $titulo, $texto_mail, $cabeceras);
+        // fin envio email
+}
+
 ?>

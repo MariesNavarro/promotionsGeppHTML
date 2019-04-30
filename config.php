@@ -291,7 +291,7 @@ http://dragonflycity.com/
                   <img id="imgCheck" class="trans5" src="ui/img/ic/upload.svg" width="40" height="40">
                   <p>Subir</p>
                 </label>
-                <input id="couponsUpload" type="file" value=" ">
+                <input id="couponsUpload" type="file" name="couponsUpload" value=" " multiple="">
                 <div class="infoFileCoupon displayFlex">
                   <p id="msgCsvUpload">Escoge un archivo .csv</p>
                   <a role="button" class="displayNone trans5" title="Limpiar archivo" onclick="cleanCsv(this)">
