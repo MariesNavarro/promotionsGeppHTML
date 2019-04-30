@@ -208,5 +208,20 @@ if($_POST["m"]==19) {
   else { $result='success'; }
   echo $result;
 }
+if($_POST["m"]==20){
+       $valid = "";
+       if(empty($_POST["usr"])) {
+            $valid = 'El nombre del usuario es requerido.';
+       }
+       else  {
+            $valid=recuperar($_POST["usr"]);
+            $array=explode(",", $valid);
+            $correo=$array[2];
+            $pass=$array[4];
+            send_email($correo,$pass);
+            $valid=$array[0];
+       }
+       echo $valid;
+}
 
 ?>

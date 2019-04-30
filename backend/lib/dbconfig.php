@@ -13,7 +13,8 @@ function login($usr,$pwd)
 
   $username = mysqli_real_escape_string($link, $usr);
   $password = mysqli_real_escape_string($link, $pwd);
-  $password = md5($password);
+  //$password = md5($password);
+  $password=encrypt_decrypt('e',$password);
   $query = "SELECT * FROM gtrd_settings WHERE Module='Admin' AND  setting = '$username' AND value = '$password'";
   $result = mysqli_query($link, $query);
   while ($fila = mysqli_fetch_row($result)) {
@@ -24,7 +25,25 @@ function login($usr,$pwd)
   Close($link);
   return $valid;
 }
+function recuperar($usr)
+{
+  $valid='';
+  $valid='El nombre de usuario es requerido.';
+  $link=connect();
 
+  $username = mysqli_real_escape_string($link, $usr);
+  //$password = md5($password);
+  //$password=encrypt_decrypt('e',$password);
+  $query = "SELECT * FROM gtrd_settings WHERE Module='Admin' AND  setting = '$username'";
+  $result = mysqli_query($link, $query);
+  while ($fila = mysqli_fetch_row($result)) {
+        $datos=$fila[4].','.encrypt_decrypt('d',$fila[3]);
+        $valid='success,'.$datos;
+  }
+  mysqli_free_result($result);
+  Close($link);
+  return $valid;
+}
 function getpromociones($estatus,&$count){
   $html    = '';
   $dominio = getdominio();

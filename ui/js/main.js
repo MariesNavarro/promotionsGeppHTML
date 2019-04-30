@@ -2270,7 +2270,8 @@ var MetodoEnum = {
   CreaDirectorio:16,
   GetPromoPlantilla:17,
   GetProveedorSelected:18,
-  CheckSession:19
+  CheckSession:19,
+  Recuperar:20
  };
  var isedit=0;
  var huellalogin='';
@@ -2281,6 +2282,9 @@ var MetodoEnum = {
  var infopromoedit=[];
  var bancarga=0;
  var plantseledit='';
+
+ var temp=[];
+ var count=0;
 
  /* Obtener la huella para registrar la participación */
  function huella(){
@@ -2303,7 +2307,7 @@ var MetodoEnum = {
      url  : 'respuestaconfig.php',
      data:  dataString,
      success:function(data) {
-       console.log(data);       
+       console.log(data);
        if(data!=='success') {
          window.location.href='login.php';
        }
@@ -2403,7 +2407,28 @@ function login(){
          }
       });
 }
-
+function recuperar(){
+  var usr=_("#userNameLog").value;
+  var method=MetodoEnum.Recuperar;
+  errorOnLog('close');
+  //$('#errorLog').css("height", "0px");
+  var dataString ='&usr=' + usr + '&m='+method;
+      $.ajax({
+         type   : 'POST',
+         url    : 'respuestaconfig.php',
+         data   :  dataString,
+         success:function(data) {
+           console.log(data);
+           if (data!='success') {
+               //$('#errorLog').css("height", "65px");
+               errorOnLog('open',data);
+           } else {
+            //  window.location.href='home.php';
+            errorOnLog('open','Se envio la informacion al correo registrado');
+           }
+         }
+      });
+}
 /* Logout - cerrar sessión */
 function logout() {
   var method=MetodoEnum.Logout;
@@ -2663,7 +2688,12 @@ function loadFileCSV(t){
     }
     csvLoaded = true;
     imgCheck.setAttribute("src", "ui/img/ic/check.svg");
-    fileText.innerHTML = file.files[0].name;
+    fileText.innerHTML="";
+    for(var i=0;i<file.files.length;i++)
+    {
+       fileText.innerHTML+= file.files[i].name+'\n';
+    }
+
     close.setAttribute("class", "displayBlock trans5");
   });
 }
@@ -2696,14 +2726,25 @@ function getNumCSV(){
 
   if(csvLoaded){
     showLoading(1);
-    readtextcsv(function(val){
+    nuevos=[];
+  /*readtextcsv(function(val){
        var p=val.split('\r\n');
        var c=p.length-1;
-       p.splice(c,1);
-       p.splice(0,1);
-       existecupon(p)
-
-    });
+       //temp[i]=p;//p.splice(c,1);
+       //count=p.length;
+       for(var j=0;j<p.length;j++)
+       {
+         if(p[j]!==''&&p[j]!=='Cupon')
+         {
+           temp[count]=p[j];
+           count++;
+         }
+       }
+       console.log(count);
+       //p.splice(0,1);
+       //existecupon(p)
+     });*/
+     doTheUploadYo();
   } else {
     textCSVNoLoaded.style.display = "block";
     setTimeout(function(){
@@ -2732,6 +2773,7 @@ function checkSteps(n, t){
     break;
     case 5:
       //  responseStep(n , t, 1);
+      showLoading(1);
       if(nuevos.length>0)
       {
         loadcupons(n,t);
@@ -3558,6 +3600,7 @@ function creardir()
          data:  dataString,
          success:function(data) {
            //console.log(data);
+           showLoading(0);
            window.location.href='home.php';
          }
        });
@@ -3592,7 +3635,6 @@ function existecupon(p)
       exist=data.split(',');
       var le=exist.length-1;
       exist.splice(le,1)
-      nuevos=[];
       for(var i=0;i<p.length;i++)
       {
         if(!exist.includes(p[i])&&!nuevos.includes(p[i]))
@@ -3605,7 +3647,7 @@ function existecupon(p)
         var textCSVLoaded = _(".numCSV"),
             textCSVNoLoaded = _(".noneNumCSV"),
             numCSVW = _("#numCSV");
-        numCSVW.innerHTML = 'en este archivo para agregar '+numCupones;
+        numCSVW.innerHTML = 'en este(estos) archivo(s) para agregar '+numCupones;
         textCSVLoaded.style.display = "block";
         setTimeout(function(){
           showLoading(0);
@@ -3622,17 +3664,124 @@ function existecupon(p)
   });
 }
 function readtextcsv(callback) {
-        var val = "x";
+        var val = "";
+        var archpros=0;
         //... code to load a file variable
-        var file=document.getElementById("couponsUpload").files[0]
-        var r;
-        r = new FileReader();
-        r.onload = function (e) {
-            val = e.target.result;
+        var archivos=document.getElementById("couponsUpload").files;
+        for(var i=0;i<archivos.length;i++)
+        {
+          var file=document.getElementById("couponsUpload").files[i]
+          var r;
+          r = new FileReader();
+          r.onload = function (e) {
+              var text = e.target.result;
+
+              //callback(val);
+          };
+          r.readAsText(file);
+          do {
+               if(r.readyState==2)
+               {
+                 console.log(r.result);
+                 archpros++;
+                 if(val=="")
+                 {
+                   val=r.result;
+                 }
+                 else {
+                   val+='\r\n'+r.result;
+                 }
+
+               }
+            } while (archpros < i+1);
+        }
+        if(archpros==archivos.length)
+          {
             callback(val);
-        };
-        r.readAsText(file);
+          }
+
 }
+//Prueba lectura de multiples archivos funcion promisse
+// This is pretty much what you already had
+function readFile(file){
+    return new Promise(function(resolve, reject){
+        var reader = new FileReader();
+        reader.onload = function(evt){
+            console.log("Just read", file.name);
+            resolve(evt.target.result);
+        };
+        reader.onerror = function(err) {
+            console.error("Failed to read", file.name, "due to", err);
+            reject(err);
+        };
+        reader.readAsText(file);
+        // Would be sweet if readAsDataURL already returned a promise
+    });
+}
+
+// You want this function to exist
+function readMultipleFiles(files){
+    var results = {};
+    var archs=[];
+    var countarch=0;
+
+    // You can shim Array.from for browsers that don't have it
+    var promises = Array.from(files, function(file){
+        return readFile(file)
+            .then(function(data){
+                results[file.name] = data;
+                archs[countarch]=file.name;
+                countarch++;
+                console.log(file.name, "added to results");
+                // Implicitely return undefined. Data is already in results
+            })
+        ;
+        // Automatic semicolon insertion means the semicolon above
+        // is redundant for the interpreter. I put it for readability's sake.
+    });
+
+    // Yes, Promise.all is a thing. No need for Array#reduce tricks
+    return Promise.all(promises)
+        .then(function(_){ // Don't care about the array of undefineds
+            console.log("Done");
+            //showLoading(0);
+            temp=[];
+            count=0;
+            for(var i=0;i<countarch;i++)
+            {
+              var p=results[archs[i]].split('\r\n');
+              for(var j=0;j<p.length;j++)
+              {
+                if(p[j]!==''&&p[j]!=='Cupon')
+                {
+                  temp[count]=p[j];
+                  count++;
+                }
+              }
+            }
+            //existecupon(temp);
+            return results;
+        })
+    ;
+}
+
+
+// Main logic, cleanly separated
+function doTheUploadYo(){
+
+    var uploadElement = document.getElementById('couponsUpload');
+    readMultipleFiles(uploadElement.files)
+        .then(function(results){
+            console.dir(results);
+            existecupon(temp);
+        })
+        .catch(function(err){
+            console.error("Well that sucks:", err);
+        })
+    ;
+
+}
+
 function checkcuponstoload(n,t)
 {
     var arc=document.getElementById("couponsUpload").files.length;
