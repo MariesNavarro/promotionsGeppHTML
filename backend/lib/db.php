@@ -271,4 +271,6 @@ function getmarca_redessociales($idmarca,$idplantilla,$version)
 
 /**************** PASAR A dbconfig.php **************************/
 
+
+//dasboard_entregados_excel(164);
 ?>

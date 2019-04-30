@@ -50,14 +50,15 @@ function getpromociones($estatus,&$count){
   $link    = connect();
   $msg     = '';
   $estatus2= 0;
-  $now     = date('d/m/Y');
+  $today       = date('Y-m-d');
+  $today_time  = strtotime($today);
 
   if ($estatus==2) { $estatus2=5;}; /* Si es estatus por activar, tambien traer las pausadas */
 
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
-                  NC.numcupones
+                  NC.numcupones, fecha_fin
                FROM gtrd_promociones
          INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
           LEFT JOIN (select id_promo,COUNT(*) numcupones from gtrd_cupones group by id_promo) NC On NC.id_promo=gtrd_promociones.id
@@ -138,9 +139,10 @@ function getpromociones($estatus,&$count){
                 // 2-Cupones cargados
                 // 3-fecha fin mayor a la de hoy
                 $msg = "";
+                $fecha_fin_time = strtotime($fila[8]);
                 if ($fila[6] == null || $fila[6] == "") { $msg = "&#8226; cargar los legales"; }
                 if ($fila[7] == 0) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; cargar los cupones"; }
-                if ($fila[3] < $now) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; verificar fecha fin"; }
+                if ($fecha_fin_time < $today_time) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; verificar fecha fin ".$fila[3].' '.$now; }
                 //$msg .="&#8226; verificar fecha fin ".$fila[3]." es menor que ".$now;
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                 <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ? <br> Ya no la podrás ver.\',\'eliminarpromo('.$fila[4].')\')"></a>

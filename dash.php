@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('backend/lib/dbconfig.php');
+
 if(!isset($_SESSION["userName"]))
 {
   header("Location:login.php");
@@ -11,7 +12,7 @@ else {
   $id           = encrypt_decrypt('d',$id_encry);
   $count1       = 0;
   $count2       = 0;
-//  $consolidado  = dashboard($id);
+  //$consolidado  = dashboard($id);
   $entregados   = dasboard_entregados($id,$count1);
   $disponibles  = dasboard_disponibles($id,$count2);
 }
@@ -108,7 +109,10 @@ http://dragonflycity.com/
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
           <li id="consolidado"><?php echo dashboard($id); ?></li>
-          <li id="entregados"> <?php echo $entregados; ?></li>
+          <li id="entregados">
+            <!--<div class="displayFlex"><button class="btnDashboard rightButton" onclick="';">Descargar</button></div>-->
+            <?php echo $entregados; ?>
+          </li>
           <li id="disponibles">
             <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
             <?php echo $disponibles; ?>
@@ -117,6 +121,7 @@ http://dragonflycity.com/
       </div>
       <div class="displayFlex">
         <button class="btnDashboard" onclick="window.location.href='home.php';">Regresar</button>
+        <a href="export_excel.php?id=<?php echo $id_encry; ?>"><button class="btnDashboard" onclick="descargarEntregados('<?php echo $id_encry; ?>')">Descargar</button></a>
         <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')" style="display:none" id="btnActuaizar">Actualizar</button>
       </div>
     </main>
@@ -148,10 +153,9 @@ http://dragonflycity.com/
                 this.checked = false; i++; return (i<max);
               });
             }
-
         });
-
       });
+
     </script>
   </body>
 </html>
