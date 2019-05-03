@@ -242,7 +242,7 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Nombre de la subcarpeta después de <?php echo getdominio()."/promos/"; ?></label>
-                  <input <?php echo $disabled; ?> id="nombreURL" class="textInput inputData1" type="text" required/>
+                  <input <?php echo $disabled; ?> id="nombreURL" class="textInput inputData1" onkeyup="changeurl(this)" type="text" required/>
                 </div>
                 <div class="fieldConfigWrap">
                   <?php if(isset($_GET["id"])) {
