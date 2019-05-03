@@ -58,26 +58,26 @@ If (!empty($_GET['id'])) {
   /* Consolidado */
   $objPHPExcel->setActiveSheetIndex(0);
   $objPHPExcel->getActiveSheet()
-              ->setCellValueExplicit('A2','Promoción:')
-              ->setCellValueExplicit('B2',$promo['nombre'] )
-              ->setCellValueExplicit('A3','Marca:')
-              ->setCellValueExplicit('B3',$promo['marca'].' '.$promo['marca_logo'])
-              ->setCellValueExplicit('A4','Proveedor:')
-              ->setCellValueExplicit('B4',$promo['proveedor'] )
-              ->setCellValueExplicit('A5','Vigencia:')
-              ->setCellValueExplicit('B5',$promo['fecha_inicio'].' al '.$promo['fecha_fin'] )
-              ->setCellValueExplicit('A6','Entregados hoy ('.date('d-m-Y').'):')
-              ->setCellValueExplicit('B6', $cup_entregadoshoy)
-              ->setCellValueExplicit('A7','Total entregados:')
-              ->setCellValueExplicit('B7', $cup_entregados)
-              ->setCellValueExplicit('A8','Total disponibles:')
-              ->setCellValueExplicit('B8', $cup_disponibles)
-              ->setCellValueExplicit('A9','Último entregado:')
-              ->setCellValueExplicit('B9', $cup_ultimo);
+              ->setCellValueExplicit('A1','Promoción:')
+              ->setCellValueExplicit('B1',$promo['nombre'] )
+              ->setCellValueExplicit('A2','Marca:')
+              ->setCellValueExplicit('B2',$promo['marca'])
+              ->setCellValueExplicit('A3','Proveedor:')
+              ->setCellValueExplicit('B3',$promo['proveedor'] )
+              ->setCellValueExplicit('A4','Vigencia:')
+              ->setCellValueExplicit('B4',$promo['fecha_inicio'].' al '.$promo['fecha_fin'] )
+              ->setCellValueExplicit('A5','Entregados hoy ('.date('d-m-Y').'):')
+              ->setCellValueExplicit('B5', $cup_entregadoshoy)
+              ->setCellValueExplicit('A6','Total entregados:')
+              ->setCellValueExplicit('B6', $cup_entregados)
+              ->setCellValueExplicit('A7','Total disponibles:')
+              ->setCellValueExplicit('B7', $cup_disponibles)
+              ->setCellValueExplicit('A8','Último entregado:')
+              ->setCellValueExplicit('B8', $cup_ultimo);
   $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
   $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-  $objPHPExcel->getActiveSheet()->getStyle('A2:A9')->getFont()->setBold(true);
-  $objPHPExcel->getActiveSheet()->getStyle('B2:B9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('A1:A9')->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('B1:B9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   $objPHPExcel->getActiveSheet()->getStyle('A0');
 
   $objPHPExcel->setActiveSheetIndex(0);

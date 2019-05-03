@@ -8,6 +8,7 @@ if(!isset($_SESSION["userName"]))
 }
 else {
   $username     = $_SESSION["Nombre"];
+  $rol          = $_SESSION['Rol'];
   $id_encry     = $_GET[id];
   $id           = encrypt_decrypt('d',$id_encry);
   $count1       = 0;
@@ -66,6 +67,24 @@ http://dragonflycity.com/
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body class="login body">
+    <div id="popAction" class="displayNone">
+      <div>
+        <p>¿Estás seguro que quieres realizar esta acción?</p>
+        <div class="displayFlex">
+          <button class="doAction trans5">Sí</button>
+          <button class="trans5" onclick="popActionFun('hide', 0, null)">No</button>
+        </div>
+      </div>
+    </div>
+    <div id="popInfo" class="displayNone">
+      <div>
+        <span style="font-size: 18px;">Para liberar los cupones debes primero seleccionarlos.</span>
+        <p></p>
+        <div class="displayFlex">
+          <button class="trans5" onclick="popInfoFun('hide', 0)">Cerrar</button>
+        </div>
+      </div>
+    </div>
     <ul id="menuMobile" class="displayNone trans5">
       <li>Hola <span id="userNameMobile"><?php echo $username; ?></span></li>
       <!--<li><a href="#">Tutoriales</a></li>-->
@@ -123,7 +142,7 @@ http://dragonflycity.com/
         <button class="btnDashboard" onclick="window.location.href='home.php';">Regresar</button>
         <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')" style="display:none" id="btnActuaizar">Actualizar</button>
         <a href="export_excel.php?id=<?php echo $id_encry; ?>"><button class="btnDashboard">Descargar</button></a>
-        <a href=""><button class="btnDashboard">Liberar</button></a>
+        <?php if ($rol=='Admin') { ?><a href="#"  onclick="btnLiberarCupones();"><button class="btnDashboard">Liberar</button></a><?php } ?>
       </div>
     </main>
     <footer class="login">
@@ -156,6 +175,39 @@ http://dragonflycity.com/
             }
         });
       });
+
+      function btnLiberarCupones() {
+        var cont = contarCuponesSeleccionados();
+        console.log('btnLiberarCupones: '+cont);
+        if (cont > 0) {
+          var cupones=obtenerCuponesSeleccionados();
+          popActionFun('show', '¿Estás seguro que quieres LIBERAR los cupones seleccionados ('+cont+')? <br> Estos serán descargados y eliminados de la promoción.','liberarCuponesSeleccionados("'+cupones+'")');
+        } else {
+          popInfoFun('show', 'En la pestaña de disponibles, debes indicar la cantidad de cupones y darle clic al check de Seleccionar');
+        }
+      }
+
+      function contarCuponesSeleccionados() {
+        var i=0;
+        $('.cuponcheck').each(function () {
+          if (this.checked == true) i++;
+        });
+        return i;
+      }
+
+      function obtenerCuponesSeleccionados() {
+        var cupones="";
+        $('.cuponcheck').each(function () {
+          if (this.checked == true) cupones = cupones + this.value+",";
+        });
+        if (cupones.length>0){ cupones = cupones.substring(0, cupones.length-1) ;}
+        return cupones;
+      }
+
+      function liberarCuponesSeleccionados(cupones) {
+        console.log(cupones);
+
+      }
 
     </script>
   </body>
