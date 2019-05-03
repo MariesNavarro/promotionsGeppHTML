@@ -67,6 +67,7 @@ http://dragonflycity.com/
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body class="login body">
+    <a href="#" download id="download" hidden></a>
     <div id="popAction" class="displayNone">
       <div>
         <p>¿Estás seguro que quieres realizar esta acción?</p>
@@ -142,7 +143,7 @@ http://dragonflycity.com/
         <button class="btnDashboard" onclick="window.location.href='home.php';">Regresar</button>
         <button class="btnDashboard" onclick="actualizaDatos('<?php echo $id_encry; ?>')" style="display:none" id="btnActuaizar">Actualizar</button>
         <a href="export_excel.php?id=<?php echo $id_encry; ?>"><button class="btnDashboard">Descargar</button></a>
-        <?php if ($rol=='Admin') { ?><a href="#"  onclick="btnLiberarCupones();"><button class="btnDashboard">Liberar</button></a><?php } ?>
+        <?php if ($rol=='Admin') { ?><a href="#"  onclick="btnLiberarCupones('<?php echo $id_encry; ?>');"><button class="btnDashboard" id="btnDashboard" style="display:none">Liberar</button></a><?php } ?>
       </div>
     </main>
     <footer class="login">
@@ -153,6 +154,7 @@ http://dragonflycity.com/
       $(document).ready(function(){
         /* Solo si esta cativo, mostrar el boton de Actualizar */
         if ($("#disclaimer").attr("id_estatus")==1) { $("#btnActuaizar").css("display","block");  }
+        if ($("#disclaimer").attr("id_estatus")!=1) { $("#btnDashboard").css("display","block");  }
 
         $('#disponibles').on('click', '#todos', function () {
             if (this.checked) { $('.cuponcheck').each(function () { this.checked = true; }); }
@@ -176,12 +178,12 @@ http://dragonflycity.com/
         });
       });
 
-      function btnLiberarCupones() {
+      function btnLiberarCupones(id) {
         var cont = contarCuponesSeleccionados();
         console.log('btnLiberarCupones: '+cont);
         if (cont > 0) {
           var cupones=obtenerCuponesSeleccionados();
-          popActionFun('show', '¿Estás seguro que quieres LIBERAR los cupones seleccionados ('+cont+')? <br> Estos serán descargados y eliminados de la promoción.','liberarCuponesSeleccionados("'+cupones+'")');
+          popActionFun('show', '¿Estás seguro que quieres LIBERAR los cupones seleccionados ('+cont+')? <br> Estos serán descargados y eliminados de la promoción.','liberarCuponesSeleccionados("'+id+'","'+cupones+'")');
         } else {
           popInfoFun('show', 'En la pestaña de disponibles, debes indicar la cantidad de cupones y darle clic al check de Seleccionar');
         }
@@ -204,9 +206,9 @@ http://dragonflycity.com/
         return cupones;
       }
 
-      function liberarCuponesSeleccionados(cupones) {
-        console.log(cupones);
-
+      function liberarCuponesSeleccionados(id,cupones) {
+        console.log('id:'+id+' cupones: '+cupones);
+        limpiarcupones(id,cupones)
       }
 
     </script>

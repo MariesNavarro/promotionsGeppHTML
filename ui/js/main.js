@@ -2266,12 +2266,16 @@ var MetodoEnum = {
   CargarCupones:9,
   ActualizaPlantillashtml:10,
   ActualizaPlantilla:11,
+  ActualizarStatus:12,
+  EiminarPromo:13,
   CreaEditaVersionPlantilla:14,
+  CancelarPromo:15,
   CreaDirectorio:16,
   GetPromoPlantilla:17,
   GetProveedorSelected:18,
   CheckSession:19,
-  Recuperar:20
+  Recuperar:20,
+  LimpiarCupones:21
  };
  var isedit=0;
  var huellalogin='';
@@ -3906,7 +3910,7 @@ function changeimgemodiplantilla(idelement) {
 }
 /* actualizar estatus de la promo */
 function actualizarstatus(idpromo,estatus) {
-  var param1=12;
+  var param1=MetodoEnum.ActualizarStatus;
   var dataString = 'm=' + param1+ '&id=' + idpromo +'&st=' + estatus;
   $.ajax({
     type    : 'POST',
@@ -3921,7 +3925,7 @@ function actualizarstatus(idpromo,estatus) {
 
 /* eliminar promo */
 function eliminarpromo(idpromo) {
-  var param1=13;
+  var param1=MetodoEnum.EliminarPromo;
   var dataString = 'm=' + param1+ '&id=' + idpromo;
   $.ajax({
     type    : 'POST',
@@ -3934,14 +3938,14 @@ function eliminarpromo(idpromo) {
   });
 }
 
-/* calvelar promo */
+/* cancelar promo */
 function cancelarpromo() {
   if(isedit==1)
   {
     location.href="home.php";
   }
   else {
-    var param1=15;
+    var param1=MetodoEnum.CancelarPromo;
     var dataString = 'm=' + param1+ '&id=' + idnvaprom;
     $.ajax({
       type    : 'POST',
@@ -3953,8 +3957,31 @@ function cancelarpromo() {
       }
     });
   }
-
 }
+
+/* limpiar cupones */
+function limpiarcupones(idpromo,cupones) {
+    var param1=MetodoEnum.LimpiarCupones;
+    var dataString = 'm=' + param1+ '&id=' + idpromo + '&c='+cupones;
+    $.ajax({
+      type    : 'POST',
+      url     : 'respuestaconfig.php',
+      data    :  dataString,
+      success :  function(data) {
+        console.log('limpiarcupones Result: '+data);
+        if (data!="error") {
+          downloadURI(data);
+          location.reload();
+        }
+      }
+    });
+}
+
+function downloadURI(uri){
+  document.getElementById('download').href = uri;
+  document.getElementById('download').click();
+}
+
 function topFunction() {
     $('#promosW').scrollTop(0);
 }

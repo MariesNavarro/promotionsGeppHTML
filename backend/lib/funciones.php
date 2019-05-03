@@ -161,6 +161,7 @@ function encrypt_decrypt($action, $string) {
        }
        return $output;
 }
+
 function writetxtcupons($string,$promo){
   $filepath="cupones/txt/".$promo.".txt";
    $fichero = fopen($filepath, "w");
@@ -170,8 +171,8 @@ function writetxtcupons($string,$promo){
         fclose($fichero);
     }
     return $filepath;
-
 }
+
 function preparedirname($string){
     $string = trim($string);
     $string = str_replace(
@@ -219,6 +220,7 @@ function preparedirname($string){
     );
     return strtolower($string);
 }
+
 function creadirectoriopromo($idpromo,$nombredir,$dominio){
   $carpeta = 'promos/'.preparedirname($nombredir);
   if (!file_exists($carpeta)) {
@@ -232,8 +234,9 @@ function creadirectoriopromo($idpromo,$nombredir,$dominio){
           fclose($fichero);
       }
       return $carpeta;
+    }
 }
-}
+
 function send_email($email,$parametro) {
 
  		$texto_mail ='Tu contraseña es: '.$parametro;
@@ -253,6 +256,17 @@ function send_email($email,$parametro) {
 
          mail($para, $titulo, $texto_mail, $cabeceras);
         // fin envio email
+}
+
+function writetxtcupons_liberados($promo,$cupones_arr){
+   $filename = $promo."_cupones_liberados_".sizeof($cupones_arr)."_".date('dmY_H:i:s').".txt";
+   $filepath="cupones/del/".$filename;
+   $fichero = fopen($filepath, "w");
+   foreach($cupones_arr as $elemento){
+     fwrite($fichero, $elemento.PHP_EOL);
+   }
+   fclose($fichero);
+   return $filepath;
 }
 
 ?>

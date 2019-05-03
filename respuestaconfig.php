@@ -208,6 +208,7 @@ if($_POST["m"]==19) {
   else { $result='success'; }
   echo $result;
 }
+/* recuperar contraseña */
 if($_POST["m"]==20){
        $valid = "";
        if(empty($_POST["usr"])) {
@@ -222,6 +223,13 @@ if($_POST["m"]==20){
             $valid=$array[0];
        }
        echo $valid;
+}
+/* liberar cupones */
+if($_POST["m"]==21){
+  $id       = encrypt_decrypt('d',$_POST["id"]);
+  $cupones  = $_POST["c"];
+  $result= liberarcupones($id,$cupones);
+  echo $result;
 }
 
 ?>

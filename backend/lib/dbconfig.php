@@ -1327,4 +1327,30 @@ function updateusersessionclose($name)
   Close($link);
   return $salida;
 }
+
+function liberarcupones($id,$cupones)
+{
+  $cupones_query = "";
+  $cupones_arr = explode (",", $cupones);
+  for ($i = 0; $i < sizeof($cupones_arr); $i++) {
+    if ($i < sizeof($cupones_arr) - 1) { $cupones_query .= "'".$cupones_arr[$i]."',"; } else { $cupones_query .= "'".$cupones_arr[$i]."'";}
+  }
+
+  $link=connect();
+  mysqli_autocommit($link, FALSE);
+  $consulta ="DELETE FROM gtrd_cupones WHERE id_promo=".$id." and estatus =0 and codigo in (".$cupones_query.")";
+
+  if (mysqli_query($link, $consulta)) {
+      //$salida="success";
+      /* generar archivo con los cupones eliminados */
+      $salida=writetxtcupons_liberados($id,$cupones_arr);
+  } else {
+     $salida="error";
+  }
+  mysqli_commit($link);
+  Close($link);
+
+  return $salida;
+}
+
 ?>
