@@ -2457,6 +2457,13 @@ $("#userPassLog").keypress(function (e)  {
   }
 });
 }
+if(_('#nombreURL')!=null)
+{
+$("#nombreURL").keypress(function (e)  {
+
+  console.log(e.keyCode);
+});
+}
 function actualizaDatos(p){
 
   var param3=MetodoEnum.ActualizaDash;
@@ -3863,6 +3870,16 @@ function changetxt(t)
   ar[1]=txt;
   infopromoedit[21]=ar.join('?');
   footer.textContent=txt;
+}
+function changeurl(t)
+{
+
+  var txt=t.value;
+  var res = txt.replace(/[`~!@#$%^&*()_|¨´`+\-=?;:'"¡¿¬°,.<>\{\}\[\]\\\/]/gi,'');
+  res=res.replace(/\s/g, '');
+  res=res.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+
+  t.value=res.toLowerCase();
 }
 var folderui='';
 var imguifolder='';
