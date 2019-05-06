@@ -263,7 +263,7 @@ function writetxtcupons_liberados($promo,$cupones_arr){
    $filepath="cupones/del/".$filename;
    $fichero = fopen($filepath, "w");
    foreach($cupones_arr as $elemento){
-     fwrite($fichero, $elemento.PHP_EOL);
+     fwrite($fichero, $elemento."\r\n");
    }
    fclose($fichero);
    return $filepath;
