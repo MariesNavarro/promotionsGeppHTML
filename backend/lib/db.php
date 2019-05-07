@@ -135,11 +135,11 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
   mysqli_autocommit($link, FALSE);
   //$query2= "SELECT codigo FROM gtrd_cupones where estatus=0 and id_promo=".$idpromo." LIMIT 1 FOR UPDATE;";
 
-  if ($test==0 && $ind_generico==0) {  // no es test, no codifo generico
+  if ($test==0 && $ind_generico==0) {  // no es test, no codigo generico
     $query2= "SELECT codigo FROM gtrd_cupones  WHERE estatus=0 AND id_promo=".$idpromo." LIMIT 1 FOR UPDATE";
   } else {
     if ($test==0 && $ind_generico==1) {  // es codigo generico
-      $query2= "SELECT codigo_generico FROM gtrd_promocion WHERE id = ".$idpromo." LIMIT 1";
+      $query2= "SELECT codigo_generico FROM gtrd_promociones WHERE id = ".$idpromo." LIMIT 1";
     } else { // es test
       $query2= "SELECT cupon_test FROM gtrd_proveedor WHERE id = ".$idproveedor." LIMIT 1";
     }
