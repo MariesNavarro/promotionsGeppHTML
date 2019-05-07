@@ -891,9 +891,18 @@ main.home>#promosW>ul>li{
   font-size: 1.1rem;
   margin: 3px auto;
 }
+.containerRectW>.selectionContainer{
+  background: #244d8c;
+  padding: 5px 8px;
+}
 .containerRectW>.selectionContainer>label{
   text-transform: uppercase;
   font-size: 0.8rem;
+  color:#fff;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  display: inline-block;
 }
 .containerRectW>.containerRect{
   cursor: pointer;
@@ -994,6 +1003,11 @@ main.home>#promosW>ul>li{
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+}
+.rowConfig>.fieldConfigWrap>.infoExtra{
+  color: #244d8c;
+  text-align: center;
+  padding: 10px 0;
 }
 .rowConfig>.fieldConfigWrap>label{
   color: #11396C;

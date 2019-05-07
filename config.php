@@ -244,6 +244,14 @@ http://dragonflycity.com/
                   <label class="labelData1">Nombre de la subcarpeta después de <?php echo getdominio()."/promos/"; ?></label>
                   <input <?php echo $disabled; ?> id="nombreURL" class="textInput inputData1" onkeyup="changeurl(this)" type="text" required/>
                 </div>
+
+                <div class="fieldConfigWrap">
+                  <label class="labelData1">Código de Tag Manager</label>
+                  <input id="tagManager" class="textInput inputData1" type="text" required/>
+                </div>
+              </div>
+
+              <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <?php if(isset($_GET["id"])) {
                     echo '<a id="legalesedit" style="color: #11396C; text-decoration: underline;" href="" target="_blank">Ver archivo de legales</a>';
@@ -283,7 +291,7 @@ http://dragonflycity.com/
             </div>
             <header>
               <h2>Configurador de Promoción</h2>
-              <h3>Configuración de Funcionalidad</h3>
+              <h3>Funcionalidad</h3>
             </header>
             <form id="formCSV" action="" method="" autocomplete="off">
               <div class="rowCenterConfig displayFlex">
@@ -300,6 +308,14 @@ http://dragonflycity.com/
                 </div>
                 <p class="noneNumCSV infoLoadCSV trans5">Aún no has cargado un archivo.</p>
                 <p class="numCSV infoLoadCSV trans5">Tienes <span id="numCSV">200</span> códigos para esta promoción.</p>
+
+                <div class="rowConfig displayFlex">
+                  <div class="fieldConfigWrap">
+                    <p class="infoExtra">O sí la promoción cuenta con un código genérico puedes meterlo en el siguiente campo</p>
+                    <label class="labelData1">Código Genérico</label>
+                    <input id="codigoGenerico" class="textInput inputData1" type="text" required/>
+                  </div>
+                </div>
               </div>
               <button id="loadCSVGet" class="buttonConfig centerButton" type="button" name="button" onclick="getNumCSV()">Cargar</button>
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(1)">Anterior</button>
