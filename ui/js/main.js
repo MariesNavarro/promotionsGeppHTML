@@ -3495,7 +3495,17 @@ function getpromoplantillabd(id){
         plantseledit=infopromoedit[4];
 
         $('#fechaInicio')[0].value=infopromocrear[10].split(' ')[0];
+        $('#fechaInicio')[0].setAttribute(
+        "data-date",
+        moment($('#fechaInicio')[0].value, "YYYY-MM-DD")
+        .format( $('#fechaInicio')[0].getAttribute("data-date-format") )
+        );
         $('#fechaFin')[0].value=infopromocrear[11].split(' ')[0];
+        $('#fechaFin')[0].setAttribute(
+        "data-date",
+        moment($('#fechaFin')[0].value, "YYYY-MM-DD")
+        .format( $('#fechaFin')[0].getAttribute("data-date-format") )
+      );
         $('#nombrePromo')[0].value=infopromoedit[0];
         if(infopromoedit[33].split('/').length>1)
         {

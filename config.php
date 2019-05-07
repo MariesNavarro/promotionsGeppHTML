@@ -231,11 +231,11 @@ http://dragonflycity.com/
               <div class="rowConfig displayFlex">
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Fecha de Inicio</label>
-                  <input id="fechaInicio" class="textInput dateConfig inputData1" type="date" min="2018-12-31" required>
+                  <input id="fechaInicio" class="textInput dateConfig inputData1" type="date" data-date="" data-date-format="DD-MM-YYYY" value="<?php echo date('Y-m-d'); ?>" min="2018-12-31" required>
                 </div>
                 <div class="fieldConfigWrap">
                   <label class="labelData1">Fecha de Final</label>
-                  <input id="fechaFin" class="textInput dateConfig inputData1" type="date" min="2018-12-31" required>
+                  <input id="fechaFin" class="textInput dateConfig inputData1" type="date" data-date="" data-date-format="DD-MM-YYYY" value="<?php echo date('Y-m-d', strtotime("+1 day")); ?>"  min="2018-12-31" required>
                 </div>
               </div>
 
@@ -591,6 +591,7 @@ http://dragonflycity.com/
     </main>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>
+    <script src="ui/js/moment-min.js" charset="utf-8" async></script>
     <script type="text/javascript">
       //Quitar ejemplo
       function ifSayYes(n){
@@ -603,6 +604,13 @@ http://dragonflycity.com/
       //Quitar ejemplo
       window.onload = function(){
         rContEditor("#contEditorPlantilla");
+        $(".dateConfig").on("change", function() {
+    this.setAttribute(
+        "data-date",
+        moment(this.value, "YYYY-MM-DD")
+        .format( this.getAttribute("data-date-format") )
+    )
+}).trigger("change")
 
         /*
         legales/<?php echo $promo_legales; ?>
