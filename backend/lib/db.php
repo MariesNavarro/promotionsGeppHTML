@@ -100,38 +100,50 @@ function getcupon($client,$idClient,$idpromo,$promo_imgcupon,$idproveedor,$test)
   $result ='';
   $count=0;
   $link=connect();
+  $promo=getpromocionCodigogenerico($idpromo);
+  $ind_generico = $promo['ind_generico'];
 
-  if ($test==0) {/* No es test */
+  if ($test==0 && $ind_generico==0) {/* No es test y no es código generico*/
     $query1 = "SELECT ((TIME_TO_SEC(TIMEDIFF(NOW(), fecha_entregado))>(1*1*1)) and ('".$client."'  not in (select ip from gtrd_listanegra))) Entregar,TIMEDIFF(NOW(), fecha_entregado) TiempoTranscurrido,TIMEDIFF( TIMEDIFF('2018-08-01 00:00:00', '2018-07-31 00:00:00'),TIMEDIFF(NOW(), fecha_entregado)) TiempoRestante from gtrd_cupones where estatus=1 and ip='".$client."' and huella_digital='".$idClient."' and id_promo=".$idpromo." order by fecha_entregado desc LIMIT 1;";
     if ($resultado = mysqli_query($link, $query1)) {
       while ($fila = mysqli_fetch_row($resultado)) {
           $count++;
           if($fila[0]=='1') {
-            $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
+            $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test,$ind_generico);
           }
           else {	$result = 'VUELVE';  }
        }
        if($count<1) {
-         $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
+         $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test,$ind_generico);
        }
     }
     else {
        $result = 'ERROR';
     }
   } else {
-      $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test);
+      $result = getcodigo($link,$idpromo,$client,$idClient,$promo_imgcupon,$idproveedor,$test,$ind_generico);
   }
   return $result;
 }
 
-function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test)
+function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test,$ind_generico)
 {
   $count=0;
   $result='';
+  $query2='';
 
   mysqli_autocommit($link, FALSE);
   //$query2= "SELECT codigo FROM gtrd_cupones where estatus=0 and id_promo=".$idpromo." LIMIT 1 FOR UPDATE;";
-  $query2= "SELECT codigo FROM gtrd_cupones  WHERE estatus=0 AND id_promo=".$idpromo." AND ".$test."=0 UNION SELECT cupon_test FROM gtrd_proveedor WHERE id = ".$idproveedor." AND ".$test."=1 LIMIT 1 FOR UPDATE";
+
+  if ($test==0 && $ind_generico==0) {  // no es test, no codifo generico
+    $query2= "SELECT codigo FROM gtrd_cupones  WHERE estatus=0 AND id_promo=".$idpromo." LIMIT 1 FOR UPDATE";
+  } else {
+    if ($test==0 && $ind_generico==1) {  // es codigo generico
+      $query2= "SELECT codigo_generico FROM gtrd_promocion WHERE id = ".$idpromo." LIMIT 1";
+    } else { // es test
+      $query2= "SELECT cupon_test FROM gtrd_proveedor WHERE id = ".$idproveedor." LIMIT 1";
+    }
+  }
 
  if ($resultado = mysqli_query($link, $query2)) {
       while ($fila = mysqli_fetch_row($resultado)) {
@@ -145,7 +157,7 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
         $sizefactor     = "3";
         $ismob          = true;
         barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
-        if ($test==0) { update_codigos($fila[0],$ip,$huella,$link); }
+        if ($test==0) { update_codigos($fila[0],$ip,$huella,$link); }  // no es test, actualizar entrega de código
         $result =  $idpromo.'_'.$fila[0];
         //$result = $fila[0].' '.$promo_imgcupon.' '.$idproveedor;
       }
@@ -196,6 +208,24 @@ function getpromocion($idprom)
   $link=connect();
   $resultado = null;
   $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad, a.id_proveedor, a.dir
+                FROM gtrd_promociones a
+               WHERE a.id=".$idprom;
+  if ($registros = mysqli_query($link, $consulta)) {
+    //echo  $consulta;
+    while ($fila = mysqli_fetch_array($registros)) {
+        $resultado = $fila;
+     }
+  }
+  Close($link);
+  return $resultado;
+}
+
+function getpromocionCodigogenerico($idprom)
+{
+  $count=0;
+  $link=connect();
+  $resultado = null;
+  $consulta = "SELECT a.ind_generico, a.codigo_generico
                 FROM gtrd_promociones a
                WHERE a.id=".$idprom;
   if ($registros = mysqli_query($link, $consulta)) {
