@@ -383,7 +383,7 @@ nav.login>a.logo>div, nav.home>a.logo>div, nav.config>div>a.logo>div{
   font-size: 1.05rem;
   border:0;
   background: #fff;
-  width: 100px; 
+  width: 100px;
   height: 40px;
   border-radius: 40px;
   margin: 10px auto;
@@ -1035,7 +1035,25 @@ background-image:
 .rowConfig>.fieldConfigWrap>.dateConfig{
   font-family: inherit;
   font-size: 1.2rem;
+  color: #FFFFFF;
 }
+.rowConfig>.fieldConfigWrap>.dateConfig:before {
+    content: attr(data-date);
+    color: #11396C;
+}
+
+.rowConfig>.fieldConfigWrap>.dateConfig::-webkit-datetime-edit,
+.rowConfig>.fieldConfigWrap>.dateConfig::-webkit-inner-spin-button,
+.rowConfig>.fieldConfigWrap>.dateConfig::-webkit-clear-button {
+    display: none;
+}
+
+.rowConfig>.fieldConfigWrap>.dateConfig::-webkit-calendar-picker-indicator {
+    position: absolute;
+    color: #11396C;
+    right: 0;
+}
+
 .rowConfig>.fieldConfigWrap>.legalesConfigButton{
   width: 81%;
   margin-left: -1px;
