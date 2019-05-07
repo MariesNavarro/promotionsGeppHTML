@@ -113,7 +113,7 @@ If (!empty($_GET['id'])) {
 
   /* Obtener cupones entregados */
   $consulta ="SELECT gtrd_cupones.codigo Cupón,
-                     gtrd_cupones.fecha_entregado Fecha,
+                     DATE_FORMAT(gtrd_cupones.fecha_entregado,'%d/%m/%Y %H:%i:%s') Fecha,
                      gtrd_cupones.ip IP,
                      gtrd_cupones.pais Pais,
                      gtrd_estados.estado Estado
@@ -180,29 +180,6 @@ If (!empty($_GET['id'])) {
   $objWriter->save('php://output');
   exit;
 
-}
-
-function PromoValores($link,$promo) {
-  /* recuperar todas las filas de myCity */
-   $data="";
-   $consulta = "SELECT a.nombre, a.descripcion,
-                       b.nombre marca, b.logo_excel marca_logo,
-                       c.nombre proveedor, c.logo_excel proveedor_logo,
-                       DATE_FORMAT(a.fecha_inicio,'%d/%m/%Y') fecha_inicio,
-                       DATE_FORMAT(a.fecha_fin,'%d/%m/%Y') fecha_fin
-                  FROM gtrd_promociones a
-             LEFT JOIN gtrd_marca b ON a.id_marca = b.id
-             LEFT JOIN gtrd_proveedor c ON a.id_proveedor = c.id
-                 WHERE a.id = ".$promo;
-   if ($resultado = mysqli_query($link, $consulta)) {
-     $data=mysqli_fetch_array($resultado);
-     //while ($fila = mysqli_fetch_row($resultado)) {
-     //     $data=$fila[0];
-     //  }
-      /* liberar el conjunto de resultados */
-      mysqli_free_result($resultado);
-    }
-    return $data;
 }
 
 ?>

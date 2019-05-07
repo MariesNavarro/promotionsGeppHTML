@@ -130,7 +130,7 @@ http://dragonflycity.com/
             <p>Nombre</p>
           </li>
           <li class="displayFlex">
-            <p>Marca</p>
+            <p>Marca/Proveedor</p>
           </li>
           <li class="displayFlex">
             <p>Vigencia</p>

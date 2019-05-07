@@ -58,9 +58,10 @@ function getpromociones($estatus,&$count){
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
-                  NC.numcupones, fecha_fin
+                  NC.numcupones, fecha_fin, gtrd_proveedor.ind_legales, gtrd_proveedor.nombre
                FROM gtrd_promociones
          INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
+         INNER JOIN gtrd_proveedor ON gtrd_proveedor.Id=gtrd_promociones.id_proveedor
           LEFT JOIN (select id_promo,COUNT(*) numcupones from gtrd_cupones group by id_promo) NC On NC.id_promo=gtrd_promociones.id
               WHERE gtrd_promociones.estatus in (".$estatus.",".$estatus2.")
            ORDER BY gtrd_promociones.fecha_update DESC";
@@ -86,13 +87,17 @@ function getpromociones($estatus,&$count){
             <p class="promoItemDash_Name">'.$fila[0].'</p>
           </div>
           <div>
-            <p class="promoItemDash_Brand">'.$fila[1].'</p>
+            <p class="promoItemDash_Brand">'.$fila[1].'/'.$fila[10].'</p>
           </div>
           <div>
+            <p class="promoItemDash_Validity">'.$fila[2].' al '.$fila[3].'</p>
+          </div>';
+          /*
             <span>
             <p class="promoItemDash_Validity">'.$fila[2].' <br> '.$fila[3].'</p>
             </span>
           </div>';
+          */
           if($estatus==1) { // Activas
             $htmlact='<div class="actions displayFlex">
                 <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
@@ -128,19 +133,19 @@ function getpromociones($estatus,&$count){
                       <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
             if($_SESSION['Rol']=='Admin')
             {
-              if ($fila[6] != null && $fila[6] != "" && $fila[7] > 0) {  /* verificar que tenga legales y cupones cargados */
+              if ((($fila[6] != null && $fila[6] != "" && $fila[9] == 1) || $fila[9] == 0) && $fila[7] > 0) {  /* verificar que tenga legales y cupones cargados */
                 $htmlact=$htmlact.'<a class="itemDash_action_modify" href="config.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>
                 <a class="itemDash_action_delete" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres ELIMINAR la promo '.$fila[0].' ? <br> Ya no la podrás ver.\',\'eliminarpromo('.$fila[4].')\')"></a>
                 <a class="itemDash_action_publish" href="#" class="trans5" onclick="popActionFun(\'show\', \'¿Estás seguro que quieres PUBLICAR la promo '.$fila[0].' ? <br> Pasará a activas y la podrás volver a pausar o finalizar.\',\'actualizarstatus('.$fila[4].',1)\')"></a>
                 ';
               } else {
                 // VALIDACIONES PARA PODER PUBLICAR
-                // 1-legales cargados
+                // 1-legales cargados  (dependiendo de la config del proveedor)
                 // 2-Cupones cargados
                 // 3-fecha fin mayor a la de hoy
                 $msg = "";
                 $fecha_fin_time = strtotime($fila[8]);
-                if ($fila[6] == null || $fila[6] == "") { $msg = "&#8226; cargar los legales"; }
+                if (($fila[6] == null || $fila[6] == "") && $fila[9] == 1) { $msg = "&#8226; cargar los legales"; }
                 if ($fila[7] == 0) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; cargar los cupones"; }
                 if ($fecha_fin_time < $today_time) { if ($msg != null) { $msg .= "<br>";}  $msg .="&#8226; verificar fecha fin ".$fila[3].' '.$now; }
                 //$msg .="&#8226; verificar fecha fin ".$fila[3]." es menor que ".$now;
@@ -195,6 +200,28 @@ function descPromo($link,$promo) {
      while ($fila = mysqli_fetch_row($resultado)) {
          $data=$fila[0];
       }
+      /* liberar el conjunto de resultados */
+      mysqli_free_result($resultado);
+    }
+    return $data;
+}
+function PromoValores($link,$promo) {
+  /* recuperar todas las filas de myCity */
+   $data="";
+   $consulta = "SELECT a.nombre, a.descripcion,
+                       b.nombre marca, b.logo_excel marca_logo,
+                       c.nombre proveedor, c.logo_excel proveedor_logo,
+                       DATE_FORMAT(a.fecha_inicio,'%d/%m/%Y') fecha_inicio,
+                       DATE_FORMAT(a.fecha_fin,'%d/%m/%Y') fecha_fin
+                  FROM gtrd_promociones a
+             LEFT JOIN gtrd_marca b ON a.id_marca = b.id
+             LEFT JOIN gtrd_proveedor c ON a.id_proveedor = c.id
+                 WHERE a.id = ".$promo;
+   if ($resultado = mysqli_query($link, $consulta)) {
+     $data=mysqli_fetch_array($resultado);
+     //while ($fila = mysqli_fetch_row($resultado)) {
+     //     $data=$fila[0];
+     //  }
       /* liberar el conjunto de resultados */
       mysqli_free_result($resultado);
     }
@@ -258,7 +285,8 @@ function cuponesUltimo($link,$promo) {
 }
 function createhtml($link,$promo)
 {
-  $des_promo          = descPromo($link,$promo);
+  //$des_promo          = descPromo($link,$promo);
+  $promo_info         = PromoValores($link,$promo);
   $cup_entregadoshoy  = cuponesEntregadosHoy($link,$promo);
   $cup_entregados     = cuponesEntregados($link,$promo);
   $cup_disponibles    = cuponesDisponibles($link,$promo);
@@ -276,7 +304,10 @@ function createhtml($link,$promo)
 
   echo '<!-- Tab content -->
         <div id="Consolidados" class="tabcontent"  style="text-align: center;">
-          <p class="descPromo" style="font-size: 1.9rem;font-weight: bold;">'.$des_promo.'</p><br />
+          <p class="descPromo" style="font-size: 1.9rem;font-weight: bold;">'.$promo_info['nombre'].'</p>
+          <p style="font-size: 1.3rem;margin-top: 5px;">'.$promo_info['marca'].'</p>
+          <p style="font-size: 1.3rem;margin-top: 5px;">'.$promo_info['proveedor'].'</p>
+          <p style="font-size: 1.0rem;margin-top: 5px;">'.$promo_info['fecha_inicio'].' al '.$promo_info['fecha_fin'].'</p>
           <p style="font-size: 1.9rem;margin-top: 20px;">Cupones</p><br />
           <p id="cupEntregadosHoy" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;">'.number_format($cup_entregadoshoy, 0, '.', ',').'</p><br />
           <p style="font-size: 15px; margin-top: -32px;color:black;">Entregados Hoy</p><br />
@@ -340,7 +371,7 @@ function dasboard_entregados($promo,&$count){
   $reg=0;
   $salida='';
   $link=connect();
-  $consulta ="SELECT gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado
+  $consulta ="SELECT gtrd_cupones.codigo Cupon, DATE_FORMAT(gtrd_cupones.fecha_entregado,'%d/%m/%Y %H:%i:%s') Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado
               FROM   gtrd_cupones
               INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado
               WHERE id_promo=".$promo." and estatus=1 and gtrd_cupones.estado NOT IN ('ALL')
@@ -1352,5 +1383,7 @@ function liberarcupones($id,$cupones)
 
   return $salida;
 }
+
+
 
 ?>
