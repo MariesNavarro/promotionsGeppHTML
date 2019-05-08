@@ -844,7 +844,7 @@ else {
 return $res;
 }
 
-function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
+function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom,$tagmg){
   $username = $_SESSION["Nombre"];
   $salida='';
   $link=connect();
@@ -853,10 +853,10 @@ function insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom){
   $prodec=encrypt_decrypt('d',$pro);
   if($idnvaprom>0)
   {
-    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', fecha_update = now(), usuario='".$username."' where id=".$idnvaprom;
+    $consulta ="update gtrd_promociones set nombre='".$nom."',descripcion='".$desc."',id_marca=".$marcade.",id_proveedor=".$prodec.",fecha_inicio='".$fi." 00:00:01',fecha_fin='".$ff." 23:59:59', fecha_update = now(),codigo_tagmanager='".$tagmg."', usuario='".$username."' where id=".$idnvaprom;
   }
     else {
-      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus,usuario,fecha_update) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2,'".$username."',now())";
+      $consulta ="insert into gtrd_promociones(nombre,descripcion,id_marca,id_proveedor,fecha_inicio,fecha_fin,estatus,codigo_tagmanager,usuario,fecha_update) VALUES('".$nom."','".$desc."',".$marcade.",".$prodec.",'".$fi." 00:00:01','".$ff." 23:59:59',2,'".$tagmg."','".$username."',now())";
     }
 
   if (mysqli_query($link, $consulta)) {
@@ -1075,6 +1075,7 @@ function getpromocioneditdata($idpromo)
   $fecha_inicio             =$promo['fecha_inicio'];
   $fecha_fin                =$promo['fecha_fin'];
   $dir_promo                =$promo['dir'];
+  $codigo_tagmanager        =$promo['codigo_tagmanager'];
   $plantilla = getplatilla($marca_id,$promo_version,$plantilla_id,1,$proveedor_id);
   $marca                    = $plantilla['marca_codigo'];
   $marca_descripcion        = $plantilla['marca_descripcion'];
@@ -1109,7 +1110,7 @@ function getpromocioneditdata($idpromo)
   $result.='&@;'.$promo_img_inicio.'&@;'.$promo_img_precio.'&@;'.$promo_img_obtenercupon;
   $result.='&@;'.$promo_img_cupon.'&@;'.$promo_img_descargarcupon.'&@;'.$promo_img_exito;
   $result.='&@;'.$promo_img_hashtag.'&@;'.$promo_img_error.'&@;'.$interfazmarca;
-  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg.'&@;'.$dir_promo.'&@;'.$disponibles;
+  $result.='&@;'.$plantillamarca.'&@;'.$plantillamarcaimg.'&@;'.$dir_promo.'&@;'.$disponibles.'&@;'.$codigo_tagmanager;
   return $result;
 }
 function actualizaplantillaversion($updcre,$data)

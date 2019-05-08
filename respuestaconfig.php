@@ -82,8 +82,9 @@ if($_POST["m"]==5) {
   $desc=$_POST["desc"];
   $mar=$_POST["mar"];
   $pro=$_POST["pro"];
+  $tagmg=$_POST["tagmg"];
   $idnvaprom=encrypt_decrypt('d',$_POST["idnvaprom"]);
-  $result=insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom);
+  $result=insertageneral($fi,$ff,$nom,$desc,$mar,$pro,$idnvaprom,$tagmg);
   echo encrypt_decrypt('e',$result);
 }
 

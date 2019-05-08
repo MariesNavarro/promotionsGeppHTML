@@ -2581,8 +2581,9 @@ function savedatageneral(ns,t)
   var desc=$('#descripcionPromo')[0].value;
   var mar=$('#selectBrand')[0].value;
   var pro=$('#selectProvider')[0].value;
+  var tagmg=$('#tagManager')[0].value;
   var  m=MetodoEnum.Insertageneral;
-  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom;
+  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom+'&tagmg=' + tagmg;
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
@@ -3514,6 +3515,7 @@ function getpromoplantillabd(id){
         else {
           $('#nombreURL')[0].value=infopromoedit[33];
         }
+        $('#tagManager')[0].value=infopromoedit[35];
 
         $('#descripcionPromo')[0].value=infopromoedit[2];
         $('#selectBrand')[0].value=infopromoedit[3];
