@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('America/Mexico_City');
+
  // equivalancias de los estados (regiones) de la api e geoplugin y la BD de estados
 function equivalencia_estados_api($country_code,$region) {
     $edo = '';
@@ -237,25 +238,61 @@ function creadirectoriopromo($idpromo,$nombredir,$dominio){
     }
 }
 
-function send_email($email,$parametro) {
+function send_email($email,$user,$parametro) {
 
- 		$texto_mail ='Tu contraseña es: '.$parametro;
-        $para  		= $email;
-        $de    		="info@oetcapital.com";   // email que envia
-        $titulo='	=?UTF-8?B?'.base64_encode("Colocar aqui el titulo del email").'?=';
+/*
+    $texto_mail ='Usuario: '.$user.' Contraseña: '.$parametro;
+ 		$texto_mail ='<!DOCTYPE html><html lang="es">
+    <head>
+      <title>Dragonfly City</title>
+			<meta charset="utf-8" />
+		</head>
+		<body style="margin:0 auto;">
+    <div style="width:100%;max-width:900px;min-width:250px;height:250px;margin:10px auto;">
+      <div style="width:100%;height:100px;background:#1a3969;display:block;text-align:center;">
+          <img style="height:90%;padding-top:5px;" src="http://fun.siguesudando.com/mail/logo-mail.png">
+      </div>
+      <div style="width:100%;text-align:center;background:#1a3969;padding-bottom:30px;">
+        <p style="font-family:sans-serif;font-size:12px;margin:0;color:#ccc;padding:20px 0 5px 0;">NOMBRE DE USUARIO</p>
+        <p style="font-family:sans-serif;margin:0;color:#fff;padding:5px 0;"><u>'.$user.'</u></p>
+        <p style="font-family:sans-serif;font-size:12px;margin:0;color:#ccc;padding:20px 0 5px 0;">CONTRASEÑA</p>
+        <p style="font-family:sans-serif;margin:0;color:#fff;padding:5px 0;"><u>'.$parametro.'</u></p>
+      </div>
+    </div>
+    </body></html>';
+*/
+    $texto_mail ='<!DOCTYPE html><html lang="es">
+    <head>
+      <title>Dragonfly City</title>
+			<meta charset="utf-8" />
+		</head>
+		<body style="margin:0 auto;">
+      <table style="width:100%;text-align:center;background:#1a3969;padding-bottom:30px;">
+        <tr><td  style="width:100%;height:100px;background:#1a3969;display:block;text-align:center; background-repeat: no-repeat; background-position: center; background-image:url(\'http://fun.siguesudando.com/mail/logo-mail.png\'); background-size: 200px 65px"></td></tr>
+        <tr><td  style="font-family:sans-serif;font-size:12px;margin:0;color:#ccc;padding:20px 0 5px 0;">NOMBRE DE USUARIO</td></tr>
+        <tr><td  style="font-family:sans-serif;margin:0;color:#fff;padding:5px 0;">'.$user.' </td></tr>
+        <tr><td  style="font-family:sans-serif;font-size:12px;margin:0;color:#ccc;padding:20px 0 5px 0;">CONTRASEÑA</td></tr>
+        <tr><td  style="font-family:sans-serif;margin:0;color:#fff;padding:5px 0;">'.$parametro.' </td></tr>
+      </table>
+    </body></html>';
 
-        // Para enviar un correo HTML mail, la cabecera Content-type debe fijarse
-        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-        $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $cabeceras .= 'Content-Transfer-Encoding: 7bit' . "\r\n";
+    //echo $texto_mail;
 
-        $cabeceras .= 'From: javier.corona@oetcapital.com '. $de . "\r\n";
+    $para  		= $email;
+    $de    		="info@oetcapital.com";   // email que envia
+    $titulo   ='=?UTF-8?B?'.base64_encode("Olvide contraseña").'?=';
 
-        // con copia oculta
-        //$cabeceras .= 'BCC: xxxxxx@gmail.com';
+    // Para enviar un correo HTML mail, la cabecera Content-type debe fijarse
+    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+    $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $cabeceras .= 'Content-Transfer-Encoding: 7bit' . "\r\n";
+    $cabeceras .= 'From: Dragonfly City '. $de . "\r\n";
 
-         mail($para, $titulo, $texto_mail, $cabeceras);
-        // fin envio email
+    // con copia oculta
+    //$cabeceras .= 'BCC: carlos.galvez@oetcapital.com';
+    //echo $para.' '.$titulo.' '. $cabeceras,'<br>';
+    mail($para, utf8_decode($titulo), utf8_decode($texto_mail), $cabeceras);
+    // fin envio email
 }
 
 function writetxtcupons_liberados($promo,$cupones_arr){
