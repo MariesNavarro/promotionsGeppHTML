@@ -157,7 +157,13 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
         $sizefactor     = "3";
         $ismob          = true;
         barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
-        if ($test==0) { update_codigos($fila[0],$ip,$huella,$link); }  // no es test, actualizar entrega de código
+        if ($test==0 && $ind_generico==0) {   // no es test, no codigo genérico, actualizar entrega de código
+            update_codigos($fila[0],$ip,$huella,$link);
+        } else {
+          if ($test==0 && $ind_generico==1) {  // es codigo generico
+            insert_codigos_genericos($fila[0],$ip,$huella,$link,$idpromo);
+          }
+        }
         $result =  $idpromo.'_'.$fila[0];
         //$result = $fila[0].' '.$promo_imgcupon.' '.$idproveedor;
       }
@@ -173,7 +179,6 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
 
 function update_codigos($codigo,$client,$idClient,$link)
 {
-
   $salida          = 0;
   $country_code    = '';
   $ip_address      = $client;
@@ -201,6 +206,37 @@ function update_codigos($codigo,$client,$idClient,$link)
     exit();
   }
 }
+
+function insert_codigos_genericos($codigo,$client,$idClient,$link,$idpromo)
+{
+  $salida          = 0;
+  $country_code    = '';
+  $ip_address      = $client;
+  $country_name    = 'Local';
+  $country_city    = '';
+  $country_region  = '';
+  $estado='';
+  $codpais='';
+  $count=0;
+  //$salida = get_country_local($country_code,$ip_address,$lang,$country_name,$id_group); // busqueda en BD local
+  //if ($salida==0) {
+  $salida = get_country_api($country_code,$ip_address,$country_region,$codpais);
+
+	//$query ="UPDATE  bdlt_registro SET fecha_update =CURRENT_TIMESTAMP WHERE usuario = '".$usuario."' or idfb='".$idfb."'";
+  $query ="INSERT INTO  gtrd_cupones_genericos (id_promo,codigo,estatus,ip,pais,estado,huella_digital,fecha_entregado) VALUES (".$idpromo.",'".$codigo."',1,'".$client."','".$codpais."','".$country_region."','".$idClient."',NOW())";
+  $ip=$client;
+  $date= date("Y-m-d H:i:s");
+  $comple='IP:['.$ip.'] PAIS:['.$codpais.'] ESTADO:['.$country_region.'] Fecha['.$date.'] Ejecucion:['.$query.']';
+  writelog($comple);
+  if (mysqli_query($link, $query)) {
+    //echo "Updated record successfully<br>";
+  }
+  if (!mysqli_commit($link)) {
+    //echo "Falló la consignación de la transacción<br>";
+    exit();
+  }
+}
+
 
 function getpromocion($idprom)
 {
