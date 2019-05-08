@@ -1360,6 +1360,7 @@ function generateCoupon(data){
     $("#couponImgCaptureScreen").attr('download',data+'.jpg');
     if(tagmanager==1)
     {
+        var cuponentregado=data.split('_')[1];
         dataLayer.push({
                'event': 'purchase',
                'ecommerce': {
@@ -1368,7 +1369,7 @@ function generateCoupon(data){
                                                      'step'   : 3,
 	                                                   'site'   : rutapromourl,
                                                      'id'     :codigo,
-                                                     'coupon' : data
+                                                     'coupon' : cuponentregado
                                                    }
                                                  }
                                                }});
