@@ -309,13 +309,13 @@ http://dragonflycity.com/
                 <p class="noneNumCSV infoLoadCSV trans5">Aún no has cargado un archivo.</p>
                 <p class="numCSV infoLoadCSV trans5">Tienes <span id="numCSV">200</span> códigos para esta promoción.</p>
 
-                <div class="rowConfig displayFlex">
+                <!--<div class="rowConfig displayFlex">
                   <div class="fieldConfigWrap">
                     <p class="infoExtra">O sí la promoción cuenta con un código genérico puedes meterlo en el siguiente campo</p>
                     <label class="labelData1">Código Genérico</label>
                     <input id="codigoGenerico" class="textInput inputData1" type="text" required/>
                   </div>
-                </div>
+                </div> -->
               </div>
               <button id="loadCSVGet" class="buttonConfig centerButton" type="button" name="button" onclick="getNumCSV()">Cargar</button>
               <button class="buttonConfig leftButton" type="button" name="button" onclick="sliderConfigFun(1)">Anterior</button>
