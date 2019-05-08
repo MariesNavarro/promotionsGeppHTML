@@ -7,6 +7,7 @@ Author: OETCapital
 
 <?php
 require_once('backend/lib/db.php');
+require_once('backend/lib/dbconfig.php');
 $debug      = false;
 $error      = 0;
 $error_msg  = "";
@@ -28,6 +29,8 @@ if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
     $promo_legales            = $promo['archivo_legales'];
     $promo_version            = $promo['version'];
     $proveedor_id             = $promo['id_proveedor'];
+    $codigo_tagmanager        =$promo['codigo_tagmanager'];
+    $subdirpromo              =$promo['dir'];
 }
 
 if ($config>0 && $promo==0) { /* viene del configurador y no viene promo , inicilaizar plantilla por defecto */
@@ -37,6 +40,8 @@ if ($config>0 && $promo==0) { /* viene del configurador y no viene promo , inici
     $promo_legales      = "";
     $promo_version      = 0; /* VER. 0 */
     $proveedor_id       = 1; /* OXXO */
+    $codigo_tagmanager  ='';
+    $subdirpromo        ='';
 }
 
 if ($idpromo>0 || ($idpromo==0 && $config>0)) { /* viene promo o no viene promo pero vengo del confiuradorm hay que obtener datos de la plantilla */

@@ -207,7 +207,7 @@ function getpromocion($idprom)
   $count=0;
   $link=connect();
   $resultado = null;
-  $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad, a.id_proveedor, a.dir
+  $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad, a.id_proveedor, a.dir,a.codigo_tagmanager
                 FROM gtrd_promociones a
                WHERE a.id=".$idprom;
   if ($registros = mysqli_query($link, $consulta)) {

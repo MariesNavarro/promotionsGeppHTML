@@ -2,6 +2,7 @@
 "use strict";
 
 var codigo;
+var tagmanager;
 //var promo;
 var MetodoEnum = {
   Validar_Fecha:1,
@@ -1319,6 +1320,22 @@ function obtencupon(idpromo,promo_imgcupon,idproveedor,test){
   var param1=MetodoEnum.Obten_Cupon;
 
   codigo = huella();
+  if(tagmanager==1)
+  {
+     dataLayer.push({
+                      'event': 'checkout',
+                      'ecommerce': {
+                                    'checkout': {
+                                                'actionField': {
+    	                                                           'step': 2,
+                                                                 'page': 'Obtener Cupon',
+                                                                 'site': rutapromourl
+  	                                                            }
+                                                  }
+                                    }
+                      });
+
+  }
   var dataString = 'param1=' + param1 + '&codigo=' + codigo + '&idpromo='+ idpromo+ '&promo_imgcupon='+promo_imgcupon+'&idproveedor='+idproveedor+'&test='+test;
         $.ajax({
            type : 'POST',
@@ -1337,9 +1354,25 @@ function generateCoupon(data){
     textoEdo.setAttribute("style", "display:none");
     showMsg(1);  /* ERROR */
   } else {
+
     $("#couponImg").attr('src','cupones/img/'+data+'.jpg');
     $("#couponImgCaptureScreen").attr('href','cupones/img/'+data+'.jpg');
     $("#couponImgCaptureScreen").attr('download',data+'.jpg');
+    if(tagmanager==1)
+    {
+        dataLayer.push({
+               'event': 'purchase',
+               'ecommerce': {
+                         'purchase': {
+                                   'actionField': {
+                                                     'step'   : 3,
+	                                                   'site'   : rutapromourl,
+                                                     'id'     :codigo,
+                                                     'coupon' : data
+                                                   }
+                                                 }
+                                               }});
+    }
     showCoupon();
   }
   /*
@@ -1542,6 +1575,21 @@ function ctaDownloadImg(){
   //var guardado = _("#guardado").style.display = "block";
   //var tx = _('#stateText').innerHTML = "Cupón Guardado Exitosamente";
   //var blk = _('#blk').style.backgroundImage = "url('ui/img/blank.png')";
+  if(tagmanager==1)
+  {
+    dataLayer.push({
+                      'event': 'imprimir',
+                      'ecommerce': {
+                                    'checkout': {
+                                                  'actionField': {
+                                                                      'step': 4,
+                                                                      'site':rutapromourl,
+		                                                                  'page': 'Imprimir Cupon',
+                                                                    }
+                                                }
+                                  }
+                       });
+  }
   showMsg(0);
 }
 
