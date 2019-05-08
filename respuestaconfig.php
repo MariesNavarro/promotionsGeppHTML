@@ -215,11 +215,12 @@ if($_POST["m"]==20){
             $valid = 'El nombre del usuario es requerido.';
        }
        else  {
-            $valid=recuperar($_POST["usr"]);
+            $user = $_POST["usr"];
+            $valid=recuperar($user);
             $array=explode(",", $valid);
             $correo=$array[2];
             $pass=$array[4];
-            send_email($correo,$pass);
+            send_email($correo,$user,$pass);
             $valid=$array[0];
        }
        echo $valid;
