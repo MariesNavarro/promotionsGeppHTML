@@ -139,7 +139,8 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
     $query2= "SELECT codigo FROM gtrd_cupones  WHERE estatus=0 AND id_promo=".$idpromo." LIMIT 1 FOR UPDATE";
   } else {
     if ($test==0 && $ind_generico==1) {  // es codigo generico
-      $query2= "SELECT codigo_generico FROM gtrd_promociones WHERE id = ".$idpromo." LIMIT 1";
+      $query2= "SELECT codigo_generico, max_generico - (SELECT count(*) FROM gtrd_cupones_genericos WHERE estatus = 1 and id_promo =".$idpromo.") disponible
+                  FROM gtrd_promociones WHERE id = ".$idpromo." LIMIT 1";
     } else { // es test
       $query2= "SELECT cupon_test FROM gtrd_proveedor WHERE id = ".$idproveedor." LIMIT 1";
     }
@@ -156,15 +157,22 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
         $print          = true;
         $sizefactor     = "3";
         $ismob          = true;
-        barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
+
         if ($test==0 && $ind_generico==0) {   // no es test, no codigo genérico, actualizar entrega de código
+            barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
             update_codigos($fila[0],$ip,$huella,$link);
+            $result =  $idpromo.'_'.$fila[0];
         } else {
           if ($test==0 && $ind_generico==1) {  // es codigo generico
-            insert_codigos_genericos($fila[0],$ip,$huella,$link,$idpromo);
+            if ($fila[1]>0) { // hay disponibles genericos
+              barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
+              insert_codigos_genericos($fila[0],$ip,$huella,$link,$idpromo);
+              $result =  $idpromo.'_'.$fila[0];
+            } else {
+              $result = 'AGOTADO';
+            }
           }
         }
-        $result =  $idpromo.'_'.$fila[0];
         //$result = $fila[0].' '.$promo_imgcupon.' '.$idproveedor;
       }
       if($count<1)  { $result = 'AGOTADO'; }
@@ -243,7 +251,7 @@ function getpromocion($idprom)
   $count=0;
   $link=connect();
   $resultado = null;
-  $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad, a.id_proveedor, a.dir,a.codigo_tagmanager
+  $consulta = "SELECT a.producto, a.nombre promo_nombre, a.descripcion promo_descripcion, a.fecha_inicio, a.fecha_fin, a.id_marca, a.id_plantilla, a.version, a.estatus, a.archivo_legales,a.id_funcionalidad, a.id_proveedor, a.dir,a.codigo_tagmanager,a.ind_generico, a.codigo_generico, a.max_generico
                 FROM gtrd_promociones a
                WHERE a.id=".$idprom;
   if ($registros = mysqli_query($link, $consulta)) {

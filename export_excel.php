@@ -10,12 +10,14 @@ If (!empty($_GET['id'])) {
   //$id  = $_GET['id'];
 
   /* Obtener datos de la promo*/
-  $link=connect();
-  $promo              = PromoValores($link,$id);
-  $cup_entregadoshoy  = cuponesEntregadosHoy($link,$id);
-  $cup_entregados     = cuponesEntregados($link,$id);
-  $cup_disponibles    = cuponesDisponibles($link,$id);
-  $cup_ultimo         = cuponesUltimo($link,$id);
+  $link               = connect();
+  $promo              = PromoValores($id);
+  $promo_generica     = $promo['ind_generico'];
+  $promo_generica_max = $promo['max_generico'];
+  $cup_entregadoshoy  = cuponesEntregadosHoy($link,$id,$promo_generica);
+  $cup_entregados     = cuponesEntregados($link,$id,$promo_generica);
+  $cup_disponibles    = cuponesDisponibles($link,$id,$promo_generica,$promo_generica_max);
+  $cup_ultimo         = cuponesUltimo($link,$id,$promo_generica);
   $filename           = $promo['nombre']." (cupones entregados al ".date('d_m_Y').").xls";
 
   $objPHPExcel = new PHPExcel();
@@ -110,25 +112,19 @@ If (!empty($_GET['id'])) {
     $objPHPExcel->getActiveSheet()->getStyle('A'.$i)->getFont()->setBold(true);
   }
   */
+  $tabla = "gtrd_cupones";
+  if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
 
   /* Obtener cupones entregados */
-  $consulta ="SELECT gtrd_cupones.codigo Cupón,
-                     DATE_FORMAT(gtrd_cupones.fecha_entregado,'%d/%m/%Y %H:%i:%s') Fecha,
-                     gtrd_cupones.ip IP,
-                     gtrd_cupones.pais Pais,
-                     gtrd_estados.estado Estado
-              FROM   gtrd_cupones
-              INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado
-              WHERE id_promo=".$id." and estatus=1 and gtrd_cupones.estado NOT IN ('ALL')
+  $consulta ="SELECT codigo Cupón, DATE_FORMAT(fecha_entregado,'%d/%m/%Y %H:%i:%s') Fecha,ip IP, a.pais Pais,gtrd_estados.estado Estado
+              FROM   ".$tabla." a
+              INNER JOIN gtrd_estados on a.estado=gtrd_estados.codigo_estado
+              WHERE id_promo=".$id." and estatus=1 and a.estado NOT IN ('ALL')
               UNION
-              SELECT gtrd_cupones.codigo Cupon,
-                     gtrd_cupones.fecha_entregado Fecha,
-                     gtrd_cupones.ip IP,
-                     'MX' Pais,
-                     '(No registrado)' Estado
-              FROM   gtrd_cupones
-              WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$id." and estatus=1
-              ORDER BY Fecha DESC";
+              SELECT codigo Cupón,fecha_entregado Fecha,ip IP, 'MX' Pais,'(No registrado)' Estado
+              FROM   ".$tabla." a
+              WHERE (a.estado IS NULL OR a.estado IN ('ALL')) AND id_promo=".$id." and estatus=1
+              ORDER BY fecha DESC";
 
   if ($resultado = mysqli_query($link, $consulta)) {
       if(!empty($resultado)) {
@@ -149,6 +145,7 @@ If (!empty($_GET['id'])) {
    }
 
    /* Obtener cupones disponibles */
+   if ($promo_generica==0) {
    $consulta ="SELECT codigo Cupón
                  FROM gtrd_cupones
                 WHERE id_promo=".$id." and estatus=0
@@ -167,6 +164,7 @@ If (!empty($_GET['id'])) {
        /* liberar el conjunto de resultados */
        mysqli_free_result($resultado);
     }
+  }
 
   Close($link);
 

@@ -58,7 +58,8 @@ function getpromociones($estatus,&$count){
   $query= "SELECT gtrd_promociones.nombre Promocion,gtrd_marca.nombre Marca,
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
-                  NC.numcupones, fecha_fin, gtrd_proveedor.ind_legales, gtrd_proveedor.nombre
+                  NC.numcupones, fecha_fin, gtrd_proveedor.ind_legales, gtrd_proveedor.nombre,
+                  ind_generico, codigo_generico, max_generico
                FROM gtrd_promociones
          INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
          INNER JOIN gtrd_proveedor ON gtrd_proveedor.Id=gtrd_promociones.id_proveedor
@@ -205,14 +206,16 @@ function descPromo($link,$promo) {
     }
     return $data;
 }
-function PromoValores($link,$promo) {
+function PromoValores($promo) {
   /* recuperar todas las filas de myCity */
    $data="";
+   $link    = connect();
    $consulta = "SELECT a.nombre, a.descripcion,
                        b.nombre marca, b.logo_excel marca_logo,
                        c.nombre proveedor, c.logo_excel proveedor_logo,
                        DATE_FORMAT(a.fecha_inicio,'%d/%m/%Y') fecha_inicio,
-                       DATE_FORMAT(a.fecha_fin,'%d/%m/%Y') fecha_fin
+                       DATE_FORMAT(a.fecha_fin,'%d/%m/%Y') fecha_fin,
+                       a.ind_generico, a.codigo_generico, a.max_generico
                   FROM gtrd_promociones a
              LEFT JOIN gtrd_marca b ON a.id_marca = b.id
              LEFT JOIN gtrd_proveedor c ON a.id_proveedor = c.id
@@ -225,12 +228,15 @@ function PromoValores($link,$promo) {
       /* liberar el conjunto de resultados */
       mysqli_free_result($resultado);
     }
+    Close($link);
     return $data;
 }
-function cuponesEntregadosHoy($link,$promo) {
+function cuponesEntregadosHoy($link,$promo,$promo_generica) {
   /* recuperar todas las filas de myCity */
    $score=0;
-   $consulta = "SELECT count(*) FROM gtrd_cupones WHERE estatus = 1 and id_promo = ".$promo." and Date_format(fecha_entregado,'%d-%m-%Y') = Date_format(now(),'%d-%m-%Y');";
+   $tabla = "gtrd_cupones";
+   if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
+   $consulta = "SELECT count(*) FROM ".$tabla." WHERE estatus = 1 and id_promo = ".$promo." and Date_format(fecha_entregado,'%d-%m-%Y') = Date_format(now(),'%d-%m-%Y');";
    if ($resultado = mysqli_query($link, $consulta)) {
      while ($fila = mysqli_fetch_row($resultado)) {
          $score=$fila[0];
@@ -240,10 +246,12 @@ function cuponesEntregadosHoy($link,$promo) {
     }
     return $score;
 }
-function cuponesEntregados($link,$promo) {
+function cuponesEntregados($link,$promo,$promo_generica) {
   /* recuperar todas las filas de myCity */
    $score=0;
-   $consulta = "SELECT count(*) FROM gtrd_cupones WHERE estatus = 1 and id_promo = ".$promo.";";
+   $tabla = "gtrd_cupones";
+   if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
+   $consulta = "SELECT count(*) FROM ".$tabla." WHERE estatus = 1 and id_promo = ".$promo.";";
    if ($resultado = mysqli_query($link, $consulta)) {
      while ($fila = mysqli_fetch_row($resultado)) {
          $score=$fila[0];
@@ -253,10 +261,14 @@ function cuponesEntregados($link,$promo) {
     }
     return $score;
 }
-function cuponesDisponibles($link,$promo) {
+function cuponesDisponibles($link,$promo,$promo_generica,$promo_generica_max) {
   /* recuperar todas las filas de myCity */
    $score=0;
-   $consulta = "SELECT count(*) FROM gtrd_cupones WHERE estatus = 0 and id_promo = ".$promo.";";
+   if ($promo_generica==1) {
+     $consulta = "SELECT ".$promo_generica_max."-count(*) FROM gtrd_cupones_genericos WHERE estatus = 1 and id_promo = ".$promo.";";
+   } else {
+     $consulta = "SELECT count(*) FROM gtrd_cupones WHERE estatus = 0 and id_promo = ".$promo.";";
+   }
    if ($resultado = mysqli_query($link, $consulta)) {
      while ($fila = mysqli_fetch_row($resultado)) {
          $score=$fila[0];
@@ -266,10 +278,12 @@ function cuponesDisponibles($link,$promo) {
     }
     return $score;
 }
-function cuponesUltimo($link,$promo) {
+function cuponesUltimo($link,$promo,$promo_generica) {
   /* recuperar todas las filas de myCity */
    $score="";
-   $consulta = "SELECT max(fecha_entregado) FROM gtrd_cupones WHERE estatus = 1 and id_promo = ".$promo.";";
+   $tabla = "gtrd_cupones";
+   if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
+   $consulta = "SELECT max(fecha_entregado) FROM ".$tabla." WHERE estatus = 1 and id_promo = ".$promo.";";
    if ($resultado = mysqli_query($link, $consulta)) {
      while ($fila = mysqli_fetch_row($resultado)) {
          $score=$fila[0];
@@ -283,14 +297,15 @@ function cuponesUltimo($link,$promo) {
     }
     return $new_date_format;
 }
-function createhtml($link,$promo)
+function createhtml($link,$promo,$promo_info)
 {
   //$des_promo          = descPromo($link,$promo);
-  $promo_info         = PromoValores($link,$promo);
-  $cup_entregadoshoy  = cuponesEntregadosHoy($link,$promo);
-  $cup_entregados     = cuponesEntregados($link,$promo);
-  $cup_disponibles    = cuponesDisponibles($link,$promo);
-  $cup_ultimo         = cuponesUltimo($link,$promo);
+  $promo_generica     = $promo_info['ind_generico'];
+  $promo_generica_max = $promo_info['max_generico'];
+  $cup_entregadoshoy  = cuponesEntregadosHoy($link,$promo,$promo_generica);
+  $cup_entregados     = cuponesEntregados($link,$promo,$promo_generica);
+  $cup_disponibles    = cuponesDisponibles($link,$promo,$promo_generica,$promo_generica_max);
+  $cup_ultimo         = cuponesUltimo($link,$promo,$promo_generica);
   $porc_disponibles   = 0;
   $porc_entregados    = 0;
   if ($cup_disponibles+$cup_entregados > 0) {
@@ -342,14 +357,14 @@ function createhtml($link,$promo)
     return $salida;
 }
 
-function dashboard($promo)
+function dashboard($promo,$promo_info)
 {
   $reg=0;
   $link=connect();
   $estatus=getestatuspromo($link,$promo);
   $salida='<div id="disclaimerIndex" class="">
              <div id="content">
-              <section id_estatus="'.$estatus.'"  id_promo="'.$promo.'" id="disclaimer">'.createhtml($link,$promo);
+              <section id_estatus="'.$estatus.'"  id_promo="'.$promo.'" id="disclaimer">'.createhtml($link,$promo,$promo_info);
               /*
                if($estatus==1)
                {
@@ -367,19 +382,23 @@ function dashboard($promo)
   return $salida;
 }
 
-function dasboard_entregados($promo,&$count){
+function dasboard_entregados($promo,&$count,$promo_info){
   $reg=0;
   $salida='';
+  $promo_generica = $promo_info['ind_generico'];
+  $tabla = "gtrd_cupones";
+  if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
   $link=connect();
-  $consulta ="SELECT gtrd_cupones.codigo Cupon, DATE_FORMAT(gtrd_cupones.fecha_entregado,'%d/%m/%Y %H:%i:%s') Entregado_El,gtrd_cupones.ip IPSolicitud, gtrd_cupones.pais,gtrd_estados.estado
-              FROM   gtrd_cupones
-              INNER JOIN gtrd_estados on gtrd_cupones.estado=gtrd_estados.codigo_estado
-              WHERE id_promo=".$promo." and estatus=1 and gtrd_cupones.estado NOT IN ('ALL')
+  $consulta ="SELECT codigo Cupon, DATE_FORMAT(fecha_entregado,'%d/%m/%Y %H:%i:%s') Entregado_El,ip IPSolicitud, a.pais,gtrd_estados.estado
+              FROM   ".$tabla." a
+              INNER JOIN gtrd_estados on a.estado=gtrd_estados.codigo_estado
+              WHERE id_promo=".$promo." and estatus=1 and a.estado NOT IN ('ALL')
               UNION
-              SELECT gtrd_cupones.codigo Cupon,gtrd_cupones.fecha_entregado Entregado_El,gtrd_cupones.ip IPSolicitud, 'MX' pais,'(No registrado)' estado
-              FROM   gtrd_cupones
-              WHERE (estado IS NULL OR estado IN ('ALL')) AND id_promo=".$promo." and estatus=1
+              SELECT codigo Cupon,fecha_entregado Entregado_El,ip IPSolicitud, 'MX' pais,'(No registrado)' estado
+              FROM   ".$tabla." a
+              WHERE (a.estado IS NULL OR a.estado IN ('ALL')) AND id_promo=".$promo." and estatus=1
               ORDER BY Entregado_El DESC";
+
   if ($resultado = mysqli_query($link, $consulta)) {
     $count  = mysqli_num_rows($resultado);
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -401,29 +420,32 @@ function dasboard_entregados($promo,&$count){
   Close($link);
   return $salida;
 }
-function dasboard_disponibles($promo,&$count){
+function dasboard_disponibles($promo,&$count,$promo_info){
   $reg=0;
   $salida='';
-  $link=connect();
-  $consulta ="SELECT codigo Cupon
-              FROM   gtrd_cupones
-              WHERE id_promo=".$promo." and estatus=0
-              ORDER BY codigo";
-  if ($resultado = mysqli_query($link, $consulta)) {
-    $count  = mysqli_num_rows($resultado);
-    while ($fila = mysqli_fetch_row($resultado)) {
-         $reg++;
-         $salida=$salida.'<div class="promoItemDash displayFlex">
-                          <div><p class="promoItemDash_Brand"><input type="checkbox" class="cuponcheck" name="cuponcheck_'.$reg.'" value="'.$fila[0].'"> '.$fila[0].'</p></div>
-                          </div>';
-      }
-      if($reg<1) {
-        $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
-      }
-      /* liberar el conjunto de resultados */
-      mysqli_free_result($resultado);
-   }
-  Close($link);
+  $promo_generica = $promo_info['ind_generico'];
+  if ($promo_generica==0) {
+    $link=connect();
+    $consulta ="SELECT codigo Cupon
+                FROM   gtrd_cupones
+                WHERE id_promo=".$promo." and estatus=0
+                ORDER BY codigo";
+    if ($resultado = mysqli_query($link, $consulta)) {
+      $count  = mysqli_num_rows($resultado);
+      while ($fila = mysqli_fetch_row($resultado)) {
+           $reg++;
+           $salida=$salida.'<div class="promoItemDash displayFlex">
+                            <div><p class="promoItemDash_Brand"><input type="checkbox" class="cuponcheck" name="cuponcheck_'.$reg.'" value="'.$fila[0].'"> '.$fila[0].'</p></div>
+                            </div>';
+        }
+        if($reg<1) {
+          $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
+        }
+        /* liberar el conjunto de resultados */
+        mysqli_free_result($resultado);
+     }
+    Close($link);
+  }
   return $salida;
 }
 
@@ -1061,6 +1083,7 @@ function getmarca_redessocialesinterfaz($idmarca)
 function getpromocioneditdata($idpromo)
 {
   $result;
+
   $promo = getpromocion($idpromo);
   $promo_nombre             = $promo['promo_nombre'];
   $producto                 = $promo['producto'];
@@ -1072,10 +1095,13 @@ function getpromocioneditdata($idpromo)
   $estatus                  = $promo['estatus'];
   $proveedor_id             = $promo['id_proveedor'];
   $id_funcionalidad         = $promo['id_funcionalidad'];
-  $fecha_inicio             =$promo['fecha_inicio'];
-  $fecha_fin                =$promo['fecha_fin'];
-  $dir_promo                =$promo['dir'];
-  $codigo_tagmanager        =$promo['codigo_tagmanager'];
+  $fecha_inicio             = $promo['fecha_inicio'];
+  $fecha_fin                = $promo['fecha_fin'];
+  $dir_promo                = $promo['dir'];
+  $codigo_tagmanager        = $promo['codigo_tagmanager'];
+  $promo_generica           = $promo['ind_generico'];
+  $promo_generica_max       = $promo['max_generico'];
+
   $plantilla = getplatilla($marca_id,$promo_version,$plantilla_id,1,$proveedor_id);
   $marca                    = $plantilla['marca_codigo'];
   $marca_descripcion        = $plantilla['marca_descripcion'];
@@ -1095,11 +1121,11 @@ function getpromocioneditdata($idpromo)
   $promo_img_exito          = 'img_exito?'.$plantilla['promo_img_exito'];
   $promo_img_hashtag        = 'img_hashtag?'.$plantilla['promo_img_hashtag'];
   $promo_img_error          = 'img_error?'.$plantilla['promo_img_error'];
-  $interfazmarca            =getmarca_redessocialesinterfaz($marca_id);
-  $plantillamarca           =getmarca_redessociales($marca_id,$plantilla_id,$promo_version);
-  $plantillamarcaimg        =getmarca_redessocialesimgchange($marca_id,$plantilla_id,$promo_version);
-  $link=connect();
-  $disponibles=cuponesDisponibles($link,$idpromo);
+  $interfazmarca            = getmarca_redessocialesinterfaz($marca_id);
+  $plantillamarca           = getmarca_redessociales($marca_id,$plantilla_id,$promo_version);
+  $plantillamarcaimg        = getmarca_redessocialesimgchange($marca_id,$plantilla_id,$promo_version);
+  $link                     = connect();
+  $disponibles              = cuponesDisponibles($link,$idpromo,$promo_generica,$promo_generica_max);
   Close($link);
 
   $result=$promo_nombre.'&@;'.$producto.'&@;'.$descripcion.'&@;'.encrypt_decrypt('e',$marca_id).'&@;'.encrypt_decrypt('e',$plantilla_id);

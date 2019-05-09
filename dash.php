@@ -13,9 +13,10 @@ else {
   $id           = encrypt_decrypt('d',$id_encry);
   $count1       = 0;
   $count2       = 0;
-  //$consolidado  = dashboard($id);
-  $entregados   = dasboard_entregados($id,$count1);
-  $disponibles  = dasboard_disponibles($id,$count2);
+  $promo_info   = PromoValores($id);
+  //$consolidado  = dashboard($id,$promo_info);
+  $entregados   = dasboard_entregados($id,$count1,$promo_info);
+  $disponibles  = dasboard_disponibles($id,$count2,$promo_info);
 }
 ?>
 <!--
@@ -128,9 +129,10 @@ http://dragonflycity.com/
       </header>
       <div id="promosW">
         <ul id="promoTabs" class="displayFlex trans5">
-          <li id="consolidado"><?php echo dashboard($id); ?></li>
+          <li id="consolidado">
+            <?php echo dashboard($id,$promo_info); ?>
+          </li>
           <li id="entregados">
-            <!--<div class="displayFlex"><button class="btnDashboard rightButton" onclick="';">Descargar</button></div>-->
             <?php echo $entregados; ?>
           </li>
           <li id="disponibles">
