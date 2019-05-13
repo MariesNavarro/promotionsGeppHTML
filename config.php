@@ -9,12 +9,13 @@ if(!isset($_SESSION["userName"])) {
   $marcas         = marcas();
   $proveedores    = proveedores();
 
-  $plantillas     = plantillas(null);
+
   $disabled='';
   if(isset($_GET["id"])) {
     $disabled='disabled';
   }
   $funcionalidades= funcionalidades($disabled);
+  $plantillas     = plantillas(null,$disabled);
 }
 ?>
 <!--
@@ -635,6 +636,7 @@ http://dragonflycity.com/
         bancarga=1;
         */
       <?php if(isset($_GET["id"])) {echo "getpromoplantillabd('".encrypt_decrypt('d', $_GET['id'])."')";}?>;
+       disa="<?php echo $disabled?>";
        idnvaprom='<?php if(isset($_GET["id"])) {echo $_GET["id"] ;} else{echo '0';}?>';
 
 

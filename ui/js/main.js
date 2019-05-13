@@ -2267,7 +2267,7 @@ var MetodoEnum = {
   ActualizaPlantillashtml:10,
   ActualizaPlantilla:11,
   ActualizarStatus:12,
-  EiminarPromo:13,
+  EliminarPromo:13,
   CreaEditaVersionPlantilla:14,
   CancelarPromo:15,
   CreaDirectorio:16,
@@ -2286,6 +2286,7 @@ var MetodoEnum = {
  var infopromoedit=[];
  var bancarga=0;
  var plantseledit='';
+ var disa='';
 
  var temp=[];
  var count=0;
@@ -3217,7 +3218,15 @@ function actualizafuncionalidad(n,t,id){
 }
 function actualizaplantilla(id){
   var  m=MetodoEnum.ActualizaPlantillashtml;
-  var dataString = 'm=' + m+'&fun=' + id;
+  var disabledparam='';
+  if(disa!=='')
+  {
+     disabledparam=disa;
+  }
+  else {
+    disabledparam='xxxxxxxxxx';
+  }
+  var dataString = 'm=' + m+'&fun=' + id+'&disa=' + disabledparam;
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
@@ -3514,6 +3523,10 @@ function getpromoplantillabd(id){
         }
         else {
           $('#nombreURL')[0].value=infopromoedit[33];
+          if(infopromoedit[33]=='')
+          {
+            $('#nombreURL')[0].disabled=false;
+          }
         }
         $('#tagManager')[0].value=infopromoedit[35];
 
@@ -3944,7 +3957,7 @@ function eliminarpromo(idpromo) {
     url     : 'respuestaconfig.php',
     data    :  dataString,
     success :  function(data) {
-      //console.log('eliminarpromo Result: '+data);
+      console.log('eliminarpromo Result: '+data);
       location.href="home.php";
     }
   });

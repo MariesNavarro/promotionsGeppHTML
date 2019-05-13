@@ -124,7 +124,13 @@ if($_POST["m"]==9) {
 if($_POST["m"]==10) {
   //'m=' + m+'&fun=' + id+'&prom=' + idnvaprom;
   $id=encrypt_decrypt('d',$_POST["fun"]);
-  $result=plantillas($id);
+  $dis=$_POST["disa"];
+  $disable='';
+  if($dis=='disabled')
+  {
+    $disable=$dis;
+  }
+  $result=plantillas($id,$disable);
   echo $result;
 }
 
@@ -148,7 +154,7 @@ if($_POST["m"]==12) {
 if($_POST["m"]==13) {
   $id    = $_POST["id"];
   $result= eliminarpromo($id);
-  echo $result;
+  echo $result.' '.$id;
 }
 
 /* actualizar plantilla promocion */
@@ -163,7 +169,7 @@ if($_POST["m"]==14) {
 if($_POST["m"]==15) {
   $id    = encrypt_decrypt('d',$_POST["id"]);
   $result= eliminarpromo($id);
-  echo $result;
+  echo $result.' '.$id;
 }
 
 /* Crear directorio promocion */

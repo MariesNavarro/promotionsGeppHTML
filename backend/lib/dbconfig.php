@@ -693,7 +693,7 @@ function funcionalidades($varconfig){
   return $salida;
 
 }
-function plantillas($funcionalidad){
+function plantillas($funcionalidad,$dis){
   $reg=0;
   $salida='';
 
@@ -773,7 +773,7 @@ function plantillas($funcionalidad){
              </div>
              <div class="selectionContainer">
                <label>Seleccionar</label>
-               <input onclick="uncheckedthemeall(this)" class="checkBoxTheme" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
+               <input '.$dis.' onclick="uncheckedthemeall(this)" class="checkBoxTheme" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
              </div>
            </div>
            </div>';
@@ -791,7 +791,7 @@ function plantillas($funcionalidad){
                </div>
                <div class="selectionContainer">
                  <label>Seleccionar</label>
-                 <input onclick="uncheckedthemeall(this)" class="checkBoxTheme" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
+                 <input '.$dis.' onclick="uncheckedthemeall(this)" class="checkBoxTheme" value="'.encrypt_decrypt('e',$fila[0]).'" name="" type="checkbox">
                </div>
              </div>';
          }

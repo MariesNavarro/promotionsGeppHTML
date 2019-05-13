@@ -21,34 +21,7 @@ Author: OETCapital
     <script src="ui/js/globales.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <?php
-    if($codigo_tagmanager!=''&&$codigo_tagmanager!=null)
-    {
-      if($test==0)
-    {
-      $rutaurl=getdominio()."/".$subdirpromo;
-      echo "<script>
-      dataLayer = [];
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','".$codigo_tagmanager."');</script>
-          <script>
-                  dataLayer.push({
-                          'event': 'checkout',
-                          'ecommerce': {
-                                        'checkout': {
-                                                    'actionField': {
-                                                         'step': 1,
-                                                         'page': 'Home',
-                                                         'site': '".$rutaurl."'
-                                                        }
-                                                    }
-                                        }
-                              });
-      </script>";
-    }
-  }
+    echo $agregatag;
     ?>
     <link id="prefetchLogo" rel="prefetch" href="ui/img/logotipo/<?php echo $marca_logo; ?>">
     <style>
@@ -163,8 +136,8 @@ Author: OETCapital
       var test            = "<?php echo $test ?>";
       var promo_img_cupon = "<?php echo $promo_img_cupon ?>";
       var proveedor_id    = "<?php echo $proveedor_id ?>";
-      var rutapromourl="<?php if($codigo_tagmanager!=''&&$codigo_tagmanager!=null){ if($test==0) { echo $rutaurl;} } ?>";
-      tagmanager=<?php if($codigo_tagmanager!=''&&$codigo_tagmanager!=null){ if($test==0) { echo 1;} else{ echo 0;} } else { echo 0;} ?>;
+      var rutapromourl="<?php echo $rutaur;?>";
+      tagmanager=<?php echo $tienetag; ?>;
       preventHeight();
       preventHeight();
       preventRot();
