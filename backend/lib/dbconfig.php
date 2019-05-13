@@ -382,7 +382,7 @@ function dashboard($promo,$promo_info)
   return $salida;
 }
 
-function dasboard_entregados($promo,&$count,$promo_info){
+function dashboard_entregados($promo,&$count,$promo_info){
   $reg=0;
   $salida='';
   $promo_generica = $promo_info['ind_generico'];
@@ -420,12 +420,13 @@ function dasboard_entregados($promo,&$count,$promo_info){
   Close($link);
   return $salida;
 }
-function dasboard_disponibles($promo,&$count,$promo_info){
+function dashboard_disponibles($promo,&$count,$promo_info){
   $reg=0;
   $salida='';
   $promo_generica = $promo_info['ind_generico'];
+  $promo_generica_max = $promo_info['max_generico'];  
+  $link=connect();
   if ($promo_generica==0) {
-    $link=connect();
     $consulta ="SELECT codigo Cupon
                 FROM   gtrd_cupones
                 WHERE id_promo=".$promo." and estatus=0
@@ -444,8 +445,10 @@ function dasboard_disponibles($promo,&$count,$promo_info){
         /* liberar el conjunto de resultados */
         mysqli_free_result($resultado);
      }
-    Close($link);
+  } else {
+    $count = cuponesDisponibles($link,$promo,$promo_generica,$promo_generica_max);
   }
+  Close($link);
   return $salida;
 }
 

@@ -14,6 +14,7 @@ If (!empty($_GET['id'])) {
   $promo              = PromoValores($id);
   $promo_generica     = $promo['ind_generico'];
   $promo_generica_max = $promo['max_generico'];
+  $promo_generica_cod = $promo['codigo_generico'];
   $cup_entregadoshoy  = cuponesEntregadosHoy($link,$id,$promo_generica);
   $cup_entregados     = cuponesEntregados($link,$id,$promo_generica);
   $cup_disponibles    = cuponesDisponibles($link,$id,$promo_generica,$promo_generica_max);
@@ -146,28 +147,32 @@ If (!empty($_GET['id'])) {
 
    /* Obtener cupones disponibles */
    if ($promo_generica==0) {
-   $consulta ="SELECT codigo Cupón
-                 FROM gtrd_cupones
-                WHERE id_promo=".$id." and estatus=0
-               ORDER BY codigo";
+     $consulta ="SELECT codigo Cupón
+                   FROM gtrd_cupones
+                  WHERE id_promo=".$id." and estatus=0
+                 ORDER BY codigo";
 
-   if ($resultado = mysqli_query($link, $consulta)) {
-       if(!empty($resultado)) {
-           $i=2;
-           $objPHPExcel->setActiveSheetIndex(2);
-           while ($fila = mysqli_fetch_array($resultado)) {
-             $objPHPExcel->getActiveSheet()
-                         ->setCellValueExplicit('A'.$i, $fila['Cupón'],  PHPExcel_Cell_DataType::TYPE_STRING);
-             $i++;
+     if ($resultado = mysqli_query($link, $consulta)) {
+         if(!empty($resultado)) {
+             $i=2;
+             $objPHPExcel->setActiveSheetIndex(2);
+             while ($fila = mysqli_fetch_array($resultado)) {
+               $objPHPExcel->getActiveSheet()
+                           ->setCellValueExplicit('A'.$i, $fila['Cupón'],  PHPExcel_Cell_DataType::TYPE_STRING);
+               $i++;
+           }
          }
-       }
-       /* liberar el conjunto de resultados */
-       mysqli_free_result($resultado);
-    }
+         /* liberar el conjunto de resultados */
+         mysqli_free_result($resultado);
+      }
+  } else {
+    $objPHPExcel->setActiveSheetIndex(2);
+    $objPHPExcel->getActiveSheet()
+                ->setCellValueExplicit('A1','Código genérico: '.$promo_generica_cod,  PHPExcel_Cell_DataType::TYPE_STRING);
+    $objPHPExcel->getActiveSheet()
+                ->setCellValueExplicit('B1','Disponibles: '.$cup_disponibles,  PHPExcel_Cell_DataType::TYPE_STRING);
   }
-
   Close($link);
-
 
   /* descargar archivo */
   $objPHPExcel->setActiveSheetIndex(0);

@@ -14,9 +14,11 @@ else {
   $count1       = 0;
   $count2       = 0;
   $promo_info   = PromoValores($id);
+  $promo_generica = $promo_info['ind_generico'];
+  $promo_generica_cod = $promo_info['codigo_generico'];
   //$consolidado  = dashboard($id,$promo_info);
-  $entregados   = dasboard_entregados($id,$count1,$promo_info);
-  $disponibles  = dasboard_disponibles($id,$count2,$promo_info);
+  $entregados   = dashboard_entregados($id,$count1,$promo_info);
+  $disponibles  = dashboard_disponibles($id,$count2,$promo_info);
 }
 ?>
 <!--
@@ -136,7 +138,11 @@ http://dragonflycity.com/
             <?php echo $entregados; ?>
           </li>
           <li id="disponibles">
-            <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
+            <?php if ($promo_generica == 0) { ?>
+                <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
+            <?php  } else { ?>
+                <p class="descPromo" style="font-size: 1.3rem;">Código genérico: <?php echo $promo_generica_cod ?></p>
+            <?php  }  ?>
             <?php echo $disponibles; ?>
           </li>
         </ul>
