@@ -115,9 +115,9 @@ http://dragonflycity.com/
     <main class="home displayFlex">
       <nav class="displayFlex">
         <ul class="displayFlex">
-          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();">Consolidado</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this);topFunction();">Entregados (<?php echo $count1; ?>)</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();">Disponibles (<?php echo $count2; ?>)</a></li>
+          <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();" >Consolidado</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this);topFunction();" id="tabEntregados">Entregados (<?php echo $count1; ?>)</a></li>
+          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();" id="tabDisponibles">Disponibles (<?php echo $count2; ?>)</a></li>
         </ul>
       </nav>
       <header id='headerreport' class=desktopNav style="display:none">
