@@ -423,10 +423,12 @@ function dashboard_entregados($promo,&$count,$promo_info){
 function dashboard_disponibles($promo,&$count,$promo_info){
   $reg=0;
   $salida='';
+  $temp='';
   $promo_generica = $promo_info['ind_generico'];
   $promo_generica_max = $promo_info['max_generico'];
+  $promo_generica_cod = $promo_info['codigo_generico'];
   $link=connect();
-  if ($promo_generica==0) {
+  if ($promo_generica==0)  {
     $consulta ="SELECT codigo Cupon
                 FROM   gtrd_cupones
                 WHERE id_promo=".$promo." and estatus=0
@@ -435,29 +437,24 @@ function dashboard_disponibles($promo,&$count,$promo_info){
       $count  = mysqli_num_rows($resultado);
       while ($fila = mysqli_fetch_row($resultado)) {
            $reg++;
-           $salida=$salida.'<div class="promoItemDash displayFlex">
+           $temp=$temp.'<div class="promoItemDash displayFlex">
                             <div><p class="promoItemDash_Brand"><input type="checkbox" class="cuponcheck" name="cuponcheck_'.$reg.'" value="'.$fila[0].'"> '.$fila[0].'</p></div>
                             </div>';
         }
         if($reg<1) {
-          $salida='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
+          $temp='<div id="contentreport" style="margin-top: 8%;margin-left: 33%; font-size: 1.7rem;">(No se encontraron resultados)</div';
         }
         /* liberar el conjunto de resultados */
         mysqli_free_result($resultado);
+            $salida='<input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="'.$count.'"/>';
+            $salida=$salida.$temp;
      }
   } else {
     $count = cuponesDisponibles($link,$promo,$promo_generica,$promo_generica_max);
+    $salida='<p class="descPromo" style="font-size: 1.3rem;">Código genérico: '.$promo_generica_cod.'</p>';
   }
   Close($link);
   return $salida;
-
-
-  <?php if ($promo_generica == 0) { ?>
-      <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
-  <?php  } else { ?>
-      <p class="descPromo" style="font-size: 1.3rem;">Código genérico: <?php echo $promo_generica_cod ?> Disponibles: <?php echo $count2 ?></p>
-  <?php  }  ?>
-
 }
 
 //encrypt_decrypt('d','aTlCQkkyK1p2dHU5Z2pYY0NEcnN0UT09')

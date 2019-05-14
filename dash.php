@@ -138,11 +138,6 @@ http://dragonflycity.com/
             <?php echo $entregados; ?>
           </li>
           <li id="disponibles">
-            <?php if ($promo_generica == 0) { ?>
-                <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
-            <?php  } else { ?>
-                <p class="descPromo" style="font-size: 1.3rem;">Código genérico: <?php echo $promo_generica_cod ?></p>
-            <?php  }  ?>
             <?php echo $disponibles; ?>
           </li>
         </ul>

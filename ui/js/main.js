@@ -2481,6 +2481,7 @@ function actualizaDatos(p){
   var param3=MetodoEnum.ActualizaDash;
   var param4=p;  // promo
   var dataString = '&m=' + param3+'&prom=' + param4;
+  var label='';
   //console.log(dataString);
    $.ajax({
     type : 'POST',
@@ -2512,33 +2513,38 @@ function actualizaDatos(p){
     data:  dataString,
     success:function(data) {
       //console.log(data);
-     $('#tabEntregados').text(data).fadeIn();
+      label = 'Entregados ('+data+')';
+     $('#tabEntregados').text(label).fadeIn();
     }
   });
+
   param3=MetodoEnum.ActualizaDashdisponibles;
   dataString = '&m=' + param3+'&prom=' + param4;
-  //console.log(dataString);
+  console.log(dataString);
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      //console.log(data);
+      console.log(data);
      $('#disponibles').html(data).fadeIn();
     }
   });
+
   param3=MetodoEnum.ActualizaDashdisponiblesCount;
   dataString = '&m=' + param3+'&prom=' + param4;
-  //console.log(dataString);
+  console.log(dataString);
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      //console.log(data);
-     $('#tabDisponibles').text(data).fadeIn();
+      console.log(data);
+      label = 'Disponibles ('+data+')';
+     $('#tabDisponibles').text(label).fadeIn();
     }
   });
+
 }
 
 function putUserName(){

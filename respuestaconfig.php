@@ -273,7 +273,7 @@ if($_POST["m"]==23){
   $id = encrypt_decrypt('d',$_POST["prom"]);
   //$result=dasboard_report($id);
   $promo_info   = PromoValores($id);
-  $promo_generica_max = $promo_info['max_generico'];
+  $promo_generica     = $promo_info['ind_generico'];
   $link    = connect();
   $result  = cuponesEntregados($link,$id,$promo_generica);
   Close($link);
@@ -289,7 +289,7 @@ if($_POST["m"]==24){
   $promo_generica     = $promo_info['ind_generico'];
   $promo_generica_max = $promo_info['max_generico'];
   $link    = connect();
-  $result  = cuponesDisponibles($link,$promo,$promo_generica,$promo_generica_max);
+  $result  = cuponesDisponibles($link,$id,$promo_generica,$promo_generica_max);
   Close($link);
   echo $result;
 }
