@@ -36,6 +36,12 @@ http://dragonflycity.com/
     function frameLoaded() {
         console.log('Cargo el frame front')
         loadfront=1;
+        setTimeout(function(){
+          if(actualizaranimagenesframe==1){
+            changeiframeloaded();
+          }
+
+        },300);
     }
     function interframeLoaded() {
         console.log('Cargo el frame Interfaz')

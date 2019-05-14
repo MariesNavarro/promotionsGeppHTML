@@ -2289,6 +2289,7 @@ var MetodoEnum = {
   ActualizaDashentregadosCount:23,
   ActualizaDashdisponiblesCount:24
  };
+ var varint=0;
  var msts=3000;
  var isedit=0;
  var huellalogin='';
@@ -2301,7 +2302,10 @@ var MetodoEnum = {
  var plantseledit='';
  var disa='';
  var changeplant=0;
+ var urlplantilla='';
+ var urlinterfaz='';
 
+ var actualizaranimagenesframe=0;
  var temp=[];
  var count=0;
 
@@ -2708,15 +2712,40 @@ function sliderConfigFun(e){
      changeScreen(0);
      if(actualizaranimagenesframe!=1)
      {
-       console.log('Se actualizaran imagenes en plantilla');
+       //console.log('Se actualizaran imagenes en plantilla');
        actualizaimagenesframe();
      }
      if(actualizaranimagenesframe==1)
      {
-       var frame = _("#iframePlantilla"),
-       frameIF = _("#iframeInterfaz");
-       frame.src=frame.src;
-       frameIF.src=frameIF.src;
+       varint=0;
+      showLoading(1);
+       var interval=setInterval(function (){
+         //console.log('La variable actualizaranimagenesframe'+actualizaranimagenesframe);
+         if(varint<1000&&actualizaranimagenesframe==1)
+         {
+           var frame = _("#iframePlantilla"),
+           frameIF = _("#iframeInterfaz");
+           if(varint==0){
+             urlplantilla=frame.src;
+             urlinterfaz=frameIF.src;
+             frame.src=urlplantilla.split('&')[0];
+             frameIF.src=urlinterfaz.split('&')[0];
+           }
+           else {
+             frame.src=urlplantilla;
+             frameIF.src=urlinterfaz;
+           }
+           varint++;
+           //console.log('Ejecucion interval '+varint);
+         }
+         else {
+
+           clearInterval(interval);
+           showLoading(0);
+           //console.log('Limpiar interval');
+         }
+       },1000);
+
      }
     break;
   }
@@ -2731,7 +2760,43 @@ function sliderConfigFun(e){
     }
   }
 }
-
+function changeiframeloaded()
+{
+  var countsrc=0;
+  var ban1=0;
+  do{
+    ban1=0;
+    var count=0;
+    var frame = _("#iframePlantilla"),
+    frameIF = _("#iframeInterfaz");
+   do{
+     var ban=0;
+     do {
+       if(frame.contentWindow.document.getElementById("loading")!==null)
+       {
+         ban=1;
+       }
+         // execute code
+     } while (ban==0);
+     var documentplantilla=frame.contentWindow.document;
+     var back=documentplantilla.getElementById("loading");
+     var classplant=back.className;
+     var arrclass=back.className.split(" ");
+     var classcolor=infopromoedit[20].split('?')[1];
+     arrclass.pop();
+     arrclass.push(classcolor);
+     var classbdget=arrclass.join(' ');
+     count++;
+     //console.log('Plantilla '+classplant+' y get bd '+classbdget);
+   }while(classplant!=classbdget&&count<5);
+   countsrc++;
+   if(classplant==classbdget)
+   {
+     ban1=1;
+     actualizaranimagenesframe=0;
+   }
+ }while(countsrc<5&&ban1==0);
+}
 var numCupones, csvLoaded = false;
 
 function loadFileCSV(t){
@@ -3294,7 +3359,6 @@ function actualizaplantilla(id){
 
 
 }
-var actualizaranimagenesframe=0;
 function actualizaimagenesframe()
 {
   var frame = _("#iframePlantilla").contentWindow,
@@ -3303,11 +3367,11 @@ function actualizaimagenesframe()
   var documentplantilla=frame.document;
   var back=documentplantilla.getElementById("loading");
   var body=documentplantilla.getElementById("plantillaUno");
-  console.log('Count:'+count+' loadfront:'+loadfront+' loadinterfaz:'+loadinterfaz);
-  console.log('Clase en frame '+body.className);
-  console.log('Clase que se actualizara'+infopromoedit[19].split('?')[1]+' '+infopromoedit[18].split('?')[1])
-  console.log('Clase en frame '+back.className);
-  console.log('Clase a actualizar '+infopromoedit[20].split('?')[1]);
+  //console.log('Count:'+count+' loadfront:'+loadfront+' loadinterfaz:'+loadinterfaz);
+  //console.log('Clase en frame '+body.className);
+  //console.log('Clase que se actualizara'+infopromoedit[19].split('?')[1]+' '+infopromoedit[18].split('?')[1])
+  //console.log('Clase en frame '+back.className);
+  //console.log('Clase a actualizar '+infopromoedit[20].split('?')[1]);
   frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
   frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
   frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
@@ -3429,8 +3493,6 @@ function actualizaplantillabd(n,t,id){
 
           }
         }
-        frame.src=frame.src;
-        frameIF.src=frameIF.src;
 
         //var mar=$('#selectBrand')[0].value;
         //frame.src='index.php?id='+idnvaprom+'&cf=1';

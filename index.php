@@ -8,7 +8,7 @@ Author: OETCapital
 <?php
 require_once('backend/lib/db.php');
 require_once('backend/lib/dbconfig.php');
-$debug      = true;
+$debug      = false;
 $error      = 0;
 $error_msg  = "";
 $idpromo    = 0;
