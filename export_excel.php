@@ -168,9 +168,13 @@ If (!empty($_GET['id'])) {
   } else {
     $objPHPExcel->setActiveSheetIndex(2);
     $objPHPExcel->getActiveSheet()
-                ->setCellValueExplicit('A1','Código genérico: '.$promo_generica_cod,  PHPExcel_Cell_DataType::TYPE_STRING);
+                ->setCellValueExplicit('A1','Código genérico',  PHPExcel_Cell_DataType::TYPE_STRING);
     $objPHPExcel->getActiveSheet()
-                ->setCellValueExplicit('B1','Disponibles: '.$cup_disponibles,  PHPExcel_Cell_DataType::TYPE_STRING);
+                ->setCellValueExplicit('B1','Disponibles',  PHPExcel_Cell_DataType::TYPE_STRING);
+    $objPHPExcel->getActiveSheet()
+                ->setCellValueExplicit('A2',$promo_generica_cod,  PHPExcel_Cell_DataType::TYPE_STRING);
+    $objPHPExcel->getActiveSheet()
+                ->setCellValueExplicit('B2',$cup_disponibles,  PHPExcel_Cell_DataType::TYPE_STRING);
   }
   Close($link);
 
