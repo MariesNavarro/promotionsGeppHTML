@@ -4,18 +4,6 @@ Version: 1
 Author: OETCapital
 9 de Abril
 -->
-
-<?php
-require_once('backend/lib/dbconfig.php');
-if(isset($_GET["mar"]))
-{
-  $marca_id=encrypt_decrypt('d',$_GET["mar"]);
-
-}
-else {
-  $marca_id=1;
-}
-?>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">

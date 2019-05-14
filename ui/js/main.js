@@ -2253,6 +2253,15 @@ RegExp.escape = function (s) {
   return Fingerprint2
 })
 
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      var end =new Date().getTime()- start;
+      if (end> milliseconds){
+          break;
+      }
+    }
+}
 
 var MetodoEnum = {
   Login:1,
@@ -2277,6 +2286,7 @@ var MetodoEnum = {
   Recuperar:20,
   LimpiarCupones:21
  };
+ var msts=3000;
  var isedit=0;
  var huellalogin='';
  var idnvaprom=0;
@@ -2287,6 +2297,7 @@ var MetodoEnum = {
  var bancarga=0;
  var plantseledit='';
  var disa='';
+ var changeplant=0;
 
  var temp=[];
  var count=0;
@@ -2460,13 +2471,6 @@ $("#userPassLog").keypress(function (e)  {
   if (e.keyCode == 13) {
     $("#submitLogin").click();
   }
-});
-}
-if(_('#nombreURL')!=null)
-{
-$("#nombreURL").keypress(function (e)  {
-
-  console.log(e.keyCode);
 });
 }
 function actualizaDatos(p){
@@ -2672,6 +2676,18 @@ function sliderConfigFun(e){
     case 4:
      w.style.marginLeft = "-400%";
      changeScreen(0);
+     if(actualizaranimagenesframe!=1)
+     {
+       console.log('Se actualizaran imagenes en plantilla');
+       actualizaimagenesframe();
+     }
+     if(actualizaranimagenesframe==1)
+     {
+       var frame = _("#iframePlantilla"),
+       frameIF = _("#iframeInterfaz");
+       frame.src=frame.src;
+       frameIF.src=frameIF.src;
+     }
     break;
   }
   function clearBullets(){
@@ -2894,6 +2910,7 @@ function responseStep(n, t, c){
     msgW.style.height = "40px";
     msgW.style.opacity = "1";
   } else if (c === 1) {
+
     msgW.setAttribute("style", " ");
     sliderConfigFun(n);
   }
@@ -3105,10 +3122,13 @@ function uncheckedthemeall(t){
         t.checked=true;
         if(bancarga==1)
         {
-          infopromoedit[4]=t.value;
+          if(infopromoedit[4]!=t.value)
+          {
+            infopromoedit[4]=t.value;
+            changeplant=1;
+          }
         }
       }
-
 }
 function ischeckedsome(n,t){
   var c = __('.checkBoxFunction');
@@ -3139,10 +3159,11 @@ function ischeckedsometheme(n,t){
   }
   if(id!='')
   {
-    if(bancarga==1)
+    if(bancarga==1&&changeplant==0)
     {
       if(infopromocrear[4]==infopromoedit[4]&&$('#selectBrand')[0].value==infopromoedit[3])
       {
+        actualizaranimagenesframe=0;
         if($('#selectProvider')[0].value!=infopromoedit[8])
         {
             getproveedordataselected();
@@ -3251,6 +3272,76 @@ function actualizaplantilla(id){
 
 
 }
+var actualizaranimagenesframe=0;
+function actualizaimagenesframe()
+{
+  var frame = _("#iframePlantilla").contentWindow,
+  frameIF = _("#iframeInterfaz").contentWindow;
+  count=0;
+  var documentplantilla=frame.document;
+  var back=documentplantilla.getElementById("loading");
+  var body=documentplantilla.getElementById("plantillaUno");
+  console.log('Count:'+count+' loadfront:'+loadfront+' loadinterfaz:'+loadinterfaz);
+  console.log('Clase en frame '+body.className);
+  console.log('Clase que se actualizara'+infopromoedit[19].split('?')[1]+' '+infopromoedit[18].split('?')[1])
+  console.log('Clase en frame '+back.className);
+  console.log('Clase a actualizar '+infopromoedit[20].split('?')[1]);
+  frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
+  frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
+  frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
+  //Cambiar colores,texto,fuentes
+  //Color BACK
+
+
+  var classcolor=infopromoedit[20].split('?')[1];
+  var arrclass=back.className.split(" ");
+  arrclass.pop();
+  arrclass.push(classcolor);
+  back.className=arrclass.join(' ');
+  //Fuente color y tipo
+
+  var colorfuente=infopromoedit[19].split('?')[1];
+  var fuente=infopromoedit[18].split('?')[1];
+  var arrclassbody=body.className.split(" ");
+  arrclassbody[0]=fuente;
+  arrclassbody[1]=colorfuente;
+  body.className=arrclassbody.join(' ');
+  //Texto footer
+  var footer=documentplantilla.getElementById("footerPromoCopy");
+  var txt=infopromoedit[21].split('?')[1];
+  footer.textContent=txt;
+  //Cambiar imagenes
+  updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
+  updateimagemodiplantilla(infopromoedit[14].split('?')[1],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
+  updateimagemodiplantilla(infopromoedit[16].split('?')[1],'plantillaUno','ui/img/back/');
+  updateimagemodiplantilla(infopromoedit[17].split('?')[1],'productoImg','ui/img/producto/');
+  updateimagemodiplantilla(infopromoedit[22].split('?')[1],'textoInicioImg','ui/img/textoInicio/');
+  updateimagemodiplantilla(infopromoedit[23].split('?')[1],'prizeImg','ui/img/precio/');
+  updateimagemodiplantilla(infopromoedit[24].split('?')[1],'btCouponImg','ui/img/botonCupon/');
+  updateimagemodiplantilla(infopromoedit[25].split('?')[1],'couponImg','ui/img/cupon/');
+  updateimagemodiplantilla(infopromoedit[26].split('?')[1],'btCaptureScreen','ui/img/botonDescarga/');
+  updateimagemodiplantilla(infopromoedit[27].split('?')[1],'msgExitoImg','ui/img/mensajeExito/');
+  updateimagemodiplantilla(infopromoedit[28].split('?')[1],'msgHashtagImg','ui/img/hashtag/');
+  updateimagemodiplantilla(infopromoedit[29].split('?')[1],'msgErrorImg','ui/img/mensajeError/');
+  //texto footer
+  $('#textFootConf')[0].value=infopromoedit[21].split('?')[1];
+  //Redes sociales icons
+  var arrayRS=infopromoedit[32].split('|');
+  for(var irs=0;irs<arrayRS.length;irs++)
+  {
+
+    var rsClaveValor=arrayRS[irs].split('?');
+    if(rsClaveValor.length>2)
+    {
+      var idel='ic'+rsClaveValor[0];
+      var valor=rsClaveValor[2];
+      updateimagemodiplantilla(valor,idel,'ui/img/ic/');
+    }
+
+
+  }
+}
+
 function actualizaplantillabd(n,t,id){
   var  m=MetodoEnum.ActualizaPlantilla;
   var dataString = 'm=' + m+'&plan=' + id+'&prom=' + idnvaprom;
@@ -3269,15 +3360,29 @@ function actualizaplantillabd(n,t,id){
         responseStep(n,t,0);
       }
       else {
+        var frame = _("#iframePlantilla"),
+        frameIF = _("#iframeInterfaz");
+        var count=0;
         var w=window.innerWidth;
-        if(bancarga==0)
+        if(bancarga==0||changeplant==1)
         {
+          actualizaranimagenesframe=1;
+          loadfront=0;
+          loadinterfaz=0;
           infopromocrear=data.split('&@;');
           infopromoedit=data.split('&@;');
           bancarga=1;
+          changeplant=0;
+          console.log('Cambio en plantilla');
+          console.log(infopromoedit[4])
+
+          frame.src="index.php?cf=1&id="+idnvaprom;
+          frameIF.src="indexinterfaz.php?cf=1&id="+idnvaprom;
+
         }
         else
         {
+          actualizaranimagenesframe=0;
           var infotemp=data.split('&@;');
           if(infopromoedit[3]!=infotemp[3])
           {
@@ -3302,62 +3407,9 @@ function actualizaplantillabd(n,t,id){
 
           }
         }
-        var frame = _("#iframePlantilla").contentWindow,
-        frameIF = _("#iframeInterfaz").contentWindow;
-        frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
-        frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
-        frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
-        //Cambiar colores,texto,fuentes
-        //Color BACK
-        var documentplantilla=frame.document;
-        var back=documentplantilla.getElementById("loading");
-        var classcolor=infopromoedit[20].split('?')[1];
-        var arrclass=back.className.split(" ");
-        arrclass.pop();
-        arrclass.push(classcolor);
-        back.className=arrclass.join(' ');
-        //Fuente color y tipo
-        var body=documentplantilla.getElementById("plantillaUno");
-        var colorfuente=infopromoedit[19].split('?')[1];
-        var fuente=infopromoedit[18].split('?')[1];
-        var arrclassbody=body.className.split(" ");
-        arrclassbody[0]=fuente;
-        arrclassbody[1]=colorfuente;
-        body.className=arrclassbody.join(' ');
-        //Texto footer
-        var footer=documentplantilla.getElementById("footerPromoCopy");
-        var txt=infopromoedit[21].split('?')[1];
-        footer.textContent=txt;
-        //Cambiar imagenes
-        updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
-        updateimagemodiplantilla(infopromoedit[14].split('?')[1],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
-        updateimagemodiplantilla(infopromoedit[16].split('?')[1],'plantillaUno','ui/img/back/');
-        updateimagemodiplantilla(infopromoedit[17].split('?')[1],'productoImg','ui/img/producto/');
-        updateimagemodiplantilla(infopromoedit[22].split('?')[1],'textoInicioImg','ui/img/textoInicio/');
-        updateimagemodiplantilla(infopromoedit[23].split('?')[1],'prizeImg','ui/img/precio/');
-        updateimagemodiplantilla(infopromoedit[24].split('?')[1],'btCouponImg','ui/img/botonCupon/');
-        updateimagemodiplantilla(infopromoedit[25].split('?')[1],'couponImg','ui/img/cupon/');
-        updateimagemodiplantilla(infopromoedit[26].split('?')[1],'btCaptureScreen','ui/img/botonDescarga/');
-        updateimagemodiplantilla(infopromoedit[27].split('?')[1],'msgExitoImg','ui/img/mensajeExito/');
-        updateimagemodiplantilla(infopromoedit[28].split('?')[1],'msgHashtagImg','ui/img/hashtag/');
-        updateimagemodiplantilla(infopromoedit[29].split('?')[1],'msgErrorImg','ui/img/mensajeError/');
-        //texto footer
-        $('#textFootConf')[0].value=infopromoedit[21].split('?')[1];
-        //Redes sociales icons
-        var arrayRS=infopromoedit[32].split('|');
-        for(var irs=0;irs<arrayRS.length;irs++)
-        {
+        frame.src=frame.src;
+        frameIF.src=frameIF.src;
 
-          var rsClaveValor=arrayRS[irs].split('?');
-          if(rsClaveValor.length>2)
-          {
-            var idel='ic'+rsClaveValor[0];
-            var valor=rsClaveValor[2];
-            updateimagemodiplantilla(valor,idel,'ui/img/ic/');
-          }
-
-
-        }
         //var mar=$('#selectBrand')[0].value;
         //frame.src='index.php?id='+idnvaprom+'&cf=1';
         //frameIF.src='interfaz-uno.php?mar='+mar;

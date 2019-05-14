@@ -17,11 +17,9 @@ $test       = 0;
 $agregatag  ="";
 $rutaurl    ="";
 $tienetag =0;
-
 /***************** GET PARAMETROS ******************/
 if (isset($_GET['id'])) { $idpromo  = $_GET['id'];  $idpromo = encrypt_decrypt('d', $idpromo); }  /* si viene una id_promo */
 if (isset($_GET['cf'])) { $config   = $_GET['cf']; }    /* si viene del configurador */
-if (isset($_GET['ts'])) { $test     = $_GET['ts']; }    /* si es test */
 
 /* Obtener datos segun parametros */
 if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
@@ -71,40 +69,12 @@ if ($idpromo>0 || ($idpromo==0 && $config>0)) { /* viene promo o no viene promo 
 
 /* Si no viene promo y no viene del config, error, redireccionar a la pagina de GEPP */
 if ($promo==0 && $config==0) {  $error = 1;  $error_msg ="Promo no encontrada";}
-if($codigo_tagmanager!=''&&$codigo_tagmanager!=null)
-{
-  if($test==0&&$config==0)
-{
-  $rutaurl=getdominio()."/".$subdirpromo;
-  $agregatag="<script>
-  dataLayer = [];
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','".$codigo_tagmanager."');</script>
-      <script>
-              dataLayer.push({
-                      'event': 'checkout',
-                      'ecommerce': {
-                                    'checkout': {
-                                                'actionField': {
-                                                     'step': 1,
-                                                     'page': 'Home',
-                                                     'site': '".$rutaurl."'
-                                                    }
-                                                }
-                                    }
-                          });
-  </script>";
-  $tienetag=1;
-}
-}
+
 if ($debug) { echo 'idpromo: '.$idpromo.' config: '.$config.' proveedor_id: '.$proveedor_id.' plantilla: '.$plantilla_id.' version: '.$promo_version.' error: '.$error.' test: '.$test; }
 
 switch ($error) {
   case 0: /* plantilla uno */
-      require_once('plantilla-'.$plantilla_id.'.php');
+      require_once('interfaz-'.$plantilla_id.'.php');
       break;
   case 1:
       //echo '<script>window.location.href = "https://gepp.com.mx";</script>';  /* redireccionar a la página de GEPP */

@@ -11,8 +11,10 @@ if(!isset($_SESSION["userName"])) {
 
 
   $disabled='';
+  $querystring='?cf=1';
   if(isset($_GET["id"])) {
     $disabled='disabled';
+    $querystring='?cf=1&id='.$_GET["id"];
   }
   $funcionalidades= funcionalidades($disabled);
   $plantillas     = plantillas(null,$disabled);
@@ -27,8 +29,19 @@ http://dragonflycity.com/
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
   <head>
-    <style>
-    </style>
+    <script>
+    var loadfront=0;
+    var loadinterfaz=0;
+
+    function frameLoaded() {
+        console.log('Cargo el frame front')
+        loadfront=1;
+    }
+    function interframeLoaded() {
+        console.log('Cargo el frame Interfaz')
+        loadinterfaz=1;
+    }
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -340,11 +353,11 @@ http://dragonflycity.com/
             <!-- Configurador Edición de Plantilla -->
             <div id="wrapEditorPlantilla">
               <div id="contEditorPlantilla">
-                <iframe id="iframePlantilla" src="index.php?cf=1"></iframe>
+                <iframe onload="frameLoaded()" id="iframePlantilla" src="index.php<?php echo $querystring;?>"></iframe>
               </div>
               <!-- index Edicion Plantilla -->
               <div id="editorPlantillaInterfaz">
-                <iframe id="iframeInterfaz" src="interfaz-uno.php"></iframe>
+                <iframe onload="interframeLoaded()" id="iframeInterfaz" src="indexinterfaz.php<?php echo $querystring;?>"></iframe>
                 <a role="button" id="hideInterfaz" title="Ocultar Interfaz" onclick="hideInterfaz('hide', this)">
                   <img class="trans5" src="ui/img/ic/show_interfaz.svg" width="40" height="40">
                   <img class="trans5" src="ui/img/ic/hide_interfaz.svg" width="40" height="40">
