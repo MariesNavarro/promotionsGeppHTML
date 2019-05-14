@@ -424,7 +424,7 @@ function dashboard_disponibles($promo,&$count,$promo_info){
   $reg=0;
   $salida='';
   $promo_generica = $promo_info['ind_generico'];
-  $promo_generica_max = $promo_info['max_generico'];  
+  $promo_generica_max = $promo_info['max_generico'];
   $link=connect();
   if ($promo_generica==0) {
     $consulta ="SELECT codigo Cupon
@@ -450,6 +450,14 @@ function dashboard_disponibles($promo,&$count,$promo_info){
   }
   Close($link);
   return $salida;
+
+
+  <?php if ($promo_generica == 0) { ?>
+      <input type="checkbox" id="primeros" name="" value=""> Seleccionar los primeros <input  id="numerocupones" class="" style="width: 100px;" type="text" value="<?php echo $count2; ?>"/>
+  <?php  } else { ?>
+      <p class="descPromo" style="font-size: 1.3rem;">Código genérico: <?php echo $promo_generica_cod ?> Disponibles: <?php echo $count2 ?></p>
+  <?php  }  ?>
+
 }
 
 //encrypt_decrypt('d','aTlCQkkyK1p2dHU5Z2pYY0NEcnN0UT09')

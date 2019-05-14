@@ -2267,7 +2267,7 @@ var MetodoEnum = {
   ActualizaPlantillashtml:10,
   ActualizaPlantilla:11,
   ActualizarStatus:12,
-  EliminarPromo:13,
+  EiminarPromo:13,
   CreaEditaVersionPlantilla:14,
   CancelarPromo:15,
   CreaDirectorio:16,
@@ -2275,7 +2275,10 @@ var MetodoEnum = {
   GetProveedorSelected:18,
   CheckSession:19,
   Recuperar:20,
-  LimpiarCupones:21
+  LimpiarCupones:21,
+  ActualizaDashdisponibles:22,
+  ActualizaDashentregadosCount:23,
+  ActualizaDashdisponiblesCount:24
  };
  var isedit=0;
  var huellalogin='';
@@ -2286,7 +2289,6 @@ var MetodoEnum = {
  var infopromoedit=[];
  var bancarga=0;
  var plantseledit='';
- var disa='';
 
  var temp=[];
  var count=0;
@@ -2481,14 +2483,7 @@ function actualizaDatos(p){
     data:  dataString,
     success:function(data) {
       //console.log(data);
-      //$("#cupEntregadosHoy").text(data.split(";")[0]); // Cupones entregados hoy
-      //$("#cupEntregados").text(data.split(";")[1]); // Cupones entregados
-      //$("#cupDisponibles").text(data.split(";")[2]); // Cupones Disponibles
-      //$("#cupEntregadosPorc").text(data.split(";")[3]); // Cupones entregados %
-    //  $("#cupDisponiblesPorc").text(data.split(";")[4]); // Cupones disponibles %
-      //$("#cupUltimo").text(data.split(";")[6]); // Cupones último
-      //x=60;
-     $('#activePromoWrap').html(data).fadeIn();
+    $('#consolidado').html(data).fadeIn();
     }
   });
   param3=MetodoEnum.ActualizaDashreport;
@@ -2500,14 +2495,43 @@ function actualizaDatos(p){
     data:  dataString,
     success:function(data) {
       //console.log(data);
-      //$("#cupEntregadosHoy").text(data.split(";")[0]); // Cupones entregados hoy
-      //$("#cupEntregados").text(data.split(";")[1]); // Cupones entregados
-      //$("#cupDisponibles").text(data.split(";")[2]); // Cupones Disponibles
-      //$("#cupEntregadosPorc").text(data.split(";")[3]); // Cupones entregados %
-    //  $("#cupDisponiblesPorc").text(data.split(";")[4]); // Cupones disponibles %
-      //$("#cupUltimo").text(data.split(";")[6]); // Cupones último
-      //x=60;
-     $('#forActivationWrap').html(data).fadeIn();
+     $('#entregados').html(data).fadeIn();
+    }
+  });
+  param3=MetodoEnum.ActualizaDashentregadosCount;
+  dataString = '&m=' + param3+'&prom=' + param4;
+  //console.log(dataString);
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      //console.log(data);
+     $('#tabEntregados').text(data).fadeIn();
+    }
+  });
+  param3=MetodoEnum.ActualizaDashdisponibles;
+  dataString = '&m=' + param3+'&prom=' + param4;
+  //console.log(dataString);
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      //console.log(data);
+     $('#disponibles').html(data).fadeIn();
+    }
+  });
+  param3=MetodoEnum.ActualizaDashdisponiblesCount;
+  dataString = '&m=' + param3+'&prom=' + param4;
+  //console.log(dataString);
+  $.ajax({
+    type : 'POST',
+    url  : 'respuestaconfig.php',
+    data:  dataString,
+    success:function(data) {
+      //console.log(data);
+     $('#tabDisponibles').text(data).fadeIn();
     }
   });
 }
@@ -2582,9 +2606,8 @@ function savedatageneral(ns,t)
   var desc=$('#descripcionPromo')[0].value;
   var mar=$('#selectBrand')[0].value;
   var pro=$('#selectProvider')[0].value;
-  var tagmg=$('#tagManager')[0].value;
   var  m=MetodoEnum.Insertageneral;
-  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom+'&tagmg=' + tagmg;
+  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom;
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
@@ -3218,15 +3241,7 @@ function actualizafuncionalidad(n,t,id){
 }
 function actualizaplantilla(id){
   var  m=MetodoEnum.ActualizaPlantillashtml;
-  var disabledparam='';
-  if(disa!=='')
-  {
-     disabledparam=disa;
-  }
-  else {
-    disabledparam='xxxxxxxxxx';
-  }
-  var dataString = 'm=' + m+'&fun=' + id+'&disa=' + disabledparam;
+  var dataString = 'm=' + m+'&fun=' + id;
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
@@ -3505,17 +3520,7 @@ function getpromoplantillabd(id){
         plantseledit=infopromoedit[4];
 
         $('#fechaInicio')[0].value=infopromocrear[10].split(' ')[0];
-        $('#fechaInicio')[0].setAttribute(
-        "data-date",
-        moment($('#fechaInicio')[0].value, "YYYY-MM-DD")
-        .format( $('#fechaInicio')[0].getAttribute("data-date-format") )
-        );
         $('#fechaFin')[0].value=infopromocrear[11].split(' ')[0];
-        $('#fechaFin')[0].setAttribute(
-        "data-date",
-        moment($('#fechaFin')[0].value, "YYYY-MM-DD")
-        .format( $('#fechaFin')[0].getAttribute("data-date-format") )
-      );
         $('#nombrePromo')[0].value=infopromoedit[0];
         if(infopromoedit[33].split('/').length>1)
         {
@@ -3523,12 +3528,7 @@ function getpromoplantillabd(id){
         }
         else {
           $('#nombreURL')[0].value=infopromoedit[33];
-          if(infopromoedit[33]=='')
-          {
-            $('#nombreURL')[0].disabled=false;
-          }
         }
-        $('#tagManager')[0].value=infopromoedit[35];
 
         $('#descripcionPromo')[0].value=infopromoedit[2];
         $('#selectBrand')[0].value=infopromoedit[3];
@@ -3957,7 +3957,7 @@ function eliminarpromo(idpromo) {
     url     : 'respuestaconfig.php',
     data    :  dataString,
     success :  function(data) {
-      console.log('eliminarpromo Result: '+data);
+      //console.log('eliminarpromo Result: '+data);
       location.href="home.php";
     }
   });

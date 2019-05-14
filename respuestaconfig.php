@@ -12,6 +12,17 @@ else {
   $ip = $_SERVER['REMOTE_ADDR'];
 }
 
+/*  para pruebas
+if (!empty($_GET["prom"])) {
+  $id = encrypt_decrypt('d',$_GET["prom"]);
+  echo $id;
+  $promo_info   = PromoValores($id);
+  $result=dashboard($id,$promo_info);
+  echo $result;
+}
+*/
+
+
 /* Login */
 if($_POST["m"]==1){
        $valid = "";
@@ -64,13 +75,19 @@ if($_POST["m"]==2){
 
 /* Dashboard consolidado */
 if($_POST["m"]==3){
-  $result=dashboard(encrypt_decrypt('d',$_POST["prom"]));
+  $id = encrypt_decrypt('d',$_POST["prom"]);
+  $promo_info   = PromoValores($id);
+  $result=dashboard($id,$promo_info);
   echo $result;
 }
 
 /* Dashboard report entregados */
 if($_POST["m"]==4){
-  $result=dasboard_report(encrypt_decrypt('d',$_POST["prom"]));
+  $count = 0;
+  $id = encrypt_decrypt('d',$_POST["prom"]);
+  //$result=dasboard_report($id);
+  $promo_info   = PromoValores($id);
+  $result=dashboard_entregados($id,$count,$promo_info);
   echo $result;
 }
 
@@ -237,6 +254,43 @@ if($_POST["m"]==21){
   $id       = encrypt_decrypt('d',$_POST["id"]);
   $cupones  = $_POST["c"];
   $result= liberarcupones($id,$cupones);
+  echo $result;
+}
+
+/* Dashboard report disponibles */
+if($_POST["m"]==22){
+  $count = 0;
+  $id = encrypt_decrypt('d',$_POST["prom"]);
+  //$result=dasboard_report($id);
+  $promo_info   = PromoValores($id);
+  $result=dashboard_disponibles($id,$count,$promo_info);
+  echo $result;
+}
+
+/* Dashboard report entregados count */
+if($_POST["m"]==23){
+  $count = 0;
+  $id = encrypt_decrypt('d',$_POST["prom"]);
+  //$result=dasboard_report($id);
+  $promo_info   = PromoValores($id);
+  $promo_generica_max = $promo_info['max_generico'];
+  $link    = connect();
+  $result  = cuponesEntregados($link,$id,$promo_generica);
+  Close($link);
+  echo $result;
+}
+
+/* Dashboard report disponibles count */
+if($_POST["m"]==24){
+  $count = 0;
+  $id = encrypt_decrypt('d',$_POST["prom"]);
+  //$result=dasboard_report($id);
+  $promo_info   = PromoValores($id);
+  $promo_generica     = $promo_info['ind_generico'];
+  $promo_generica_max = $promo_info['max_generico'];
+  $link    = connect();
+  $result  = cuponesDisponibles($link,$promo,$promo_generica,$promo_generica_max);
+  Close($link);
   echo $result;
 }
 
