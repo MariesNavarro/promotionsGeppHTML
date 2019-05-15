@@ -2612,17 +2612,16 @@ function loadFileName(t){
 }
 function savedatageneral(ns,t)
 {
-
-
-
   var fi=$('#fechaInicio')[0].value;
   var ff=$('#fechaFin')[0].value;
   var nom=$('#nombrePromo')[0].value;
   var desc=$('#descripcionPromo')[0].value;
   var mar=$('#selectBrand')[0].value;
   var pro=$('#selectProvider')[0].value;
+   var tagmg=$('#tagManager')[0].value;
   var  m=MetodoEnum.Insertageneral;
-  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom;
+  //var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom;
+  var dataString = 'm=' + m+'&fi=' + fi+'&ff=' + ff+'&nom=' + nom+'&desc=' + desc+'&mar=' + mar+'&pro=' + pro+'&idnvaprom=' + idnvaprom+'&tagmg=' + tagmg;
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
@@ -3334,7 +3333,15 @@ function actualizafuncionalidad(n,t,id){
 }
 function actualizaplantilla(id){
   var  m=MetodoEnum.ActualizaPlantillashtml;
-  var dataString = 'm=' + m+'&fun=' + id;
+  var disabledparam='';
+  if(disa!=='')
+  {
+     disabledparam=disa;
+  }
+  else {
+    disabledparam='xxxxxxxxxx';
+  }
+  var dataString = 'm=' + m+'&fun=' + id+'&disa=' + disabledparam;
   $.ajax({
     type : 'POST',
     url  : 'respuestaconfig.php',
@@ -3641,7 +3648,17 @@ function getpromoplantillabd(id){
         plantseledit=infopromoedit[4];
 
         $('#fechaInicio')[0].value=infopromocrear[10].split(' ')[0];
+        $('#fechaInicio')[0].setAttribute(
+        "data-date",
+        moment($('#fechaInicio')[0].value, "YYYY-MM-DD")
+        .format( $('#fechaInicio')[0].getAttribute("data-date-format") )
+        );
         $('#fechaFin')[0].value=infopromocrear[11].split(' ')[0];
+        $('#fechaFin')[0].setAttribute(
+        "data-date",
+        moment($('#fechaFin')[0].value, "YYYY-MM-DD")
+        .format( $('#fechaFin')[0].getAttribute("data-date-format") )
+      );
         $('#nombrePromo')[0].value=infopromoedit[0];
         if(infopromoedit[33].split('/').length>1)
         {
@@ -3649,8 +3666,12 @@ function getpromoplantillabd(id){
         }
         else {
           $('#nombreURL')[0].value=infopromoedit[33];
+          if(infopromoedit[33]=='')
+          {
+            $('#nombreURL')[0].disabled=false;
+          }
         }
-
+        $('#tagManager')[0].value=infopromoedit[35];
         $('#descripcionPromo')[0].value=infopromoedit[2];
         $('#selectBrand')[0].value=infopromoedit[3];
         $('#selectProvider')[0].value=infopromoedit[8];
