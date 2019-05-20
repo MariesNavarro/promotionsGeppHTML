@@ -595,7 +595,7 @@ main.home>#promosW>ul>li{
   -webkit-box-pack:space-between;
   -webkit-justify-content:space-between;
   -ms-flex-pack:space-between;
-  justify-content:space-between;
+  justify-content:flex-start; /*space-between;*/
 }
 .promoItemDash>div.actionsFin{
   width: 110px;
