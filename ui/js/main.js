@@ -3992,7 +3992,7 @@ function loadcupons(n,t){
     url  : 'respuestaconfig.php',
     data:  dataString,
     success:function(data) {
-      //console.log(data);
+      console.log(data);
       //window.location.href='home.php';
       checksaveversion();
     }
