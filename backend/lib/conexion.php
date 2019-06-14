@@ -21,13 +21,14 @@ class foo_mysqli extends mysqli {
 function connect()
 {
   $hostname_conexion = "oetcapital.com";
-  //$database_conexion = "admin_gatoradedev";   // DESARROLLO
-  $database_conexion = "admin_gatorade";    // PRODUCCION
+  $database_conexion = "admin_gatoradedev";   // DESARROLLO
+  //$database_conexion = "admin_gatorade";    // PRODUCCION
   $username_conexion = "admin_gatorade";
   $password_conexion = "#i-SexW_[MBE";
   $link  = new foo_mysqli($hostname_conexion, $username_conexion, $password_conexion, $database_conexion);
   mysqli_set_charset ($link , 'utf8' );
   mysqli_query($link, 'SET time_zone = "-05:00";');
+  mysqli_options($link, MYSQLI_OPT_LOCAL_INFILE, true);
   return $link;
 }
 function Close($link)
