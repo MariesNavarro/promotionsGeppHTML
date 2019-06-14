@@ -171,6 +171,9 @@ function getcodigo($link,$idpromo,$ip,$huella,$promo_imgcupon,$idproveedor,$test
             } else {
               $result = 'AGOTADO';
             }
+          } else { // es test
+            barcode( $filepath, $text, $size, $orientation, $code_type, $print, $sizefactor,$ismob,$idpromo,$promo_imgcupon);
+            $result =  $idpromo.'_'.$fila[0];
           }
         }
         //$result = $fila[0].' '.$promo_imgcupon.' '.$idproveedor;
