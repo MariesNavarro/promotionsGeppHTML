@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class foo_mysqli extends mysqli {
     public function __construct($host, $usuario, $contraseña, $bd) {
@@ -21,8 +21,8 @@ class foo_mysqli extends mysqli {
 function connect()
 {
   $hostname_conexion = "oetcapital.com";
-  $database_conexion = "admin_gatoradedev";   // DESARROLLO
-  //$database_conexion = "admin_gatorade";    // PRODUCCION
+  //$database_conexion = "admin_gatoradedev";   // DESARROLLO
+  $database_conexion = "admin_gatorade";    // PRODUCCION
   $username_conexion = "admin_gatorade";
   $password_conexion = "#i-SexW_[MBE";
   $link  = new foo_mysqli($hostname_conexion, $username_conexion, $password_conexion, $database_conexion);

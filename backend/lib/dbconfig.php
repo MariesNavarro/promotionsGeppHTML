@@ -432,7 +432,7 @@ function dashboard_disponibles($promo,&$count,$promo_info){
     $consulta ="SELECT codigo Cupon
                 FROM   gtrd_cupones
                 WHERE id_promo=".$promo." and estatus=0
-                ORDER BY codigo";
+                ORDER BY codigo LIMIT 5000";
     if ($resultado = mysqli_query($link, $consulta)) {
       $count  = mysqli_num_rows($resultado);
       while ($fila = mysqli_fetch_row($resultado)) {

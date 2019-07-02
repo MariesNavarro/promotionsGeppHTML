@@ -9,7 +9,7 @@ if(!isset($_SESSION["userName"]))
 else {
   $username     = $_SESSION["Nombre"];
   $rol          = $_SESSION['Rol'];
-  $id_encry     = $_GET[id];
+  $id_encry     = $_GET['id'];
   $id           = encrypt_decrypt('d',$id_encry);
   $count1       = 0;
   $count2       = 0;
