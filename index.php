@@ -23,6 +23,7 @@ if (isset($_GET['id'])) { $idpromo  = $_GET['id'];  $idpromo = encrypt_decrypt('
 if (isset($_GET['cf'])) { $config   = $_GET['cf']; }    /* si viene del configurador */
 if (isset($_GET['ts'])) { $test     = $_GET['ts']; }    /* si es test */
 
+
 /* Obtener datos segun parametros */
 if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
     $promo = getpromocion($idpromo);

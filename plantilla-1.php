@@ -6,6 +6,7 @@ Author: OETCapital
 -->
 <?php
     $rutaurl='';
+    //echo '<input type="hidden" id="idplantilla" name="idplantilla" value='.$plantilla_id.'>';
 ?>
 <!DOCTYPE html>
 <html id="plantillaUnoHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
@@ -18,6 +19,7 @@ Author: OETCapital
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0000, minimum-scale=1.0000, maximum-scale=1.0000, user-scalable=yes">
     <title> <?php echo $promo_nombre; ?> </title>
+    <script> var idplantilla = <?php echo $plantilla_id; ?></script>
     <script src="ui/js/globales.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <?php

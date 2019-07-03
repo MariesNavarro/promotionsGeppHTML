@@ -15,6 +15,10 @@ if(!isset($_SESSION["userName"])) {
   if(isset($_GET["id"])) {
     $disabled='disabled';
     $querystring='?cf=1&id='.$_GET["id"];
+
+    $idpromo       = encrypt_decrypt('d', $_GET["id"]); 
+    $promo         = getpromocion($idpromo);
+    $plantilla_id  = $promo['id_plantilla'];
   }
   $funcionalidades= funcionalidades($disabled);
   $plantillas     = plantillas(null,$disabled);
@@ -82,6 +86,7 @@ http://dragonflycity.com/
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="ui/css/master.css">
+    <script> var idplantilla = <?php echo $plantilla_id; ?></script>
   </head>
   <body>
     <div id="loadingConf" style="display:none">

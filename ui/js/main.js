@@ -2276,7 +2276,7 @@ var MetodoEnum = {
   ActualizaPlantillashtml:10,
   ActualizaPlantilla:11,
   ActualizarStatus:12,
-  EiminarPromo:13,
+  EliminarPromo:13,
   CreaEditaVersionPlantilla:14,
   CancelarPromo:15,
   CreaDirectorio:16,
@@ -3073,7 +3073,7 @@ function changeScreen(n){
 function optionsConfig(n){
   var ban=0;
   do {
-    if(_("#iframePlantilla").contentWindow.document.getElementById("plantillaUnoHTML")!==null)
+    if(_("#iframePlantilla").contentWindow.document.getElementById(getPlantillaStr(idplantilla)+"HTML")!==null)
     {
       ban=1;
     }
@@ -3081,7 +3081,7 @@ function optionsConfig(n){
   } while (ban==0);
 
 
-  var m = _("#iframePlantilla").contentWindow.document.getElementById("plantillaUnoHTML").getAttribute("data-marca"),
+  var m = _("#iframePlantilla").contentWindow.document.getElementById(getPlantillaStr(idplantilla)+"HTML").getAttribute("data-marca"),
       opts = __(".optionStep"),
       opsLoad = _("#optionsCargando"),
       opsHome = _("#optionsInicio");
@@ -3373,7 +3373,7 @@ function actualizaimagenesframe()
   count=0;
   var documentplantilla=frame.document;
   var back=documentplantilla.getElementById("loading");
-  var body=documentplantilla.getElementById("plantillaUno");
+  var body=documentplantilla.getElementById(getPlantillaStr(idplantilla));
   //console.log('Count:'+count+' loadfront:'+loadfront+' loadinterfaz:'+loadinterfaz);
   //console.log('Clase en frame '+body.className);
   //console.log('Clase que se actualizara'+infopromoedit[19].split('?')[1]+' '+infopromoedit[18].split('?')[1])
@@ -3381,7 +3381,7 @@ function actualizaimagenesframe()
   //console.log('Clase a actualizar '+infopromoedit[20].split('?')[1]);
   frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
   frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
-  frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
+  frame.$('#'+getPlantillaStr(idplantilla)+'HTML').attr('data-marca',infopromoedit[12]);
   //Cambiar colores,texto,fuentes
   //Color BACK
 
@@ -3406,7 +3406,7 @@ function actualizaimagenesframe()
   //Cambiar imagenes
   updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
   updateimagemodiplantilla(infopromoedit[14].split('?')[1],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
-  updateimagemodiplantilla(infopromoedit[16].split('?')[1],'plantillaUno','ui/img/back/');
+  updateimagemodiplantilla(infopromoedit[16].split('?')[1], getPlantillaStr(idplantilla),'ui/img/back/');
   updateimagemodiplantilla(infopromoedit[17].split('?')[1],'productoImg','ui/img/producto/');
   updateimagemodiplantilla(infopromoedit[22].split('?')[1],'textoInicioImg','ui/img/textoInicio/');
   updateimagemodiplantilla(infopromoedit[23].split('?')[1],'prizeImg','ui/img/precio/');
@@ -3567,7 +3567,7 @@ function getpromoplantillabd(id){
         frameIF = _("#iframeInterfaz").contentWindow;
         frameIF.$('.inferior')[1].innerHTML=infopromoedit[30];
         frame.$('.wrapInferiorSocial')[0].innerHTML=infopromoedit[31];
-        frame.$('#plantillaUnoHTML').attr('data-marca',infopromoedit[12]);
+        frame.$('#'+getPlantillaStr(idplantilla)+'HTML').attr('data-marca',infopromoedit[12]);
         //Es editar
         isedit=1;
         //Cambiar colores,texto,fuentes
@@ -3580,7 +3580,7 @@ function getpromoplantillabd(id){
         arrclass.push(classcolor);
         back.className=arrclass.join(' ');
         //Fuente color y tipo
-        var body=documentplantilla.getElementById("plantillaUno");
+        var body=documentplantilla.getElementById(getPlantillaStr(idplantilla));
         var colorfuente=infopromoedit[19].split('?')[1];
         var fuente=infopromoedit[18].split('?')[1];
         var arrclassbody=body.className.split(" ");
@@ -3594,7 +3594,7 @@ function getpromoplantillabd(id){
         //Cambiar imagenes
         updateimagemodiplantilla(infopromoedit[15].split('?')[1],'proveedorUnoLogo','ui/img/proveedor/');
         updateimagemodiplantilla(infopromoedit[14].split('?')[1],'prefetchLogo,navLogo,msgLogo,loadLogo','ui/img/logotipo/');
-        updateimagemodiplantilla(infopromoedit[16].split('?')[1],'plantillaUno','ui/img/back/');
+        updateimagemodiplantilla(infopromoedit[16].split('?')[1], getPlantillaStr(idplantilla),'ui/img/back/');
         updateimagemodiplantilla(infopromoedit[17].split('?')[1],'productoImg','ui/img/producto/');
         updateimagemodiplantilla(infopromoedit[22].split('?')[1],'textoInicioImg','ui/img/textoInicio/');
         updateimagemodiplantilla(infopromoedit[23].split('?')[1],'prizeImg','ui/img/precio/');
@@ -4013,7 +4013,7 @@ function changecolorback(t)
 function changecolortext(t)
 {
   var ar=infopromoedit[19].split('?');
-  var body= _("#iframePlantilla").contentWindow.document.getElementById("plantillaUno");
+  var body= _("#iframePlantilla").contentWindow.document.getElementById(getPlantillaStr(idplantilla));
   var classcolor=t.value.split('.')[1];
   var arrclass=body.className.split(" ");
   arrclass[1]=classcolor;
@@ -4025,7 +4025,7 @@ function changecolortext(t)
 function changefont(t)
 {
   var ar=infopromoedit[18].split('?');
-  var body= _("#iframePlantilla").contentWindow.document.getElementById("plantillaUno");
+  var body= _("#iframePlantilla").contentWindow.document.getElementById(getPlantillaStr(idplantilla));
   var classcolor=t.value.split('.')[1];
   var arrclass=body.className.split(" ");
   arrclass[0]=classcolor;
@@ -4067,7 +4067,7 @@ function updateimagemodiplantilla(input,idelement,ruta){
 }
 function changeimgemodiplantilla(idelement) {
   var ele=_("#iframePlantilla").contentWindow.document.getElementById(idelement);
-  if(idelement==='plantillaUno')
+  if(idelement===getPlantillaStr(idplantilla))
   {
     ele.style.backgroundImage='url("'+folderui+imguifolder+'")';
   }
@@ -4152,5 +4152,17 @@ function downloadURI(uri){
 function topFunction() {
     $('#promosW').scrollTop(0);
 }
+
+function getPlantillaStr(idplantilla){
+  var strplantilla = "";
+
+  switch (idplantilla) {
+    case 1:    strplantilla = "plantillaUno";    break;
+    case 2:    strplantilla = "plantillaDos";    break;
+    default:     strplantilla = "plantillaUno";
+  }
+  return  strplantilla;
+}
+
 
 verificalogin();
