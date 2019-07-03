@@ -318,11 +318,11 @@ table {
   background: #E4238C;
 }
 
-html#plantillaUnoHTML {
+html#plantillaDosHTML {
   height: 100vh;
 }
 
-body#plantillaUno {
+body#plantillaDos {
   overflow: hidden;
   position: fixed;
   top: 0;
@@ -341,7 +341,7 @@ body#plantillaUno {
   background-size: 100% 100%;
 }
 
-#plantillaUno > #textoEdo {
+#plantillaDos > #textoEdo {
   position: fixed;
   width: 100vw;
   top: 30px;
@@ -353,7 +353,7 @@ body#plantillaUno {
   opacity: 0 !important;
   display: none;
 }
-#plantillaUno > nav {
+#plantillaDos > nav {
   position: fixed;
   width: calc(100vw - 30px);
   left: 15px;
@@ -364,7 +364,7 @@ body#plantillaUno {
   justify-content: space-between;
 }
 
-#plantillaUno > section {
+#plantillaDos > section {
   position: fixed;
   top: 60px;
   left: 15px;
@@ -373,7 +373,7 @@ body#plantillaUno {
   height: calc(100% - 130px);
 }
 
-#plantillaUno > section > .wrapSuperior {
+#plantillaDos > section > .wrapSuperior {
   position: relative;
   width: 100%;
   height: calc(100% - 80px);
@@ -388,34 +388,34 @@ body#plantillaUno {
   justify-content: center;
 }
 
-#plantillaUno > #homeUno, #plantillaUno > #cuponUno, #plantillaUno > #mensajeUno {
+#plantillaDos > #homeUno, #plantillaDos > #cuponUno, #plantillaUDos > #mensajeUno {
   opacity: 0;
 }
 
-#plantillaUno > #homeUno > .wrapSuperior > img {
+#plantillaDos > #homeUno > .wrapSuperior > img {
   height: 100%;
 }
 
-#plantillaUno > #homeUno > .wrapSuperior > .productoInfo {
+#plantillaDos > #homeUno > .wrapSuperior > .productoInfo {
   height: 80%;
   margin-left: 15px;
   text-align: center;
 }
 
-#plantillaUno > #homeUno > .wrapSuperior > .productoInfo > .infoTitle {
+#plantillaDos > #homeUno > .wrapSuperior > .productoInfo > .infoTitle {
   height: 32%;
   margin-bottom: 8%;
 }
 
-#plantillaUno > #homeUno > .wrapSuperior > .productoInfo > .prize {
+#plantillaDos > #homeUno > .wrapSuperior > .productoInfo > .prize {
   height: 65%;
 }
 
-#plantillaUno > #homeUno > .wrapSuperior > .productoInfo > .infoTitle > img, #plantillaUno > #homeUno > .wrapSuperior > .productoInfo > .prize > img {
+#plantillaDos > #homeUno > .wrapSuperior > .productoInfo > .infoTitle > img, #plantillaDos > #homeUno > .wrapSuperior > .productoInfo > .prize > img {
   height: 100%;
 }
 
-#plantillaUno > section > .wrapInferiorButton, #plantillaUno > section > .wrapInferiorSocial {
+#plantillaDos > section > .wrapInferiorButton, #plantillaDos > section > .wrapInferiorSocial {
   width: 100%;
   height: 10%;
   min-height: 30px;
@@ -424,16 +424,16 @@ body#plantillaUno {
   text-align: center;
 }
 
-#plantillaUno > section > .wrapInferiorButton > a {
+#plantillaDos > section > .wrapInferiorButton > a {
   display: inline-block;
   height: 90%;
 }
 
-#plantillaUno > section > .wrapInferiorButton > a > img {
+#plantillaDos > section > .wrapInferiorButton > a > img {
   height: 100%;
 }
 
-#plantillaUno > section > .wrapInferiorButton > a:hover > img {
+#plantillaDos > section > .wrapInferiorButton > a:hover > img {
   opacity: 0.8;
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
@@ -442,7 +442,7 @@ body#plantillaUno {
   transform: scale(1.1);
 }
 
-#plantillaUno > #cuponUno > .wrapSuperior {
+#plantillaDos > #cuponUno > .wrapSuperior {
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -453,11 +453,11 @@ body#plantillaUno {
   justify-content: center;
 }
 
-#plantillaUno > #cuponUno > .wrapSuperior > img {
+#plantillaDos > #cuponUno > .wrapSuperior > img {
   height: 100%;
 }
 
-#plantillaUno > section > .wrapSuperiorMensajeExito, #plantillaUno > section > .wrapSuperiorMensajeError {
+#plantillaDos > section > .wrapSuperiorMensajeExito, #plantillaDos > section > .wrapSuperiorMensajeError {
   height: calc(100% - 100px);
 }
 
@@ -518,7 +518,7 @@ body#plantillaUno {
   max-width: 250px;
 }
 
-#plantillaUno > section > .wrapInferiorSocial {
+#plantillaDos > section > .wrapInferiorSocial {
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -529,18 +529,18 @@ body#plantillaUno {
   justify-content: center;
 }
 
-#plantillaUno > section > .wrapInferiorSocial > a {
+#plantillaDos > section > .wrapInferiorSocial > a {
   display: block;
   width: 45px;
   height: 45px;
   margin: 0 10px;
 }
 
-#plantillaUno > section > .wrapInferiorSocial > a:hover {
+#plantillaDos > section > .wrapInferiorSocial > a:hover {
   opacity: 0.8;
 }
 
-#plantillaUno > footer {
+#plantillaDos > footer {
   position: fixed;
   width: calc(100vw - 30px);
   height: 60px;
@@ -559,20 +559,20 @@ body#plantillaUno {
   justify-content: center;
 }
 
-#plantillaUno > footer > span {
+#plantillaDos > footer > span {
   display: none;
 }
 
-#plantillaUno > footer > p > a:hover {
+#plantillaDos > footer > p > a:hover {
   text-decoration: underline;
   opacity: 0.6;
 }
 
-#plantillaUno > footer > p, #plantillaUno > footer > a {
+#plantillaDos > footer > p, #plantillaDos > footer > a {
   padding: 0;
   font-size: 0.8rem;
 }
-#plantillaUno > footer > p, #plantillaUno > footer > p > a { color: inherit; }
+#plantillaDos > footer > p, #plantillaDos > footer > p > a { color: inherit; }
 #prevent {
   position: fixed;
   width: 100vw;
@@ -599,11 +599,11 @@ body#plantillaUno {
 
 /* + Setup */
 @media (min-width: 880px) {
-  body#plantillaUno {
+  body#plantillaDos {
     /*background: #000;*/
   }
 
-  #plantillaUno > footer {
+  #plantillaDos > footer {
     height: 20px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -612,21 +612,21 @@ body#plantillaUno {
     flex-direction: row;
   }
 
-  #plantillaUno > footer > span {
+  #plantillaDos > footer > span {
     display: block;
   }
 
-  #plantillaUno > footer > p,
-  #plantillaUno > footer > a {
+  #plantillaDos > footer > p,
+  #plantillaDos > footer > a {
     padding: 0 5px;
   }
 
-  #plantillaUno > section {
+  #plantillaDos > section {
     height: calc(100vh - 90px);
   }
 
-  #plantillaUno > section > .wrapSuperiorMensajeExito,
-  #plantillaUno > section > .wrapSuperiorMensajeError {
+  #plantillaDos > section > .wrapSuperiorMensajeExito,
+  #plantillaDos > section > .wrapSuperiorMensajeError {
     height: calc(100% - 150px);
   }
 

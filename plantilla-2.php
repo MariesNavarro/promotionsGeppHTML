@@ -4,8 +4,13 @@ Version: 1
 Author: OETCapital
 4 de Abril
 -->
+<?php
+  $rutaurl='';
+  //echo '<input type="hidden" id="idplantilla" name="idplantilla" value='.$plantilla_id.'>';
+?>
+
 <!DOCTYPE html>
-<html id="plantillaUnoHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
+<html id="plantillaDosHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +20,7 @@ Author: OETCapital
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0000, minimum-scale=1.0000, maximum-scale=1.0000, user-scalable=yes">
     <title> <?php echo $promo_nombre; ?> </title>
+    <script> var idplantilla = <?php echo $plantilla_id; ?></script>  
     <script src="ui/js/globales.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <?php
@@ -22,7 +28,7 @@ Author: OETCapital
     ?>
     <link id="prefetchLogo" rel="prefetch" href="ui/img/logotipo/<?php echo $marca_logo; ?>">
     <style>
-      #plantillaUno>#loading {position: fixed;top: 0;left:0;width:100vw;height:100vh;-webkit-justify-content: center;-moz-justify-content: center;-ms-justify-content: center;-o-justify-content: center;justify-content: center;z-index: 5000;opacity: 1;}#plantillaUno>#loading>div {margin-top: 10vh;text-align: center}#plantillaUno>#loading>div>img {opacity: 0;-webkit-animation: fadeIn .7s ease-in .7s forwards;-moz-animation: fadeIn .7s ease-in .7s forwards;-ms-animation: fadeIn .7s ease-in .7s forwards;-o-animation: fadeIn .7s ease-in .7s forwards;animation: fadeIn .7s ease-in .7s forwards}#plantillaUno>#loading>div>div {margin: 0 auto;width: 60px;height: 30px;-webkit-justify-content: space-between;-moz-justify-content: space-between;-ms-justify-content: space-between;-o-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;-moz-align-items: flex-end;-ms-align-items: flex-end;-o-align-items: flex-end;align-items: flex-end;opacity: 0;-webkit-animation: fadeIn .7s ease-in 1.2s forwards;-moz-animation: fadeIn .7s ease-in 1.2s forwards;-ms-animation: fadeIn .7s ease-in 1.2s forwards;-o-animation: fadeIn .7s ease-in 1.2s forwards;animation: fadeIn .7s ease-in 1.2s forwards}#plantillaUno>#loading>div>div>span {display: block;width: 15px;height: 15px;background: #f84e0a;border-radius: 50%;margin: 10px 2px 8px;-webkit-animation: scaleDot 1.5s infinite;-moz-animation: scaleDot 1.5s infinite;-ms-animation: scaleDot 1.5s infinite;-o-animation: scaleDot 1.5s infinite;animation: scaleDot 1.5s infinite}#plantillaUno>#loading>div>div>span: nth-child(2) {-webkit-animation-delay: 1s;-moz-animation-delay: 1s;-ms-animation-delay: 1s;-o-animation-delay: 1s;animation-delay: 1s}#plantillaUno>#loading>div>div>span: nth-child(3) {-webkit-animation-delay: 1.5s;-moz-animation-delay: 1.5s;-ms-animation-delay: 1.5s;-o-animation-delay: 1.5s;animation-delay: 1.5s}#plantillaUno>#loading>div>div>span: nth-child(4) {-webkit-animation-delay: 2s;-moz-animation-delay: 2s;-ms-animation-delay: 2s;-o-animation-delay: 2s;animation-delay: 2s}@media (min-width: 880px) {#plantillaUno>#loading>div {margin-top: 20vh}}@-webkit-keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@-webkit-keyframes scaleDot {0%,100% { opacity: 1; -webkit-transform: scale(1) }50% { opacity: 0; -webkit-transform: scale(0) }}@keyframes scaleDot {0%,100% { opacity: 1; transform: scale(1) }50% { opacity: 0; transform: scale(0) }}
+      #plantillaDos>#loading {position: fixed;top: 0;left:0;width:100vw;height:100vh;-webkit-justify-content: center;-moz-justify-content: center;-ms-justify-content: center;-o-justify-content: center;justify-content: center;z-index: 5000;opacity: 1;}#plantillaDos>#loading>div {margin-top: 10vh;text-align: center}#plantillaDos>#loading>div>img {opacity: 0;-webkit-animation: fadeIn .7s ease-in .7s forwards;-moz-animation: fadeIn .7s ease-in .7s forwards;-ms-animation: fadeIn .7s ease-in .7s forwards;-o-animation: fadeIn .7s ease-in .7s forwards;animation: fadeIn .7s ease-in .7s forwards}#plantillaDos>#loading>div>div {margin: 0 auto;width: 60px;height: 30px;-webkit-justify-content: space-between;-moz-justify-content: space-between;-ms-justify-content: space-between;-o-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;-moz-align-items: flex-end;-ms-align-items: flex-end;-o-align-items: flex-end;align-items: flex-end;opacity: 0;-webkit-animation: fadeIn .7s ease-in 1.2s forwards;-moz-animation: fadeIn .7s ease-in 1.2s forwards;-ms-animation: fadeIn .7s ease-in 1.2s forwards;-o-animation: fadeIn .7s ease-in 1.2s forwards;animation: fadeIn .7s ease-in 1.2s forwards}#plantillaDos>#loading>div>div>span {display: block;width: 15px;height: 15px;background: #f84e0a;border-radius: 50%;margin: 10px 2px 8px;-webkit-animation: scaleDot 1.5s infinite;-moz-animation: scaleDot 1.5s infinite;-ms-animation: scaleDot 1.5s infinite;-o-animation: scaleDot 1.5s infinite;animation: scaleDot 1.5s infinite}#plantillaDos>#loading>div>div>span: nth-child(2) {-webkit-animation-delay: 1s;-moz-animation-delay: 1s;-ms-animation-delay: 1s;-o-animation-delay: 1s;animation-delay: 1s}#plantillaDos>#loading>div>div>span: nth-child(3) {-webkit-animation-delay: 1.5s;-moz-animation-delay: 1.5s;-ms-animation-delay: 1.5s;-o-animation-delay: 1.5s;animation-delay: 1.5s}#plantillaDos>#loading>div>div>span: nth-child(4) {-webkit-animation-delay: 2s;-moz-animation-delay: 2s;-ms-animation-delay: 2s;-o-animation-delay: 2s;animation-delay: 2s}@media (min-width: 880px) {#plantillaDos>#loading>div {margin-top: 20vh}}@-webkit-keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@-webkit-keyframes scaleDot {0%,100% { opacity: 1; -webkit-transform: scale(1) }50% { opacity: 0; -webkit-transform: scale(0) }}@keyframes scaleDot {0%,100% { opacity: 1; transform: scale(1) }50% { opacity: 0; transform: scale(0) }}
     </style>
     <meta name="description" content="<?php echo $marca_descripcion; ?>">
     <meta name="author" content="GEPP">
@@ -47,7 +53,7 @@ Author: OETCapital
     <link rel="shortcut icon" href="ui/img/fav/<?php echo $marca; ?>/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="ui/css/style-2.css">
   </head>
-  <body id="plantillaUno" class="<?php echo $promo_font; ?> <?php echo $promo_color; ?>" style="background-image:url('ui/img/back/<?php echo $promo_img_back; ?>')">
+  <body id="plantillaDos" class="<?php echo $promo_font; ?> <?php echo $promo_color; ?>" style="background-image:url('ui/img/back/<?php echo $promo_img_back; ?>')">
     <nav class="displayFlex">
       <a href="#">
         <img id="navLogo" src="ui/img/logotipo/<?php echo $marca_logo; ?>" height="45">
