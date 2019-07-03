@@ -73,7 +73,8 @@ if ($idpromo>0 || ($idpromo==0 && $config>0)) { /* viene promo o no viene promo 
 if ($promo==0 && $config==0) {  $error = 1;  $error_msg ="Promo no encontrada";}
 if($codigo_tagmanager!=''&&$codigo_tagmanager!=null)
 {
-  if($test==0&&$config==0)
+  //if($test==0&&$config==0)
+    if($config==0)
 {
   $rutaurl=getdominio()."/".$subdirpromo;
   $agregatag="<script>
