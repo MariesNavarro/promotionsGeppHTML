@@ -4,11 +4,6 @@ Version: 1
 Author: OETCapital
 4 de Abril
 -->
-<?php
-  $rutaurl='';
-  //echo '<input type="hidden" id="idplantilla" name="idplantilla" value='.$plantilla_id.'>';
-?>
-
 <!DOCTYPE html>
 <html id="plantillaDosHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
   <head>
@@ -20,7 +15,7 @@ Author: OETCapital
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0000, minimum-scale=1.0000, maximum-scale=1.0000, user-scalable=yes">
     <title> <?php echo $promo_nombre; ?> </title>
-    <script> var idplantilla = <?php echo $plantilla_id; ?></script>  
+    <script> var idplantilla = <?php echo $plantilla_id; ?></script>
     <script src="ui/js/globales.js" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <?php
@@ -140,7 +135,7 @@ Author: OETCapital
       var test            = "<?php echo $test ?>";
       var promo_img_cupon = "<?php echo $promo_img_cupon ?>";
       var proveedor_id    = "<?php echo $proveedor_id ?>";
-      var rutapromourl="<?php echo $rutaur;?>";
+      var rutapromourl="<?php echo $rutaurl;?>";
       tagmanager=<?php echo $tienetag; ?>;
 
       preventHeight();

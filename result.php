@@ -1,4 +1,4 @@
- <?php
+<?php
   require_once('backend/lib/db.php');
   $mensaje = "";
   $idpromo = 0;
@@ -126,9 +126,9 @@
 
     <section id="mensajeUno" class="trans5" style="display:none">
 
-      <ul class="countdown" class="displayFlex" style="display:none">
+      <ul class="countdown displayFlex <?php echo $promo_color; ?>" style="display:none">
           <ul class="wrapSuperiorMensajeExito">
-            <li><span style="font-size: 30px; <?php echo $promo_color; ?>">La promoción <?php echo $promo_descripcion; ?> comienza en</span></li>
+            <li><span style="font-size: 30px;" >La promoción <?php echo $promo_descripcion; ?> comienza en</span></li>
           </ul>
           <li><span class="days">00</span> <p class="days_ref">Días</p></li>
           <li class="seperator">.</li>

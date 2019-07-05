@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once('backend/lib/dbconfig.php');
-if(!isset($_SESSION["userName"]))
-{
-  header("Location:login.php");
+if(!isset($_SESSION["userName"])) {
+  //header("Location:login.php");
+  echo "<meta http-equiv='Refresh' content='0;url=login.php'>";
 }
 else {
   $username = $_SESSION["Nombre"];
@@ -162,8 +162,6 @@ http://dragonflycity.com/
       window.onload = function(){
         //putUserName();
       }
-
-      /******** LUEGO MOVERLO PARA EL main.js *********/
     </script>
   </body>
 </html>

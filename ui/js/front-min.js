@@ -1322,6 +1322,7 @@ function obtencupon(idpromo,promo_imgcupon,idproveedor,test){
   codigo = huella();
   if(tagmanager==1)
   {
+     //console.log('obtener cupon '+rutapromourl);
      dataLayer.push({
                       'event': 'checkout',
                       'ecommerce': {
@@ -1360,6 +1361,7 @@ function generateCoupon(data){
     $("#couponImgCaptureScreen").attr('download',data+'.jpg');
     if(tagmanager==1)
     {
+        //console.log('generar cupon '+rutapromourl);
         var cuponentregado=data.split('_')[1];
         dataLayer.push({
                'event': 'purchase',
@@ -1578,6 +1580,7 @@ function ctaDownloadImg(){
   //var blk = _('#blk').style.backgroundImage = "url('ui/img/blank.png')";
   if(tagmanager==1)
   {
+    //console.log('descargar cupon '+rutapromourl);
     dataLayer.push({
                       'event': 'imprimir',
                       'ecommerce': {

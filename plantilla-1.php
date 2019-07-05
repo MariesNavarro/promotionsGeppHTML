@@ -4,10 +4,6 @@ Version: 1
 Author: OETCapital
 4 de Abril
 -->
-<?php
-    $rutaurl='';
-    //echo '<input type="hidden" id="idplantilla" name="idplantilla" value='.$plantilla_id.'>';
-?>
 <!DOCTYPE html>
 <html id="plantillaUnoHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
   <head>
@@ -138,7 +134,7 @@ Author: OETCapital
       var test            = "<?php echo $test ?>";
       var promo_img_cupon = "<?php echo $promo_img_cupon ?>";
       var proveedor_id    = "<?php echo $proveedor_id ?>";
-      var rutapromourl="<?php echo $rutaur;?>";
+      var rutapromourl="<?php echo $rutaurl;?>";
       tagmanager=<?php echo $tienetag; ?>;
       preventHeight();
       preventHeight();
