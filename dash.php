@@ -17,6 +17,7 @@ else {
   $promo_generica = $promo_info['ind_generico'];
   $promo_generica_cod = $promo_info['codigo_generico'];
   //$consolidado  = dashboard($id,$promo_info);
+  $encabezado   = dashboard_head($promo_info);
   $entregados   = dashboard_entregados($id,$count1,$promo_info);
   $disponibles  = dashboard_disponibles($id,$count2,$promo_info);
 }
@@ -112,7 +113,8 @@ http://dragonflycity.com/
         </div>
       </a>
     </nav>
-    <main class="home displayFlex">
+    <main class="home displayFlex" style="margin-top: 20px;">
+      <?php echo $encabezado;?>
       <nav class="displayFlex">
         <ul class="displayFlex">
           <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();" >Consolidado</a></li>

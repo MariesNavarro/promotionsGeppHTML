@@ -647,6 +647,18 @@ main.home>#promosW>ul>li{
 .itemDash_action_question{ background-image: url('../img/ic/action_question.svg');  color: #999999;}
 .itemDash_action_question::after{ content: "Falta info" }
 
+.promoItemDash_Thumbnail {
+  width: 60px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.promoItemDash_Thumbnail2 {
+  width: 75px;
+  margin-left: 5px;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+
 #infoHomeW>h1, #infoHomeW>h2{
   width: 90%;
   max-width: 500px;

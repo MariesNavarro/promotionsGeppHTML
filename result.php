@@ -5,17 +5,18 @@
   $idmsg = 0;
 
   /***************** GET PARAMETROS ******************/
-  if (isset($_GET['id'])) { $idpromo = $_GET['id'];  $idpromo = encrypt_decrypt('d', $idpromo);}
+  if (isset($_GET['id'])) { $idpromoencrypt = $_GET['id'];  $idpromo = encrypt_decrypt('d', $_GET['id']);}
   if (isset($_GET['idmsg'])) { $idmsg = $_GET['idmsg'];}
 
   /***************** SET MENSAJE ******************/
   switch ($idmsg) {
-    case 1:  $mensaje = 'Promoción no es válida para tu ubicación'; break;
-    case 2:  $mensaje = 'Promoción no disponible'; /* lista negra */  break;
-    case 3:  $mensaje = 'Promoción no ha iniciado todavía'; break;  /* ya publicada, pero no ha iniciado */
-    case 4:  $mensaje = 'Promoción disponible próximamente'; break; /* no esta publicada */
-    case 5:  $mensaje = 'Promoción ya finalizó'; break;
-    default: $mensaje = "Página en construcción";
+    case 1:  $mensaje = 'La promoción no es válida para tu ubicación.'; break;
+    case 2:  $mensaje = 'La promoción no disponible.'; /* lista negra */  break;
+    case 3:  $mensaje = 'La promoción no ha iniciado todavía.'; break;  /* ya publicada, pero no ha iniciado */
+    case 4:  $mensaje = 'La Promoción estará disponible próximamente.'; break; /* no esta publicada */
+    case 5:  $mensaje = 'La promoción ya finalizó.'; break;
+    case 6:  $mensaje = 'La promoción estará disponible en breve.'; break; /* esta pausada */
+    default: $mensaje = "Página en construcción.";
    }
 
    if ($idpromo>0) {  /* viene una promo, obtener datos promo  */
@@ -128,7 +129,7 @@
 
       <ul class="countdown displayFlex <?php echo $promo_color; ?>" style="display:none">
           <ul class="wrapSuperiorMensajeExito">
-            <li><span style="font-size: 30px;" >La promoción <?php echo $promo_descripcion; ?> comienza en</span></li>
+            <li><p><span style="font-size: 30px;">La promoción </span><br/><span style="font-size: 40px;"><?php echo $promo_nombre; ?></span><br/><span style="font-size: 30px;"> comienza en</span></p></li>
           </ul>
           <li><span class="days">00</span> <p class="days_ref">Días</p></li>
           <li class="seperator">.</li>
@@ -161,7 +162,7 @@
     <script src="/ui/countdown/jquery.downCount.js"></script>
     <script type="text/javascript">
       var idmsg = "<?php echo $idmsg ?>";
-      var idpromo = "<?php echo $idpromo ?>";
+      var idpromo = "<?php echo $idpromoencrypt ?>";
       var fecha_inic =  "<?php echo $fecha_inicio ?>";
       //console.log(idmsg+' '+idpromo+' '+fecha_inic);
       preventHeight();

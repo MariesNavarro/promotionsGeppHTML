@@ -125,8 +125,10 @@ http://dragonflycity.com/
       </nav>
       <header class=desktopNav>
         <ul class="displayFlex">
-          <li class="displayFlex">
+          <li class="displayFlex"  style="width: 100px;">
             <span class="desktopNav"><img src="ui/img/ic/list.svg" height="15"></span>
+          </li>
+          <li class="displayFlex">
             <p>Nombre</p>
           </li>
           <li class="displayFlex">

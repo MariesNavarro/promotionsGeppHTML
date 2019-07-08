@@ -59,11 +59,17 @@ function getpromociones($estatus,&$count){
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
                   NC.numcupones, fecha_fin, gtrd_proveedor.ind_legales, gtrd_proveedor.nombre,
-                  ind_generico, codigo_generico, max_generico
+                  ind_generico, codigo_generico, max_generico, gtrd_plantilla_config_producto.valor_componente thumbnail
                FROM gtrd_promociones
          INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
          INNER JOIN gtrd_proveedor ON gtrd_proveedor.Id=gtrd_promociones.id_proveedor
           LEFT JOIN (select id_promo,COUNT(*) numcupones from gtrd_cupones group by id_promo) NC On NC.id_promo=gtrd_promociones.id
+          LEFT JOIN gtrd_plantilla_config_producto ON
+                    gtrd_plantilla_config_producto.id_plantilla  = gtrd_promociones.id_plantilla AND
+                    gtrd_plantilla_config_producto.id_marca     = gtrd_promociones.id_marca AND
+                    gtrd_plantilla_config_producto.version      = gtrd_promociones.version AND
+                    gtrd_plantilla_config_producto.producto     = 1 AND
+                    gtrd_plantilla_config_producto.id_componente= 'img_thumbnail'
               WHERE gtrd_promociones.estatus in (".$estatus.",".$estatus2.")
            ORDER BY gtrd_promociones.fecha_update DESC";
 /*
@@ -80,10 +86,15 @@ function getpromociones($estatus,&$count){
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales
          ORDER BY gtrd_promociones.fecha_update DESC";
   */
+  //echo $query;
+
   $result = mysqli_query($link, $query);
   $count  = mysqli_num_rows($result);
   while ($fila = mysqli_fetch_row($result)) {
         $htmldat='<div class="promoItemDash displayFlex">
+          <div style="width: 80px;">
+            <p><a href="./'.$fila[5].'" target="_blank"><img src="/ui/img/thumbnail/'.$fila[14].'" class="promoItemDash_Thumbnail"></p></a>
+          </div>
           <div>
             <p class="promoItemDash_Name">'.$fila[0].'</p>
           </div>
@@ -183,6 +194,14 @@ function getpromociones($estatus,&$count){
                   <h3>Página de Prueba:</h3>
                   <a href="./?id='.encrypt_decrypt('e', $fila[4]).'&ts=1" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'&ts=1</a>
                 </li>
+                <li class="displayFlex">
+                  <h3>Página de Producción:</h3>
+                  <a href="./?id='.encrypt_decrypt('e', $fila[4]).'" target="_blank">'.$dominio.'/?id='.encrypt_decrypt('e', $fila[4]).'</a>
+                </li>
+                <li class="displayFlex">
+                  <h3>Página de Distribución:</h3>
+                  <a href="./'.$fila[5].'" target="_blank">'.$dominio.'/'.$fila[5].'</a>
+                </li>
               </ul>
               </div>';
           }
@@ -215,11 +234,20 @@ function PromoValores($promo) {
                        c.nombre proveedor, c.logo_excel proveedor_logo,
                        DATE_FORMAT(a.fecha_inicio,'%d/%m/%Y') fecha_inicio,
                        DATE_FORMAT(a.fecha_fin,'%d/%m/%Y') fecha_fin,
-                       a.ind_generico, a.codigo_generico, a.max_generico
+                       a.ind_generico, a.codigo_generico, a.max_generico,
+                       gtrd_plantilla_config_producto.valor_componente thumbnail
                   FROM gtrd_promociones a
              LEFT JOIN gtrd_marca b ON a.id_marca = b.id
              LEFT JOIN gtrd_proveedor c ON a.id_proveedor = c.id
+             LEFT JOIN gtrd_plantilla_config_producto ON
+                       gtrd_plantilla_config_producto.id_plantilla = a.id_plantilla AND
+                       gtrd_plantilla_config_producto.id_marca     = a.id_marca AND
+                       gtrd_plantilla_config_producto.version      = a.version AND
+                       gtrd_plantilla_config_producto.producto     = 1 AND
+                       gtrd_plantilla_config_producto.id_componente= 'img_thumbnail'
                  WHERE a.id = ".$promo;
+
+   //echo $consulta;
    if ($resultado = mysqli_query($link, $consulta)) {
      $data=mysqli_fetch_array($resultado);
      //while ($fila = mysqli_fetch_row($resultado)) {
@@ -319,10 +347,7 @@ function createhtml($link,$promo,$promo_info)
 
   echo '<!-- Tab content -->
         <div id="Consolidados" class="tabcontent"  style="text-align: center;">
-          <p class="descPromo" style="font-size: 1.9rem;font-weight: bold;">'.$promo_info['nombre'].'</p>
-          <p style="font-size: 1.3rem;margin-top: 5px;">'.$promo_info['marca'].'</p>
-          <p style="font-size: 1.3rem;margin-top: 5px;">'.$promo_info['proveedor'].'</p>
-          <p style="font-size: 1.0rem;margin-top: 5px;">'.$promo_info['fecha_inicio'].' al '.$promo_info['fecha_fin'].'</p>
+          <p></p>
           <p style="font-size: 1.9rem;margin-top: 20px;">Cupones</p><br />
           <p id="cupEntregadosHoy" style="font-size: 4.6rem; font-weight: 300; margin-top: -15px;">'.number_format($cup_entregadoshoy, 0, '.', ',').'</p><br />
           <p style="font-size: 15px; margin-top: -32px;color:black;">Entregados Hoy</p><br />
@@ -379,6 +404,18 @@ function dashboard($promo,$promo_info)
              </div>
             </div>';
   Close($link);
+  return $salida;
+}
+
+function dashboard_head($promo_info) {
+  $salida = '<div class="displayFlex" style="width: 100%;">
+              <div><img src="/ui/img/thumbnail/'.$promo_info['thumbnail'].'" class="promoItemDash_Thumbnail2"></div>
+              <div>
+                <span class="descPromo" style="font-size: 1.2rem;font-weight: bold;">'.$promo_info['nombre'].'</span><br/>
+                <span style="font-size: 0.9rem;margin-top: 5px;">'.$promo_info['marca'].'/'.$promo_info['proveedor'].'</span><br/>
+                <span style="font-size: 0.9rem;margin-top: 5px;">'.$promo_info['fecha_inicio'].' al '.$promo_info['fecha_fin'].'</span><br/>
+              </div>
+            </div>';
   return $salida;
 }
 
@@ -1418,7 +1455,4 @@ function liberarcupones($id,$cupones)
 
   return $salida;
 }
-
-
-
 ?>
