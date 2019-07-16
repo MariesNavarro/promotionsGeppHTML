@@ -38,7 +38,7 @@ Author: OETCapital
     <label for="unoBack" id="labelBack" class="backWhite">
       <p>Imagen de Fondo</p>
     </label>
-    <input id="unoBack" type="file" onchange="updateimageplantilla(this,16,'plantillaUno','ui/img/back/')"  class="hideInput">
+    <input id="unoBack" type="file" onchange="updateimageplantilla(this,16,'plantillaDos','ui/img/back/')"  class="hideInput">
     <div class="superior">
       <div class="botella displayFlex">
           <label for="unoBottle" id="labelBottle" class="bordersetup colorBorderWhite">

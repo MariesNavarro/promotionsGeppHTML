@@ -178,7 +178,7 @@ function changeimg(idelement) {
     }
     parent.infopromoedit[indexarray]=arrayRS.join('|')
   }
-  if(idelement==='plantillaUno')
+  if(idelement==='plantillaUno'||idelement==='plantillaDos')
   {
     ele.style.backgroundImage='url("'+srcfolder+srcsource+'")';
   }

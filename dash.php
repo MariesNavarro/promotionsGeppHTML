@@ -19,7 +19,7 @@ else {
   //$consolidado  = dashboard($id,$promo_info);
   $encabezado   = dashboard_head($promo_info);
   $entregados   = dashboard_entregados($id,$count1,$promo_info);
-  $disponibles  = dashboard_disponibles($id,$count2,$promo_info);
+  //$disponibles  = dashboard_disponibles($id,$count2,$promo_info);
 }
 ?>
 <!--
@@ -119,7 +119,7 @@ http://dragonflycity.com/
         <ul class="displayFlex">
           <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabsrep('0', this);topFunction();" >Consolidado</a></li>
           <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-100%', this);topFunction();" id="tabEntregados">Entregados (<?php echo $count1; ?>)</a></li>
-          <li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();" id="tabDisponibles">Disponibles (<?php echo $count2; ?>)</a></li>
+          <!--<li><a role="button" class="trans5 tabButtons" onclick="promoTabsrep('-200%', this);topFunction();" id="tabDisponibles">Disponibles (<?php echo $count2; ?>)</a></li>-->
         </ul>
       </nav>
       <header id='headerreport' class=desktopNav style="display:none">
@@ -139,9 +139,11 @@ http://dragonflycity.com/
           <li id="entregados">
             <?php echo $entregados; ?>
           </li>
+          <!--
           <li id="disponibles">
             <?php echo $disponibles; ?>
           </li>
+        -->
         </ul>
       </div>
       <div class="displayFlex">
