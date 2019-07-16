@@ -340,7 +340,11 @@ body#plantillaDos {
   background-position: center;
   background-size: 100% 100%;
 }
-
+body#plantillaDos > #loading{
+background-repeat: no-repeat;
+background-position: center;
+background-size: 100% 100%;
+}
 #plantillaDos > #textoEdo {
   position: fixed;
   width: 100vw;
@@ -376,7 +380,7 @@ body#plantillaDos {
 #plantillaDos > section > .wrapSuperior {
   position: relative;
   width: 100%;
-  height: calc(100% - 80px);
+  height: calc(100% - 150px);
   min-height: 200px;
   -webkit-box-align: center;
   -webkit-align-items: center;
@@ -393,7 +397,7 @@ body#plantillaDos {
 }
 
 #plantillaDos > #homeUno > .wrapSuperior > img {
-  height: 100%;
+  height: 80%;
 }
 
 #plantillaDos > #homeUno > .wrapSuperior > .productoInfo {
@@ -423,7 +427,10 @@ body#plantillaDos {
   margin-top: 10px;
   text-align: center;
 }
-
+#plantillaDos > section > .wrapInferiorButton>#footer2{
+  color: #fff;
+  font-size: 0.8rem;
+}
 #plantillaDos > section > .wrapInferiorButton > a {
   display: inline-block;
   height: 90%;
