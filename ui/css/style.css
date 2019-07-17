@@ -636,3 +636,79 @@ body#plantillaUno {
 /* + Animations */
 
 /*# sourceMappingURL=style.css.map */
+
+body#indexProductos{
+  position: absolute;
+  top:0;
+  width: 100vw;
+  height: 100vh;
+  background: #ff4d00;
+}
+body#indexProductos>ul{
+  width: 100%;
+  height: 100%;
+}
+body#indexProductos>ul>li{
+  width: 50%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+body#indexProductos>ul>li>.promoholder{
+  width: 65%;
+  height: 30%;
+  max-width: 605px;
+  max-height: 672px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+body#indexProductos>ul>li>a{
+  font-family: sans-serif;
+  font-weight: bold;
+  display: block;
+  padding: 10px;
+  width: 200px;
+  height: 60px;
+  background: #fff;
+  background-image:url('../img/indexpromos/button-text.png');
+  background-repeat: no-repeat;
+  background-size: 85% auto;
+  background-position: center;
+  color: #ff4d00;
+  text-align: center;
+  border-radius: 60px;
+  text-transform: uppercase;
+  opacity: 1;
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
+body#indexProductos>ul>li>a:hover{
+  opacity: 0.9;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+
+}
+
+@media (min-width: 880px) {
+  body#indexProductos>ul>li>.promoholder{
+    height: 60%;
+    margin: 10px auto;
+}
