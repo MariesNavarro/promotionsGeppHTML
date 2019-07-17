@@ -132,7 +132,7 @@ Author: OETCapital
     <footer class="displayFlex">
       <p>Consulta Bases, términos, condiciones y vigencia en</p>
       <p><a href="legales/<?php echo $promo_legales; ?>" target="_blank">www.siguesudando.com/legales</a></p>
-
+      <p class="displayNone" id="footerPromoCopy"><?php echo $promo_txt_footer; ?> </p>
     </footer>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/front-min.js" charset="utf-8"></script>

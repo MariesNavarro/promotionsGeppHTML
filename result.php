@@ -76,7 +76,7 @@
     <script src="/ui/js/globales.js" charset="utf-8"></script>
     <link id="prefetchLogo" rel="prefetch" href="/ui/img/logotipo/<?php echo $marca_logo; ?>">
     <style>
-      #plantillaUno>#loading {background: #fff; position: fixed;top: 0;left:0;width:100vw;height:100vh;-webkit-justify-content: center;-moz-justify-content: center;-ms-justify-content: center;-o-justify-content: center;justify-content: center;z-index: 5000;opacity: 1;}#plantillaUno>#loading>div {margin-top: 10vh;text-align: center}#plantillaUno>#loading>div>img {opacity: 0;-webkit-animation: fadeIn .7s ease-in .7s forwards;-moz-animation: fadeIn .7s ease-in .7s forwards;-ms-animation: fadeIn .7s ease-in .7s forwards;-o-animation: fadeIn .7s ease-in .7s forwards;animation: fadeIn .7s ease-in .7s forwards}#plantillaUno>#loading>div>div {margin: 0 auto;width: 60px;height: 30px;-webkit-justify-content: space-between;-moz-justify-content: space-between;-ms-justify-content: space-between;-o-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;-moz-align-items: flex-end;-ms-align-items: flex-end;-o-align-items: flex-end;align-items: flex-end;opacity: 0;-webkit-animation: fadeIn .7s ease-in 1.2s forwards;-moz-animation: fadeIn .7s ease-in 1.2s forwards;-ms-animation: fadeIn .7s ease-in 1.2s forwards;-o-animation: fadeIn .7s ease-in 1.2s forwards;animation: fadeIn .7s ease-in 1.2s forwards}#plantillaUno>#loading>div>div>span {display: block;width: 15px;height: 15px;background: #fff;border-radius: 50%;margin: 10px 2px 8px;-webkit-animation: scaleDot 1.5s infinite;-moz-animation: scaleDot 1.5s infinite;-ms-animation: scaleDot 1.5s infinite;-o-animation: scaleDot 1.5s infinite;animation: scaleDot 1.5s infinite}#plantillaUno>#loading>div>div>span: nth-child(2) {-webkit-animation-delay: 1s;-moz-animation-delay: 1s;-ms-animation-delay: 1s;-o-animation-delay: 1s;animation-delay: 1s}#plantillaUno>#loading>div>div>span: nth-child(3) {-webkit-animation-delay: 1.5s;-moz-animation-delay: 1.5s;-ms-animation-delay: 1.5s;-o-animation-delay: 1.5s;animation-delay: 1.5s}#plantillaUno>#loading>div>div>span: nth-child(4) {-webkit-animation-delay: 2s;-moz-animation-delay: 2s;-ms-animation-delay: 2s;-o-animation-delay: 2s;animation-delay: 2s}@media (min-width: 880px) {#plantillaUno>#loading>div {margin-top: 20vh}}@-webkit-keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@-webkit-keyframes scaleDot {0%,100% { opacity: 1; -webkit-transform: scale(1) }50% { opacity: 0; -webkit-transform: scale(0) }}@keyframes scaleDot {0%,100% { opacity: 1; transform: scale(1) }50% { opacity: 0; transform: scale(0) }}
+      #plantillaUno>#loading {position: fixed;top: 0;left:0;width:100vw;height:100vh;-webkit-justify-content: center;-moz-justify-content: center;-ms-justify-content: center;-o-justify-content: center;justify-content: center;z-index: 5000;opacity: 1;}#plantillaUno>#loading>div {margin-top: 10vh;text-align: center}#plantillaUno>#loading>div>img {opacity: 0;-webkit-animation: fadeIn .7s ease-in .7s forwards;-moz-animation: fadeIn .7s ease-in .7s forwards;-ms-animation: fadeIn .7s ease-in .7s forwards;-o-animation: fadeIn .7s ease-in .7s forwards;animation: fadeIn .7s ease-in .7s forwards}#plantillaUno>#loading>div>div {margin: 0 auto;width: 60px;height: 30px;-webkit-justify-content: space-between;-moz-justify-content: space-between;-ms-justify-content: space-between;-o-justify-content: space-between;justify-content: space-between;-webkit-align-items: flex-end;-moz-align-items: flex-end;-ms-align-items: flex-end;-o-align-items: flex-end;align-items: flex-end;opacity: 0;-webkit-animation: fadeIn .7s ease-in 1.2s forwards;-moz-animation: fadeIn .7s ease-in 1.2s forwards;-ms-animation: fadeIn .7s ease-in 1.2s forwards;-o-animation: fadeIn .7s ease-in 1.2s forwards;animation: fadeIn .7s ease-in 1.2s forwards}#plantillaUno>#loading>div>div>span {display: block;width: 15px;height: 15px;background: #fff;border-radius: 50%;margin: 10px 2px 8px;-webkit-animation: scaleDot 1.5s infinite;-moz-animation: scaleDot 1.5s infinite;-ms-animation: scaleDot 1.5s infinite;-o-animation: scaleDot 1.5s infinite;animation: scaleDot 1.5s infinite}#plantillaUno>#loading>div>div>span: nth-child(2) {-webkit-animation-delay: 1s;-moz-animation-delay: 1s;-ms-animation-delay: 1s;-o-animation-delay: 1s;animation-delay: 1s}#plantillaUno>#loading>div>div>span: nth-child(3) {-webkit-animation-delay: 1.5s;-moz-animation-delay: 1.5s;-ms-animation-delay: 1.5s;-o-animation-delay: 1.5s;animation-delay: 1.5s}#plantillaUno>#loading>div>div>span: nth-child(4) {-webkit-animation-delay: 2s;-moz-animation-delay: 2s;-ms-animation-delay: 2s;-o-animation-delay: 2s;animation-delay: 2s}@media (min-width: 880px) {#plantillaUno>#loading>div {margin-top: 20vh}}@-webkit-keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@keyframes fadeIn {from { opacity: 0 }to { opacity: 1 }}@-webkit-keyframes scaleDot {0%,100% { opacity: 1; -webkit-transform: scale(1) }50% { opacity: 0; -webkit-transform: scale(0) }}@keyframes scaleDot {0%,100% { opacity: 1; transform: scale(1) }50% { opacity: 0; transform: scale(0) }}
     </style>
     <meta name="description" content="<?php echo $marca_descripcion; ?>">
     <meta name="author" content="GEPP">
@@ -114,7 +114,7 @@
     <div id="textoEdo" class="trans5" style="opacity:0">
       <p></p>
     </div>
-    <section id="loading" class="displayFlex trans5 <?php echo $promo_color; ?>">
+    <section id="loading" class="displayFlex trans5 <?php echo $promo_color; ?> <?php echo $promo_color_load; ?>">
       <div>
         <img id="loadLogo" src="/ui/img/logotipo/<?php echo $marca_logo; ?>" width="150" height="150">
         <div class="displayFlex">
@@ -127,17 +127,17 @@
 
     <section id="mensajeUno" class="trans5" style="display:none">
 
-      <ul class="countdown displayFlex <?php echo $promo_color; ?>" style="display:none">
+      <ul class="countdown displayFlex" style="display:none;">
           <ul class="wrapSuperiorMensajeExito">
-            <li><p><span style="font-size: 30px;">La promoción </span><br/><span style="font-size: 40px;"><?php echo $promo_nombre; ?></span><br/><span style="font-size: 30px;"> comienza en</span></p></li>
+            <li><p><span style="font-size: 30px;">La promoción </span><br/><span style="font-size: 40px;color: #fff"><?php echo $promo_nombre; ?></span><br/><span style="font-size: 30px;"> comienza en</span></p></li>
           </ul>
-          <li><span class="days">00</span> <p class="days_ref">Días</p></li>
-          <li class="seperator">.</li>
-          <li><span class="hours">00</span><p class="hours_ref">Horas</p></li>
-          <li class="seperator">:</li>
-          <li><span class="minutes">00</span><p class="minutes_ref">Minutos</p></li>
-          <li class="seperator">:</li>
-          <li><span class="seconds">00</span><p class="seconds_ref">Segundos</p></li>
+          <li style="color: #fff"><span class="days">00</span> <p class="days_ref">Días</p></li>
+          <li style="color: #fff" class="seperator">.</li>
+          <li style="color: #fff"><span class="hours">00</span><p class="hours_ref">Horas</p></li>
+          <li style="color: #fff" class="seperator">:</li>
+          <li style="color: #fff"><span class="minutes">00</span><p class="minutes_ref">Minutos</p></li>
+          <li style="color: #fff" class="seperator">:</li>
+          <li style="color: #fff"><span class="seconds">00</span><p class="seconds_ref">Segundos</p></li>
       </ul>
 
       <ul class="wrapSuperiorMensajeError" style="display:none">
@@ -180,6 +180,8 @@
           if (idmsg==3) {
             $('.countdown').downCount({ date: fecha_inic, offset: -5  }, function () { window.location.href = "index.php?id="+idpromo; });
              showMsg(0); /* mostrar coutdown */
+           } else if (idmsg==0) {
+              window.location.href = "indexpromos.html"; /* No hay mensajes, se redirecciona al home de promos */
            } else {
              showMsg(1); /* mostrar mensaje error */
            }
