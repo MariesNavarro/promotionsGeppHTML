@@ -16,7 +16,7 @@ if(!isset($_SESSION["userName"])) {
     $disabled='disabled';
     $querystring='?cf=1&id='.$_GET["id"];
 
-    $idpromo       = encrypt_decrypt('d', $_GET["id"]); 
+    $idpromo       = encrypt_decrypt('d', $_GET["id"]);
     $promo         = getpromocion($idpromo);
     $plantilla_id  = $promo['id_plantilla'];
   }
@@ -150,6 +150,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>2. Funcionalidad</h3>
+                    <p>Seleccionar la funcionalidad de la promoción</p>
                   <!--<a href="#" target="_blank">Ver Tutorial</a>-->
                 </div>
               </li>
@@ -162,6 +163,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>3. Conf. Funcionalidad</h3>
+                  <p>Cargar los datos de la funcionalidad seleccionada</p>
                   <!--<a href="#" target="_blank">Ver Tutorial</a>-->
                 </div>
               </li>
@@ -174,6 +176,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>4.Plantilla</h3>
+                  <p>Seleccionar la plantilla para la promoción</p>
                   <!--<a href="#">Ver Tutorial</a>-->
                 </div>
               </li>
@@ -186,6 +189,7 @@ http://dragonflycity.com/
                 </span>
                 <div>
                   <h3>5. Edición de Plantilla</h3>
+                  <p>Configurar la promoción en base a la plantilla seleccionada</p>
                   <!--<a href="#">Ver Tutorial</a>-->
                 </div>
               </li>
@@ -289,8 +293,8 @@ http://dragonflycity.com/
                   <input id="legalesUpload" class="textInput legalesConfig" type="file" name="">
                 </div>
               </div>
-
-              <button class="buttonConfig centerButton" type="button" name="button" onclick="checkSteps(1, this);">Siguiente</button>
+             <button class="buttonConfig leftButton" type="button" name="button" onclick="window.location.href = 'home.php';">Regresar</button>
+              <button class="buttonConfig rightButton" type="button" name="button" onclick="checkSteps(1, this)">Siguiente</button>
             </form>
           </li>
           <li>
