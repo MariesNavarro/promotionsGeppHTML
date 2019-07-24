@@ -108,6 +108,9 @@ http://dragonflycity.com/
       </a>
     </nav>
     <main class="home displayFlex">
+      <div id="infoHomeW">
+          <h1>Promociones</h1>
+      </div>
       <nav class="displayFlex">
         <ul class="displayFlex">
           <li><a role="button" class="trans5 tabButtons selectTab" onclick="promoTabs('0', this);topFunction();">Por Activar (<?php echo $count2; ?>)</a></li>
@@ -136,6 +139,9 @@ http://dragonflycity.com/
           </li>
           <li class="displayFlex">
             <p>Vigencia</p>
+          </li>
+          <li class="displayFlex">
+            <p>Cupones</p>
           </li>
           <li class="displayFlex">
             <p>Acciones</p>

@@ -91,6 +91,8 @@ function getpromociones($estatus,&$count){
   $result = mysqli_query($link, $query);
   $count  = mysqli_num_rows($result);
   while ($fila = mysqli_fetch_row($result)) {
+        $count_entregados = count_entregados($fila[4],0);
+        $count_disponibles = count_disponibles($fila[4],0);
         $htmldat='<div class="promoItemDash displayFlex">
           <div style="width: 80px;">
             <p><a href="./'.$fila[5].'" target="_blank"><img src="/ui/img/thumbnail/'.$fila[14].'" class="promoItemDash_Thumbnail"></p></a>
@@ -103,7 +105,12 @@ function getpromociones($estatus,&$count){
           </div>
           <div>
             <p class="promoItemDash_Validity">'.$fila[2].' al '.$fila[3].'</p>
-          </div>';
+          </div>
+          <div>
+            <span>Entregados: '.str_pad(number_format($count_entregados, 0, '.', ','),7,' ',STR_PAD_LEFT).'</span>
+            <span>Disponibles: '.str_pad(number_format($count_disponibles, 0, '.', ','),7,' ',STR_PAD_LEFT).'</span>
+          </div>
+          ';
           /*
             <span>
             <p class="promoItemDash_Validity">'.$fila[2].' <br> '.$fila[3].'</p>
@@ -111,6 +118,7 @@ function getpromociones($estatus,&$count){
           </div>';
           */
           if($estatus==1) { // Activas
+
             $htmlact='<div class="actions displayFlex">
                 <a class="itemDash_action_link" class="trans5" onclick="openLinks(\'open\' ,this)"></a>
                 <a class="itemDash_action_dashboard" href="dash.php?id='.encrypt_decrypt('e', $fila[4]).'" class="trans5"></a>';
@@ -492,6 +500,46 @@ function dashboard_disponibles($promo,&$count,$promo_info){
   }
   Close($link);
   return $salida;
+}
+
+function count_entregados($promo,$promo_generica){
+  $count=0;
+  $reg=0;
+  $tabla = "gtrd_cupones";
+  if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
+  $link=connect();
+  $consulta ="SELECT count(*)
+              FROM   ".$tabla." a
+              WHERE id_promo=".$promo." and estatus=1";
+  if ($resultado = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_row($resultado)) {
+      $count  = $fila[0];
+    }
+    /* liberar el conjunto de resultados */
+    mysqli_free_result($resultado);
+   }
+  Close($link);
+  return $count;
+}
+
+function count_disponibles($promo,$promo_generica){
+  $count=0;
+  $reg=0;
+  $tabla = "gtrd_cupones";
+  if ($promo_generica==1) { $tabla = "gtrd_cupones_genericos"; }
+  $link=connect();
+  $consulta ="SELECT count(*)
+              FROM   ".$tabla." a
+              WHERE id_promo=".$promo." and estatus=0";
+  if ($resultado = mysqli_query($link, $consulta)) {
+    while ($fila = mysqli_fetch_row($resultado)) {
+      $count  = $fila[0];
+    }
+    /* liberar el conjunto de resultados */
+    mysqli_free_result($resultado);
+   }
+  Close($link);
+  return $count;
 }
 
 //encrypt_decrypt('d','aTlCQkkyK1p2dHU5Z2pYY0NEcnN0UT09')
