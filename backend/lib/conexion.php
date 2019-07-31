@@ -1,5 +1,4 @@
 ﻿<?php
-
 class foo_mysqli extends mysqli {
     public function __construct($host, $usuario, $contraseña, $bd) {
         parent::init();

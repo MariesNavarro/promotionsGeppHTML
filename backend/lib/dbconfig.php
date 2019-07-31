@@ -436,7 +436,7 @@ function dashboard_entregados($promo,&$count,$promo_info){
   $link=connect();
   $consulta ="SELECT codigo Cupon, DATE_FORMAT(fecha_entregado,'%d/%m/%Y %H:%i:%s') Entregado_El,ip IPSolicitud, a.pais,gtrd_estados.estado
               FROM   ".$tabla." a
-              INNER JOIN gtrd_estados on a.estado=gtrd_estados.codigo_estado
+              LEFT JOIN gtrd_estados on a.estado=gtrd_estados.codigo_estado
               WHERE id_promo=".$promo." and estatus=1 and a.estado NOT IN ('ALL')
               UNION
               SELECT codigo Cupon,fecha_entregado Entregado_El,ip IPSolicitud, 'MX' pais,'(No registrado)' estado

@@ -19,7 +19,7 @@ else {
   //$consolidado  = dashboard($id,$promo_info);
   $encabezado   = dashboard_head($promo_info);
   $entregados   = dashboard_entregados($id,$count1,$promo_info);
-  //$disponibles  = dashboard_disponibles($id,$count2,$promo_info);
+  $disponibles  = dashboard_disponibles($id,$count2,$promo_info);
 }
 ?>
 <!--
@@ -143,7 +143,7 @@ http://dragonflycity.com/
           <li id="disponibles">
             <?php echo $disponibles; ?>
           </li>
-        -->
+          -->
         </ul>
       </div>
       <div class="displayFlex">

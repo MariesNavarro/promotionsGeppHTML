@@ -1,0 +1,36 @@
+[10-Jun-2019 04:30:10 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[13-Jun-2019 12:45:30 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[15-Jun-2019 12:24:01 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[20-Jun-2019 00:54:09 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[25-Jun-2019 19:31:21 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[26-Jun-2019 08:13:26 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[11-Jul-2019 10:36:21 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[11-Jul-2019 13:45:03 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
+[17-Jul-2019 00:39:47 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPExcel_Settings' not found in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/admin/public_html/siguesudando.com/test/Classes/PHPExcel/Chart/Renderer/jpgraph.php on line 3
