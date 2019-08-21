@@ -2,7 +2,7 @@
 Theme: Plantilla Uno - Dragonfly City
 Version: 1
 Author: OETCapital
-4 de Abril
+21 Agosto 2019
 -->
 <!DOCTYPE html>
 <html id="plantillaDosHTML" lang="en" dir="ltr" data-marca="<?php echo $marca; ?>">
