@@ -16,7 +16,7 @@ Author: OETCapital
 <title> Interfaz Uno </title>
 <link rel="stylesheet" href="ui/css/master.css">
 <link rel="stylesheet" href="ui/css/interfaz.css">
-<body>
+<body data-num="1">
   <section id="loadingIF" class="displayFlex trans5">
     <div>
       <form>
@@ -54,7 +54,7 @@ Author: OETCapital
           <input id="unoBottle" type="file" onchange="updateimageplantilla(this,17,'productoImg','ui/img/producto/')" class="hideInput">
         <div>
           <div class="infoTitleIF">
-            <label for="unoTextoInicio" id="labelTxInicio" class="bordersetup colorBorderWhite">
+            <label for="unoTextoInicio" id="labelTxInicio" class="bordersetup colorBorderWhite labelTxInicio">
               <p class="title backWhite colorBlack">Imagen Texto</p>
               <div class="hoverLabel displayFlex trans5" style="background:rgba(0,0,0,0.8)">
                 <p>
@@ -99,7 +99,7 @@ Author: OETCapital
   <section id="cuponIF" class="displayNone">
     <div>
       <div class="cupon displayFlex">
-        <label for="unoCupon" id="labelCupon" class="bordersetup colorBorderWhite">
+        <label for="unoCupon" id="labelCupon" class="bordersetup colorBorderWhite labelCupon">
           <p class="title backWhite colorBlack">Imagen Cupón</p>
           <div class="hoverLabel displayFlex trans5" style="background:rgba(0,0,0,0.8)">
             <p>
