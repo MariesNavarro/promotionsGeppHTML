@@ -80,8 +80,8 @@ section{
   top: 5px;
   right: 5px;
   width: 200px;
-  height: 80px;
-  line-height: 80px;
+  height: 20px;
+  line-height: 20px;
   text-align: center;
 }
 #homeIF>label:hover{
@@ -124,7 +124,7 @@ section{
   margin-top: 1%;
   margin-bottom: 8%;
 }
-#homeIF>.superior>.botella>div>.infoTitleIF>.labelTxInicio{
+#homeIF>.superior>.botella>div>.infoTitleIF>#labelTxInicio{
   position: relative;
   display: block;
   height: 100%;

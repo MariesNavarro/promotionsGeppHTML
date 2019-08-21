@@ -1,1 +1,0 @@
-<?php header("Location:https://siguesudando.com/?id=Ky80c2RzWkJ6V09CMi9rR2dnNkNKZz09"); ?>

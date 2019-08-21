@@ -1,8 +1,6 @@
 function _(el){return document.querySelector(el); }
 function __(el){return document.querySelectorAll(el); }
-var interfaz = document.getElementsByTagName("BODY")[0],
-    nInterfaz = interfaz.getAttribute("data-num");
-    console.log(nInterfaz);
+
 function changeScreenInterfaz(n){
   var wLoadingIF = _("#loadingIF"),
       wHomeIF = _("#homeIF"),
@@ -18,27 +16,14 @@ function changeScreenInterfaz(n){
       clearAllScreensIo();
       wHomeIF.setAttribute("class", "displayFlex");
       calculateR("#labelBottle", "alto", 1920, 609);
+      calculateR("#labelTxInicio", "alto", 171, 500);
       calculateR("#labelObtenerCupon", "alto", 100, 500);
-      if(nInterfaz == 1){
-        calculateR("#labelTxInicio", "alto", 171, 500);
-      }
-      if(nInterfaz == 2){
-        calculateR("#labelTxInicio2", "alto", 201, 480);
-      }
     break;
     case 2:
       clearAllScreensIo();
       cuponIF.setAttribute("class", "displayFlex");
-
+      calculateR("#labelCupon", "alto", 1578, 990);
       calculateR("#labelObtenerCaptura", "alto", 100, 500);
-
-
-      if(nInterfaz == 1){
-        calculateR("#labelCupon", "alto", 1578, 990);
-      }
-      if(nInterfaz == 2){
-        calculateR("#labelCupon2", "alto", 1578, 1100);
-      }
 
     break;
     case 3:
@@ -74,8 +59,6 @@ function calculateR(el, side, sideConst, sideVar){
       el.style.height = sideC * ratio + "px";
   }
 }
-
-
 var srcfolder='';
 var srcsource='';
 var indexarray=0;
