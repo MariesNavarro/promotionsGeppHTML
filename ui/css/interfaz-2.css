@@ -36,7 +36,7 @@ section{
   position: fixed;
 	top: 0;
 	left:0;
-	width:100vw;
+	width:calc(100vw - 30px);
 	height:100vh;
   background: none;
 }
@@ -49,6 +49,7 @@ section{
 }
 #loadingIF>div{
   margin-top: 10vh;
+  margin-right: -30px;
 }
 #loadingIF>div>p{
   font-size: 0.9rem;
@@ -89,11 +90,11 @@ section{
 }
 #homeIF>.superior{
   position: absolute;
-  top: 60px;
+  top: 80px;
   left: 15px;
-  width: calc(100% - 30px);
+  width: 100%;
   min-width: 250px;
-  height: calc(100vh - 130px);
+  height: calc(80vh - 130px);
 }
 #homeIF>.superior>.botella{
   position: relative;
@@ -115,14 +116,14 @@ section{
   width: 20px;
   height: 100%; }
 #homeIF>.superior>.botella>div{
-  height: 50%;
+  height: 100%;
   margin-left: 8px;
   text-align: center;
 }
 #homeIF>.superior>.botella>div>.infoTitleIF{
-  height: 32%;
+  height: 37%;
   margin-top: 1%;
-  margin-bottom: 8%;
+  margin-bottom: 3%;
 }
 #homeIF>.superior>.botella>div>.infoTitleIF>.labelTxInicio{
   position: relative;
@@ -141,10 +142,10 @@ section{
 #homeIF>.superior>.inferior{
   position: relative;
   width: 100%;
-  height: 10%;
+  height: 13%;
   min-height: 30px;
   max-height: 50px;
-  margin-top: 10px;
+  margin-top: 3.5%;
   text-align: center;
 }
 #homeIF>.superior>.inferior>#labelObtenerCupon{
@@ -166,7 +167,7 @@ section{
 #cuponIF>div>.cupon{
   position: relative;
   width: 100%;
-  height: calc(100% - 80px);
+  height: calc(100% - 40px);
   min-height: 200px;
   -webkit-box-align: center;
   -webkit-align-items: center;
@@ -177,7 +178,7 @@ section{
   -ms-flex-pack: center;
   justify-content: center;
 }
-#cuponIF>div>.cupon>#labelCupon{
+#cuponIF>div>.cupon>.labelCupon{
   position: relative;
   display: block;
   width: 300px;
@@ -188,7 +189,7 @@ section{
   height: 12%;
   min-height: 30px;
   max-height: 50px;
-  margin-top: 8px;
+  margin-top: 3%;
   text-align: center;
 }
 #cuponIF>div>.captura>#labelObtenerCaptura{
@@ -203,7 +204,7 @@ section{
   left: 15px;
   width: calc(100% - 30px);
   min-width: 250px;
-  height: calc(100% - 130px);
+  height: calc(100% - 170px);
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -212,7 +213,7 @@ section{
 }
 #mensajeExitoIF>.superior{
   width: 100%;
-  height: calc(100% - 100px);
+  height: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -256,12 +257,7 @@ section{
   width: 80%;
   height: 30px;
 }
-#mensajeExitoIF>.superior>li:nth-child(3)>#labelHashtag{
-  height: 100%;
-  display: block;
-  position: relative;
-  margin: 0 auto;
-}
+
 #mensajeExitoIF>.inferior{
   width: 100%;
   height: 92px;
@@ -269,7 +265,10 @@ section{
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  align-items: center;
+  -webkit-box-align: flex-end;
+  -webkit-align-items: flex-end;
+  -ms-flex-align: flex-end;
+  align-items: flex-end;
 }
 #mensajeExitoIF>.inferior>li{
   width: 45px;
@@ -281,6 +280,18 @@ section{
   position: relative;
   width: 100%;
   height: 100%;
+}
+#hashtagImg2{
+  position: fixed;
+  width: 300px;
+  height: 50px;
+  background: none;
+  bottom: 30px;
+  left: calc(50% - 150px);
+}
+#hashtagImg2>label{
+  position: absolute;
+  width: 100%;
 }
 #mensajeErrorIF>div{
   position:relative;
@@ -346,5 +357,5 @@ label>.titleDown{
 /*DESKTOP*/
 @media (min-width: 880px){
   #loadingIF>div{ margin-top:20vh}
-  #homeIF>.superior, #cuponIF>div{ height: calc(100vh - 90px); }
+  #homeIF>.superior, #cuponIF>div{ height: calc(80vh - 90px); }
 }
