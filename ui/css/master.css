@@ -598,11 +598,10 @@ main.home>#promosW>ul>li{
   justify-content:flex-start; /*space-between;*/
 }
 .promoItemDash>div.actionsFin{
-  width: 110px;
-  -webkit-box-pack:space-between;
-  -webkit-justify-content:space-between;
-  -ms-flex-pack:space-between;
-  justify-content:space-between;
+  -webkit-box-pack:flex-start;
+  -webkit-justify-content:flex-start;
+  -ms-flex-pack:flex-start;
+  justify-content:flex-start;
 }
 #promosPasadas>.promoItemDash>div.actions{
   -webkit-box-pack:center;
