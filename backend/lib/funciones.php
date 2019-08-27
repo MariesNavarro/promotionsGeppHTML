@@ -225,9 +225,11 @@ function preparedirname($string){
 function creadirectoriopromo($idpromo,$nombredir,$dominio){
   $carpeta = 'promos/'.preparedirname($nombredir);
   if (!file_exists($carpeta)) {
-    mkdir($carpeta, 0777, true);
-    $filepath=$carpeta."/index.php";
-    $txtinfile="<?php header(\"Location:".$dominio."/?id=".$idpromo."\"); ?>";
+     mkdir($carpeta, 0777, true);
+     $filepath=$carpeta."/index.php";
+     // Para pasar todos los parametros 
+     /*$txtinfile="<?php $url = $_SERVER['REQUEST_URI'];  $query_str = parse_url($url, PHP_URL_QUERY); if ($query_str!='') { $query_str='&'.$query_str;} header('Location:".$dominio."/?id=".$idpromo."'.$query_str); ?>";*/
+     $txtinfile="<?php header('Location:".$dominio."/?id=".$idpromo."'); ?>";
      $fichero = fopen($filepath, "w");
       if (flock($fichero, LOCK_EX)) {
           fwrite($fichero,$txtinfile);

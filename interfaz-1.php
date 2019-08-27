@@ -1,9 +1,3 @@
-<!--
-Theme: Index plantillas - Dragonfly City
-Version: 1
-Author: OETCapital
-9 de Abril
--->
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">

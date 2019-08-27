@@ -647,7 +647,7 @@ main.home>#promosW>ul>li{
 .itemDash_action_question::after{ content: "Falta info" }
 
 .promoItemDash_Thumbnail {
-  width: 60px;
+  width: 45px;
   margin-left: 5px;
   margin-right: 5px;
 }

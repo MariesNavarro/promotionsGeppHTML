@@ -39,8 +39,10 @@ function changeScreenInterfaz(n){
     break;
     case 3:
       clearAllScreensIo();
+      if(nInterfaz == 1){
+        calculateR("#labelHashtag", "alto", 42, 480);
+      }
       mensajeExitoIF.setAttribute("class", "displayFlex");
-      calculateR("#labelHashtag", "alto", 42, 480);
     break;
     case 4:
     clearAllScreensIo();
@@ -58,6 +60,7 @@ function changeScreenInterfaz(n){
 }
 
 function calculateR(el, side, sideConst, sideVar){
+  //console.log(el);
   var el = _(el),
       sideC, ratio;
   if(side === "alto"){
