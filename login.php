@@ -99,7 +99,7 @@ http://dragonflycity.com/
       </div>
     </main>
     <footer class="login">
-      <p>2019 © OETCapital S.A.P.I.de C.V.</p>
+      <p>2019 © OETCapital S.A.P.I.de C.V. (Ver 1.0)</p>
     </footer>
     <script src="https://code.jquery.com/jquery-latest.min.js" defer></script>
     <script src="ui/js/main.js" charset="utf-8" async></script>

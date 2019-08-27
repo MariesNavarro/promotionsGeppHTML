@@ -59,7 +59,8 @@ function getpromociones($estatus,&$count){
                   DATE_FORMAT(fecha_inicio,'%d/%m/%Y'),DATE_FORMAT(fecha_fin,'%d/%m/%Y'),
                   gtrd_promociones.id, gtrd_promociones.dir, gtrd_promociones.archivo_legales,
                   NC.numcupones, fecha_fin, gtrd_proveedor.ind_legales, gtrd_proveedor.nombre,
-                  ind_generico, codigo_generico, max_generico, gtrd_plantilla_config_producto.valor_componente thumbnail
+                  ind_generico, codigo_generico, max_generico, gtrd_plantilla_config_producto.valor_componente thumbnail,
+                  gtrd_marca.logo
                FROM gtrd_promociones
          INNER JOIN gtrd_marca ON gtrd_marca.Id=gtrd_promociones.id_marca
          INNER JOIN gtrd_proveedor ON gtrd_proveedor.Id=gtrd_promociones.id_proveedor
@@ -93,9 +94,10 @@ function getpromociones($estatus,&$count){
   while ($fila = mysqli_fetch_row($result)) {
         $count_entregados = count_entregados($fila[4],0);
         $count_disponibles = count_disponibles($fila[4],0);
+        /* <p><a href="./'.$fila[5].'" target="_blank"><img src="/ui/img/thumbnail/'.$fila[14].'" class="promoItemDash_Thumbnail"></p></a>*/
         $htmldat='<div class="promoItemDash displayFlex">
           <div style="width: 80px;">
-            <p><a href="./'.$fila[5].'" target="_blank"><img src="/ui/img/thumbnail/'.$fila[14].'" class="promoItemDash_Thumbnail"></p></a>
+            <p><a href="./'.$fila[5].'" target="_blank"><img src="/ui/img/logotipo/'.$fila[15].'" class="promoItemDash_Thumbnail"></p></a>
           </div>
           <div>
             <p class="promoItemDash_Name">'.$fila[0].'</p>
@@ -243,7 +245,8 @@ function PromoValores($promo) {
                        DATE_FORMAT(a.fecha_inicio,'%d/%m/%Y') fecha_inicio,
                        DATE_FORMAT(a.fecha_fin,'%d/%m/%Y') fecha_fin,
                        a.ind_generico, a.codigo_generico, a.max_generico,
-                       gtrd_plantilla_config_producto.valor_componente thumbnail
+                       gtrd_plantilla_config_producto.valor_componente thumbnail,
+                       b.logo logo
                   FROM gtrd_promociones a
              LEFT JOIN gtrd_marca b ON a.id_marca = b.id
              LEFT JOIN gtrd_proveedor c ON a.id_proveedor = c.id
@@ -416,8 +419,9 @@ function dashboard($promo,$promo_info)
 }
 
 function dashboard_head($promo_info) {
+  /* <div><img src="/ui/img/thumbnail/'.$promo_info['thumbnail'].'" class="promoItemDash_Thumbnail2"></div>*/
   $salida = '<div class="displayFlex" style="width: 100%;">
-              <div><img src="/ui/img/thumbnail/'.$promo_info['thumbnail'].'" class="promoItemDash_Thumbnail2"></div>
+              <div><img src="/ui/img/logotipo/'.$promo_info['logo'].'" class="promoItemDash_Thumbnail2"></div>
               <div>
                 <span class="descPromo" style="font-size: 1.2rem;font-weight: bold;">'.$promo_info['nombre'].'</span><br/>
                 <span style="font-size: 0.9rem;margin-top: 5px;">'.$promo_info['marca'].'/'.$promo_info['proveedor'].'</span><br/>
@@ -710,7 +714,7 @@ function funcionalidades($varconfig){
                <div class="picRect" style="background-image:url(\''.$fila[3].'\')"></div>
                <div class="overRect">
                  <p>'.$fila[2].'</p>
-                 <a href="#" target="_blank"><span>Ver Más</span></a>
+                 <!--<a href="#" target="_blank"><span>Ver Más</span></a>-->
                </div>
              </div>
              <div class="selectionContainer">
@@ -728,7 +732,7 @@ function funcionalidades($varconfig){
                  <div class="picRect" style="background-image:url(\''.$fila[3].'\')"></div>
                  <div class="overRect">
                    <p>'.$fila[2].'</p>
-                   <a href="#" target="_blank"><span>Ver Más</span></a>
+                   <!--<a href="#" target="_blank"><span>Ver Más</span></a>-->
                  </div>
                </div>
                <div class="selectionContainer">
@@ -861,7 +865,7 @@ function plantillas($funcionalidad,$dis){
                <div class="picRect" style="background-image:url(\''.$fila[6].'\')"></div>
                <div class="overRect">
                  <p>'.$fila[3].'</p>
-                 <a href="#" target="_blank"><span>Ver Más</span></a>
+                 <!--<a href="#" target="_blank"><span>Ver Más</span></a>-->
                </div>
              </div>
              <div class="selectionContainer">
@@ -870,6 +874,7 @@ function plantillas($funcionalidad,$dis){
              </div>
            </div>
            </div>';
+           
          }
          else {
            $salida=$salida.'<div class="rowConfig displayFlex">
@@ -879,7 +884,7 @@ function plantillas($funcionalidad,$dis){
                  <div class="picRect" style="background-image:url(\''.$fila[6].'\')"></div>
                  <div class="overRect">
                    <p>'.$fila[3].'</p>
-                   <a href="#" target="_blank"><span>Ver Más</span></a>
+                   <!--<a href="#" target="_blank"><span>Ver Más</span></a>-->
                  </div>
                </div>
                <div class="selectionContainer">

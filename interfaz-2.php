@@ -1,9 +1,3 @@
-<!--
-Theme: Index plantillas - Dragonfly City
-Version: 1
-Author: OETCapital
-9 de Abril
--->
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -185,7 +179,7 @@ Author: OETCapital
       calculateR("#labelObtenerCupon", "alto", 100, 500);
       calculateR("#labelCupon2", "alto", 1578, 1100);
       calculateR("#labelObtenerCaptura", "alto", 100, 500);
-      calculateR("#labelHashtag", "alto", 42, 480);
+      //calculateR("#labelHashtag", "alto", 42, 480);
       calculateR("#labelError", "ancho", 900, 195);
     }
   </script>

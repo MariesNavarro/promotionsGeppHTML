@@ -2880,6 +2880,7 @@ function getNumCSV(){
 
 var compactMenu = false;
 function checkSteps(n, t){
+  //console.log('checkSteps...'+n);
   switch (n) {
     case 1:
       checkConfig_1(n,t);
@@ -3207,6 +3208,7 @@ function uncheckedfunctionall(t){
       actualizaplantilla(t.value)
 }
 function uncheckedthemeall(t){
+    //console.log('uncheckedthemeall...');
       var c = __('.checkBoxTheme');
       if(t.checked)
       {
@@ -3251,6 +3253,7 @@ function ischeckedsometheme(n,t){
        i=c.length+1;
     }
   }
+  console.log('ischeckedsometheme...'+n+' id:'+id);
   if(id!='')
   {
     if(bancarga==1&&changeplant==0)
@@ -4163,6 +4166,3 @@ function getPlantillaStr(idplantilla){
   }
   return  strplantilla;
 }
-
-
-verificalogin();

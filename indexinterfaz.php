@@ -1,10 +1,3 @@
-<!--
-Theme: Index plantillas - Dragonfly City
-Version: 1
-Author: OETCapital
-9 de Abril
--->
-
 <?php
 require_once('backend/lib/db.php');
 require_once('backend/lib/dbconfig.php');

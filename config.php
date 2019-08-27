@@ -3,15 +3,16 @@ session_start();
 require_once('backend/lib/dbconfig.php');
 
 if(!isset($_SESSION["userName"])) {
-  header("Location:login.php");
+  //header("Location:login.php");
+  echo "<script language=\"javascript\">window.location.href=\"login.php\";</script>";
 } else {
   $username       = $_SESSION["Nombre"];
   $marcas         = marcas();
   $proveedores    = proveedores();
+  $disabled       = '';
+  $querystring    = '?cf=1';
+  //$plantilla_id   = '';
 
-
-  $disabled='';
-  $querystring='?cf=1';
   if(isset($_GET["id"])) {
     $disabled='disabled';
     $querystring='?cf=1&id='.$_GET["id"];
@@ -86,7 +87,7 @@ http://dragonflycity.com/
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="ui/css/master.css">
-    <script> var idplantilla = <?php echo $plantilla_id; ?></script>
+    <script> var idplantilla = '<?php echo $plantilla_id;?>';</script>
   </head>
   <body>
     <div id="loadingConf" style="display:none">
@@ -648,14 +649,15 @@ http://dragonflycity.com/
       }
       //Quitar ejemplo
       window.onload = function(){
+        verificalogin();
         rContEditor("#contEditorPlantilla");
         $(".dateConfig").on("change", function() {
-    this.setAttribute(
-        "data-date",
-        moment(this.value, "YYYY-MM-DD")
-        .format( this.getAttribute("data-date-format") )
-    )
-}).trigger("change")
+            this.setAttribute(
+              "data-date",
+              moment(this.value, "YYYY-MM-DD")
+              .format( this.getAttribute("data-date-format") )
+            )
+          }).trigger("change")
 
         /*
         legales/<?php echo $promo_legales; ?>
@@ -666,8 +668,6 @@ http://dragonflycity.com/
       <?php if(isset($_GET["id"])) {echo "getpromoplantillabd('".encrypt_decrypt('d', $_GET['id'])."')";}?>;
        disa="<?php echo $disabled?>";
        idnvaprom='<?php if(isset($_GET["id"])) {echo $_GET["id"] ;} else{echo '0';}?>';
-
-
 
       }
       window.onresize = function(){
