@@ -849,10 +849,10 @@ function plantillas($funcionalidad,$dis){
 
   $link=connect();
   if($funcionalidad == NULL) {
-  $consulta ="SELECT * FROM gtrd_plantilla";
+  $consulta ="SELECT * FROM gtrd_plantilla WHERE Activo = 1";
   }
   else {
-    $consulta="SELECT * FROM gtrd_plantilla where id_funcionalidad=".$funcionalidad;
+    $consulta="SELECT * FROM gtrd_plantilla where Activo = 1 AND id_funcionalidad=".$funcionalidad;
   }
   if ($resultado = mysqli_query($link, $consulta)) {
     while ($fila = mysqli_fetch_row($resultado)) {
@@ -874,7 +874,7 @@ function plantillas($funcionalidad,$dis){
              </div>
            </div>
            </div>';
-           
+
          }
          else {
            $salida=$salida.'<div class="rowConfig displayFlex">
