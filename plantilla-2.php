@@ -54,7 +54,7 @@
     <div id="textoEdo" class="trans5" style="opacity:0">
       <p></p>
     </div>
-    <section id="loading" class="displayFlex trans5" style="background-image:url('ui/img/back/21_back.jpg')">
+    <section id="loading" class="displayFlex trans5 <?php echo $promo_color_load; ?>" style="background-image:url('ui/img/back/21_back.jpg')">
       <div>
         <img id="loadLogo" src="ui/img/logotipo/<?php echo $marca_logo; ?>" width="150" height="150">
         <div class="displayFlex">

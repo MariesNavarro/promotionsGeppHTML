@@ -2708,7 +2708,7 @@ function sliderConfigFun(e){
     break;
     case 4:
      w.style.marginLeft = "-400%";
-     changeScreen(0);
+
      if(actualizaranimagenesframe!=1)
      {
        //console.log('Se actualizaran imagenes en plantilla');
@@ -2740,6 +2740,7 @@ function sliderConfigFun(e){
          else {
 
            clearInterval(interval);
+           changeScreen(0);
            showLoading(0);
            //console.log('Limpiar interval');
          }

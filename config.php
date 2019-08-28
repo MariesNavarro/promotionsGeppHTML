@@ -12,7 +12,7 @@ if(!isset($_SESSION["userName"])) {
   $disabled       = '';
   $querystring    = '?cf=1';
   //$plantilla_id   = '';
-
+  $plantilla_id=0;
   if(isset($_GET["id"])) {
     $disabled='disabled';
     $querystring='?cf=1&id='.$_GET["id"];
@@ -37,9 +37,13 @@ http://dragonflycity.com/
     <script>
     var loadfront=0;
     var loadinterfaz=0;
-
+     var idplantilla = <?php echo $plantilla_id; ?>;
     function frameLoaded() {
-        console.log('Cargo el frame front')
+      console.log('Cargo el frame front')
+      var frame = _("#iframePlantilla").contentWindow;
+      console.log('la variable idplantilla tiene un valor de '+idplantilla);
+      idplantilla=frame.idplantilla;
+      console.log('se cambio el valor de idplantilla a '+idplantilla);
         loadfront=1;
         setTimeout(function(){
           if(actualizaranimagenesframe==1){
@@ -87,8 +91,7 @@ http://dragonflycity.com/
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="ui/css/master.css">
-    <script> var idplantilla = '<?php echo $plantilla_id;?>';</script>
-  </head>
+</head>
   <body>
     <div id="loadingConf" style="display:none">
       <img src="ui/img/dragonfly.gif" width="80">
